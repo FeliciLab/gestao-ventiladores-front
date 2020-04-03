@@ -28,12 +28,22 @@ class OsPrint extends React.Component {
             <style jsx>{`
               .page-break {
                 page-break-before: always;
+                page-break-inside: always;
+                break-before: always;
               }
             `}</style>
           </div>
         }
 
-        return <OsPrintcontent key={key} data={item}></OsPrintcontent>
+        return <div className={'page-break'} key={key}>
+          <OsPrintcontent data={item}></OsPrintcontent>
+          <style jsx>{`
+              .page-break {
+                page-break-inside: always;
+                break-inside: always;
+              }
+            `}</style>
+        </div>
       });
     }
 
@@ -46,26 +56,15 @@ class OsPrint extends React.Component {
         <main>
           {content}
         </main>
-        <style jsn>{`
-            .page-break {
-              page-break-before: always;
-              page-break-inside: always;
-            }
-  
+        <style jsx>{`
           @page {
             size: A4;
           }
+        
           @media print {
-            html, body {
-              width: 210mm;
-              height: 297mm;
-            }
-            .page-break {
-              page-break-before: always;
-              page-break-inside: always;
-            }
-  
-          }`}</style>
+            
+          }
+        }`}</style>
       </div>
     )
   }

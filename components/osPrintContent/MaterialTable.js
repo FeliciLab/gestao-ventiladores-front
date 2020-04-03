@@ -1,128 +1,32 @@
-const MaterialTable = () => {
+const MaterialTable = (props) => {
   return (
-    <table width="100%">
-      <thead>
-      <tr>
-        <th>Descrição</th>
-        <th>Veio?</th>
-        <th>Quantidade</th>
-        <th>Estado de Conservação</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      </tbody>
+    <div className={'position-relative'}>
+      <table width="100%">
+        <thead>
+        <tr>
+          <th>Descrição</th>
+          <th>Veio?</th>
+          <th>Quantidade</th>
+          <th>Estado de Conservação</th>
+        </tr>
+        </thead>
+        <tbody>
+        {
+          props.items.map((item, index) => {
+            return <tr key={index}>
+              <td>{item.replace(/"/g, '')}</td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+          })
+        }
+        </tbody>
+
+      </table>
       <style jsx>{`
       table {
          border-collapse: collapse;
-         page-break-after: alway;
         }
         th {
           background-color: lightgray;
@@ -135,9 +39,10 @@ const MaterialTable = () => {
         td {
         height: 1rem;
         }
+        
         `}
       </style>
-    </table>
+    </div>
   )
 }
 

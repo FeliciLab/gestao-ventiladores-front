@@ -56,7 +56,7 @@ const OsPrintcontent = (props) => {
         </Grid>
 
         <Grid item xs={12}>
-          <MaterialTable></MaterialTable>
+          <MaterialTable items={props.data.selecione_os_acessórios_do_equipamento_que_o_acompanha.split(', ')}></MaterialTable>
         </Grid>
 
 
@@ -106,7 +106,16 @@ const OsPrintcontent = (props) => {
 
 
       <style jsx>{`
-      .relative{ position: relative;}
+      @page {
+            size: A4;
+          }
+       .page-break {
+                page-break-before: always;
+                page-break-inside: always;
+                break-before: always;
+              }
+      
+        .relative{ position: relative;}
         .header-print div, .header-print div div {
           border: solid 1px black;
         }
@@ -122,9 +131,7 @@ const OsPrintcontent = (props) => {
           display: flex;
           flex-direction: column;
         }
-        .page-break {
-          page-break-before: always;
-        }
+        
         .title-board-blank {
           margin-top: 1rem;
           padding: 1rem;
@@ -134,12 +141,6 @@ const OsPrintcontent = (props) => {
         .board-blank {
           min-height: 6cm;
           border: solid 1px black;
-        }
-        
-        div.page
-        {
-          page-break-after: always;
-          page-break-inside: avoid;
         }
       `}</style>
     </div>
