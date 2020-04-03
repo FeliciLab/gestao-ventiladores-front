@@ -4,7 +4,7 @@ import Button from '@material-ui/core/Button';
 import googlePublishedWebCsvMapper from "../utils/googlePublishedWebCsvMapper";
 
 const Home = () => {
-  const [csv, setName] = React.useState('https://docs.google.com/spreadsheets/d/e/2PACX-1vT-AFOaCCtdSpb9RD8KYamFRMAWx3HBj0bj2J21uunmVD1x_OngnZOMNFXwUCFLcCjLJUGRZlDh9-iD/pub?output=csv');
+  const [csv, setName] = React.useState('');
 
   const handleChange = (event) => {
     setName(event.target.value);

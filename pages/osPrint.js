@@ -28,22 +28,13 @@ class OsPrint extends React.Component {
             <style jsx>{`
               .page-break {
                 page-break-before: always;
-                page-break-inside: always;
                 break-before: always;
               }
             `}</style>
           </div>
         }
 
-        return <div className={'page-break'} key={key}>
-          <OsPrintcontent data={item}></OsPrintcontent>
-          <style jsx>{`
-              .page-break {
-                page-break-inside: always;
-                break-inside: always;
-              }
-            `}</style>
-        </div>
+        return <div><OsPrintcontent data={item}></OsPrintcontent></div>
       });
     }
 
@@ -53,10 +44,13 @@ class OsPrint extends React.Component {
           <title>Ordem de Serviço</title>
           <link rel="icon" href="/favicon.ico"/>
         </Head>
-        <main>
+        <main className={'position-relative'}>
           {content}
         </main>
         <style jsx>{`
+          .position-relative {
+            position: relative;
+          }
           @page {
             size: A4;
           }
