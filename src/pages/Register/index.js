@@ -16,7 +16,7 @@ export default function Register() {
   async function handleRegister(e) {
 
     e.preventDefault();
-    const data = {name, email, whatsapp, city, uf};
+    // const data = {name, email, whatsapp, city, uf};
 
     try {
       history.push("/");
