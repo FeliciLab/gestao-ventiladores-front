@@ -25,7 +25,8 @@ const PrivateRoute = ({component: Component, ...rest}) => (
 const Routes = () => (
   <BrowserRouter>
     <Switch>
-      <Route path="/" exact component={Logon} />
+      {/*<Route path="/" exact component={Logon} />*/}
+      <Route path="/" exact component={OsPrinter} />
       <Route path="/register" component={Register} />
       <Route path="/osprinter" component={OsPrinter} />
       <Route path="/osprint" component={OsPrint} />
