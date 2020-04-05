@@ -70,8 +70,8 @@ export default function TabelaAcessoriso (props) {
         </TableHead>
         <TableBody>
           {
-            rows.map((row) => (
-              <TableRow key={row.name}>
+            rows.map((row, index) => (
+              <TableRow key={index}>
                 <StyledTd component="th" scope="row">
                   {row.descricao}
                 </StyledTd>
