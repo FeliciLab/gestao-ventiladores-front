@@ -1,5 +1,6 @@
 {
   "name": "gestao-ventiladores-front",
+  "homepage": "https://gesta-ventiladores.dev.org.br/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
