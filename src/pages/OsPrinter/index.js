@@ -7,23 +7,21 @@ import React from 'react';
 import {Redirect} from 'react-router-dom';
 
 const OsPrinter = () => {
-  const testeUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT-AFOaCCtdSpb9RD8KYamFRMAWx3HBj0bj2J21uunmVD1x_OngnZOMNFXwUCFLcCjLJUGRZlDh9-iD/pub?output=csv';
-
-  const [csv, setName] = React.useState(testeUrl);
-  const [url, setUrl] = React.useState('/osprint?url=' + testeUrl);
+  const [csv, setName] = React.useState('');
+  const [url, setUrl] = React.useState('/osprint?url=' + csv);
   const [toprint, setToprint] = React.useState(false);
 
   const handleChange = (event) => {
     setName(event.target.value);
-    setUrl(`/osprint?url=${csv}`)
+    setUrl(`/osprint?url=${event.target.value}`)
+    setToprint(true)
   };
 
   const abrirDocumentoOs = (e) => {
     e.preventDefault();
-    setToprint(true)
   };
 
-  if (toprint === true) {
+  if (toprint) {
     return <Redirect to={url}/>
   }
 
@@ -34,7 +32,7 @@ const OsPrinter = () => {
           <TextField id="url-csv" fullWidth label="URL do CSV" value={csv} onChange={handleChange}/>
         </Grid>
         <Grid item xs="auto">
-          <Button variant="contained" onClick={abrirDocumentoOs}>Gerar OS</Button>
+          <Button variant="contained" disabled={!toprint || csv === ''} onClick={abrirDocumentoOs}>Gerar OS</Button>
         </Grid>
       </Grid>
 
