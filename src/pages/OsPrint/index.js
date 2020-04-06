@@ -35,9 +35,9 @@ export default function OsPrint () {
               <div className={'page-content'}>
                 <Cabecalho pagina="01" numero={data['número_da_ordem_de_serviço']} datahora={data['carimbo_de_data/hora']}></Cabecalho>
               </div>
-              <div className={'page-content'}>
+              {/* <div className={'page-content'}>
                 <TituloPagina titulo="TRIAGEM DO EQUIPAMENTO"></TituloPagina>
-              </div>
+              </div> */}
               <div className={'page-content'}>
                 <SubtituloPagina texto="1. Cadastro de Equipamento"></SubtituloPagina>
               </div>
@@ -45,6 +45,9 @@ export default function OsPrint () {
                 <div className={'border-black'}>
                   <DadosEquipamento equipamento={data}/>
                 </div>
+              </div>
+              <div className={'page-content'}>
+                <SubtituloPagina texto="2. Relação de Material / Acessórios Entregues"></SubtituloPagina>
               </div>
               <div className={'page-content mt-10'}>
                 <TabelaAcessoriso equipamento={data}/>

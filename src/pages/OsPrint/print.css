@@ -1,6 +1,7 @@
 .page-container {
   position: relative;
   background-color: white;
+  padding: 60px;
 }
 
 .page {
@@ -18,6 +19,11 @@
   padding: 5px;
   height: 100%;
   line-height: 15px;
+}
+
+.model-fab {
+  display: flex;
+  justify-content: space-between;
 }
 
 .border-black {

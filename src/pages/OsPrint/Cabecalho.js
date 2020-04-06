@@ -12,8 +12,7 @@ const useStyles = makeStyles((theme) => ({
     color: 'white',
     fontWeight: 'bolder',
     textTransform: 'capitalize',
-    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
-    marginBottom: '10px'
+    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif'
   },
   texto: {
     fontSize: '12pt'
@@ -22,7 +21,15 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '14pt'
   },
   titleTexto: {
-    fontSize: '20pt'
+    fontSize: '14pt',
+    textTransform: 'uppercase',
+    fontWeight: 'bold'
+  },
+  subTitleTexto: {
+    fontSize: '20pt',
+    textTransform: 'uppercase',
+    fontWeight: 'bold',
+    lineHeight: '50px'
   },
   caixaCentral: {
     paddingLeft: '10px',
@@ -32,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
   bordarCaixaCental: {
     borderTop: 0,
     borderBottom: 0,
-    borderLeft: 1,
+    borderLeft: 2,
     borderRight: 1,
     borderStyle: 'solid',
     borderColor: 'white',
@@ -56,12 +63,14 @@ export default function Cabecalho (props) {
 
         <Grid item xs={true}>
           <div className={classes.caixaCentral}>
-            <Typography align={"center"} className={`${classes.titleTexto} ${classes.bordarCaixaCental}`}><strong>CENTRAL DE<br/>VENTILADORES</strong></Typography>
+            <Typography align={"center"} className={`${classes.titleTexto} ${classes.bordarCaixaCental}`}><strong>CENTRAL DE VENTILADORES</strong></Typography>
+            <Typography align={"center"} className={`${classes.subTitleTexto} ${classes.bordarCaixaCental}`}><strong>Triagem de Equipamento</strong></Typography>
           </div>
         </Grid>
+
         <Grid item xs="auto">
-          <Typography className={classes.texto} align={"left"}><strong>{props.datahora.split(' ')[0]}</strong><br/>{props.datahora.split(' ')[1]}</Typography>
-          <Typography className={classes.texto} align={"left"}><strong>Página</strong> {props.pagina}</Typography>
+          <Typography className={classes.texto} align={"left"}><strong>{props.datahora.split(' ')[0]}</strong><br/><strong>{props.datahora.split(' ')[1]}</strong></Typography>
+          <Typography className={classes.texto} align={"left"}><strong>Página: {props.pagina}</strong></Typography>
         </Grid>
       </Grid>
     </div>
