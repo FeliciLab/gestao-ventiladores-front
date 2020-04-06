@@ -1,3 +1,12 @@
+function tratarChave (currentValue) {
+  return currentValue.replace(/"/g, '')
+    .replace(/,\s/g, '')
+    .trim()
+    .replace(/\s/g, '_')
+    .replace(/:/g, '')
+    .toLowerCase();
+}
+
 export default function (text) {
   const csvMap = text.split("\n")
     .map(row => row.split(/(?:,|\n|^)("(?:(?:"")*[^"]*)*"|[^",\n]*|(?:\n|$))/));
@@ -5,7 +14,7 @@ export default function (text) {
 
   const headerMap = csvMap[0].reduce((accumulator, currentValue, index) => {
     if (currentValue !== "" && currentValue !== "\r" && !accumulator.hasOwnProperty(currentValue)) {
-      accumulator[currentValue.replace(/"/g, '').replace(/,\s/g, '').trim().replace(/\s/g, '_').replace(/:/g, '').toLowerCase()] = index
+      accumulator[tratarChave(currentValue)] = index
     }
 
     return accumulator
