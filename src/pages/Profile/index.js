@@ -4,7 +4,6 @@ import {Link, useHistory} from "react-router-dom";
 import {FiPower} from "react-icons/fi";
 import logoDefault from "../../assets/logoDefault.svg";
 
-
 export default function Profile() {
   const history = useHistory();
   useEffect(() => {}, []);
@@ -17,11 +16,11 @@ export default function Profile() {
   return (
     <div className="profile-container">
       <header>
-        <img src={logoDefault} alt="labVision" />
+        <img src={logoDefault} alt="logo" />
 
         <span>Bem vindo, NameDefault</span>
 
-        <Link className="button" to="/incidents/new">
+        <Link className="button" to="/Form/new">
           Cadastrar novo serviço
         </Link>
 
