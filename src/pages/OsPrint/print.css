@@ -1,13 +1,13 @@
 .page-container {
   position: relative;
   background-color: white;
-  padding: 60px;
 }
 
 .page {
   position: relative;
   break-after: auto;
   page-break-after: always;
+  padding: 60px;
 }
 
 .page-content {

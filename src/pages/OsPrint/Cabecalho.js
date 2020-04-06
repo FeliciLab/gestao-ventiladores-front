@@ -64,7 +64,7 @@ export default function Cabecalho (props) {
         <Grid item xs={true}>
           <div className={classes.caixaCentral}>
             <Typography align={"center"} className={`${classes.titleTexto} ${classes.bordarCaixaCental}`}><strong>CENTRAL DE VENTILADORES</strong></Typography>
-            <Typography align={"center"} className={`${classes.subTitleTexto} ${classes.bordarCaixaCental}`}><strong>Triagem de Equipamento</strong></Typography>
+            <Typography align={"center"} className={`${classes.subTitleTexto} ${classes.bordarCaixaCental}`}><strong>{props.subtitle}</strong></Typography>
           </div>
         </Grid>
 

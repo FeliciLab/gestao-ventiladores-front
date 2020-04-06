@@ -4,7 +4,9 @@ import makeStyles from "@material-ui/core/styles/makeStyles";
 
 const useStyle = makeStyles(() => ({
   rodape: {
-    width: '100%'
+    width: '100%',
+    fontSize: '20px',
+    padding: '0 60px 5px 60px'
   }
 }))
 
