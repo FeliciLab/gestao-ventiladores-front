@@ -1,7 +1,7 @@
 import React from "react";
 import {BrowserRouter, Route, Switch, Redirect} from "react-router-dom";
 
-import Logon from "./pages/Logon";
+// import Logon from "./pages/Logon";
 import Register from "./pages/Register";
 import Profile from "./pages/Profile";
 import OsPrinter from "./pages/OsPrinter";
