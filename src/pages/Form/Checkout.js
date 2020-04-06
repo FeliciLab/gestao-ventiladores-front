@@ -144,45 +144,7 @@ export default function Checkout() {
   return (
     <React.Fragment>
       <CssBaseline />
-      <AppBar position="absolute" className={classes.appBar}>
-        <Toolbar className={classes.toolbar}>
-          <div className={classes.divTitle}>
-            <Typography className={classes.text} noWrap>
-              Central
-              <br /> de
-              <br /> Ventiladores
-            </Typography>
-          </div>
-          <div className={classes.divUser}>
-            <Typography className={classes.textUser} noWrap>
-              usuario, joe
-            </Typography>
-          </div>
-        </Toolbar>
-        <div className={classes.appBarFooter}>
-          <div className={classes.divTextFooter}>
-            <Typography className={classes.textFooter} noWrap>
-              + Recebimento
-            </Typography>
 
-            <Typography className={classes.textFooter} noWrap>
-              + Triagem
-            </Typography>
-
-            <Typography className={classes.textFooter} noWrap>
-              + Diagnóstico
-            </Typography>
-
-            <Typography className={classes.textFooter} noWrap>
-              + Avaliação
-            </Typography>
-
-            <Typography className={classes.textFooter} noWrap>
-              + Manuntenção
-            </Typography>
-          </div>
-        </div>
-      </AppBar>
 
       <main className={classes.layout}>
         <Paper className={classes.paper}>
