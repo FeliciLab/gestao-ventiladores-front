@@ -5,25 +5,18 @@ import Grid from '@material-ui/core/Grid'
 import React from 'react';
 import {Redirect} from 'react-router-dom';
 
-const OsPrinter = (props) => {
+const OsPrinter = () => {
   const testeCsv = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vReGuRPHIq68zmQ-9iGBLxVKFGoa0FcC8OU5FbCkhcUmdMFoRkbrMyAV2ZYsbcOiE87kTlK6RKpo4h2/pub?output=csv'
   const [csv, setName] = React.useState(testeCsv);
   const [url, setUrl] = React.useState('/oslist?url=' + testeCsv);
   const [toprint, setToprint] = React.useState(false);
 
   const handleChange = (event) => {
-    const url = changeToDownloadableCSV(event.target.value);
+    const url = event.target.value;
     setName(url);
-    setUrl(url);
+    setUrl(`/osprint?url=${url}`)
+    setToprint(false)
   };
-
-  const changeToDownloadableCSV = (url) => {
-    if (url){
-      const subUrl = url.lastIndexOf('/') + 1
-      return `${url.substring(0, subUrl)}pub?output=csv`
-    }
-    return url
-  }
 
   const abrirDocumentoOs = (e) => {
     e.preventDefault();
@@ -31,7 +24,7 @@ const OsPrinter = (props) => {
   };
 
   if (toprint) {
-    return <Redirect to={url}/>
+    window.open(url)
   }
 
   return (
