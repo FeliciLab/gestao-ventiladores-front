@@ -14,11 +14,11 @@ const OsPrinter = () => {
   const handleChange = (event) => {
     setName(event.target.value);
     setUrl(`/osprint?url=${event.target.value}`)
-    setToprint(true)
   };
 
   const abrirDocumentoOs = (e) => {
     e.preventDefault();
+    setToprint(true)
   };
 
   if (toprint) {
@@ -32,7 +32,7 @@ const OsPrinter = () => {
           <TextField id="url-csv" fullWidth label="URL do CSV" value={csv} onChange={handleChange}/>
         </Grid>
         <Grid item xs="auto">
-          <Button variant="contained" disabled={!toprint || csv === ''} onClick={abrirDocumentoOs}>Gerar OS</Button>
+          <Button variant="contained" disabled={csv === ''} onClick={abrirDocumentoOs}>Gerar OS</Button>
         </Grid>
       </Grid>
 

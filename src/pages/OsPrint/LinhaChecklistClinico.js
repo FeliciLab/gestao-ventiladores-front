@@ -35,7 +35,7 @@ export default function LinhaChecklistClinico (props) {
   const classes = useStyles();
   return (
     <div className={classes.quadro}>
-      <Grid container wrap={false}>
+      <Grid container>
         <Grid item xs={12}>
           <div className={classes.linha}>
             <div className={classes.quadroMarcacao}></div>

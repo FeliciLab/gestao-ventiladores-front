@@ -19,15 +19,16 @@ const greyColor = grey[300];
 const StyledTableCell = withStyles((theme) => ({
   head: {
     backgroundColor: greyColor,
-    fontWeight: 'bold',
+    fontWeight: 'bolder',
     border: 1,
     borderColor: greyColor,
     borderStyle: 'solid',
-    paddingTop: '1rem',
-    paddingBottom: '1rem'
+    paddingTop: '5px',
+    paddingBottom: '5px',
+    height: '24px'
   },
   body: {
-    fontSize: 14,
+    fontSize: 12
   },
 }))(TableCell);
 
@@ -36,8 +37,10 @@ const StyledTd = withStyles(() => ({
     border: 1,
     borderColor: greyColor,
     borderStyle: 'solid',
-    paddingTop: '1rem',
-    paddingBottom: '1rem'
+    paddingTop: '5px',
+    paddingBottom: '5px',
+    height: '24px',
+    fontSize: 12
   }
 }))(TableCell);
 
@@ -53,7 +56,7 @@ const useStyles = makeStyles({
     border: 1,
     borderColor: grey[900],
     borderStyle: 'solid',
-    padding: '0.5rem'
+    padding: '5px'
   }
 });
 
@@ -66,9 +69,18 @@ export default function TabelaAcessoriso (props) {
     return {descricao, veio, quantidade, situacao};
   }
 
-  const rows = props.equipamento['selecione_os_acessórios_do_equipamento_que_o_acompanha'].split(', ').map(item => {
+  const acessorios = props.equipamento['selecione_os_acessórios_do_equipamento_que_o_acompanha'].split(', ');
+  const totalAcessorios = [];
+  if (acessorios.length < 15) {
+    for (let i = 0; i < (15 - acessorios.length); i++) {
+      totalAcessorios.push(createData('', '', '', ''))
+    }
+  }
+
+  const rows = acessorios.map(item => {
     return createData(item.replace(/"/g, ''), '', '', '')
-  });
+  }).concat(totalAcessorios);
+
 
   return (
     <div className={classes.quadro}>

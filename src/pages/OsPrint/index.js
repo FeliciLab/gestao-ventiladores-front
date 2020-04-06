@@ -9,8 +9,8 @@ import TabelaAcessoriso from "./TabelaAcessoriso";
 import QuadroDiagnosticos from "./QuadroDiagnostico";
 import Cabecalho from "./Cabecalho";
 import ChecklistClinico from "./ChecklistClinico";
-import Typography from "@material-ui/core/Typography";
 import SubtituloPagina from "./SubtituloPagina";
+import Rodape from "./Rodape";
 
 
 export default function OsPrint () {
@@ -34,7 +34,7 @@ export default function OsPrint () {
           <div key={index}>
             <div className={'page'}>
               <div className={'page-content'}>
-                <Cabecalho pagina="01" numero={data['número_da_ordem_de_serviço']} datahora={data['timestamp']}></Cabecalho>
+                <Cabecalho pagina="01" numero={data['número_da_ordem_de_serviço']} datahora={data['carimbo_de_data/hora']}></Cabecalho>
               </div>
               <div className={'page-content'}>
                 <TituloPagina titulo="TRIAGEM DO EQUIPAMENTO"></TituloPagina>
@@ -47,55 +47,57 @@ export default function OsPrint () {
                   <DadosEquipamento equipamento={data}/>
                 </div>
               </div>
-            </div>
-
-            <div className={'page'}>
-              <div className={'page-content'}>
-                <Cabecalho pagina="02" numero={data['número_da_ordem_de_serviço']} datahora={data['timestamp']}></Cabecalho>
-              </div>
-              <div className={'page-content'}>
-                <TituloPagina titulo="TRIAGEM DO EQUIPAMENTO"></TituloPagina>
-              </div>
-              <div className={'page-content'}>
-                <SubtituloPagina texto="2. Relação de Material / Acessórios Entregues"></SubtituloPagina>
-              </div>
-              <div className={'page-content'}>
+              <div className={'page-content mt-10'}>
                 <TabelaAcessoriso equipamento={data}/>
               </div>
-            </div>
-
-            <div className={'page'}>
-              <div className={'page-content'}>
-                <Cabecalho pagina="03" numero={data['número_da_ordem_de_serviço']} datahora={data['timestamp']}></Cabecalho>
-              </div>
-              <div className={'page-content'}>
-                <TituloPagina titulo="DIAGNÓSTICO CLÍNICO"></TituloPagina>
-              </div>
-              <div className={'page-content'}>
-                <SubtituloPagina texto="1. Teste de  Verificação Funcional do Ventilador Mecânico"></SubtituloPagina>
-              </div>
-              <div className={'page-content'}>
-                <ChecklistClinico/>
+              <div className={'page-content mt-10'}>
+                <Rodape numero={data['número_da_ordem_de_serviço']} pagina={'01'}/>
               </div>
             </div>
 
             <div className={'page'}>
               <div className={'page-content'}>
-                <Cabecalho pagina="04" numero={data['número_da_ordem_de_serviço']} datahora={data['timestamp']}></Cabecalho>
+                <Cabecalho pagina="02" numero={data['número_da_ordem_de_serviço']} datahora={data['carimbo_de_data/hora']}></Cabecalho>
               </div>
               <div className={'page-content'}>
-                <TituloPagina titulo="DIAGNÓSTICO CLÍNICO"></TituloPagina>
+                <TituloPagina titulo="DIAGNÓSTICO DO EQUIPAMENTO"></TituloPagina>
               </div>
               <div className={'page-content'}>
-                <SubtituloPagina texto="2. Resultado do Teste de Verificação"></SubtituloPagina>
+                <SubtituloPagina texto="1. Diagnóstico Clínico"></SubtituloPagina>
               </div>
               <div className={'page-content'}>
                 <div className={'page-content'}>
                   <QuadroDiagnosticos titulo="Diagnóstico Clínico"/>
                 </div>
               </div>
+              <div className={'page-content'}>
+                <SubtituloPagina texto="2. Diagnóstico Técnico"></SubtituloPagina>
+              </div>
+              <div className={'page-content'}>
+                <div className={'page-content'}>
+                  <QuadroDiagnosticos titulo="Diagnóstico Clínico"/>
+                </div>
+              </div>
+              <div className={'page-content'}>
+                <SubtituloPagina texto="3. Demanda por Insumos"></SubtituloPagina>
+              </div>
+              <div className={'page-content'}>
+                <div className={'page-content'}>
+                  <QuadroDiagnosticos titulo="Diagnóstico Clínico"/>
+                </div>
+              </div>
+              <div className={'page-content'}>
+                <SubtituloPagina texto="4. Demanda por Serviços"></SubtituloPagina>
+              </div>
+              <div className={'page-content'}>
+                <div className={'page-content'}>
+                  <QuadroDiagnosticos titulo="Diagnóstico Clínico"/>
+                </div>
+              </div>
+              <div className={'page-content mt-10'}>
+                <Rodape numero={data['número_da_ordem_de_serviço']} pagina={'02'}/>
+              </div>
             </div>
-
           </div>
         )
       }
