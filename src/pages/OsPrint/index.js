@@ -8,7 +8,6 @@ import TituloPagina from "./TituloPagina";
 import TabelaAcessoriso from "./TabelaAcessoriso";
 import QuadroDiagnosticos from "./QuadroDiagnostico";
 import Cabecalho from "./Cabecalho";
-import ChecklistClinico from "./ChecklistClinico";
 import SubtituloPagina from "./SubtituloPagina";
 import Rodape from "./Rodape";
 
