@@ -22,6 +22,7 @@ export default function OsPrint () {
       .then(response => {
         const csvData = googlePublishedWebCsvMapper(response.data);
         setCsvData(csvData)
+        console.log(csvData)
       })
     return (<div>Consultando dados...</div>)
   }

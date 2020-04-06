@@ -6,6 +6,7 @@ import Register from "./pages/Register";
 import Profile from "./pages/Profile";
 import OsPrinter from "./pages/OsPrinter";
 import OsPrint from "./pages/OsPrint";
+import OsList from "./pages/OsList";
 // import NewIncident from "./pages/NewIncident";
 import Form from "./pages/Form/Checkout";
 import {isAutenticated} from "./services/auth";
@@ -33,6 +34,7 @@ const Routes = () => (
       <Route path="/osprint" component={OsPrint} />
       <PrivateRoute path="/profile" component={Profile} />
       <PrivateRoute path="/Form/new" component={Form} />
+      <PrivateRoute path="/oslist" component={OsList}/>
     </Switch>
   </BrowserRouter>
 );
