@@ -1,9 +1,14 @@
 import React from "react";
 import "./global.css";
 import Routes from "./router";
-function App () {
+import Layout from "./pages/_layout/Layout";
+function App() {
   return (
-    <Routes/>
+    <>
+      <Layout>
+        <Routes />
+      </Layout>
+    </>
   );
 }
 export default App;
