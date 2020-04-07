@@ -50,9 +50,9 @@ export default function OsPrint () {
               <div className={'page-content'}>
                 <TabelaAcessoriso equipamento={data}/>
               </div>
-            </div>
-            <div className={'page-content'}>
+              <div className={'page-content'}>
                 <Rodape numero={data['número_da_ordem_de_serviço']} pagina={'01'}/>
+              </div>
             </div>
 
             <div className={'page'}>
@@ -110,10 +110,10 @@ export default function OsPrint () {
                   <QuadroDiagnosticos titulo="Diagnóstico Clínico"/>
                 </div>
               </div>
-            </div>
-            <div className={'page-content'}>
+              <div className={'page-content'}>
                 <Rodape numero={data['número_da_ordem_de_serviço']} pagina={'02'}/>
               </div>
+            </div>
           </div>
         )
       }
