@@ -1,5 +1,4 @@
 import React from 'react';
-import {useLocation} from 'react-router-dom';
 import DadosEquipamento from "./DadosEquipamento";
 import "./print.css";
 import TituloPagina from "./TituloPagina";
@@ -11,7 +10,7 @@ import Rodape from "./Rodape";
 
 
 export default function OsPrint (props) {
-  const [csvData, setCsvData] = React.useState(props.location.state.selecionados)
+  const [csvData] = React.useState(props.location.state.selecionados)
 
   return (
     <div className={'page-container'}>
