@@ -25,7 +25,8 @@ const StyledTableCell = withStyles((theme) => ({
     borderStyle: 'solid',
     paddingTop: '5px',
     paddingBottom: '5px',
-    height: '24px'
+    height: '24px',
+    textAlign:'center'
   },
   body: {
     fontSize: 12
@@ -89,8 +90,8 @@ export default function TabelaAcessoriso (props) {
           <TableHead>
             <TableRow>
               <StyledTableCell>Descrição</StyledTableCell>
-              <StyledTableCell>Veio?</StyledTableCell>
-              <StyledTableCell>Quantidade</StyledTableCell>
+              <StyledTableCell>Acompanha</StyledTableCell>
+              <StyledTableCell>Qtde</StyledTableCell>
               <StyledTableCell>Estado de Conservação</StyledTableCell>
             </TableRow>
           </TableHead>
