@@ -1,6 +1,4 @@
 import React from 'react';
-import googlePublishedWebCsvMapper from "./googlePublishedWebCsvMapper";
-import axios from "axios";
 import {useLocation} from 'react-router-dom';
 import DadosEquipamento from "./DadosEquipamento";
 import "./print.css";
@@ -12,20 +10,8 @@ import SubtituloPagina from "./SubtituloPagina";
 import Rodape from "./Rodape";
 
 
-export default function OsPrint () {
-  const query = new URLSearchParams(useLocation().search);
-
-  const [csvData, setCsvData] = React.useState([])
-
-  if (csvData.length === 0) {
-    axios.get(query.get('url'))
-      .then(response => {
-        const csvData = googlePublishedWebCsvMapper(response.data);
-        setCsvData(csvData)
-        console.log(csvData)
-      })
-    return (<div>Consultando dados...</div>)
-  }
+export default function OsPrint (props) {
+  const [csvData, setCsvData] = React.useState(props.location.state.selecionados)
 
   return (
     <div className={'page-container'}>

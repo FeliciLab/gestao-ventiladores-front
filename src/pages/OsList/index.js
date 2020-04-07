@@ -22,7 +22,7 @@ import Switch from '@material-ui/core/Switch';
 // import DeleteIcon from '@material-ui/icons/Delete';
 // import FilterListIcon from '@material-ui/icons/FilterList';
 import {useLocation} from 'react-router-dom';
-import googlePublishedWebCsvMapper from "../OsPrint/googlePublishedWebCsvMapper";
+import googlePublishedWebCsvMapper from "../OsPrinter/googlePublishedWebCsvMapper";
 import "./style.css";
 
 
@@ -59,7 +59,6 @@ const headCells = [
 ];
 
 function EnhancedTableHead(props) {
-  console.log(props)
   const { classes, onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = props;
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);

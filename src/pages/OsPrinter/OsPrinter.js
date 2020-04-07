@@ -1,45 +1,35 @@
 import Container from '@material-ui/core/Container';
-import TextField from '@material-ui/core/TextField'
-import Button from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid'
 import React from 'react';
-import {Redirect} from 'react-router-dom';
+import FormUrlCsv from "./FormUrlCsv";
+import TabelaOrdemServico from "./TabelaOrdemServico";
+import coletarDadosCsv from "./coletarDadosCsv";
 
 const OsPrinter = () => {
-  const testeCsv = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vReGuRPHIq68zmQ-9iGBLxVKFGoa0FcC8OU5FbCkhcUmdMFoRkbrMyAV2ZYsbcOiE87kTlK6RKpo4h2/pub?output=csv'
-  const [csv, setName] = React.useState(testeCsv);
-  const [url, setUrl] = React.useState('/oslist?url=' + testeCsv);
+  const testeCsv = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vReGuRPHIq68zmQ-9iGBLxVKFGoa0FcC8OU5FbCkhcUmdMFoRkbrMyAV2ZYsbcOiE87kTlK6RKpo4h2/pub?output=csv';
+  const [csvUrl, setCsvUrl] = React.useState(testeCsv);
   const [toprint, setToprint] = React.useState(false);
+  const [listaOrdemServico, setListaOrdemServico] = React.useState([]);
 
-  const handleChange = (event) => {
+  const changeCsv = (event) => {
     const url = event.target.value;
-    setName(url);
-    setUrl(`/osprint?url=${url}`)
-    setToprint(false)
+    setCsvUrl(url);
+    setToprint(true);
   };
 
-  const abrirDocumentoOs = (e) => {
-    e.preventDefault();
-    setToprint(true)
+  const abrirDocumentoOs = (abrir) => {
+    if (!abrir) return;
+    coletarDadosCsv(csvUrl)
+      .then(dadosCsv => {
+        setListaOrdemServico(dadosCsv);
+      });
   };
-
-  if (toprint) {
-    window.open(url)
-  }
 
   return (
     <Container>
-      <Grid container>
-        <Grid item xs={12}>
-          <TextField id="url-csv" fullWidth label="URL do CSV" value={csv} onChange={handleChange}/>
-        </Grid>
-        <Grid item xs="auto">
-          <Button variant="contained" disabled={csv === ''} onClick={abrirDocumentoOs}>Gerar OS</Button>
-        </Grid>
-      </Grid>
-
+      <FormUrlCsv csvUrl={csvUrl} onMudarCsv={changeCsv} onAbrirDocumento={abrirDocumentoOs} habilitarBotao={toprint}/>
+      <TabelaOrdemServico dados={listaOrdemServico}></TabelaOrdemServico>
     </Container>
-  )
-}
+  );
+};
 
-export default OsPrinter
+export default OsPrinter;
