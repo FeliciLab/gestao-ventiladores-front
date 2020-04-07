@@ -1,7 +1,6 @@
 import React, {useState} from "react";
 import "./styles.css";
 import {Link, useHistory} from "react-router-dom";
-import {FiArrowLeft} from "react-icons/fi";
 import logoDefault from "../../assets/logoDefault.svg";
 
 export default function Register() {
@@ -34,7 +33,6 @@ export default function Register() {
           <p>Faça seu cadastro, para entrar na plataforma</p>
 
           <Link className="back-link" to="/">
-            <FiArrowLeft size={16} color="#6C63FF" />
             nao tenho cadastro
           </Link>
         </section>

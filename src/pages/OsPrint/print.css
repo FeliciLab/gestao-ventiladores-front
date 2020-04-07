@@ -20,6 +20,11 @@
   line-height: 15px;
 }
 
+.model-fab {
+  display: flex;
+  justify-content: space-between;
+}
+
 .border-black {
   border: 1px solid black;
   padding: 10px;

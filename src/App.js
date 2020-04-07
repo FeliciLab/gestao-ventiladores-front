@@ -1,11 +1,17 @@
 import React from "react";
 import "./global.css";
 import Routes from "./router";
-
-function App () {
+import {BrowserRouter} from "react-router-dom";
+import Layout from "./pages/_layout/Layout";
+function App() {
   return (
-    <Routes/>
+    <>
+      <BrowserRouter>
+        <Layout>
+          <Routes />
+        </Layout>
+      </BrowserRouter>
+    </>
   );
 }
-
 export default App;
