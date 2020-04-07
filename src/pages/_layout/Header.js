@@ -3,7 +3,6 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import AppBar from "@material-ui/core/AppBar";
 import {makeStyles} from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
 import {Link} from "react-router-dom";
 
 export default function Header() {
@@ -28,15 +27,15 @@ export default function Header() {
         </Toolbar>
         <div className={classes.appBarFooter}>
           <div className={classes.divTextFooter}>
-            <Link to="/" className={classes.link}>
+            <Link className={classes.link} noWrap>
               + Recebimento
             </Link>
 
-            <Link className={classes.link} noWrap>
+            <Link to="/" className={classes.link} noWrap>
               + Triagem
             </Link>
 
-            <Link className={classes.link} noWrap>
+            <Link to="/Diagnostico" className={classes.link} noWrap>
               + Diagnóstico
             </Link>
 
