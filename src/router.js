@@ -4,7 +4,7 @@ import {BrowserRouter, Route, Switch, Redirect} from "react-router-dom";
 // import Logon from "./pages/Logon";
 import Register from "./pages/Register";
 import Profile from "./pages/Profile";
-import OsPrinter from "./pages/OsPrinter";
+import ListaOrdemServicos from "./pages/ListaOrdemServicos";
 import OsPrint from "./pages/OsPrint";
 // import NewIncident from "./pages/NewIncident";
 import Form from "./pages/Form/Checkout";
@@ -27,9 +27,9 @@ const Routes = () => (
   <BrowserRouter>
     <Switch>
       {/*<Route path="/" exact component={Logon} />*/}
-      <Route path="/" exact component={OsPrinter} />
+      <Route path="/" exact component={ListaOrdemServicos} />
       <Route path="/register" component={Register} />
-      <Route path="/osprinter" component={OsPrinter} />
+      <Route path="/osprinter" component={ListaOrdemServicos} />
       <Route path="/osprint" component={OsPrint} />
       <PrivateRoute path="/profile" component={Profile} />
       <PrivateRoute path="/Form/new" component={Form} />

@@ -23,7 +23,6 @@ export default function CabecalhoTabelaOrdemServico (props) {
             indeterminate={props.selecionados.length > 0 && props.selecionados.length < props.numTotalLinhas}
             checked={props.numTotalLinhas > 0 && props.selecionados.length === props.numTotalLinhas}
             onChange={selecionarLinha}
-            inputProps={{ 'aria-texto': 'select all desserts' }}
           />
         </TableCell>
         {

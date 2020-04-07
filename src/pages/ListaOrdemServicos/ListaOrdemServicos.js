@@ -4,7 +4,7 @@ import FormUrlCsv from "./FormUrlCsv";
 import TabelaOrdemServico from "./TabelaOrdemServico";
 import coletarDadosCsv from "./coletarDadosCsv";
 
-const OsPrinter = () => {
+const ListaOrdemServicos = () => {
   const testeCsv = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vReGuRPHIq68zmQ-9iGBLxVKFGoa0FcC8OU5FbCkhcUmdMFoRkbrMyAV2ZYsbcOiE87kTlK6RKpo4h2/pub?output=csv';
   const [csvUrl, setCsvUrl] = React.useState(testeCsv);
   const [toprint, setToprint] = React.useState(false);
@@ -32,4 +32,4 @@ const OsPrinter = () => {
   );
 };
 
-export default OsPrinter;
+export default ListaOrdemServicos;

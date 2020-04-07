@@ -66,6 +66,7 @@ export default function TabelaOrdemServico (props) {
           <ConteudoTabelaOrdemServico dados={dados} atualizarLinhaSelecionada={atualizarLinhaSelecionada}></ConteudoTabelaOrdemServico>
         </Table>
       </TableContainer>
+      <BarraAcaoTabelaOrdemServico abrirImpressao={abrirImpressao} selecionados={dados.filter(item => item.checked)} dadosOriginais={props.dados}/>
     </div>
   );
 }
