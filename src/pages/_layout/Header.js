@@ -3,6 +3,8 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import AppBar from "@material-ui/core/AppBar";
 import {makeStyles} from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
+import {Link} from "react-router-dom";
 
 export default function Header() {
   const classes = useStyles();
@@ -26,25 +28,32 @@ export default function Header() {
         </Toolbar>
         <div className={classes.appBarFooter}>
           <div className={classes.divTextFooter}>
-            <Typography className={classes.textFooter} noWrap>
+            <Link to="/" className={classes.link}>
               + Recebimento
-            </Typography>
+            </Link>
 
-            <Typography className={classes.textFooter} noWrap>
+            <Link className={classes.link} noWrap>
               + Triagem
-            </Typography>
+            </Link>
 
-            <Typography className={classes.textFooter} noWrap>
+            <Link className={classes.link} noWrap>
               + Diagnóstico
-            </Typography>
+            </Link>
 
-            <Typography className={classes.textFooter} noWrap>
+            <Link className={classes.link} noWrap>
               + Avaliação
-            </Typography>
+            </Link>
 
-            <Typography className={classes.textFooter} noWrap>
+            <Link className={classes.link} noWrap>
               + Manuntenção
-            </Typography>
+            </Link>
+
+            <Link to="/osprint" className={classes.link} noWrap>
+              + Os Print
+            </Link>
+            <Link to="/osprinter" className={classes.link} noWrap>
+              + ListaOrdemServicos
+            </Link>
           </div>
         </div>
       </AppBar>
@@ -99,10 +108,24 @@ const useStyles = makeStyles((theme) => ({
   textFooter: {
     fontSize: 20,
     alignSelf: "center",
+    color: "#fff",
   },
   text: {
     fontSize: 30,
     color: "#fff",
     fontWeight: "bold",
+  },
+  link: {
+    fontSize: 18,
+    alignSelf: "center",
+    color: "#fff",
+    textDecoration: "none",
+
+    "&:hover": {
+      backgroundColor: "#2f6d32",
+      alignSelf: "center",
+      height: 60,
+      fontSize: 20,
+    },
   },
 }));

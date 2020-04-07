@@ -36,7 +36,6 @@ export default function Formulario() {
           <div style={{alignSelf: "center"}}>
             <Button
               variant="contained"
-              size="large"
               style={{
                 backgroundColor: "#ff9800",
                 borderRadius: 20,
