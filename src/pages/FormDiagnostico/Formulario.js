@@ -5,8 +5,9 @@ import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import SaveIcon from "@material-ui/icons/Save";
-import CadastroEquipamento from "./CadastroEquipamento";
-import RelacaoDeMaterial from "./RelacaoDeMaterial";
+import CadastroDiagnostico from "./CadastroDiagnostico";
+import CadastroItens from "./CadastroItens";
+import IdentificacaoVentilador from "./IdentificacaoVentilador";
 
 export default function Formulario() {
   const classes = useStyles();
@@ -26,17 +27,13 @@ export default function Formulario() {
         >
           <div style={{alignSelf: "center"}}>
             <Typography style={{fontSize: 20, fontWeight: "bold"}}>
-              Triagem do Equipamento
+              Cadastro de Diagnóstico e Demanda por Insumos
             </Typography>
-            <Typography style={{fontSize: 14}}>
-              Após o recebimento, o cadastro do equipamento deverá ser
-              realizado. Para isso, preencha os campos abaixo:
-            </Typography>
+            <Typography style={{fontSize: 14}}>Algum texto default</Typography>
           </div>
           <div style={{alignSelf: "center"}}>
             <Button
               variant="contained"
-              size="large"
               style={{
                 backgroundColor: "#ff9800",
                 borderRadius: 20,
@@ -48,13 +45,16 @@ export default function Formulario() {
             </Button>
           </div>
         </div>
-
         <Paper className={classes.paper}>
-          <CadastroEquipamento />
+          <CadastroDiagnostico />
         </Paper>
 
         <Paper className={classes.paper}>
-          <RelacaoDeMaterial />
+          <CadastroItens />
+        </Paper>
+
+        <Paper className={classes.paper}>
+          <IdentificacaoVentilador />
         </Paper>
       </main>
     </React.Fragment>
