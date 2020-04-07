@@ -1,7 +1,6 @@
 import React, {useEffect} from "react";
 import "./styles.css";
 import {Link, useHistory} from "react-router-dom";
-import {FiPower} from "react-icons/fi";
 import logoDefault from "../../assets/logoDefault.svg";
 
 export default function Profile() {
@@ -25,7 +24,6 @@ export default function Profile() {
         </Link>
 
         <button onClick={handleLogout} type="button">
-          <FiPower size={18} color="#6C63FF"></FiPower>
         </button>
       </header>
 

@@ -11,7 +11,7 @@ const useStyles = makeStyles(() => ({
   },
   quadroInterno: {
     borderColor: grey[300],
-    height: '140px'
+    height: '95px'
   }
 }));
 export default function QuadroDiagnosticos (props) {

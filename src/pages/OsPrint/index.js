@@ -55,6 +55,7 @@ export default function OsPrint () {
               </div>
             </div>
 
+
             <div className={'page'}>
               <div className={'page-content'}>
                 <Cabecalho pagina="02" subtitle={'diagnóstico do equipamento'} numero={data['número_da_ordem_de_serviço']} datahora={data['carimbo_de_data/hora']}></Cabecalho>
