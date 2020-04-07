@@ -7,6 +7,7 @@ import "./print.css";
 import TituloPagina from "./TituloPagina";
 import TabelaAcessoriso from "./TabelaAcessoriso";
 import QuadroDiagnosticos from "./QuadroDiagnostico";
+import CheckBoxDiagnostic from './CheckBoxDiagnostic'
 import Cabecalho from "./Cabecalho";
 import SubtituloPagina from "./SubtituloPagina";
 import Rodape from "./Rodape";
@@ -33,10 +34,7 @@ export default function OsPrint () {
           <div key={index}>
             <div className={'page'}>
               <div className={'page-content'}>
-                <Cabecalho pagina="01" numero={data['número_da_ordem_de_serviço']} datahora={data['carimbo_de_data/hora']}></Cabecalho>
-              </div>
-              <div className={'page-content'}>
-                <TituloPagina titulo="TRIAGEM DO EQUIPAMENTO"></TituloPagina>
+                <Cabecalho pagina="01" subtitle={'triagem do equipamento'} numero={data['número_da_ordem_de_serviço']} datahora={data['carimbo_de_data/hora']}></Cabecalho>
               </div>
               <div className={'page-content'}>
                 <SubtituloPagina texto="1. Cadastro de Equipamento"></SubtituloPagina>
@@ -46,23 +44,34 @@ export default function OsPrint () {
                   <DadosEquipamento equipamento={data}/>
                 </div>
               </div>
-              <div className={'page-content mt-10'}>
+              <div className={'page-content'}>
+                <SubtituloPagina texto="2. Relação de Material / Acessórios Entregues"></SubtituloPagina>
+              </div>
+              <div className={'page-content'}>
                 <TabelaAcessoriso equipamento={data}/>
               </div>
-              <div className={'page-content mt-10'}>
+            </div>
+            <div className={'page-content'}>
                 <Rodape numero={data['número_da_ordem_de_serviço']} pagina={'01'}/>
-              </div>
             </div>
 
             <div className={'page'}>
               <div className={'page-content'}>
-                <Cabecalho pagina="02" numero={data['número_da_ordem_de_serviço']} datahora={data['carimbo_de_data/hora']}></Cabecalho>
+                <Cabecalho pagina="02" subtitle={'diagnóstico do equipamento'} numero={data['número_da_ordem_de_serviço']} datahora={data['carimbo_de_data/hora']}></Cabecalho>
               </div>
-              <div className={'page-content'}>
+              {/* <div className={'page-content'}>
                 <TituloPagina titulo="DIAGNÓSTICO DO EQUIPAMENTO"></TituloPagina>
+              </div> */}
+              <div className={'page-content'}>
+                <SubtituloPagina texto="1. Classificação do ventilador"></SubtituloPagina>
               </div>
               <div className={'page-content'}>
-                <SubtituloPagina texto="1. Diagnóstico Clínico"></SubtituloPagina>
+                <div className={'page-content'}>
+                  <CheckBoxDiagnostic />
+                </div>
+              </div>
+              <div className={'page-content'}>
+                <SubtituloPagina texto="2. Resultado do Diagnóstico Clínico"></SubtituloPagina>
               </div>
               <div className={'page-content'}>
                 <div className={'page-content'}>
@@ -70,7 +79,7 @@ export default function OsPrint () {
                 </div>
               </div>
               <div className={'page-content'}>
-                <SubtituloPagina texto="2. Diagnóstico Técnico"></SubtituloPagina>
+                <SubtituloPagina texto="3. Acessório que necessita"></SubtituloPagina>
               </div>
               <div className={'page-content'}>
                 <div className={'page-content'}>
@@ -78,7 +87,7 @@ export default function OsPrint () {
                 </div>
               </div>
               <div className={'page-content'}>
-                <SubtituloPagina texto="3. Demanda por Insumos"></SubtituloPagina>
+                <SubtituloPagina texto="4. Diagnóstico Técnico"></SubtituloPagina>
               </div>
               <div className={'page-content'}>
                 <div className={'page-content'}>
@@ -86,17 +95,25 @@ export default function OsPrint () {
                 </div>
               </div>
               <div className={'page-content'}>
-                <SubtituloPagina texto="4. Demanda por Serviços"></SubtituloPagina>
+                <SubtituloPagina texto="5. Demanda por Insumos"></SubtituloPagina>
               </div>
               <div className={'page-content'}>
                 <div className={'page-content'}>
                   <QuadroDiagnosticos titulo="Diagnóstico Clínico"/>
                 </div>
               </div>
-              <div className={'page-content mt-10'}>
-                <Rodape numero={data['número_da_ordem_de_serviço']} pagina={'02'}/>
+              <div className={'page-content'}>
+                <SubtituloPagina texto="6. Demanda por Serviços"></SubtituloPagina>
+              </div>
+              <div className={'page-content'}>
+                <div className={'page-content'}>
+                  <QuadroDiagnosticos titulo="Diagnóstico Clínico"/>
+                </div>
               </div>
             </div>
+            <div className={'page-content'}>
+                <Rodape numero={data['número_da_ordem_de_serviço']} pagina={'02'}/>
+              </div>
           </div>
         )
       }

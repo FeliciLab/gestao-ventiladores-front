@@ -7,7 +7,9 @@ const useClass = makeStyles(() => ({
   texto: {
     color: grey[900],
     fontSize: '14pt',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    paddingTop: '8px',
+    paddingBottom: '8px',
   }
 }));
 export default function SubtituloPagina (props) {

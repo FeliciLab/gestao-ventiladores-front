@@ -4,7 +4,6 @@ import {grey} from "@material-ui/core/colors";
 
 const useStyles = makeStyles(() => ({
   quadro: {
-    marginBottom: '10px',
     padding: '5px',
     border: 1,
     borderStyle: 'solid',
