@@ -12,18 +12,11 @@ const OsPrinter = () => {
   const [toprint, setToprint] = React.useState(false);
 
   const handleChange = (event) => {
-    const url = changeToDownloadableCSV(event.target.value)
+    const url = event.target.value;
     setName(url);
     setUrl(`/osprint?url=${url}`)
+    setToprint(false)
   };
-
-  const changeToDownloadableCSV = (url) => {
-    if (url){
-      const subUrl = url.lastIndexOf('/') + 1
-      return `${url.substring(0, subUrl)}pub?output=csv`
-    }
-    return url
-  }
 
   const abrirDocumentoOs = (e) => {
     e.preventDefault();
