@@ -1,8 +1,56 @@
-import React from 'react'
+import React from "react";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import AppBar from "@material-ui/core/AppBar";
 import {makeStyles} from "@material-ui/core/styles";
+
+export default function Header() {
+  const classes = useStyles();
+
+  return (
+    <header>
+      <AppBar position="absolute" className={classes.appBar}>
+        <Toolbar className={classes.toolbar}>
+          <div className={classes.divTitle}>
+            <Typography className={classes.text} noWrap>
+              Central
+              <br /> de
+              <br /> Ventiladores
+            </Typography>
+          </div>
+          <div className={classes.divUser}>
+            <Typography className={classes.textUser} noWrap>
+              {/*usuario, joe*/}
+            </Typography>
+          </div>
+        </Toolbar>
+        <div className={classes.appBarFooter}>
+          <div className={classes.divTextFooter}>
+            <Typography className={classes.textFooter} noWrap>
+              + Recebimento
+            </Typography>
+
+            <Typography className={classes.textFooter} noWrap>
+              + Triagem
+            </Typography>
+
+            <Typography className={classes.textFooter} noWrap>
+              + Diagnóstico
+            </Typography>
+
+            <Typography className={classes.textFooter} noWrap>
+              + Avaliação
+            </Typography>
+
+            <Typography className={classes.textFooter} noWrap>
+              + Manuntenção
+            </Typography>
+          </div>
+        </div>
+      </AppBar>
+    </header>
+  );
+}
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -56,52 +104,5 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 30,
     color: "#fff",
     fontWeight: "bold",
-  }
+  },
 }));
-export default function Header () {
-  const classes = useStyles();
-
-  return (
-    <header>
-      <AppBar position="absolute" className={classes.appBar}>
-        <Toolbar className={classes.toolbar}>
-          <div className={classes.divTitle}>
-            <Typography className={classes.text} noWrap>
-              Central
-              <br/> de
-              <br/> Ventiladores
-            </Typography>
-          </div>
-          <div className={classes.divUser}>
-            <Typography className={classes.textUser} noWrap>
-              usuario, joe
-            </Typography>
-          </div>
-        </Toolbar>
-        <div className={classes.appBarFooter}>
-          <div className={classes.divTextFooter}>
-            <Typography className={classes.textFooter} noWrap>
-              + Recebimento
-            </Typography>
-
-            <Typography className={classes.textFooter} noWrap>
-              + Triagem
-            </Typography>
-
-            <Typography className={classes.textFooter} noWrap>
-              + Diagnóstico
-            </Typography>
-
-            <Typography className={classes.textFooter} noWrap>
-              + Avaliação
-            </Typography>
-
-            <Typography className={classes.textFooter} noWrap>
-              + Manuntenção
-            </Typography>
-          </div>
-        </div>
-      </AppBar>
-    </header>
-  )
-}
