@@ -6,7 +6,7 @@ const useStyle = makeStyles(() => ({
   rodape: {
     width: '100%',
     fontSize: '20px',
-    padding: '0 60px 5px 60px'
+    marginTop: '5px'
   }
 }))
 
