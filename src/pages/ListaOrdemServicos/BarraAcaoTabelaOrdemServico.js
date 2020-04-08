@@ -6,7 +6,7 @@ import Button from "@material-ui/core/Button";
 import IndeterminateCheckBoxIcon from '@material-ui/icons/IndeterminateCheckBox';
 import {lighten, makeStyles} from "@material-ui/core/styles";
 import clsx from "clsx";
-import Redirect from "react-router-dom/es/Redirect";
+import {Redirect} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {

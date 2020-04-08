@@ -28,8 +28,8 @@ const Routes = () => (
       <Route path="/" exact component={ListaOrdemServicos} />
       <Route path="/osprinter" component={ListaOrdemServicos} />
       <Route path="/osprint" component={OsPrint} />
+      <Route path="/triagem" component={Form} />
       <PrivateRoute path="/profile" component={Profile} />
-      <PrivateRoute path="/Form" component={Form} />
     </Switch>
   </BrowserRouter>
 );
