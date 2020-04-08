@@ -24,13 +24,6 @@ export default function RelacaoDeMaterial (props) {
     props.atualizarAcessorios(acessorios);
   }
 
-  function removerLinha2 (index) {
-    let acess = acessorios;
-    acess.splice(index, 1);
-    setAcessorio(acess);
-    props.atualizarAcessorios(acessorios);
-  }
-
   function removerLinha(id) {
     try {
       setAcessorio(acessorios.filter((acessorio, index) => index!== id));
