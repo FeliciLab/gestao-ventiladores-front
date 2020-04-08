@@ -5,40 +5,16 @@ import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import SaveIcon from "@material-ui/icons/Save";
-import CadastroEquipamento from "./CadastroEquipamento";
-import RelacaoDeMaterial from "./RelacaoDeMaterial";
-import {Equipamento, EquipamentoTriagem, salvarTriagem} from "../../models/equipamentos";
+import CadastroDiagnostico from "./CadastroDiagnostico";
+import CadastroItens from "./CadastroItens";
+import IdentificacaoVentilador from "./IdentificacaoVentilador";
 
-
-export default function Formulario () {
+export default function Formulario() {
   const classes = useStyles();
-  const [equipamento, setEquipamento] = React.useState(Equipamento({}));
-  const [triagem, setTriagem] = React.useState(EquipamentoTriagem({triagem: equipamento.triagem}));
-  const [acessorios, setAcessorios] = React.useState(triagem.acessorios);
-
-  function atualizarEquipamento (value) {
-    const equip = Object.assign(equipamento, value);
-    setEquipamento(equip);
-  }
-
-  function atualizarTriagem (value) {
-    const triag = Object.assign(triagem, value);
-    setTriagem(triag);
-    atualizarEquipamento({triagem: triag});
-  }
-
-  function atualizarAcessorios (value) {
-    setAcessorios(value);
-    atualizarTriagem({acessorios: value});
-  }
-
-  function salvarEquipamento () {
-    console.log(salvarTriagem(equipamento));
-  }
 
   return (
     <React.Fragment>
-      <CssBaseline/>
+      <CssBaseline />
 
       <main className={classes.layout}>
         <div
@@ -51,42 +27,34 @@ export default function Formulario () {
         >
           <div style={{alignSelf: "center"}}>
             <Typography style={{fontSize: 20, fontWeight: "bold"}}>
-              Triagem do Equipamento
+              Cadastro de Diagnóstico e Demanda por Insumos
             </Typography>
-            <Typography style={{fontSize: 14}}>
-              Após o recebimento, o cadastro do equipamento deverá ser
-              realizado. Para isso, preencha os campos abaixo:
-            </Typography>
+            <Typography style={{fontSize: 14}}>Algum texto default</Typography>
           </div>
           <div style={{alignSelf: "center"}}>
             <Button
-              onClick={salvarEquipamento}
               variant="contained"
-              size="large"
               style={{
                 backgroundColor: "#ff9800",
                 borderRadius: 20,
                 color: "#fff",
               }}
-              startIcon={<SaveIcon/>}
+              startIcon={<SaveIcon />}
             >
               Salvar
             </Button>
           </div>
         </div>
-
         <Paper className={classes.paper}>
-          <CadastroEquipamento atualizarTriagem={atualizarTriagem}
-                               atualizarEquipamento={atualizarEquipamento}
-                               equipamento={equipamento}
-                               triagem={triagem}
-          />
+          <CadastroDiagnostico />
         </Paper>
 
         <Paper className={classes.paper}>
-          <RelacaoDeMaterial acessorios={acessorios}
-                             atualizarAcessorios={atualizarAcessorios}
-          />
+          <CadastroItens />
+        </Paper>
+
+        <Paper className={classes.paper}>
+          <IdentificacaoVentilador />
         </Paper>
       </main>
     </React.Fragment>
