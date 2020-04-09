@@ -129,7 +129,7 @@ export default function CadastroEquipamento (props) {
             id="nomeDoResponsavel"
             onChange={atualizarTriagemParent}
             defaultValue={props.triagem.nome_responsavel}
-            name="nome_responsável"
+            name="nome_responsavel"
             label="Nome do Responsável"
             fullWidth
           />

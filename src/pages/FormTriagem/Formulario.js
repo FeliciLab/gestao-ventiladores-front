@@ -10,7 +10,6 @@ import RelacaoDeMaterial from "./RelacaoDeMaterial";
 import {Equipamento, EquipamentoTriagem, salvarTriagem} from "../../models/equipamentos";
 import {listaFormAcessorios} from "../../models/acessorio";
 
-
 export default function Formulario () {
   const classes = useStyles();
   const [equipamento, setEquipamento] = React.useState(Equipamento({}));
@@ -34,7 +33,7 @@ export default function Formulario () {
   }
 
   function salvarEquipamento () {
-    console.log(salvarTriagem(equipamento));
+    salvarTriagem(equipamento);
   }
 
   return (
@@ -76,16 +75,18 @@ export default function Formulario () {
         </div>
 
         <Paper className={classes.paper}>
-          <CadastroEquipamento atualizarTriagem={atualizarTriagem}
-                               atualizarEquipamento={atualizarEquipamento}
-                               equipamento={equipamento}
-                               triagem={triagem}
+          <CadastroEquipamento
+            atualizarTriagem={atualizarTriagem}
+            atualizarEquipamento={atualizarEquipamento}
+            equipamento={equipamento}
+            triagem={triagem}
           />
         </Paper>
 
         <Paper className={classes.paper}>
-          <RelacaoDeMaterial acessorios={acessorios}
-                             atualizarAcessorios={atualizarAcessorios}
+          <RelacaoDeMaterial
+            acessorios={acessorios}
+            atualizarAcessorios={atualizarAcessorios}
           />
         </Paper>
       </main>

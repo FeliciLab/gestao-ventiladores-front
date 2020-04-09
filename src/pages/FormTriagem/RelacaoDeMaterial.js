@@ -1,10 +1,8 @@
 import React from "react";
 import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
 import {Grid} from "@material-ui/core";
-import {Acessorio, listaFormAcessorios} from "../../models/acessorio";
+import {Acessorio} from "../../models/acessorio";
 import AcessorioForm from "./AcessorioForm";
-import AddIcon from '@material-ui/icons/Add';
 
 
 const acessorioModel = Acessorio();
@@ -52,18 +50,6 @@ export default function RelacaoDeMaterial (props) {
             2. Relação de Material / Acessórios Entregues
           </Typography>
         </Grid>
-        {/*<Grid*/}
-        {/*  item*/}
-        {/*  xs="auto"*/}
-        {/*>*/}
-        {/*  <Button*/}
-        {/*    onClick={adicionarAcessorio}*/}
-        {/*    style={{color: "#ff9800",}}*/}
-        {/*    startIcon={<AddIcon/>}*/}
-        {/*  >*/}
-        {/*    Adicionar Item*/}
-        {/*  </Button>*/}
-        {/*</Grid>*/}
       </Grid>
       {
         acessorios.map((acessorio, index) => (

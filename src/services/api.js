@@ -1,7 +1,14 @@
 import axios from "axios";
 
+const baseUrl = 'https://api.centralventiladores.dev.org.br';
+
 const api = axios.create({
-  baseURL: "https://api.coronavirus.dev.org.br/"
+  headers: {
+    'Access-Control-Allow-Origin': '*',
+    'Accept': 'application/json',
+    'Content-Type': 'application/json'
+  },
+  baseURL: baseUrl
 });
 
 export default api;

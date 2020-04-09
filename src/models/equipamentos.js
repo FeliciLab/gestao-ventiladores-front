@@ -1,9 +1,18 @@
 import api from "../services/api";
+import {listaFormAcessorios} from "./acessorio";
 
 export function Equipamento (equipamento) {
   return {
     numero_ordem_servico: '',
-    triagem: EquipamentoTriagem(equipamento.triagem || {})
+    triagem: EquipamentoTriagem(
+      {
+        triagem: equipamento.triagem
+      } || {
+        triagem: {
+          acessorios: listaFormAcessorios([])
+        }
+      }
+    )
   };
 }
 
@@ -28,12 +37,23 @@ export function EquipamentoTriagem ({triagem}) {
       observacao: '',
       responsavel_pelo_preenchimento: ''
     },
-    triagem || {}
+    triagem || {acessorios: listaFormAcessorios([])}
   );
 }
 
+
 export function salvarTriagem (equipamento) {
-  return api.post('/api/equipamentos', equipamento)
+  return api.post(
+    '/api/equipamentos',
+    Object.assign(equipamento, {data_hora: new Date()}),
+    {
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    }
+  )
     .then(res => {
       console.log(res);
       return res;

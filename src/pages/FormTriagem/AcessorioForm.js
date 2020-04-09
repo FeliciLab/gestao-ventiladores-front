@@ -56,8 +56,8 @@ export default function AcessorioForm (props) {
         <FormControl fullWidth>
           <InputLabel>Acompanha</InputLabel>
           <Select
-            name="acompanha"
-            value={props.acessorio.acompanha}
+            name={"acompanha"}
+            defaultValue={props.acessorio.acompanha || true}
             onChange={atualizarAcessorioParent}
           >
             <MenuItem value={true}>Sim</MenuItem>
