@@ -2,7 +2,7 @@ import React from "react";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import {Grid} from "@material-ui/core";
-import {Acessorio} from "../../models/acessorio";
+import {Acessorio, listaFormAcessorios} from "../../models/acessorio";
 import AcessorioForm from "./AcessorioForm";
 import AddIcon from '@material-ui/icons/Add';
 
@@ -24,9 +24,9 @@ export default function RelacaoDeMaterial (props) {
     props.atualizarAcessorios(acessorios);
   }
 
-  function removerLinha(id) {
+  function removerLinha (id) {
     try {
-      setAcessorio(acessorios.filter((acessorio, index) => index!== id));
+      setAcessorio(acessorios.filter((acessorio, index) => index !== id));
       props.atualizarAcessorios(acessorios);
     } catch (err) {
       console.log("erro ao deletar casos, tente novamente");
@@ -52,24 +52,27 @@ export default function RelacaoDeMaterial (props) {
             2. Relação de Material / Acessórios Entregues
           </Typography>
         </Grid>
-        <Grid
-          item
-          xs="auto"
-        >
-          <Button
-            onClick={adicionarAcessorio}
-            style={{color: "#ff9800",}}
-            startIcon={<AddIcon/>}
-          >
-            Adicionar Item
-          </Button>
-        </Grid>
+        {/*<Grid*/}
+        {/*  item*/}
+        {/*  xs="auto"*/}
+        {/*>*/}
+        {/*  <Button*/}
+        {/*    onClick={adicionarAcessorio}*/}
+        {/*    style={{color: "#ff9800",}}*/}
+        {/*    startIcon={<AddIcon/>}*/}
+        {/*  >*/}
+        {/*    Adicionar Item*/}
+        {/*  </Button>*/}
+        {/*</Grid>*/}
       </Grid>
       {
         acessorios.map((acessorio, index) => (
             <AcessorioForm
+              ultimo={index === (acessorios.length - 1)}
+              penultimo={index === (acessorios.length - 2)}
               acessorio={acessorio}
               atualizarAcessorio={atualizarAcessorioParent}
+              adicionarAcessorio={adicionarAcessorio}
               removerLinha={removerLinha}
               index={index}
               key={index}

@@ -4,17 +4,22 @@ import TextField from "@material-ui/core/TextField";
 import Tooltip from "@material-ui/core/Tooltip";
 import Button from "@material-ui/core/Button";
 import DeleteIcon from "@material-ui/icons/Delete";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
-import FormLabel from "@material-ui/core/FormLabel";
-import RadioGroup from "@material-ui/core/RadioGroup";
-import Radio from "@material-ui/core/Radio";
+import InputLabel from "@material-ui/core/InputLabel";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
 
 export default function AcessorioForm (props) {
   function atualizarAcessorioParent (event) {
     const doc = {};
     doc[event.target.name] = event.target.value;
     props.atualizarAcessorio(props.index, doc);
+    if (props.ultimo && event.target.name === 'descricao' && event.target.value.trim() !== '') {
+      props.adicionarAcessorio()
+    }
+    if (props.penultimo && event.target.name === 'descricao' && event.target.value.trim() === '') {
+        props.removerLinha(props.index + 1);
+    }
   }
 
   function removerLinhaParent () {
@@ -46,34 +51,24 @@ export default function AcessorioForm (props) {
       <Grid
         item
         xs={6}
-        sm={2}
+        sm={1}
       >
-        <FormControl component="fieldset">
-          <FormLabel component="legend">Acompanha</FormLabel>
-          <RadioGroup
-            defaultValue={props.acessorio.acompanha}
-            onChange={atualizarAcessorioParent}
-            row
+        <FormControl fullWidth>
+          <InputLabel>Acompanha</InputLabel>
+          <Select
             name="acompanha"
+            value={props.acessorio.acompanha}
+            onChange={atualizarAcessorioParent}
           >
-            <FormControlLabel
-              value="sim"
-              control={<Radio color={"primary"}/>}
-              label="Sim"
-            />
-            <FormControlLabel
-              value="nao"
-              control={<Radio color={"secondary"}/>}
-              label="Não"
-            />
-          </RadioGroup>
+            <MenuItem value={true}>Sim</MenuItem>
+            <MenuItem value={false}>Não</MenuItem>
+          </Select>
         </FormControl>
-
       </Grid>
       <Grid
         item
         xs={6}
-        sm={1}
+        sm={2}
       >
         <TextField
           required

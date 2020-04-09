@@ -13,44 +13,37 @@ export default function Header() {
       <AppBar position="absolute" className={classes.appBar}>
         <Toolbar className={classes.toolbar}>
           <div className={classes.divTitle}>
-            <Typography className={classes.text} noWrap>
+            <Typography className={classes.text}>
               Central
               <br /> de
               <br /> Ventiladores
             </Typography>
           </div>
           <div className={classes.divUser}>
-            <Typography className={classes.textUser} noWrap>
+            <Typography className={classes.textUser}>
               {/*usuario, joe*/}
             </Typography>
           </div>
         </Toolbar>
         <div className={classes.appBarFooter}>
           <div className={classes.divTextFooter}>
-            <Link className={classes.link} noWrap>
-              + Recebimento
-            </Link>
-
-            <Link to="/" className={classes.link} noWrap>
+            <Link to="/" className={classes.link}>
               + Triagem
             </Link>
 
-            <Link to="/Diagnostico" className={classes.link} noWrap>
+            <Link to="/Diagnostico" className={classes.link}>
               + Diagnóstico
             </Link>
 
-            <Link className={classes.link} noWrap>
+            <Link to={'/avaliacao'} className={classes.link}>
               + Avaliação
             </Link>
 
-            <Link className={classes.link} noWrap>
+            <Link to={"/manutencao"} className={classes.link}>
               + Manuntenção
             </Link>
 
-            <Link to="/osprint" className={classes.link} noWrap>
-              + Os Print
-            </Link>
-            <Link to="/osprinter" className={classes.link} noWrap>
+            <Link to="/listagem-ordem-servico" className={classes.link}>
               + ListaOrdemServicos
             </Link>
           </div>

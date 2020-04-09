@@ -7,6 +7,8 @@ import OsPrint from "./pages/OsPrint";
 import FormTriagem from "./pages/FormTriagem";
 import FormDiagnostico from "./pages/FormDiagnostico";
 import {isAutenticated} from "./services/auth";
+import Manutencao from "./pages/Manutencao";
+import Avaliacao from "./pages/Avaliacao";
 
 const PrivateRoute = ({component: Component, ...rest}) => (
   <Route
@@ -25,10 +27,11 @@ const Routes = () => (
   <Switch>
     <Route path="/" exact component={FormTriagem} />
     <Route path="/Diagnostico" exact component={FormDiagnostico} />
-    <Route path="/osprinter" component={ListaOrdemServicos} />
+    <Route path="/listagem-ordem-servico" component={ListaOrdemServicos} />
+    <Route path="/manutencao" component={Manutencao} />
+    <Route path="/avaliacao" component={Avaliacao} />
     <Route path="/osprint" component={OsPrint} />
     <PrivateRoute path="/profile" component={Profile} />
-    {/* <PrivateRoute path="/Form" component={Form} /> */}
   </Switch>
 );
 
