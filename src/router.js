@@ -6,6 +6,7 @@ import ListaOrdemServicos from "./pages/ListaOrdemServicos";
 import OsPrint from "./pages/OsPrint";
 import FormTriagem from "./pages/FormTriagem";
 import FormDiagnostico from "./pages/FormDiagnostico";
+import FormDemand from "./pages/FormDemand";
 import {isAutenticated} from "./services/auth";
 
 const PrivateRoute = ({component: Component, ...rest}) => (
@@ -25,6 +26,7 @@ const Routes = () => (
   <Switch>
     <Route path="/" exact component={FormTriagem} />
     <Route path="/Diagnostico" exact component={FormDiagnostico} />
+    <Route path="/Demand" exact component={FormDemand} />
     <Route path="/osprinter" component={ListaOrdemServicos} />
     <Route path="/osprint" component={OsPrint} />
     <PrivateRoute path="/profile" component={Profile} />

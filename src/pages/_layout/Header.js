@@ -27,30 +27,24 @@ export default function Header() {
         </Toolbar>
         <div className={classes.appBarFooter}>
           <div className={classes.divTextFooter}>
-            <Link className={classes.link} noWrap>
-              + Recebimento
-            </Link>
+            <Link className={classes.link}>+ Recebimento</Link>
 
-            <Link to="/" className={classes.link} noWrap>
+            <Link to="/" className={classes.link}>
               + Triagem
             </Link>
 
-            <Link to="/Diagnostico" className={classes.link} noWrap>
+            <Link to="/Diagnostico" className={classes.link}>
               + Diagnóstico
             </Link>
 
-            <Link className={classes.link} noWrap>
-              + Avaliação
-            </Link>
+            <Link className={classes.link}>+ Avaliação</Link>
 
-            <Link className={classes.link} noWrap>
-              + Manuntenção
-            </Link>
+            <Link className={classes.link}>+ Manuntenção</Link>
 
-            <Link to="/osprint" className={classes.link} noWrap>
-              + Os Print
+            <Link to="/Demand" className={classes.link}>
+              + Demanda
             </Link>
-            <Link to="/osprinter" className={classes.link} noWrap>
+            <Link to="/osprinter" className={classes.link}>
               + ListaOrdemServicos
             </Link>
           </div>
