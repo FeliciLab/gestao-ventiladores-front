@@ -113,12 +113,5 @@ const useStyles = makeStyles((theme) => ({
     alignSelf: "center",
     color: "#fff",
     textDecoration: "none",
-
-    "&:hover": {
-      backgroundColor: "#2f6d32",
-      alignSelf: "center",
-      height: 60,
-      fontSize: 20,
-    },
   },
 }));

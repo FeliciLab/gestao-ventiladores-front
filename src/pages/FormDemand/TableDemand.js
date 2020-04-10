@@ -4,7 +4,7 @@ import Table from "@material-ui/core/Table";
 import {makeStyles} from "@material-ui/core/styles";
 import HeaderTableDemand from "./HeaderTableDemand";
 import BodyTableDemand from "./BodyTableDemand";
-// import BarraAcaoTabelaOrdemServico from "./BarraAcaoTabelaOrdemServico";
+import BarraAcaoTabelaOrdemServico from "./BarraAcaoTabelaOrdemServico";
 
 function createData(
   id,
@@ -63,17 +63,17 @@ export default function TableDemand(props) {
     );
   }
 
-  // function abrirImpressao() {
-  //   return false;
-  // }
+  function abrirImpressao() {
+    return false;
+  }
   console.log("data", data);
   return (
     <div className={classes.espacamento}>
-      {/* <BarraAcaoTabelaOrdemServico
+      <BarraAcaoTabelaOrdemServico
         abrirImpressao={abrirImpressao}
-        selecionados={dados.filter((item) => item.checked)}
-        dadosOriginais={props.dados}
-      /> */}
+        selecionados={data.filter((item) => item.checked)}
+        dadosOriginais={props.data}
+      />
       <TableContainer>
         <Table aria-labelledby="tableTitle" aria-label="enhanced table">
           <HeaderTableDemand

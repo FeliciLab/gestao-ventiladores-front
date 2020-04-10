@@ -1,8 +1,15 @@
 import React, {useEffect} from "react";
 import Container from "@material-ui/core/Container";
 import TableDemand from "./TableDemand";
+import Button from "@material-ui/core/Button";
+import Typography from "@material-ui/core/Typography";
+import SaveIcon from "@material-ui/icons/Save";
+import Paper from "@material-ui/core/Paper";
+import {makeStyles} from "@material-ui/core/styles";
 
-const FormDemand = () => {
+export default function FormDemand() {
+  const classes = useStyles();
+
   const [demandList, setDemandList] = React.useState([]);
 
   useEffect(() => {
@@ -13,12 +20,40 @@ const FormDemand = () => {
   console.log(demandList);
   return (
     <Container>
-      <TableDemand data={demandList}></TableDemand>
+      <div
+        style={{
+          display: "flex",
+          height: 100,
+          flexDirection: "row",
+          justifyContent: "space-between",
+        }}
+      >
+        <div style={{alignSelf: "center"}}>
+          <Typography style={{fontSize: 20, fontWeight: "bold"}}>
+            Cadastro de Diagnóstico e Demanda por Insumos
+          </Typography>
+          <Typography style={{fontSize: 14}}>Algum texto default</Typography>
+        </div>
+        <div style={{alignSelf: "center"}}>
+          <Button
+            variant="contained"
+            style={{
+              backgroundColor: "#ff9800",
+              borderRadius: 20,
+              color: "#fff",
+            }}
+            startIcon={<SaveIcon />}
+          >
+            Salvar
+          </Button>
+        </div>
+      </div>
+      <Paper className={classes.paper}>
+        <TableDemand data={demandList}></TableDemand>
+      </Paper>
     </Container>
   );
-};
-
-export default FormDemand;
+}
 
 function createData(id, amount, name, type, value, provider, info) {
   return {id, amount, name, type, value, provider, info};
@@ -38,3 +73,16 @@ const rows = [
   createData(12, 1, "teste12", "NI", 9, "Fornecedor"),
   createData(13, 1, "teste13", "NI", 63, "Fornecedor"),
 ];
+
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(3),
+    padding: theme.spacing(2),
+    [theme.breakpoints.up(600 + theme.spacing(3) * 2)]: {
+      marginTop: theme.spacing(6),
+      marginBottom: theme.spacing(6),
+      padding: theme.spacing(3),
+    },
+  },
+}));
