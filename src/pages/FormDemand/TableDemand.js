@@ -43,10 +43,10 @@ export default function TableDemand(props) {
     );
   }
 
-  function atualizarLinhaSelecionada(index) {
+  function atualizarLinhaSelecionada(id) {
     setData(
       data.map((item) => {
-        if (item.index === index) {
+        if (item.id === id) {
           item.checked = !item.checked;
         }
         return item;

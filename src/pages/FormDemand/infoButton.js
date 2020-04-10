@@ -1,9 +1,9 @@
 import React from "react";
 import {makeStyles} from "@material-ui/core/styles";
-import AddIcon from "@material-ui/icons/Add";
-import Fab from "@material-ui/core/Fab";
+import InfoIcon from "@material-ui/icons/Info";
 import Tooltip from "@material-ui/core/Tooltip";
 import Typography from "@material-ui/core/Typography";
+import IconButton from "@material-ui/core/IconButton";
 
 export default function Tooltips(props) {
   const item = props.item;
@@ -27,18 +27,15 @@ export default function Tooltips(props) {
         }
         classes={{tooltip: classes.customWidth}}
       >
-        <Fab color="primary" className={classes.fab}>
-          <AddIcon />
-        </Fab>
+        <IconButton aria-label="info">
+          <InfoIcon style={{fontSize: 20}} />
+        </IconButton>
       </Tooltip>
     </div>
   );
 }
 
 const useStyles = makeStyles((theme) => ({
-  fab: {
-    margin: theme.spacing(2),
-  },
   absolute: {
     position: "absolute",
     bottom: theme.spacing(2),
