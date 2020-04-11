@@ -44,7 +44,7 @@ export default function FormDemand() {
             }}
             startIcon={<SaveIcon />}
           >
-            Salvar
+            Gerar ordem de compra
           </Button>
         </div>
       </div>
