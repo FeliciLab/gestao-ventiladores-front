@@ -5,18 +5,21 @@ import AppBar from "@material-ui/core/AppBar";
 import {makeStyles} from "@material-ui/core/styles";
 import {Link} from "react-router-dom";
 
-export default function Header() {
+export default function Header () {
   const classes = useStyles();
 
   return (
     <header>
-      <AppBar position="absolute" className={classes.appBar}>
+      <AppBar
+        position="absolute"
+        className={classes.appBar}
+      >
         <Toolbar className={classes.toolbar}>
           <div className={classes.divTitle}>
             <Typography className={classes.text}>
               Central
-              <br /> de
-              <br /> Ventiladores
+              <br/> de
+              <br/> Ventiladores
             </Typography>
           </div>
           <div className={classes.divUser}>
@@ -25,25 +28,47 @@ export default function Header() {
             </Typography>
           </div>
         </Toolbar>
+
         <div className={classes.appBarFooter}>
           <div className={classes.divTextFooter}>
-            <Link to="/" className={classes.link}>
+            <Link
+              to="/"
+              className={classes.link}
+            >
               + Triagem
             </Link>
 
-            <Link to="/Diagnostico" className={classes.link}>
+            <Link
+              to="/Diagnostico"
+              className={classes.link}
+            >
               + Diagnóstico
             </Link>
 
-            <Link to={'/avaliacao'} className={classes.link}>
+            <Link
+              to="/Demand"
+              className={classes.link}
+            >
+              + Demanda
+            </Link>
+            <Link
+              to={'/avaliacao'}
+              className={classes.link}
+            >
               + Avaliação
             </Link>
 
-            <Link to={"/manutencao"} className={classes.link}>
+            <Link
+              to={"/manutencao"}
+              className={classes.link}
+            >
               + Manuntenção
             </Link>
 
-            <Link to="/listagem-ordem-servico" className={classes.link}>
+            <Link
+              to="/listagem-ordem-servico"
+              className={classes.link}
+            >
               + ListaOrdemServicos
             </Link>
           </div>
@@ -112,12 +137,5 @@ const useStyles = makeStyles((theme) => ({
     alignSelf: "center",
     color: "#fff",
     textDecoration: "none",
-
-    "&:hover": {
-      backgroundColor: "#2f6d32",
-      alignSelf: "center",
-      height: 60,
-      fontSize: 20,
-    },
   },
 }));

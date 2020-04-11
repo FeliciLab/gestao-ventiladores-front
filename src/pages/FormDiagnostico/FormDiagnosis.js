@@ -9,7 +9,7 @@ import CadastroDiagnostico from "./CadastroDiagnostico";
 import CadastroItens from "./CadastroItens";
 import IdentificacaoVentilador from "./IdentificacaoVentilador";
 
-export default function Formulario() {
+export default function FormDiagnosis() {
   const classes = useStyles();
 
   return (

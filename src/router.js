@@ -6,9 +6,11 @@ import ListaOrdemServicos from "./pages/ListaOrdemServicos";
 import OsPrint from "./pages/OsPrint";
 import FormTriagem from "./pages/FormTriagem";
 import FormDiagnostico from "./pages/FormDiagnostico";
+import FormDemand from "./pages/FormDemand";
+import makeDemandFile from "../src/MakeFile/OsPrint";
 import {isAutenticated} from "./services/auth";
 import Manutencao from "./pages/Manutencao";
-import Avaliacao from "./pages/Avaliacao";
+import Avaliacao from "./pages/Avaliation";
 
 const PrivateRoute = ({component: Component, ...rest}) => (
   <Route
@@ -30,8 +32,12 @@ const Routes = () => (
     <Route path="/listagem-ordem-servico" component={ListaOrdemServicos} />
     <Route path="/manutencao" component={Manutencao} />
     <Route path="/avaliacao" component={Avaliacao} />
+    <Route path="/Demand" exact component={FormDemand} />
+    <Route path="/osprinter" component={ListaOrdemServicos} />
     <Route path="/osprint" component={OsPrint} />
     <PrivateRoute path="/profile" component={Profile} />
+    <Route path="/makeDemandFile" component={makeDemandFile} />
+    {/* <PrivateRoute path="/Form" component={Form} /> */}
   </Switch>
 );
 

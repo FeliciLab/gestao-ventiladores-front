@@ -56,17 +56,32 @@ export default function TabelaOrdemServico (props) {
 
   return (
     <div className={classes.espacamento}>
-      <BarraAcaoTabelaOrdemServico abrirImpressao={abrirImpressao} selecionados={dados.filter(item => item.checked)} dadosOriginais={props.dados}/>
+      <BarraAcaoTabelaOrdemServico
+        abrirImpressao={abrirImpressao}
+        selecionados={dados.filter(item => item.checked)}
+        dadosOriginais={props.dados}
+      />
       <TableContainer>
         <Table
           aria-labelledby="tableTitle"
           aria-label="enhanced table"
         >
-          <CabecalhoTabelaOrdemServico selecionados={dados.filter(item => item.checked)} numTotalLinhas={dados.length} atualizarTodasLinhaSelecionada={atualizarTodasLinhaSelecionada}></CabecalhoTabelaOrdemServico>
-          <ConteudoTabelaOrdemServico dados={dados} atualizarLinhaSelecionada={atualizarLinhaSelecionada}></ConteudoTabelaOrdemServico>
+          <CabecalhoTabelaOrdemServico
+            selecionados={dados.filter(item => item.checked)}
+            numTotalLinhas={dados.length}
+            atualizarTodasLinhaSelecionada={atualizarTodasLinhaSelecionada}
+          ></CabecalhoTabelaOrdemServico>
+          <ConteudoTabelaOrdemServico
+            dados={dados}
+            atualizarLinhaSelecionada={atualizarLinhaSelecionada}
+          ></ConteudoTabelaOrdemServico>
         </Table>
       </TableContainer>
-      <BarraAcaoTabelaOrdemServico abrirImpressao={abrirImpressao} selecionados={dados.filter(item => item.checked)} dadosOriginais={props.dados}/>
+      <BarraAcaoTabelaOrdemServico
+        abrirImpressao={abrirImpressao}
+        selecionados={dados.filter(item => item.checked)}
+        dadosOriginais={props.dados}
+      />
     </div>
   );
 }
