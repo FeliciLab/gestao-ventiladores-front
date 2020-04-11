@@ -4,6 +4,7 @@ import {listaFormAcessorios} from "./acessorio";
 export function Equipamento (equipamento) {
   return {
     numero_ordem_servico: '',
+    status: '',
     triagem: EquipamentoTriagem(
       {
         triagem: equipamento.triagem
@@ -42,10 +43,37 @@ export function EquipamentoTriagem ({triagem}) {
 }
 
 
+/**
+ * Seach screnning by status
+ *      triagem
+ *      diagnostico
+ *      manutencao
+ *      etc
+ */
+export function getScreeningByStatus (status) {
+  return api.get(
+    '/api/equipamentos?status=' + status,
+  )
+    .then((response) => {
+      console.log(response.data);
+      return response.data;
+    })
+    .catch(error => {
+      console.log(error);
+      return error;
+    });
+}
+
 export function salvarTriagem (equipamento) {
   return api.post(
     '/api/equipamentos',
-    Object.assign(equipamento, {data_hora: new Date()}),
+    Object.assign(
+      equipamento,
+      {
+        status: 'triagem',
+        created_at: new Date()
+      }
+    ),
     {
       headers: {
         'Access-Control-Allow-Origin': '*',
