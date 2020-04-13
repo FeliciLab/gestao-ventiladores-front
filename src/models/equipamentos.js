@@ -53,8 +53,9 @@ export function EquipamentoTriagem ({triagem}) {
  *      etc
  */
 export function getScreeningByStatus (status) {
-  return api.get(
+  return api.post(
     '/api/equipamentos',
+    {status},
     {
       headers: {
         'Access-Control-Allow-Origin': '*',
