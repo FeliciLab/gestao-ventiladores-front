@@ -52,7 +52,7 @@ export function EquipamentoTriagem ({triagem}) {
  *      manutencao
  *      etc
  */
-export function getScreeningByStatus (status) {
+export function getEquipmentByStatus (status) {
   return api.post(
     '/api/equipamentos/find',
     {status},
@@ -73,7 +73,7 @@ export function getScreeningByStatus (status) {
     });
 }
 
-export function getAllScreeningByStatus () {
+export function getAllEquipments () {
   return api.get(
     '/api/equipamentos',
     {
