@@ -9,8 +9,6 @@ import FormDiagnostico from "./pages/FormDiagnostico";
 import FormDemand from "./pages/FormDemand";
 import makeDemandFile from "../src/MakeFile/OsPrint";
 import {isAutenticated} from "./services/auth";
-import Manutencao from "./pages/Manutencao";
-import Avaliacao from "./pages/Avaliation";
 
 const PrivateRoute = ({component: Component, ...rest}) => (
   <Route
@@ -29,9 +27,6 @@ const Routes = () => (
   <Switch>
     <Route path="/" exact component={FormTriagem} />
     <Route path="/Diagnostico" exact component={FormDiagnostico} />
-    <Route path="/listagem-ordem-servico" component={ListaOrdemServicos} />
-    <Route path="/manutencao" component={Manutencao} />
-    <Route path="/avaliacao" component={Avaliacao} />
     <Route path="/Demand" exact component={FormDemand} />
     <Route path="/osprinter" component={ListaOrdemServicos} />
     <Route path="/osprint" component={OsPrint} />

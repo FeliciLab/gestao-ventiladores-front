@@ -15,7 +15,7 @@ export default function FormDemand() {
   useEffect(() => {
     const data = rows;
     setDemandList(data);
-  }, []);
+  });
 
   console.log(demandList);
   return (

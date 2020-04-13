@@ -5,70 +5,46 @@ import AppBar from "@material-ui/core/AppBar";
 import {makeStyles} from "@material-ui/core/styles";
 import {Link} from "react-router-dom";
 
-export default function Header () {
+export default function Header() {
   const classes = useStyles();
 
   return (
     <header>
-      <AppBar
-        position="absolute"
-        className={classes.appBar}
-      >
+      <AppBar position="absolute" className={classes.appBar}>
         <Toolbar className={classes.toolbar}>
           <div className={classes.divTitle}>
-            <Typography className={classes.text}>
+            <Typography className={classes.text} noWrap>
               Central
-              <br/> de
-              <br/> Ventiladores
+              <br /> de
+              <br /> Ventiladores
             </Typography>
           </div>
           <div className={classes.divUser}>
-            <Typography className={classes.textUser}>
+            <Typography className={classes.textUser} noWrap>
               {/*usuario, joe*/}
             </Typography>
           </div>
         </Toolbar>
-
         <div className={classes.appBarFooter}>
           <div className={classes.divTextFooter}>
-            <Link
-              to="/"
-              className={classes.link}
-            >
+            <Link className={classes.link}>+ Recebimento</Link>
+
+            <Link to="/" className={classes.link}>
               + Triagem
             </Link>
 
-            <Link
-              to="/Diagnostico"
-              className={classes.link}
-            >
+            <Link to="/Diagnostico" className={classes.link}>
               + Diagnóstico
             </Link>
 
-            <Link
-              to="/Demand"
-              className={classes.link}
-            >
+            <Link className={classes.link}>+ Avaliação</Link>
+
+            <Link className={classes.link}>+ Manuntenção</Link>
+
+            <Link to="/Demand" className={classes.link}>
               + Demanda
             </Link>
-            <Link
-              to={'/avaliacao'}
-              className={classes.link}
-            >
-              + Avaliação
-            </Link>
-
-            <Link
-              to={"/manutencao"}
-              className={classes.link}
-            >
-              + Manuntenção
-            </Link>
-
-            <Link
-              to="/listagem-ordem-servico"
-              className={classes.link}
-            >
+            <Link to="/osprinter" className={classes.link}>
               + ListaOrdemServicos
             </Link>
           </div>
