@@ -3,7 +3,6 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Tooltip from "@material-ui/core/Tooltip";
 import Button from "@material-ui/core/Button";
-import IndeterminateCheckBoxIcon from '@material-ui/icons/IndeterminateCheckBox';
 import {lighten, makeStyles} from "@material-ui/core/styles";
 import clsx from "clsx";
 import PropTypes from 'prop-types';
@@ -56,7 +55,10 @@ const ActionBarLayout = (props) => {
           </Tooltip>
         ) : (
           <Tooltip title="Nenhum item foi selecionado">
-            <IndeterminateCheckBoxIcon/>
+            <Button
+              disabled
+              variant="outlined"
+            >{textButton}</Button>
           </Tooltip>
         )
       }

@@ -56,6 +56,7 @@ const TableCheckedList = (props) => {
           />
           <BodyTableLayout
             data={dataTable}
+            selectKeyField={selectKeyField}
             headerKeys={headerTable.map(item => item.id)}
             checkSelectedRow={checkSelectedRow}
           />

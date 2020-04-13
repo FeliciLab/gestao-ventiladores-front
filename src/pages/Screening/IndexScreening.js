@@ -4,6 +4,10 @@ import Layout from "../_layout/Layout";
 import TableCheckedList from "../_common/SelectableTable/TableCheckedList";
 import Container from "@material-ui/core/Container";
 import {useHistory} from 'react-router-dom';
+import Grid from "@material-ui/core/Grid";
+import Button from "@material-ui/core/Button";
+import AddIcon from "@material-ui/icons/Add";
+import withStyles from "@material-ui/core/styles/withStyles";
 
 const IndexScreening = (props) => {
   const history = useHistory();
@@ -53,12 +57,33 @@ const IndexScreening = (props) => {
   return (
     <Layout>
       <Container>
+        <div style={{width: '100%', marginTop: '2rem'}}>
+          <Grid
+            container
+            justify={"flex-end"}
+          >
+            <Grid
+              item
+              xs="auto"
+            >
+              <ColorButton
+                onClick={() => history.push('nova-triagem')}
+                variant={"contained"}
+                color="primary"
+                disableElevation
+                startIcon={<AddIcon/> }
+              >
+                Nova Triagem
+              </ColorButton>
+            </Grid>
+          </Grid>
+        </div>
         <TableCheckedList
           dataTable={dataTable}
           selectKeyField="numero_ordem_servico"
           headerTable={headerData}
           actionFunction={actionPrint}
-          actionBarTitle="Lista de Equipamento"
+          actionBarTitle="Lista de Equipamento (Nenhum item selecionado)"
           actionBarTextButton="Gerar Ordem de Serviços"
         />
       </Container>
@@ -66,5 +91,16 @@ const IndexScreening = (props) => {
     </Layout>
   );
 };
+
+const ColorButton = withStyles((theme) => ({
+  root: {
+    color: 'white',
+    borderRadius: '20px',
+    backgroundColor: theme.palette.warning.main,
+    '&:hover': {
+      backgroundColor: theme.palette.warning.light,
+    },
+  },
+}))(Button);
 
 export default IndexScreening;

@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 
 const BodyTableLayout = (props) => {
   const [data, setData] = useState(props.data);
-  const {headerKeys, checkSelectedRow} = props;
+  const {headerKeys, checkSelectedRow, selectKeyField} = props;
 
   useEffect(() => {
     setData(props.data);
@@ -21,7 +21,7 @@ const BodyTableLayout = (props) => {
           return (
             <TableRow
               hover
-              onClick={(event) => checkSelectedRow(item.numero_ordem_servico)}
+              onClick={(event) => checkSelectedRow(item[selectKeyField])}
               role="checkbox"
               tabIndex={-1}
               key={index}

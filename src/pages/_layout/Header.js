@@ -51,7 +51,7 @@ export default function Header () {
             </Link>
 
             <Link
-              to="/Demand"
+              to="/demandas"
               className={classes.link}
             >
               + Demanda

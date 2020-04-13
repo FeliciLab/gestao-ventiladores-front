@@ -54,7 +54,7 @@ export function EquipamentoTriagem ({triagem}) {
  */
 export function getScreeningByStatus (status) {
   return api.post(
-    '/api/equipamentos',
+    '/api/equipamentos/find',
     {status},
     {
       headers: {

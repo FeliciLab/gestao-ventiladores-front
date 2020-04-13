@@ -30,6 +30,7 @@ const Routes = () => (
     <Route path="/nova-triagem" exact component={FormTriagem} />
     <Route path="/Diagnostico" exact component={FormDiagnostico} />
     <Route path="/demandas" exact component={IndexDemand} />
+    <Route path="/nova-demandas" exact component={FormDemand} />
     <Route path="/osprint" component={OsPrint} />
     <PrivateRoute path="/profile" component={Profile} />
     <Route path="/makeDemandFile" component={makeDemandFile} />

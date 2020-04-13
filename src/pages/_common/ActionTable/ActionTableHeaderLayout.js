@@ -1,11 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {TableHead} from "@material-ui/core";
-import Checkbox from "@material-ui/core/Checkbox";
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
 
-
-const HeaderTableLayout = (props) => {
+const ActionTableHeaderLayout = (props) => {
   const {headerData} = props;
 
   return (
@@ -22,9 +20,12 @@ const HeaderTableLayout = (props) => {
             </TableCell>
           ))
         }
+        <TableCell>
+          Ações
+        </TableCell>
       </TableRow>
     </TableHead>
   );
 };
 
-export default HeaderTableLayout;
+export default ActionTableHeaderLayout;
