@@ -70,10 +70,10 @@ export default function TabelaAcessoriso (props) {
     return {descricao, acompanha, quantidade, estado_de_conservacao};
   }
 
-  const acessorios = props.equipamento.acessorios || [];
+  const acessorios = props.equipamento.triagem.acessorios || [];
   const rows = [...acessorios];
-  if (acessorios < 15) {
-    for (let i = 0; i < (15 - acessorios); i++) {
+  if (acessorios.length < 15) {
+    for (let i = 0; i < (15 - acessorios.length); i++) {
       rows.push(createData('', '', '', ''));
     }
   }
@@ -104,8 +104,8 @@ export default function TabelaAcessoriso (props) {
                   >
                     {row.descricao}
                   </StyledTd>
-                  <StyledTd>{row.acompanha || ''}</StyledTd>
-                  <StyledTd>{row.quantidade === true ? 'Sim' : 'Não'}</StyledTd>
+                  <StyledTd>{row.acompanha === true ? 'Sim' : '-'}</StyledTd>
+                  <StyledTd>{row.quantidade || ''}</StyledTd>
                   <StyledTd>{row.estado_de_conservacao || ''}</StyledTd>
                 </TableRow>
               ))

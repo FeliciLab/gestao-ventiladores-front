@@ -2,7 +2,6 @@ import React from "react";
 import {Route, Switch, Redirect} from "react-router-dom";
 
 import Profile from "./pages/Profile";
-import ListaOrdemServicos from "./pages/ListaOrdemServicos";
 import OsPrint from "./pages/OsPrint";
 import FormTriagem from "./pages/FormTriagem";
 import IndexScreening from "./pages/Screening/IndexScreening";
@@ -30,7 +29,6 @@ const Routes = () => (
     <Route path="/triagem/new" exact component={FormTriagem} />
     <Route path="/Diagnostico" exact component={FormDiagnostico} />
     <Route path="/Demand" exact component={FormDemand} />
-    <Route path="/osprinter" component={ListaOrdemServicos} />
     <Route path="/osprint" component={OsPrint} />
     <PrivateRoute path="/profile" component={Profile} />
     <Route path="/makeDemandFile" component={makeDemandFile} />

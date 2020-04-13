@@ -23,7 +23,7 @@ export default function OsPrint (props) {
                   pagina="01"
                   subtitle={'Triagem do equipamento'}
                   numero={data['numero_ordem_servico']}
-                  datahora={data['created_at'] || new Date()}
+                  datahora={new Date(data['created_at']['$date'])}
                 ></Cabecalho>
               </div>
               <div className={'page-content'}>
@@ -55,7 +55,7 @@ export default function OsPrint (props) {
                   pagina="02"
                   subtitle={'Diagnóstico do equipamento'}
                   numero={data['numero_ordem_servico']}
-                  datahora={data['created_at']}
+                  datahora={new Date(data['created_at']['$date'])}
                 ></Cabecalho>
               </div>
               {/* <div className={'page-content'}>

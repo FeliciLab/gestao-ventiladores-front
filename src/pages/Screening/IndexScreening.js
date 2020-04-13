@@ -39,7 +39,7 @@ const IndexScreening = (props) => {
         });
       setRequestBlock(true);
     }
-  });
+  }, [requestBlock, screening]);
 
   const actionPrint = (data) => {
     history.push({

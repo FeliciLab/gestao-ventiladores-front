@@ -39,6 +39,9 @@ const BodyTableLayout = (props) => {
                   <TableCell key={index}>{item[key]}</TableCell>
                 ))
               }
+              <TableCell>
+                {props.children}
+              </TableCell>
             </TableRow>
           );
         })

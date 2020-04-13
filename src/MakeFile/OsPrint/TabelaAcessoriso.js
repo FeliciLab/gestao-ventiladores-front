@@ -59,7 +59,6 @@ const useStyles = makeStyles({
 
 export default function TabelaAcessoriso(props) {
   const classes = useStyles();
-  console.log(props.equipamento);
   if (!props || !props.equipamento) return <div></div>;
 
   return (
