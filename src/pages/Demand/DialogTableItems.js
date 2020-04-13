@@ -19,7 +19,11 @@ const DialogTableItems = (props) => {
 
   useEffect(() => {
     setDataTable(props.dataTable || []);
-    setItemsDialog(props.itemsDialog || []);
+    setItemsDialog(props.itemsDialog.map(item => {
+      if (item.tipo === 'pecas') item.tipo = "Peças";
+      if (item.tipo === 'acessorio') item.tipo = "Acessório";
+      return item
+    }) || []);
   }, [props]);
 
   const actionPrint = (data) => {
@@ -28,11 +32,7 @@ const DialogTableItems = (props) => {
       state: {
         data: {
           equipment: dataTable,
-          items: itemsDialog.filter(item => data.find(d => d.nome === item.nome)).map(item => {
-            if (item.tipo === 'pecas') item.tipo = "Peças";
-            if (item.tipo === 'acessorio') item.tipo = "Acessório";
-            return item
-          })
+          items: itemsDialog.filter(item => data.find(d => d.nome === item.nome))
         }
       }
     }, [dataTable]);
