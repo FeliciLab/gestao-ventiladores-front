@@ -3,12 +3,80 @@ import grey from '@material-ui/core/colors/grey';
 import {makeStyles} from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import moment from 'moment-timezone'
+import moment from 'moment-timezone';
+import PropTypes from 'prop-types';
+
+
+const formatDate = (date) => {
+  return [moment(date).tz('America/Fortaleza').format('L'), moment(date).tz('America/Fortaleza').format('H:m:s')];
+};
+
+const HeaderPrint = (props) => {
+  const classes = useStyles();
+  const {number, subTitle, pageNumber, dateTime} = props;
+  const date = formatDate(new Date(dateTime || new Date()));
+  return (
+    <div className={classes.planodefundo}>
+      <Grid
+        container
+        justify={'space-between'}
+        alignItems={'center'}
+      >
+        <Grid
+          item
+          xs="auto"
+        >
+          <Typography
+            className={classes.osTexto}
+            align={"right"}
+          ><strong>OS N º:</strong></Typography>
+          <Typography
+            className={classes.osNumero}
+            align={"right"}
+          >{number === '' ? '---' : number}</Typography>
+        </Grid>
+
+        <Grid
+          item
+          xs={true}
+        >
+          <div className={classes.caixaCentral}>
+            <Typography
+              align={"center"}
+              className={`${classes.titleTexto} ${classes.bordarCaixaCental}`}
+            ><strong>CENTRAL DE VENTILADORES</strong></Typography>
+            <Typography
+              align={"center"}
+              className={`${classes.subTitleTexto} ${classes.bordarCaixaCental}`}
+            ><strong>{subTitle}</strong></Typography>
+          </div>
+        </Grid>
+
+        <Grid
+          item
+          xs="auto"
+        >
+          <Typography
+            className={classes.texto}
+            align={"left"}
+          ><strong>{date[0]}</strong></Typography>
+          <Typography
+            className={classes.texto}
+            align={"left"}
+          ><strong>{date[1]}</strong></Typography>
+          <Typography
+            className={classes.texto}
+            align={"left"}
+          ><strong>Página: {pageNumber}</strong></Typography>
+        </Grid>
+      </Grid>
+    </div>
+  );
+};
 
 const useStyles = makeStyles((theme) => ({
   planodefundo: {
     backgroundColor: grey[900],
-    width: '100%',
     padding: '1rem',
     color: 'white',
     fontWeight: 'bolder',
@@ -52,68 +120,10 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const formatDate = (date) => {
-  return [moment(date).tz('America/Fortaleza').format('L'), moment(date).tz('America/Fortaleza').format('H:m:s')]
+HeaderPrint.protoTypes = {
+  number: PropTypes.string.isRequired,
+  subTitle: PropTypes.string.isRequired,
+  pageNumber: PropTypes.string.isRequired
 };
 
-export default function HeaderPrint (props) {
-  const classes = useStyles();
-  const date = formatDate(new Date(props.datahora));
-  return (
-    <div className={classes.planodefundo}>
-      <Grid
-        container
-        justify={'space-between'}
-        alignItems={'center'}
-      >
-        <Grid
-          item
-          xs="auto"
-        >
-          <Typography
-            className={classes.osTexto}
-            align={"right"}
-          ><strong>OS N º:</strong></Typography>
-          <Typography
-            className={classes.osNumero}
-            align={"right"}
-          >{props.numero === '' ? '---' : props.numero}</Typography>
-        </Grid>
-
-        <Grid
-          item
-          xs={true}
-        >
-          <div className={classes.caixaCentral}>
-            <Typography
-              align={"center"}
-              className={`${classes.titleTexto} ${classes.bordarCaixaCental}`}
-            ><strong>CENTRAL DE VENTILADORES</strong></Typography>
-            <Typography
-              align={"center"}
-              className={`${classes.subTitleTexto} ${classes.bordarCaixaCental}`}
-            ><strong>{props.subtitle}</strong></Typography>
-          </div>
-        </Grid>
-
-        <Grid
-          item
-          xs="auto"
-        >
-          <Typography
-            className={classes.texto}
-            align={"left"}
-          ><strong>{date[0]}</strong></Typography>
-          <Typography
-            className={classes.texto}
-            align={"left"}
-          ><strong>{date[1]}</strong></Typography>
-          <Typography
-            className={classes.texto}
-            align={"left"}
-          ><strong>Página: {props.pagina}</strong></Typography>
-        </Grid>
-      </Grid>
-    </div>
-  );
-}
+export default HeaderPrint;

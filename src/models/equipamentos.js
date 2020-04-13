@@ -73,6 +73,26 @@ export function getScreeningByStatus (status) {
     });
 }
 
+export function getAllScreeningByStatus () {
+  return api.get(
+    '/api/equipamentos',
+    {
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+    }
+  )
+    .then((response) => {
+      return response.data;
+    })
+    .catch(error => {
+      console.log(error);
+      return error;
+    });
+}
+
 export function salvarTriagem (equipamento) {
   return api.post(
     '/api/equipamentos',

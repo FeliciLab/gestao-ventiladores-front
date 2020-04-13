@@ -3,12 +3,11 @@ import grey from '@material-ui/core/colors/grey';
 import {makeStyles} from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import moment from 'moment-timezone'
+import moment from 'moment-timezone';
 
 const useStyles = makeStyles((theme) => ({
   planodefundo: {
     backgroundColor: grey[900],
-    width: '100%',
     padding: '1rem',
     color: 'white',
     fontWeight: 'bolder',

@@ -1,0 +1,61 @@
+.page-container {
+  position: relative;
+  background-color: white;
+}
+
+.page {
+  position: relative;
+  break-after: auto;
+  page-break-after: always;
+}
+
+.page-content {
+  position: relative;
+}
+
+.header-content {
+  position: relative;
+  padding: 5px;
+  height: 100%;
+  line-height: 15px;
+}
+
+.model-fab {
+  display: flex;
+  justify-content: space-between;
+}
+
+.border-black {
+  border: 1px solid black;
+  padding: 10px;
+}
+
+.text-center {
+  text-align: center;
+  margin: 10px;
+}
+
+.title-board-blank {
+  margin-top: 1rem;
+  padding: 1rem;
+  font-weight: bold;
+  border: solid 1px black;
+}
+
+.board-blank {
+  min-height: 6cm;
+  border: solid 1px black;
+}
+
+.pagina-tabela {
+  height: 100%;
+  width: 100%;
+  border: none;
+}
+.mt-10 {
+  margin-top: 1rem;
+}
+
+body {
+  background-color: #fff;
+}

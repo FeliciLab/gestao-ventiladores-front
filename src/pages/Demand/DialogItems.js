@@ -9,7 +9,7 @@ import makeStyles from "@material-ui/core/styles/makeStyles";
 import Slide from "@material-ui/core/Slide";
 import withStyles from "@material-ui/core/styles/withStyles";
 import orange from "@material-ui/core/colors/orange";
-import DialogTableItems from "./DiableTableItems";
+import DialogTableItems from "./DialogTableItems";
 import {Container} from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 
@@ -69,7 +69,8 @@ const DialogItems = (props) => {
           </Grid>
         </div>
         <DialogTableItems
-          dataTable={itemsDialog}
+          itemsDialog={itemsDialog}
+          dataTable={dataDialog}
         />
       </Container>
 

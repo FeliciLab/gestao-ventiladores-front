@@ -50,7 +50,6 @@ const IndexDemand = (props) => {
 
   const openDialogItems = (data) => {
     const _dataDialog = screening.find(item => item.numero_ordem_servico === data.numero_ordem_servico)
-    console.log(_dataDialog.numero_ordem_servico, _dataDialog.diagnostico.itens);
     setDataDialog(_dataDialog);
     setOpenDialog(true);
   };

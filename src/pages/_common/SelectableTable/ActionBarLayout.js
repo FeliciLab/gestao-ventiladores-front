@@ -54,12 +54,10 @@ const ActionBarLayout = (props) => {
             >{textButton}</Button>
           </Tooltip>
         ) : (
-          <Tooltip title="Nenhum item foi selecionado">
             <Button
               disabled
               variant="outlined"
             >{textButton}</Button>
-          </Tooltip>
         )
       }
 
