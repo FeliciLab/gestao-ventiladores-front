@@ -6,6 +6,7 @@ import OsPrint from "./pages/OsPrint";
 import FormTriagem from "./pages/FormTriagem";
 import IndexScreening from "./pages/Screening/IndexScreening";
 import FormDiagnostico from "./pages/FormDiagnostico";
+import IndexDemand from './pages/Demand'
 import FormDemand from "./pages/FormDemand";
 import makeDemandFile from "../src/MakeFile/OsPrint";
 import {isAutenticated} from "./services/auth";
@@ -26,9 +27,9 @@ const PrivateRoute = ({component: Component, ...rest}) => (
 const Routes = () => (
   <Switch>
     <Route path="/" exact component={IndexScreening} />
-    <Route path="/triagem/new" exact component={FormTriagem} />
+    <Route path="/nova-triagem" exact component={FormTriagem} />
     <Route path="/Diagnostico" exact component={FormDiagnostico} />
-    <Route path="/Demand" exact component={FormDemand} />
+    <Route path="/demandas" exact component={IndexDemand} />
     <Route path="/osprint" component={OsPrint} />
     <PrivateRoute path="/profile" component={Profile} />
     <Route path="/makeDemandFile" component={makeDemandFile} />

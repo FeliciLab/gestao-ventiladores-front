@@ -3,6 +3,7 @@ import grey from '@material-ui/core/colors/grey';
 import {makeStyles} from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
+import moment from 'moment-timezone'
 
 const useStyles = makeStyles((theme) => ({
   planodefundo: {
@@ -52,11 +53,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const formatDate = (date) => {
-  return date.getDate() + '/' + date.getMonth() + '/' + date.getFullYear()
+  return [moment(date).tz('America/Fortaleza').format('L'), moment(date).tz('America/Fortaleza').format('H:m:s')]
 };
 
-export default function Cabecalho (props) {
+export default function HeaderPrint (props) {
   const classes = useStyles();
+  const date = formatDate(new Date(props.datahora));
   return (
     <div className={classes.planodefundo}>
       <Grid
@@ -101,7 +103,11 @@ export default function Cabecalho (props) {
           <Typography
             className={classes.texto}
             align={"left"}
-          ><strong>{formatDate(new Date(props.datahora))}</strong></Typography>
+          ><strong>{date[0]}</strong></Typography>
+          <Typography
+            className={classes.texto}
+            align={"left"}
+          ><strong>{date[1]}</strong></Typography>
           <Typography
             className={classes.texto}
             align={"left"}
