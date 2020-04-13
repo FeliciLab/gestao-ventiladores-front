@@ -69,7 +69,7 @@ export default function Cabecalho (props) {
         </Grid>
 
         <Grid item xs="auto">
-          <Typography className={classes.texto} align={"left"}><strong>{props.datahora.split(' ')[0]}</strong><br/><strong>{props.datahora.split(' ')[1]}</strong></Typography>
+          <Typography className={classes.texto} align={"left"}><strong>{new Date(props.datahora['$date']).toLocaleDateString()}</strong></Typography>
           <Typography className={classes.texto} align={"left"}><strong>Página: {props.pagina}</strong></Typography>
         </Grid>
       </Grid>

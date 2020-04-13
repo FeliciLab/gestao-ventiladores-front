@@ -3,14 +3,14 @@ import DadosEquipamento from "./DadosEquipamento";
 import "./print.css";
 import TabelaAcessoriso from "./TabelaAcessoriso";
 import QuadroDiagnosticos from "./QuadroDiagnostico";
-import CheckBoxDiagnostic from './CheckBoxDiagnostic'
+import CheckBoxDiagnostic from './CheckBoxDiagnostic';
 import Cabecalho from "./Cabecalho";
 import SubtituloPagina from "./SubtituloPagina";
 import Rodape from "./Rodape";
 
 
 export default function OsPrint (props) {
-  const [csvData] = React.useState(props.location.state.selecionados)
+  const [csvData] = React.useState(props.location.state.data);
 
   return (
     <div className={'page-container'}>
@@ -19,7 +19,12 @@ export default function OsPrint (props) {
           <div key={index}>
             <div className={'page'}>
               <div className={'page-content'}>
-                <Cabecalho pagina="01" subtitle={'triagem do equipamento'} numero={data['número_da_ordem_de_serviço']} datahora={data['carimbo_de_data/hora']}></Cabecalho>
+                <Cabecalho
+                  pagina="01"
+                  subtitle={'Triagem do equipamento'}
+                  numero={data['numero_ordem_servico']}
+                  datahora={data['created_at'] || new Date()}
+                ></Cabecalho>
               </div>
               <div className={'page-content'}>
                 <SubtituloPagina texto="1. Cadastro de Equipamento"></SubtituloPagina>
@@ -36,14 +41,22 @@ export default function OsPrint (props) {
                 <TabelaAcessoriso equipamento={data}/>
               </div>
               <div className={'page-content'}>
-                <Rodape numero={data['número_da_ordem_de_serviço']} pagina={'01'}/>
+                <Rodape
+                  numero={data['numero_ordem_servico']}
+                  pagina={'01'}
+                />
               </div>
             </div>
 
 
             <div className={'page'}>
               <div className={'page-content'}>
-                <Cabecalho pagina="02" subtitle={'diagnóstico do equipamento'} numero={data['número_da_ordem_de_serviço']} datahora={data['carimbo_de_data/hora']}></Cabecalho>
+                <Cabecalho
+                  pagina="02"
+                  subtitle={'Diagnóstico do equipamento'}
+                  numero={data['numero_ordem_servico']}
+                  datahora={data['created_at']}
+                ></Cabecalho>
               </div>
               {/* <div className={'page-content'}>
                 <TituloPagina titulo="DIAGNÓSTICO DO EQUIPAMENTO"></TituloPagina>
@@ -53,7 +66,7 @@ export default function OsPrint (props) {
               </div>
               <div className={'page-content'}>
                 <div className={'page-content'}>
-                  <CheckBoxDiagnostic />
+                  <CheckBoxDiagnostic/>
                 </div>
               </div>
               <div className={'page-content'}>
@@ -97,12 +110,15 @@ export default function OsPrint (props) {
                 </div>
               </div>
               <div className={'page-content'}>
-                <Rodape numero={data['número_da_ordem_de_serviço']} pagina={'02'}/>
+                <Rodape
+                  numero={data['numero_ordem_servico']}
+                  pagina={'02'}
+                />
               </div>
             </div>
           </div>
         )
       }
     </div>
-  )
+  );
 }

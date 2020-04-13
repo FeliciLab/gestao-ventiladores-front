@@ -3,8 +3,10 @@ import {listaFormAcessorios} from "./acessorio";
 
 export function Equipamento (equipamento) {
   return {
-    numero_ordem_servico: '',
-    status: '',
+    numero_ordem_servico: equipamento.numero_ordem_servico,
+    status: equipamento.status,
+    created_at: equipamento.created_at,
+    updated_at: equipamento.updated_at,
     triagem: EquipamentoTriagem(
       {
         triagem: equipamento.triagem
@@ -52,10 +54,16 @@ export function EquipamentoTriagem ({triagem}) {
  */
 export function getScreeningByStatus (status) {
   return api.get(
-    '/api/equipamentos?status=' + status,
+    '/api/equipamentos',
+    {
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+    }
   )
     .then((response) => {
-      console.log(response.data);
       return response.data;
     })
     .catch(error => {
@@ -72,7 +80,7 @@ export function salvarTriagem (equipamento) {
       {
         status: 'triagem',
         created_at: new Date()
-      }
+      },
     ),
     {
       headers: {

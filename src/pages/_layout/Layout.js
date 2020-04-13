@@ -9,7 +9,7 @@ export default function Layout (props) {
   return (
     <div className={classes.layout}>
       <Header/>
-      {props.children}
+        {props.children}
       <Footer/>
     </div>
 
@@ -18,6 +18,11 @@ export default function Layout (props) {
 
 const useStyle = makeStyles(() => ({
   layout: {
-    background: grey[100]
+    background: grey[100],
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    minHeight: '100vh',
+    height: '100%'
   }
 }));

@@ -26,7 +26,7 @@ const StyledTableCell = withStyles((theme) => ({
     paddingTop: '5px',
     paddingBottom: '5px',
     height: '24px',
-    textAlign:'center'
+    textAlign: 'center'
   },
   body: {
     fontSize: 12
@@ -64,29 +64,28 @@ const useStyles = makeStyles({
 export default function TabelaAcessoriso (props) {
   const classes = useStyles();
 
-  if (!props || !props.equipamento) return (<div></div>)
+  if (!props || !props.equipamento) return (<div></div>);
 
-  function createData (descricao, veio, quantidade, situacao) {
-    return {descricao, veio, quantidade, situacao};
+  function createData (descricao, acompanha, quantidade, estado_de_conservacao) {
+    return {descricao, acompanha, quantidade, estado_de_conservacao};
   }
 
-  const acessorios = props.equipamento['selecione_os_acessórios_do_equipamento_que_o_acompanha'].split(', ');
-  const totalAcessorios = [];
-  if (acessorios.length < 15) {
-    for (let i = 0; i < (15 - acessorios.length); i++) {
-      totalAcessorios.push(createData('', '', '', ''))
+  const acessorios = props.equipamento.acessorios || [];
+  const rows = [...acessorios];
+  if (acessorios < 15) {
+    for (let i = 0; i < (15 - acessorios); i++) {
+      rows.push(createData('', '', '', ''));
     }
   }
-
-  const rows = acessorios.map(item => {
-    return createData(item.replace(/"/g, ''), '', '', '')
-  }).concat(totalAcessorios);
-
 
   return (
     <div className={classes.quadro}>
       <TableContainer component={Paper}>
-        <Table className={classes.table} size="small" aria-label="a dense customized table">
+        <Table
+          className={classes.table}
+          size="small"
+          aria-label="a dense customized table"
+        >
           <TableHead>
             <TableRow>
               <StyledTableCell>Descrição</StyledTableCell>
@@ -99,12 +98,15 @@ export default function TabelaAcessoriso (props) {
             {
               rows.map((row, index) => (
                 <TableRow key={index}>
-                  <StyledTd component="th" scope="row">
+                  <StyledTd
+                    component="th"
+                    scope="row"
+                  >
                     {row.descricao}
                   </StyledTd>
-                  <StyledTd>{row.veio}</StyledTd>
-                  <StyledTd>{row.quantidade}</StyledTd>
-                  <StyledTd>{row.cituacao}</StyledTd>
+                  <StyledTd>{row.acompanha || ''}</StyledTd>
+                  <StyledTd>{row.quantidade === true ? 'Sim' : 'Não'}</StyledTd>
+                  <StyledTd>{row.estado_de_conservacao || ''}</StyledTd>
                 </TableRow>
               ))
             }
@@ -112,5 +114,5 @@ export default function TabelaAcessoriso (props) {
         </Table>
       </TableContainer>
     </div>
-  )
+  );
 }
