@@ -7,13 +7,38 @@ import Typography from "@material-ui/core/Typography";
 import SaveIcon from "@material-ui/icons/Save";
 import CadastroEquipamento from "./CadastroEquipamento";
 import RelacaoDeMaterial from "./RelacaoDeMaterial";
+import {Equipamento, EquipamentoTriagem, salvarTriagem} from "../../models/equipamentos";
+import {listaFormAcessorios} from "../../models/acessorio";
 
-export default function Formulario() {
+export default function Formulario () {
   const classes = useStyles();
+  const [equipamento, setEquipamento] = React.useState(Equipamento({}));
+  const [triagem, setTriagem] = React.useState(EquipamentoTriagem({triagem: equipamento.triagem}));
+  const [acessorios, setAcessorios] = React.useState([...listaFormAcessorios(triagem.acessorios), '']);
+
+  function atualizarEquipamento (value) {
+    const equip = Object.assign(equipamento, value);
+    setEquipamento(equip);
+  }
+
+  function atualizarTriagem (value) {
+    const triag = Object.assign(triagem, value);
+    setTriagem(triag);
+    atualizarEquipamento({triagem: triag});
+  }
+
+  function atualizarAcessorios (value) {
+    setAcessorios(value);
+    atualizarTriagem({acessorios: value});
+  }
+
+  function salvarEquipamento () {
+    salvarTriagem(equipamento);
+  }
 
   return (
     <React.Fragment>
-      <CssBaseline />
+      <CssBaseline/>
 
       <main className={classes.layout}>
         <div
@@ -35,13 +60,14 @@ export default function Formulario() {
           </div>
           <div style={{alignSelf: "center"}}>
             <Button
+              onClick={salvarEquipamento}
               variant="contained"
               style={{
                 backgroundColor: "#ff9800",
                 borderRadius: 20,
                 color: "#fff",
               }}
-              startIcon={<SaveIcon />}
+              startIcon={<SaveIcon/>}
             >
               Salvar
             </Button>
@@ -49,11 +75,19 @@ export default function Formulario() {
         </div>
 
         <Paper className={classes.paper}>
-          <CadastroEquipamento />
+          <CadastroEquipamento
+            atualizarTriagem={atualizarTriagem}
+            atualizarEquipamento={atualizarEquipamento}
+            equipamento={equipamento}
+            triagem={triagem}
+          />
         </Paper>
 
         <Paper className={classes.paper}>
-          <RelacaoDeMaterial />
+          <RelacaoDeMaterial
+            acessorios={acessorios}
+            atualizarAcessorios={atualizarAcessorios}
+          />
         </Paper>
       </main>
     </React.Fragment>

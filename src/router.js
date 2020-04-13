@@ -1,12 +1,16 @@
 import React from "react";
-import {Route, Switch, Redirect} from "react-router-dom";
+import {Redirect, Route, Switch} from "react-router-dom";
 
 import Profile from "./pages/Profile";
-import ListaOrdemServicos from "./pages/ListaOrdemServicos";
 import OsPrint from "./pages/OsPrint";
 import FormTriagem from "./pages/FormTriagem";
+import IndexScreening from "./pages/Screening/IndexScreening";
 import FormDiagnostico from "./pages/FormDiagnostico";
+import IndexDemand from './pages/Demand';
+import FormDemand from "./pages/FormDemand";
 import {isAutenticated} from "./services/auth";
+import IndexDiagnosis from "./pages/Diagnosis";
+import IndexOrderPrint from "./pages/OrderPrint";
 
 const PrivateRoute = ({component: Component, ...rest}) => (
   <Route
@@ -23,12 +27,16 @@ const PrivateRoute = ({component: Component, ...rest}) => (
 
 const Routes = () => (
   <Switch>
-    <Route path="/" exact component={FormTriagem} />
-    <Route path="/Diagnostico" exact component={FormDiagnostico} />
-    <Route path="/osprinter" component={ListaOrdemServicos} />
+    <Route path="/" exact component={IndexScreening} />
+    <Route path="/triagens" exact component={IndexScreening} />
+    <Route path="/nova-triagem" exact component={FormTriagem} />
+    <Route path="/diagnosticos" exact component={IndexDiagnosis} />
+    <Route path="/novo-diagnostico" exact component={FormDiagnostico} />
+    <Route path="/demandas" exact component={IndexDemand} />
+    <Route path="/ordem-compra" exact component={IndexOrderPrint} />
+    <Route path="/nova-demandas" exact component={FormDemand} />
     <Route path="/osprint" component={OsPrint} />
     <PrivateRoute path="/profile" component={Profile} />
-    {/* <PrivateRoute path="/Form" component={Form} /> */}
   </Switch>
 );
 

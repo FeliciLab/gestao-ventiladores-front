@@ -1,5 +1,8 @@
 import React from "react";
 import ListaOrdemServicos from "./ListaOrdemServicos";
+import Layout from "../_layout/Layout";
 export default function () {
-  return <ListaOrdemServicos />;
+  return <Layout>
+    <ListaOrdemServicos />;
+  </Layout>
 }

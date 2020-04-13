@@ -1,82 +1,71 @@
-import React, {useState} from "react";
-import Grid from "@material-ui/core/Grid";
+import React from "react";
 import Typography from "@material-ui/core/Typography";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
+import {Grid} from "@material-ui/core";
+import {Acessorio} from "../../models/acessorio";
+import AcessorioForm from "./AcessorioForm";
 
-export default function RelacaoDeMaterial() {
-  const [form, setForm] = useState([]);
 
-  function addForms() {
-    setForm([...form, <Form />]);
+const acessorioModel = Acessorio();
+
+export default function RelacaoDeMaterial (props) {
+  const [acessorios, setAcessorio] = React.useState(props.acessorios);
+
+  function adicionarAcessorio () {
+    const acess = [...acessorios, Object.assign({}, acessorioModel)];
+    setAcessorio(acess);
+  }
+
+  function atualizarAcessorioParent (index, value) {
+    const acess = acessorios;
+    acess[index] = Object.assign(acess[index], value);
+    setAcessorio(acess);
+    props.atualizarAcessorios(acessorios);
+  }
+
+  function removerLinha (id) {
+    try {
+      setAcessorio(acessorios.filter((acessorio, index) => index !== id));
+      props.atualizarAcessorios(acessorios);
+    } catch (err) {
+      console.log("erro ao deletar casos, tente novamente");
+    }
   }
 
   return (
-    <React.Fragment>
-      <div
-        style={{
-          display: "flex",
-          height: 100,
-          flexDirection: "row",
-          justifyContent: "space-between",
-        }}
+    <div>
+      <Grid
+        container
+        justify={"space-between"}
+        alignItems={"center"}
       >
-        <Typography variant="h6" gutterBottom>
-          2. Relação de Material / Acessórios Entregues
-        </Typography>
-        <Button
-          onClick={addForms}
-          style={{
-            color: "#ff9800",
-          }}
+        <Grid
+          item
+          xs={12}
+          sm={7}
         >
-          + Adicionar Item
-        </Button>
-      </div>
-      {form}
-    </React.Fragment>
+          <Typography
+            variant="h6"
+            gutterBottom
+          >
+            2. Relação de Material / Acessórios Entregues
+          </Typography>
+        </Grid>
+      </Grid>
+      {
+        acessorios.map((acessorio, index) => (
+            <AcessorioForm
+              ultimo={index === (acessorios.length - 1)}
+              penultimo={index === (acessorios.length - 2)}
+              acessorio={acessorio}
+              atualizarAcessorio={atualizarAcessorioParent}
+              adicionarAcessorio={adicionarAcessorio}
+              removerLinha={removerLinha}
+              index={index}
+              key={index}
+            />
+          )
+        )
+      }
+    </div>
   );
 }
-
-const Form = () => {
-  return (
-    <Grid container spacing={3}>
-      <Grid item xs={5} sm={5}>
-        <TextField
-          required
-          id="descricao"
-          name="descricao"
-          label="Descrição"
-          fullWidth
-        />
-      </Grid>
-      <Grid item xs={2} sm={2}>
-        <TextField
-          required
-          id="aconpanha"
-          name="acompanha"
-          label="Acompanha"
-          fullWidth
-        />
-      </Grid>
-      <Grid item xs={2} sm={2}>
-        <TextField
-          required
-          id="quantidade"
-          name="quantidade"
-          label="Quantidade"
-          fullWidth
-        />
-      </Grid>
-      <Grid item xs={3} sm={3}>
-        <TextField
-          required
-          id="estadoDeConservacao"
-          name="estadoDeConservacao"
-          label="Estado de Conservação"
-          fullWidth
-        />
-      </Grid>
-    </Grid>
-  );
-};

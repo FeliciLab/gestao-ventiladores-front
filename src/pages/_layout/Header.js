@@ -5,54 +5,62 @@ import AppBar from "@material-ui/core/AppBar";
 import {makeStyles} from "@material-ui/core/styles";
 import {Link} from "react-router-dom";
 
-export default function Header() {
+export default function Header () {
   const classes = useStyles();
 
   return (
     <header>
-      <AppBar position="absolute" className={classes.appBar}>
+      <AppBar
+        position="absolute"
+        className={classes.appBar}
+      >
         <Toolbar className={classes.toolbar}>
           <div className={classes.divTitle}>
-            <Typography className={classes.text} noWrap>
+            <Typography
+              className={classes.text}
+              noWrap
+            >
               Central
-              <br /> de
-              <br /> Ventiladores
+              <br/> de
+              <br/> Ventiladores
             </Typography>
           </div>
           <div className={classes.divUser}>
-            <Typography className={classes.textUser} noWrap>
+            <Typography
+              className={classes.textUser}
+              noWrap
+            >
               {/*usuario, joe*/}
             </Typography>
           </div>
         </Toolbar>
         <div className={classes.appBarFooter}>
           <div className={classes.divTextFooter}>
-            <Link className={classes.link} noWrap>
-              + Recebimento
-            </Link>
-
-            <Link to="/" className={classes.link} noWrap>
+            <Link
+              to="/"
+              className={classes.link}
+            >
               + Triagem
             </Link>
 
-            <Link to="/Diagnostico" className={classes.link} noWrap>
+            <Link
+              to="/Diagnostico"
+              className={classes.link}
+            >
               + Diagnóstico
             </Link>
 
-            <Link className={classes.link} noWrap>
-              + Avaliação
+            <Link
+              to="/demandas"
+              className={classes.link}
+            >
+              + Demanda
             </Link>
 
-            <Link className={classes.link} noWrap>
-              + Manuntenção
-            </Link>
-
-            <Link to="/osprint" className={classes.link} noWrap>
-              + Os Print
-            </Link>
-            <Link to="/osprinter" className={classes.link} noWrap>
-              + ListaOrdemServicos
-            </Link>
+            <Link
+              to="/maintenance"
+              className={classes.link}
+            >+ Manuntenção</Link>
           </div>
         </div>
       </AppBar>
@@ -119,12 +127,5 @@ const useStyles = makeStyles((theme) => ({
     alignSelf: "center",
     color: "#fff",
     textDecoration: "none",
-
-    "&:hover": {
-      backgroundColor: "#2f6d32",
-      alignSelf: "center",
-      height: 60,
-      fontSize: 20,
-    },
   },
 }));

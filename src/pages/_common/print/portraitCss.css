@@ -1,0 +1,12 @@
+@page {
+  size: A4;
+  margin: 1.5cm;
+}
+
+@media print {
+  .pagina-tabela {
+    height: 100%;
+    width: 100%;
+    border: none;
+  }
+}
