@@ -4,7 +4,6 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Paper from "@material-ui/core/Paper";
 import CadastroDiagnostico from "./CadastroDiagnostico";
 import CadastroItens from "./CreateNewItem";
-import IdentificacaoVentilador from "./IdentificacaoVentilador";
 import Container from "@material-ui/core/Container";
 import {EquipmentDiagnosis} from "../../models/equipamentos";
 import HeaderFormPage from "./HeaderFormPage";
@@ -75,13 +74,6 @@ const FormDiagnosis = (props) => {
             addNewItem={addNewItem}
             updateItem={updateItem}
             clean={clean}
-          />
-        </Paper>
-
-        <Paper className={classes.paper}>
-          <IdentificacaoVentilador
-            diagnosis={diagnosis}
-            updateDiagnosis={updateDiagnosis}
           />
         </Paper>
       </Container>
