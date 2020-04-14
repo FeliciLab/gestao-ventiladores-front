@@ -10,7 +10,7 @@ import RelacaoDeMaterial from "./RelacaoDeMaterial";
 import {Equipamento, EquipamentoTriagem, salvarTriagem} from "../../models/equipamentos";
 import {listaFormAcessorios} from "../../models/acessorio";
 
-export default function Formulario () {
+export default function FormScreening () {
   const classes = useStyles();
   const [equipamento, setEquipamento] = React.useState(Equipamento({}));
   const [triagem, setTriagem] = React.useState(EquipamentoTriagem({triagem: equipamento.triagem}));

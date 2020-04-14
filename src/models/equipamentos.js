@@ -44,6 +44,17 @@ export function EquipamentoTriagem ({triagem}) {
   );
 }
 
+export function EquipmentDiagnosis ({diagnostico}) {
+  return Object.assign({
+    "resultado_tecnico": "",
+    "demanda_servicos": "",
+    "demanda_insumos": "",
+    "acao_orientacao": "",
+    "observacoes": "",
+    "itens": []
+  }, diagnostico);
+}
+
 
 /**
  * Seach screnning by status
@@ -52,7 +63,7 @@ export function EquipamentoTriagem ({triagem}) {
  *      manutencao
  *      etc
  */
-export function getScreeningByStatus (status) {
+export function getEquipmentByStatus (status) {
   return api.post(
     '/api/equipamentos/find',
     {status},
@@ -73,7 +84,7 @@ export function getScreeningByStatus (status) {
     });
 }
 
-export function getAllScreeningByStatus () {
+export function getAllEquipments () {
   return api.get(
     '/api/equipamentos',
     {
