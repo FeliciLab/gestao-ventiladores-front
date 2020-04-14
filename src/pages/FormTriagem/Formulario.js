@@ -12,6 +12,7 @@ import {listaFormAcessorios} from "../../models/acessorio";
 
 export default function Formulario () {
   const classes = useStyles();
+
   const [equipamento, setEquipamento] = React.useState(Equipamento({}));
   const [triagem, setTriagem] = React.useState(EquipamentoTriagem({triagem: equipamento.triagem}));
   const [acessorios, setAcessorios] = React.useState([...listaFormAcessorios(triagem.acessorios), '']);
