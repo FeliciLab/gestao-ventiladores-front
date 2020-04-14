@@ -44,6 +44,17 @@ export function EquipamentoTriagem ({triagem}) {
   );
 }
 
+export function EquipmentDiagnosis ({diagnostico}) {
+  return Object.assign({
+    "resultado_tecnico": "",
+    "demanda_servicos": "",
+    "demanda_insumos": "",
+    "acao_orientacao": "",
+    "observacoes": "",
+    "itens": []
+  }, diagnostico);
+}
+
 
 /**
  * Seach screnning by status

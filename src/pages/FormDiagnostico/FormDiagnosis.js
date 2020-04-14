@@ -1,91 +1,95 @@
-import React from "react";
+import React, {useState} from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Paper from "@material-ui/core/Paper";
-import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
-import SaveIcon from "@material-ui/icons/Save";
 import CadastroDiagnostico from "./CadastroDiagnostico";
-import CadastroItens from "./CadastroItens";
+import CadastroItens from "./CreateNewItem";
 import IdentificacaoVentilador from "./IdentificacaoVentilador";
+import Container from "@material-ui/core/Container";
+import {EquipmentDiagnosis} from "../../models/equipamentos";
+import HeaderFormPage from "./HeaderFormPage";
+import {itemDiagnosisModel} from "../../models/itensDiagnosticos";
 
-export default function FormDiagnosis() {
+const FormDiagnosis = (props) => {
   const classes = useStyles();
+
+  const [equipment] = useState(props.equipment);
+  const [diagnosis, setDiagnosis] = useState(EquipmentDiagnosis(equipment));
+  const [itemsDiagnosis, setItemsDiagnosis] = useState(diagnosis.itens);
+  const [itemDiagnosis, setItemDiagnosis] = useState(Object.assign({}, itemDiagnosisModel));
+  const [clean, setClean] = useState(false);
+
+  const addNewItem = () => {
+    const doc = [...itemsDiagnosis, itemDiagnosis];
+    updateItemsDiagnosis(doc);
+    let item = Object.assign({}, itemDiagnosis);
+    for (let i in item) {
+      item[i] = itemDiagnosisModel[i];
+    }
+
+    setClean(true);
+  };
+
+  const updateState = (value, old, setFunc) => {
+    setClean(false);
+    const doc = Object.assign(old, value);
+    setFunc(doc);
+  };
+
+  const updateDiagnosis = (value) => {
+    updateState(value, diagnosis, setDiagnosis);
+  };
+
+  const updateItem = (value) => {
+    updateState(value, itemDiagnosis, setItemDiagnosis);
+  };
+
+  const updateItemsDiagnosis = (value) => {
+    updateState(value, itemsDiagnosis, setItemsDiagnosis);
+  };
+
+  const saveForm = () => {
+
+  };
 
   return (
     <React.Fragment>
-      <CssBaseline />
+      <CssBaseline/>
 
-      <main className={classes.layout}>
-        <div
-          style={{
-            display: "flex",
-            height: 100,
-            flexDirection: "row",
-            justifyContent: "space-between",
-          }}
-        >
-          <div style={{alignSelf: "center"}}>
-            <Typography style={{fontSize: 20, fontWeight: "bold"}}>
-              Cadastro de Diagnóstico e Demanda por Insumos
-            </Typography>
-            <Typography style={{fontSize: 14}}>Algum texto default</Typography>
-          </div>
-          <div style={{alignSelf: "center"}}>
-            <Button
-              variant="contained"
-              style={{
-                backgroundColor: "#ff9800",
-                borderRadius: 20,
-                color: "#fff",
-              }}
-              startIcon={<SaveIcon />}
-            >
-              Salvar
-            </Button>
-          </div>
-        </div>
+      <Container>
+        <HeaderFormPage
+          equipment={equipment}
+          saveForm={saveForm}
+        />
+
         <Paper className={classes.paper}>
-          <CadastroDiagnostico />
+          <CadastroDiagnostico
+            diagnosis={diagnosis}
+            updateDiagnosis={updateDiagnosis}
+          />
         </Paper>
 
         <Paper className={classes.paper}>
-          <CadastroItens />
+          <CadastroItens
+            itemDiagnosis={itemDiagnosis}
+            addNewItem={addNewItem}
+            updateItem={updateItem}
+            clean={clean}
+          />
         </Paper>
 
         <Paper className={classes.paper}>
-          <IdentificacaoVentilador />
+          <IdentificacaoVentilador
+            diagnosis={diagnosis}
+            updateDiagnosis={updateDiagnosis}
+          />
         </Paper>
-      </main>
+      </Container>
     </React.Fragment>
   );
-}
+};
 
 const useStyles = makeStyles((theme) => ({
-  divTextFooter: {
-    height: 60,
-    justifyContent: "space-evenly",
-    display: "flex",
-    marginLeft: theme.spacing(2),
-    marginRight: theme.spacing(2),
-    [theme.breakpoints.up(1200 + theme.spacing(2) * 2)]: {
-      width: 1200,
-      marginLeft: "auto",
-      marginRight: "auto",
-    },
-    flexDirection: "row",
-  },
-
-  layout: {
-    width: "auto",
-    marginLeft: theme.spacing(2),
-    marginRight: theme.spacing(2),
-    [theme.breakpoints.up(1200 + theme.spacing(2) * 2)]: {
-      width: 1200,
-      marginLeft: "auto",
-      marginRight: "auto",
-    },
-  },
   paper: {
     marginTop: theme.spacing(3),
     marginBottom: theme.spacing(3),
@@ -108,3 +112,5 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: theme.spacing(1),
   },
 }));
+
+export default FormDiagnosis;

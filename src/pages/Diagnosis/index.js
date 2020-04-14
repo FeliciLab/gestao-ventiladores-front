@@ -19,19 +19,17 @@ const IndexDiagnosis = (props) => {
   const history = useHistory();
 
   const [requestBlock, setRequestBlock] = useState(false);
-  const [screening, setScreening] = useState([]);
+  const [equipments, setEquipments] = useState([]);
   const [dataTable, setDataTable] = useState([]);
 
   useEffect(() => {
-    if (screening.length === 0 && !requestBlock) {
+    if (equipments.length === 0 && !requestBlock) {
       getAllEquipments()
         .then(result => {
           if (!result) return;
 
-          setScreening(result);
-          setDataTable(result.filter(item => {
-            return item.diagnostico && item.diagnostico.itens.length > 0;
-          }).map(item => {
+          setEquipments(result);
+          setDataTable(result.map(item => {
             return {
               numero_ordem_servico: item.numero_ordem_servico,
               marca: item.triagem.marca || '',
@@ -47,15 +45,15 @@ const IndexDiagnosis = (props) => {
 
       setRequestBlock(true);
     }
-  }, [requestBlock, screening]);
+  }, [requestBlock, equipments]);
 
   const openFormDiagnosis = (value) => {
     history.push({
-      to: '/novo-diagnostico',
-      state:{
-        value: value
+      pathname: '/novo-diagnostico',
+      state: {
+        data: equipments.find(item => item.numero_ordem_servico === value.numero_ordem_servico)
       }
-    })
+    }, [equipments]);
   };
 
   const menuOptions = [
@@ -73,7 +71,7 @@ const IndexDiagnosis = (props) => {
             <Grid container justify={"space-between"}>
               <Grid item xs={"auto"}>
                 <Typography variant={"h5"} component={"h5"}>
-                  Lista de equipamentos com diagnóstico e itens cadastrados
+                  Lista de equipamentos cadastrados
                 </Typography>
               </Grid>
               <Grid item xs={"auto"}></Grid>
