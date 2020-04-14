@@ -5,13 +5,12 @@ import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import SaveIcon from "@material-ui/icons/Save";
-import BuscarEquipamento from "./BuscarEquipamento";
-import DadosDestinatario from "./DadosDestinatario";
-import DadosResponsavel from "./DadosResponsavel";
-import DadosResponsavelTransporte from "./DadosResponsavelTransporte";
+import DadosEquipamento from "./DadosEquipamentos";
+import ResultadoCalibragem from "./ResultadoCalibragem";
+import AnexoCertificado from "./AnexoCertificado";
+ 
 
-
-export default function FormEntrega() {
+export default function FormCalibragem() {
   const classes = useStyles();
   //   const [equipamento, setEquipamento] = React.useState(Equipamento({}));
   //   const [triagem, setTriagem] = React.useState(EquipamentoTriagem({triagem: equipamento.triagem}));
@@ -76,7 +75,7 @@ export default function FormEntrega() {
         </div>
 
         <Paper className={classes.paper}>
-          <BuscarEquipamento
+          <DadosEquipamento
           // atualizarTriagem={atualizarTriagem}
           // atualizarEquipamento={atualizarEquipamento}
           // equipamento={equipamento}
@@ -85,16 +84,13 @@ export default function FormEntrega() {
         </Paper>
 
         <Paper className={classes.paper}>
-          <DadosDestinatario />
+          <ResultadoCalibragem />
         </Paper>
 
         <Paper className={classes.paper}>
-          <DadosResponsavel />
+          <AnexoCertificado />
         </Paper>
 
-        <Paper className={classes.paper}>
-          <DadosResponsavelTransporte />
-        </Paper>
       </main>
     </React.Fragment>
   );
