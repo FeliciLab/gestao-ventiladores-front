@@ -2,8 +2,16 @@ import React from "react";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
+import equipmentTypes from "../../models/equipmentTypes";
+import getCities from "../../services/cities";
+import typeInstitute from "../../models/typeInstitute";
+import typeStateEquipment from "../../models/typeStateEquipment";
+import SelectControl from "../_common/form/SelectControl";
+// import InputFile from "./InputFile";
 
 export default function CadastroEquipamento (props) {
+  const cities = getCities('CE');
+
   function atualizarParent (event) {
     const doc = {};
     doc[event.target.name] = event.target.value;
@@ -20,14 +28,39 @@ export default function CadastroEquipamento (props) {
     props.atualizarTriagem(atualizarParent(event));
   }
 
+  // const sendPhoto = (photo) => {
+  //   console.log(photo)
+  // }
+
   return (
     <React.Fragment>
-      <Typography variant="h6" gutterBottom>
+      <Typography
+        variant="h6"
+        gutterBottom
+      >
         1. Cadastro de Equipamento
       </Typography>
 
-      <Grid container spacing={3}>
-        <Grid item xs={12} sm={6}>
+      <Grid container>
+        <Grid
+          item
+          xs={6}
+        >
+          {/*<InputFile*/}
+          {/*  label={"Foto antes da limpeza"}*/}
+          {/*  action={sendPhoto}*/}
+          {/*/>*/}
+        </Grid>
+      </Grid>
+      <Grid
+        container
+        spacing={3}
+      >
+        <Grid
+          item
+          xs={12}
+          sm={6}
+        >
           <TextField
             onChange={atualizarEquipamentoParent}
             defaultValue={props.equipamento.numero_ordem_servico}
@@ -38,7 +71,11 @@ export default function CadastroEquipamento (props) {
             fullWidth
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid
+          item
+          xs={12}
+          sm={6}
+        >
           <TextField
             onChange={atualizarTriagemParent}
             defaultValue={props.triagem.numero_de_serie}
@@ -49,7 +86,11 @@ export default function CadastroEquipamento (props) {
             fullWidth
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid
+          item
+          xs={12}
+          sm={6}
+        >
           <TextField
             required
             onChange={atualizarTriagemParent}
@@ -60,7 +101,11 @@ export default function CadastroEquipamento (props) {
             fullWidth
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid
+          item
+          xs={12}
+          sm={6}
+        >
           <TextField
             defaultValue={props.triagem.numero_do_patrimonio}
             onChange={atualizarTriagemParent}
@@ -70,38 +115,40 @@ export default function CadastroEquipamento (props) {
             fullWidth
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="tipoDoEquipamento"
-            onChange={atualizarTriagemParent}
-            name="tipo"
-            defaultValue={props.triagem.tipo}
-            label="Tipo do Equipamento"
-            fullWidth
+
+
+        <Grid
+          item
+          xs={12}
+          sm={6}
+        >
+          <SelectControl
+            label={"Tipo do Equipamento"}
+            name={"tipo"}
+            action={atualizarTriagemParent}
+            defaultValue={''}
+            menuItems={equipmentTypes.map(item => ({value: item, name: item}))}
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid
+          item
+          xs={12}
+          sm={2}
+        >
           <TextField
             id="marca"
             onChange={atualizarTriagemParent}
             defaultValue={props.triagem.marca}
             name="marca"
             label="Marca"
-            fullWidth/>
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="nomeDaInstituicaoDeOrigem"
-            onChange={atualizarTriagemParent}
-            name="unidade_de_origem"
-            defaultValue={props.triagem.unidade_de_origem}
-            label="Nome da Instituição de Origem"
             fullWidth
           />
         </Grid>
-        <Grid item xs={6} sm={3}>
+        <Grid
+          item
+          xs={12}
+          sm={2}
+        >
           <TextField
             required
             id="modelo"
@@ -112,7 +159,11 @@ export default function CadastroEquipamento (props) {
             fullWidth
           />
         </Grid>
-        <Grid item xs={6} sm={3}>
+        <Grid
+          item
+          xs={6}
+          sm={2}
+        >
           <TextField
             required
             id="fabricante"
@@ -123,7 +174,56 @@ export default function CadastroEquipamento (props) {
             fullWidth
           />
         </Grid>
-        <Grid item xs={6} sm={3}>
+
+
+        <Grid
+          item
+          xs={12}
+          sm={4}
+        >
+          <SelectControl
+            label={"Município de Origem"}
+            name={"municipio_origem"}
+            action={atualizarTriagemParent}
+            defaultValue={''}
+            menuItems={cities.map(item => ({value: item, name: item}))}
+          />
+        </Grid>
+        <Grid
+          item
+          xs={6}
+          sm={4}
+        >
+          <TextField
+            required
+            id="nome_instituicao_origem"
+            onChange={atualizarTriagemParent}
+            name="nome_instituicao_origem"
+            label="Nome da Instituição"
+            fullWidth
+          />
+        </Grid>
+        <Grid
+          item
+          xs={12}
+          sm={4}
+        >
+          <SelectControl
+            label={"Tipo da instituição"}
+            name={"tipo_instituicao_origem"}
+            action={atualizarTriagemParent}
+            defaultValue={''}
+            menuItems={typeInstitute.map(item => ({value: item, name: item}))}
+          />
+        </Grid>
+
+
+        {/*ROW*/}
+        <Grid
+          item
+          xs={6}
+          sm={4}
+        >
           <TextField
             required
             id="nomeDoResponsavel"
@@ -134,7 +234,11 @@ export default function CadastroEquipamento (props) {
             fullWidth
           />
         </Grid>
-        <Grid item xs={6} sm={3}>
+        <Grid
+          item
+          xs={6}
+          sm={4}
+        >
           <TextField
             required
             id="constatoDoResponsavel"
@@ -145,26 +249,17 @@ export default function CadastroEquipamento (props) {
             fullWidth
           />
         </Grid>
-        <Grid item xs={6} sm={3}>
-          <TextField
-            required
-            id="unidadeDeOrigem"
-            onChange={atualizarTriagemParent}
-            defaultValue={props.triagem.unidade_de_origem}
-            name="unidade_de_origem"
-            label="Unidade de Origem"
-            fullWidth
-          />
-        </Grid>
-        <Grid item xs={6} sm={3}>
-          <TextField
-            required
-            id="estadoDeConservação"
-            onChange={atualizarTriagemParent}
-            defaultValue={props.triagem.estado_de_conservacao}
-            name="estado_de_conservacao"
-            label="Estado de Conservação"
-            fullWidth
+        <Grid
+          item
+          xs={6}
+          sm={4}
+        >
+          <SelectControl
+            label={"Estado de Conservação"}
+            name={"estado_de_conservacao"}
+            action={atualizarTriagemParent}
+            defaultValue={''}
+            menuItems={typeStateEquipment.map(item => ({value: item, name: item}))}
           />
         </Grid>
       </Grid>

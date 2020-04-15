@@ -15,9 +15,8 @@
 
 .header-content {
   position: relative;
-  padding: 5px;
-  height: 100%;
-  line-height: 15px;
+  padding: 2px;
+  line-height: 10px;
 }
 
 .model-fab {
@@ -27,17 +26,17 @@
 
 .border-black {
   border: 1px solid black;
-  padding: 10px;
+  padding: 5px;
 }
 
 .text-center {
   text-align: center;
-  margin: 10px;
+  margin: 5px;
 }
 
 .title-board-blank {
-  margin-top: 1rem;
-  padding: 1rem;
+  margin-top: 10px;
+  padding: 10px;
   font-weight: bold;
   border: solid 1px black;
 }
@@ -48,8 +47,6 @@
 }
 
 .pagina-tabela {
-  height: 100%;
-  width: 100%;
   border: none;
 }
 .mt-10 {

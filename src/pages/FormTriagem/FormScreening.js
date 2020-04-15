@@ -1,4 +1,5 @@
 import React from "react";
+import {useHistory} from 'react-router-dom';
 import {makeStyles} from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Paper from "@material-ui/core/Paper";
@@ -7,11 +8,13 @@ import Typography from "@material-ui/core/Typography";
 import SaveIcon from "@material-ui/icons/Save";
 import CadastroEquipamento from "./CadastroEquipamento";
 import RelacaoDeMaterial from "./RelacaoDeMaterial";
-import {Equipamento, EquipamentoTriagem, salvarTriagem} from "../../models/equipamentos";
+import {Equipamento, EquipamentoTriagem, salvarNovaTriagem} from "../../models/equipamentos";
 import {listaFormAcessorios} from "../../models/acessorio";
 
 export default function FormScreening () {
   const classes = useStyles();
+  const history = useHistory();
+
   const [equipamento, setEquipamento] = React.useState(Equipamento({}));
   const [triagem, setTriagem] = React.useState(EquipamentoTriagem({triagem: equipamento.triagem}));
   const [acessorios, setAcessorios] = React.useState([...listaFormAcessorios(triagem.acessorios), '']);
@@ -33,7 +36,10 @@ export default function FormScreening () {
   }
 
   function salvarEquipamento () {
-    salvarTriagem(equipamento);
+    salvarNovaTriagem(equipamento)
+      .then(() => {
+        history.push({pathname: '/'});
+      });
   }
 
   return (

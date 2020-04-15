@@ -1,16 +1,6 @@
 import React from 'react';
-import {
-  withStyles,
-  makeStyles
-} from "@material-ui/core/styles";
-import {
-  Table,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableContainer,
-  Paper
-} from "@material-ui/core";
+import {makeStyles, withStyles} from "@material-ui/core/styles";
+import {Paper, Table, TableCell, TableContainer, TableHead, TableRow} from "@material-ui/core";
 import TableBody from "@material-ui/core/TableBody";
 import {grey} from "@material-ui/core/colors";
 
@@ -23,13 +13,13 @@ const StyledTableCell = withStyles((theme) => ({
     border: 1,
     borderColor: greyColor,
     borderStyle: 'solid',
-    paddingTop: '5px',
-    paddingBottom: '5px',
-    height: '24px',
+    paddingTop: '3px',
+    paddingBottom: '3px',
+    // height: '10px',
     textAlign: 'center'
   },
   body: {
-    fontSize: 12
+    fontSize: '12pt'
   },
 }))(TableCell);
 
@@ -38,10 +28,10 @@ const StyledTd = withStyles(() => ({
     border: 1,
     borderColor: greyColor,
     borderStyle: 'solid',
-    paddingTop: '5px',
-    paddingBottom: '5px',
-    height: '24px',
-    fontSize: 12
+    paddingTop: '3px',
+    paddingBottom: '3px',
+    // height: '10px',
+    fontSize: '12pt'
   }
 }))(TableCell);
 
@@ -57,7 +47,6 @@ const useStyles = makeStyles({
     border: 1,
     borderColor: grey[900],
     borderStyle: 'solid',
-    padding: '5px'
   }
 });
 
@@ -66,17 +55,8 @@ export default function TabelaAcessoriso (props) {
 
   if (!props || !props.equipamento) return (<div></div>);
 
-  function createData (descricao, acompanha, quantidade, estado_de_conservacao) {
-    return {descricao, acompanha, quantidade, estado_de_conservacao};
-  }
-
   const acessorios = props.equipamento.triagem.acessorios || [];
   const rows = [...acessorios];
-  if (acessorios.length < 15) {
-    for (let i = 0; i < (15 - acessorios.length); i++) {
-      rows.push(createData('', '', '', ''));
-    }
-  }
 
   return (
     <div className={classes.quadro}>
