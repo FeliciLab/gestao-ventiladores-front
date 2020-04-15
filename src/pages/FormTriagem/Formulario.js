@@ -1,4 +1,5 @@
 import React from "react";
+import {useHistory} from 'react-router-dom';
 import {makeStyles} from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Paper from "@material-ui/core/Paper";
@@ -12,6 +13,7 @@ import {listaFormAcessorios} from "../../models/acessorio";
 
 export default function Formulario () {
   const classes = useStyles();
+  const history = useHistory();
 
   const [equipamento, setEquipamento] = React.useState(Equipamento({}));
   const [triagem, setTriagem] = React.useState(EquipamentoTriagem({triagem: equipamento.triagem}));
@@ -34,7 +36,10 @@ export default function Formulario () {
   }
 
   function salvarEquipamento () {
-    salvarNovaTriagem(equipamento);
+    salvarNovaTriagem(equipamento)
+      .then(() => {
+        history.push({pathname: '/'});
+      });
   }
 
   return (
