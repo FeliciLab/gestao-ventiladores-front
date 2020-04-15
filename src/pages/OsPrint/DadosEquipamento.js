@@ -1,9 +1,14 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Grid} from "@material-ui/core";
 import CampoConteudo from "./CampoConteudo";
 
 
 export default function DadosEquipamento (props) {
+  useEffect(() => {
+    setEquipamento(props.equipamento);
+  }, [props.equipamento]);
+
+  const [equipamento, setEquipamento] = useState({triagem: {}});
   if (!props.equipamento) {
     return (<div></div>);
   }
@@ -15,7 +20,7 @@ export default function DadosEquipamento (props) {
     >
       <Grid
         item
-        xs={5}
+        xs={6}
       >
         <div className={'header-content'}>
           <CampoConteudo
@@ -26,62 +31,85 @@ export default function DadosEquipamento (props) {
       </Grid>
       <Grid
         item
-        xs={5}
+        xs={6}
       >
         <div className={'header-content'}>
           <CampoConteudo
             titulo='Número de série:'
-            texto={props.equipamento.numero_de_serie}
+            texto={equipamento.triagem.numero_de_serie}
           ></CampoConteudo>
         </div>
       </Grid>
 
       <Grid
         item
-        xs={5}
+        xs={6}
       >
         <div className={'header-content'}>
           <CampoConteudo
-            titulo='Tipo'
-            texto={props.equipamento.triagem.tipo}
+            titulo='Origem'
+            texto={equipamento.triagem.nome_instituicao_origem}
           ></CampoConteudo>
         </div>
       </Grid>
       <Grid
         item
-        xs={5}
+        xs={6}
       >
         <div className={'header-content'}>
           <CampoConteudo
             titulo='Nº Patrimônio'
-            texto={props.equipamento.triagem.numero_do_patrimonio}
+            texto={equipamento.triagem.numero_do_patrimonio}
           ></CampoConteudo>
         </div>
       </Grid>
 
       <Grid
         item
-        xs={5}
+        xs={6}
       >
         <div className={'header-content'}>
           <CampoConteudo
-            titulo='Marca'
-            texto={props.equipamento.triagem.marca}
+            titulo='Cidade de Origem'
+            texto={equipamento.triagem.municipio_origem}
           ></CampoConteudo>
         </div>
       </Grid>
       <Grid
         item
-        xs={5}
+        xs={6}
+      >
+        <div className={'header-content'}>
+          <CampoConteudo
+            titulo='Marca'
+            texto={equipamento.triagem.marca}
+          ></CampoConteudo>
+        </div>
+      </Grid>
+
+      <Grid
+        item
+        xs={6}
+      >
+        <div className={'header-content'}>
+          <CampoConteudo
+            titulo='Tipo de equipamento'
+            texto={equipamento.triagem.tipo}
+          ></CampoConteudo>
+        </div>
+      </Grid>
+      <Grid
+        item
+        xs={6}
       >
         <div className={'header-content model-fab'}>
           <CampoConteudo
-            titulo='Fabricante'
-            texto={props.equipamento.triagem.fabricante}
+            titulo='Modelo'
+            texto={equipamento.triagem.modelo}
           ></CampoConteudo>
           <CampoConteudo
-            titulo='Modelo'
-            texto={props.equipamento.triagem.modelo}
+            titulo='Fabricante'
+            texto={equipamento.triagem.fabricante}
           ></CampoConteudo>
         </div>
       </Grid>

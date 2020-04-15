@@ -1,6 +1,5 @@
 import React from 'react';
 import DadosEquipamento from "./DadosEquipamento";
-import "./print.css";
 import TabelaAcessoriso from "./TabelaAcessoriso";
 import QuadroDiagnosticos from "./QuadroDiagnostico";
 import CheckBoxDiagnostic from './CheckBoxDiagnostic';
@@ -13,7 +12,7 @@ export default function OsPrint (props) {
   const [csvData] = React.useState(props.location.state.data);
 
   return (
-    <div className={'page-container'}>
+    <div className={'portaint-print page-container'}>
       {
         csvData.map((data, index) =>
           <div key={index}>
@@ -58,9 +57,6 @@ export default function OsPrint (props) {
                   datahora={new Date(data['created_at']['$date'])}
                 ></Cabecalho>
               </div>
-              {/* <div className={'page-content'}>
-                <TituloPagina titulo="DIAGNÓSTICO DO EQUIPAMENTO"></TituloPagina>
-              </div> */}
               <div className={'page-content'}>
                 <SubtituloPagina texto="1. Classificação do ventilador"></SubtituloPagina>
               </div>
@@ -69,50 +65,29 @@ export default function OsPrint (props) {
                   <CheckBoxDiagnostic/>
                 </div>
               </div>
+
               <div className={'page-content'}>
                 <SubtituloPagina texto="2. Resultado do Diagnóstico Clínico"></SubtituloPagina>
               </div>
               <div className={'page-content'}>
                 <div className={'page-content'}>
-                  <QuadroDiagnosticos titulo="Diagnóstico Clínico"/>
+                  <QuadroDiagnosticos numberRows={5}/>
                 </div>
               </div>
+
               <div className={'page-content'}>
                 <SubtituloPagina texto="3. Acessório que necessita"></SubtituloPagina>
               </div>
               <div className={'page-content'}>
                 <div className={'page-content'}>
-                  <QuadroDiagnosticos titulo="Diagnóstico Clínico"/>
+                  <QuadroDiagnosticos numberRows={10}/>
                 </div>
               </div>
-              <div className={'page-content'}>
-                <SubtituloPagina texto="4. Diagnóstico Técnico"></SubtituloPagina>
-              </div>
-              <div className={'page-content'}>
-                <div className={'page-content'}>
-                  <QuadroDiagnosticos titulo="Diagnóstico Clínico"/>
-                </div>
-              </div>
-              <div className={'page-content'}>
-                <SubtituloPagina texto="5. Demanda por Insumos"></SubtituloPagina>
-              </div>
-              <div className={'page-content'}>
-                <div className={'page-content'}>
-                  <QuadroDiagnosticos titulo="Diagnóstico Clínico"/>
-                </div>
-              </div>
-              <div className={'page-content'}>
-                <SubtituloPagina texto="6. Demanda por Serviços"></SubtituloPagina>
-              </div>
-              <div className={'page-content'}>
-                <div className={'page-content'}>
-                  <QuadroDiagnosticos titulo="Diagnóstico Clínico"/>
-                </div>
-              </div>
+
               <div className={'page-content'}>
                 <Rodape
                   numero={data['numero_ordem_servico']}
-                  pagina={'02'}
+                  pagina={'01'}
                 />
               </div>
             </div>
