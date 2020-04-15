@@ -40,7 +40,6 @@ export default function AcessorioForm (props) {
       >
         <TextField
           required
-          id="descricao"
           onChange={atualizarAcessorioParent}
           defaultValue={props.acessorio.descricao}
           name="descricao"
@@ -72,7 +71,6 @@ export default function AcessorioForm (props) {
       >
         <TextField
           required
-          id="quantidade"
           onChange={atualizarAcessorioParent}
           defaultValue={props.acessorio.quantidade}
           name="quantidade"
@@ -88,7 +86,6 @@ export default function AcessorioForm (props) {
       >
         <TextField
           required
-          id="estadoDeConservacao"
           onChange={atualizarAcessorioParent}
           defaultValue={props.acessorio.estado_de_conservacao}
           name="estado_de_conservacao"

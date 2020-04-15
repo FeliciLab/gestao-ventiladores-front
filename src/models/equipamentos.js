@@ -4,9 +4,9 @@ import {listaFormAcessorios} from "./acessorio";
 export function Equipamento (equipamento) {
   return {
     numero_ordem_servico: equipamento.numero_ordem_servico,
-    status: equipamento.status,
-    created_at: equipamento.created_at,
-    updated_at: equipamento.updated_at,
+    status: equipamento.status || 'triagem',
+    created_at: equipamento.created_at || new Date(),
+    updated_at: equipamento.updated_at || new Date(),
     triagem: EquipamentoTriagem(
       {
         triagem: equipamento.triagem
@@ -22,23 +22,22 @@ export function Equipamento (equipamento) {
 export function EquipamentoTriagem ({triagem}) {
   return Object.assign(
     {
-      nome_equipamento: 'Ventilador Mecânico',
-      foto_equipamento_chegada: '',
-      tipo: '',
-      unidade_de_origem: '',
-      numero_do_patrimonio: '',
       numero_de_serie: '',
-      instituicao_de_origem: '',
+      nome_equipamento: 'Ventilador Mecânico',
+      numero_do_patrimonio: '',
+      tipo: '',
+      marca: '',
+      modelo: '',
+      fabricante: '',
+      municipio_origem: '',
+      nome_instituicao_origem: '',
+      tipo_instituicao_origem: '',
       nome_responsavel: '',
       contato_responsavel: '',
       estado_de_conservacao: '',
-      fabricante: '',
-      marca: '',
-      modelo: '',
       acessorios: [],
-      foto_apos_limpeza: '',
-      observacao: '',
-      responsavel_pelo_preenchimento: ''
+      foto_antes_limpeza: '',
+      foto_apos_limpeza: ''
     },
     triagem || {acessorios: listaFormAcessorios([])}
   );
@@ -93,14 +92,15 @@ export function getAllScreeningByStatus () {
     });
 }
 
-export function salvarTriagem (equipamento) {
+export function salvarNovaTriagem (equipamento) {
   return api.post(
     '/api/equipamentos',
     Object.assign(
       equipamento,
       {
         status: 'triagem',
-        created_at: new Date()
+        created_at: new Date(),
+        updated_at: new Date()
       },
     ),
     {
@@ -112,11 +112,9 @@ export function salvarTriagem (equipamento) {
     }
   )
     .then(res => {
-      console.log(res);
       return res;
     })
     .catch(err => {
-      console.log(err);
       return err;
     });
 }

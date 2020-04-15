@@ -1,6 +1,11 @@
-import React from 'react'
+import React from 'react';
 import {makeStyles} from "@material-ui/core/styles";
 import {grey} from "@material-ui/core/colors";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableContainer from "@material-ui/core/TableContainer";
+import TableRow from "@material-ui/core/TableRow";
+import TableCell from "@material-ui/core/TableCell";
 
 const useStyles = makeStyles(() => ({
   quadro: {
@@ -11,16 +16,29 @@ const useStyles = makeStyles(() => ({
   },
   quadroInterno: {
     borderColor: grey[300],
-    height: '95px'
   }
 }));
 export default function QuadroDiagnosticos (props) {
   const classes = useStyles();
 
+  const {numberRows} = props;
+  const rows = [];
+  for (let i = 0; i < numberRows; i++) {
+    rows.push(i);
+  }
+
   return (
     <div className={classes.quadro}>
-      <div className={`${classes.quadro} ${classes.quadroInterno}`}></div>
+      <div className={`${classes.quadro} ${classes.quadroInterno}`}>
+        <TableContainer>
+          <Table>
+            <TableBody>
+              {rows.map(i => (<TableRow key={i}><TableCell> </TableCell></TableRow>))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </div>
     </div>
 
-  )
+  );
 }
