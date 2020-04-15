@@ -22,24 +22,22 @@ export function Equipamento (equipamento) {
 export function EquipamentoTriagem ({triagem}) {
   return Object.assign(
     {
+      numero_de_serie: '',
       nome_equipamento: 'Ventilador Mecânico',
+      numero_do_patrimonio: '',
       tipo: '',
+      marca: '',
+      modelo: '',
+      fabricante: '',
       municipio_origem: '',
       nome_instituicao_origem: '',
-      tipo_intituicao_origem: '',
-      numero_do_patrimonio: '',
-      numero_de_serie: '',
-      instituicao_de_origem: '',
+      tipo_instituicao_origem: '',
       nome_responsavel: '',
       contato_responsavel: '',
       estado_de_conservacao: '',
-      fabricante: '',
-      marca: '',
-      modelo: '',
       acessorios: [],
       foto_antes_limpeza: '',
-      foto_apos_limpeza: '',
-      observacao: ''
+      foto_apos_limpeza: ''
     },
     triagem || {acessorios: listaFormAcessorios([])}
   );
@@ -94,14 +92,15 @@ export function getAllScreeningByStatus () {
     });
 }
 
-export function salvarTriagem (equipamento) {
+export function salvarNovaTriagem (equipamento) {
   return api.post(
     '/api/equipamentos',
     Object.assign(
       equipamento,
       {
         status: 'triagem',
-        created_at: new Date()
+        created_at: new Date(),
+        updated_at: new Date()
       },
     ),
     {

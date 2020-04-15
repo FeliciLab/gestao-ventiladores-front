@@ -7,7 +7,7 @@ import Typography from "@material-ui/core/Typography";
 import SaveIcon from "@material-ui/icons/Save";
 import CadastroEquipamento from "./CadastroEquipamento";
 import RelacaoDeMaterial from "./RelacaoDeMaterial";
-import {Equipamento, EquipamentoTriagem, salvarTriagem} from "../../models/equipamentos";
+import {Equipamento, EquipamentoTriagem, salvarNovaTriagem} from "../../models/equipamentos";
 import {listaFormAcessorios} from "../../models/acessorio";
 
 export default function Formulario () {
@@ -34,7 +34,7 @@ export default function Formulario () {
   }
 
   function salvarEquipamento () {
-    salvarTriagem(equipamento);
+    salvarNovaTriagem(equipamento);
   }
 
   return (
