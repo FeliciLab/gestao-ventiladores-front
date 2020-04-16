@@ -1,19 +1,15 @@
 import React from "react";
-import {useHistory} from 'react-router-dom';
 import {makeStyles} from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Paper from "@material-ui/core/Paper";
-import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
-import SaveIcon from "@material-ui/icons/Save";
 import CadastroEquipamento from "./CadastroEquipamento";
 import RelacaoDeMaterial from "./RelacaoDeMaterial";
-import {Equipamento, EquipamentoTriagem, salvarNovaTriagem} from "../../models/equipamentos";
+import {Equipamento, EquipamentoTriagem, salvarNovaTriagem, updateScreening} from "../../models/equipamentos";
 import {listaFormAcessorios} from "../../models/acessorio";
+import TitleFormScreening from "./TitleFormScreening";
 
-export default function Formulario () {
+export default function FormScreening () {
   const classes = useStyles();
-  const history = useHistory();
 
   const [equipamento, setEquipamento] = React.useState(Equipamento({}));
   const [triagem, setTriagem] = React.useState(EquipamentoTriagem({triagem: equipamento.triagem}));
@@ -36,10 +32,11 @@ export default function Formulario () {
   }
 
   function salvarEquipamento () {
-    salvarNovaTriagem(equipamento)
-      .then(() => {
-        history.push({pathname: '/'});
-      });
+    if (equipamento._id) {
+      return updateScreening(equipamento)
+    }
+
+    return salvarNovaTriagem(equipamento);
   }
 
   return (
@@ -47,38 +44,7 @@ export default function Formulario () {
       <CssBaseline/>
 
       <main className={classes.layout}>
-        <div
-          style={{
-            display: "flex",
-            height: 100,
-            flexDirection: "row",
-            justifyContent: "space-between",
-          }}
-        >
-          <div style={{alignSelf: "center"}}>
-            <Typography style={{fontSize: 20, fontWeight: "bold"}}>
-              Triagem do Equipamento
-            </Typography>
-            <Typography style={{fontSize: 14}}>
-              Após o recebimento, o cadastro do equipamento deverá ser
-              realizado. Para isso, preencha os campos abaixo:
-            </Typography>
-          </div>
-          <div style={{alignSelf: "center"}}>
-            <Button
-              onClick={salvarEquipamento}
-              variant="contained"
-              style={{
-                backgroundColor: "#ff9800",
-                borderRadius: 20,
-                color: "#fff",
-              }}
-              startIcon={<SaveIcon/>}
-            >
-              Salvar
-            </Button>
-          </div>
-        </div>
+        <TitleFormScreening saveEquipment={salvarEquipamento}/>
 
         <Paper className={classes.paper}>
           <CadastroEquipamento

@@ -44,7 +44,7 @@ export default function Header () {
             </Link>
 
             <Link
-              to="/Diagnostico"
+              to="/diagnosticos"
               className={classes.link}
             >
               + Diagnóstico
