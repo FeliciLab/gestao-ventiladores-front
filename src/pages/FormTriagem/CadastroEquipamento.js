@@ -7,7 +7,7 @@ import getCities from "../../services/cities";
 import typeInstitute from "../../models/typeInstitute";
 import typeStateEquipment from "../../models/typeStateEquipment";
 import SelectControl from "../_common/form/SelectControl";
-// import InputFile from "./InputFile";
+import InputFileImage from "../_common/form/InputFileImage";
 
 export default function CadastroEquipamento (props) {
   const cities = getCities('CE');
@@ -28,9 +28,9 @@ export default function CadastroEquipamento (props) {
     props.atualizarTriagem(atualizarParent(event));
   }
 
-  // const sendPhoto = (photo) => {
-  //   console.log(photo)
-  // }
+  const sendPhoto = (photo) => {
+    console.log(photo)
+  }
 
   return (
     <React.Fragment>
@@ -46,12 +46,14 @@ export default function CadastroEquipamento (props) {
           item
           xs={6}
         >
-          {/*<InputFile*/}
-          {/*  label={"Foto antes da limpeza"}*/}
-          {/*  action={sendPhoto}*/}
-          {/*/>*/}
+          <InputFileImage
+            label={"Foto antes da limpeza"}
+            action={sendPhoto}
+          />
         </Grid>
       </Grid>
+
+
       <Grid
         container
         spacing={3}
@@ -260,6 +262,15 @@ export default function CadastroEquipamento (props) {
             action={atualizarTriagemParent}
             defaultValue={''}
             menuItems={typeStateEquipment.map(item => ({value: item, name: item}))}
+          />
+        </Grid>
+      </Grid>
+
+      <Grid container>
+        <Grid item xs={6}>
+          <InputFileImage
+            label={"Foto antes da limpeza"}
+            action={sendPhoto}
           />
         </Grid>
       </Grid>

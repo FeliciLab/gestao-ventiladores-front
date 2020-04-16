@@ -5,7 +5,7 @@ import Input from "@material-ui/core/Input";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import AttachFileIcon from "@material-ui/icons/AttachFile";
 
-const InputFile = (props) => {
+const InputFileImage = (props) => {
 
   const [filename, setFilename] = useState('');
   const {action, label, accept} = props;
@@ -45,4 +45,4 @@ const InputFile = (props) => {
   );
 };
 
-export default InputFile;
+export default InputFileImage;
