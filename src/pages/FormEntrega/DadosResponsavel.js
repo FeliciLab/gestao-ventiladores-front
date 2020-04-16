@@ -4,6 +4,15 @@ import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 
 export default function DadosResponsavel(props) {
+  const {update} = props;
+
+  const updateParent = (event) => {
+    event.preventDefault();
+    const doc = {};
+    doc[event.target.name] = event.target.value;
+    update(doc);
+  };
+
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
@@ -16,6 +25,7 @@ export default function DadosResponsavel(props) {
         </Grid>
         <Grid item xs={6} sm={6}>
           <TextField
+            onChange={updateParent}
             id="contato"
             name="contato"
             label="Contato"

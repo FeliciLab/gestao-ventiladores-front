@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Paper from "@material-ui/core/Paper";
@@ -8,34 +8,15 @@ import SaveIcon from "@material-ui/icons/Save";
 import BuscarEquipamento from "./BuscarEquipamento";
 import DadosDestinatario from "./DadosDestinatario";
 import DadosResponsavel from "./DadosResponsavel";
+// import {Equipamento} from "../../models/equipamentos";
 import DadosResponsavelTransporte from "./DadosResponsavelTransporte";
 
-
-export default function FormEntrega() {
+export default function FormEntrega(props) {
   const classes = useStyles();
-  //   const [equipamento, setEquipamento] = React.useState(Equipamento({}));
-  //   const [triagem, setTriagem] = React.useState(EquipamentoTriagem({triagem: equipamento.triagem}));
-  //   const [acessorios, setAcessorios] = React.useState([...listaFormAcessorios(triagem.acessorios), '']);
 
-  //   function atualizarEquipamento (value) {
-  //     const equip = Object.assign(equipamento, value);
-  //     setEquipamento(equip);
-  //   }
+  const [equipment] = useState(props.equipment);
 
-  //   function atualizarTriagem (value) {
-  //     const triag = Object.assign(triagem, value);
-  //     setTriagem(triag);
-  //     atualizarEquipamento({triagem: triag});
-  //   }
-
-  //   function atualizarAcessorios (value) {
-  //     setAcessorios(value);
-  //     atualizarTriagem({acessorios: value});
-  //   }
-
-  //   function salvarEquipamento () {
-  //     salvarTriagem(equipamento);
-  //   }
+  console.log(equipment);
 
   return (
     <React.Fragment>
@@ -52,11 +33,7 @@ export default function FormEntrega() {
         >
           <div style={{alignSelf: "center"}}>
             <Typography style={{fontSize: 20, fontWeight: "bold"}}>
-              Triagem do Equipamento
-            </Typography>
-            <Typography style={{fontSize: 14}}>
-              Após o recebimento, o cadastro do equipamento deverá ser
-              realizado. Para isso, preencha os campos abaixo:
+              Cadastrar ordem de entrega do equipamento
             </Typography>
           </div>
           <div style={{alignSelf: "center"}}>
@@ -77,10 +54,10 @@ export default function FormEntrega() {
 
         <Paper className={classes.paper}>
           <BuscarEquipamento
-          // atualizarTriagem={atualizarTriagem}
-          // atualizarEquipamento={atualizarEquipamento}
-          // equipamento={equipamento}
-          // triagem={triagem}
+            // atualizarTriagem={atualizarTriagem}
+            // atualizarEquipamento={atualizarEquipamento}
+            equipamento={equipment}
+            // triagem={triagem}
           />
         </Paper>
 

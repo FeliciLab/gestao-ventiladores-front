@@ -1,59 +1,72 @@
 import React, {useEffect, useState} from "react";
-import {getAllEquipments} from "../../models/equipamentos";
 import Layout from "../_layout/Layout";
 import Container from "@material-ui/core/Container";
 import ActionTableList from "../_common/ActionTable/ActionTableList";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import {useHistory} from "react-router-dom";
+import api from "../../services/api";
 
 const headerData = [
   {id: "numero_ordem_servico", name: "Ordem de Serviço"},
-  {id: "numero_de_serie", name: "Número de Série"},
+  {id: "tipo", name: "Tipo do equipamento"},
   {id: "marca", name: "Marca"},
   {id: "modelo", name: "Modelo"},
-  {id: "instituicao_de_origem", name: "Origem"},
+  {id: "fabricante", name: "Fabricante"},
 ];
 
 const IndexDiagnosis = (props) => {
   const history = useHistory();
 
-  const [requestBlock, setRequestBlock] = useState(false);
-  const [equipments, setEquipments] = useState([]);
   const [dataTable, setDataTable] = useState([]);
+  const [equipments, setEquipments] = useState([]);
+
+  async function getAll() {
+    try {
+      const response = await api.get("/api/equipamentos", {
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      });
+      return response.data;
+    } catch (error) {
+      return error;
+    }
+  }
+
+  function tableData(result) {
+    console.log(result);
+    setEquipments(result);
+    const response = result.map((item) => {
+      return {
+        numero_ordem_servico: item.numero_ordem_servico,
+        tipo: item.triagem.tipo,
+        marca: item.triagem.marca || "",
+        modelo: item.triagem.modelo || "",
+        fabricante: item.triagem.fabricante || "",
+      };
+    });
+
+    setDataTable(response);
+  }
 
   useEffect(() => {
-    if (equipments.length === 0 && !requestBlock) {
-      getAllEquipments()
-        .then((result) => {
-          if (!result) return;
-          console.log("result", result);
-          setEquipments(result);
+    getAll()
+      .then((result) => {
+        if (!result) return;
+        tableData(result);
+      })
+      .catch((error) => {
+        console.log("consultando erro", error);
+      });
+  }, []);
 
-          setDataTable(
-            result.map((item) => {
-              return {
-                numero_ordem_servico: item.numero_ordem_servico,
-                marca: item.triagem.marca || "",
-                modelo: item.triagem.modelo || "",
-                instituicao_de_origem: item.triagem.instituicao_de_origem || "",
-                numero_de_serie: item.triagem.numero_de_serie,
-              };
-            })
-          );
-        })
-        .catch((error) => {
-          console.log("consultando triagem", error);
-        });
-
-      setRequestBlock(true);
-    }
-  }, [requestBlock, equipments]);
-
-  const openFormDiagnosis = (value) => {
+  const openFormEntrega = (value) => {
     history.push(
       {
-        pathname: "/novo-diagnostico",
+        pathname: "/nova-entrega",
         state: {
           data: equipments.find(
             (item) => item.numero_ordem_servico === value.numero_ordem_servico
@@ -66,8 +79,8 @@ const IndexDiagnosis = (props) => {
 
   const menuOptions = [
     {
-      name: "Efetuar diagnóstico",
-      action: openFormDiagnosis,
+      name: "Efetuar entrega",
+      action: openFormEntrega,
     },
   ];
 
@@ -79,7 +92,7 @@ const IndexDiagnosis = (props) => {
             <Grid container justify={"space-between"}>
               <Grid item xs={"auto"}>
                 <Typography variant={"h5"} component={"h5"}>
-                  Lista de equipamentos cadastrados
+                  Lista de entregas
                 </Typography>
               </Grid>
               <Grid item xs={"auto"}></Grid>
