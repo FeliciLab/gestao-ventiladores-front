@@ -22,7 +22,6 @@ const DialogModelsEquipments = (props) => {
   }
 
   function changeRadio (event, value, other) {
-    console.log(value)
     setRadioValue(value);
 
     if (value !== 'other') {

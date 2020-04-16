@@ -1,4 +1,4 @@
-import api, {getBaseUrl} from "../services/api";
+import api from "../services/api";
 import {listaFormAcessorios} from "./acessorio";
 
 export function Equipamento (equipamento) {
@@ -111,8 +111,6 @@ export function sendEquipmentPhoto (photo, label, id) {
   }
   formData.append(label, photo, `${label}.jpeg`);
 
-  const url = getBaseUrl();
-
   return api.post('/api/importar/imagem', formData, {
     header: {
       'Content-Type': 'multipart/form-data'
@@ -154,8 +152,8 @@ export function salvarNovaTriagem (equipamento) {
 }
 
 export function updateScreening (equipamento) {
-  const id = equipamento['_id']
-  delete(equipamento['_id'])
+  const id = equipamento['_id'];
+  delete (equipamento['_id']);
   return api.put(
     '/api/equipamento/' + id,
     equipamento
