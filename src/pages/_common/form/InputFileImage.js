@@ -17,9 +17,9 @@ const InputFileImage = (props) => {
   };
 
   const captureFile = (event) => {
-    event.preventDefault()
+    event.preventDefault();
     const file = inputFileRef.current.files[0];
-    imageResize(file)
+    imageResize({file, fullImage: true})
       .then(result => {
         action(result['blob'], name);
       });
