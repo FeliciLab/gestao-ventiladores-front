@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {getScreeningByStatus} from "../../models/equipamentos";
+import {getEquipmentByStatus} from "../../models/equipamentos";
 import Layout from "../_layout/Layout";
 import Container from "@material-ui/core/Container";
 import ActionTableList from "../_common/ActionTable/ActionTableList";
@@ -24,7 +24,7 @@ const IndexDemand = (props) => {
 
   useEffect(() => {
     if (screening.length === 0 && !requestBlock) {
-      getScreeningByStatus('diagnostico')
+      getEquipmentByStatus('diagnostico')
         .then(result => {
           if (!result) return;
 

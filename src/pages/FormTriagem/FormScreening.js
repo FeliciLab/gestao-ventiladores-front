@@ -8,7 +8,7 @@ import {Equipamento, EquipamentoTriagem, salvarNovaTriagem, updateScreening} fro
 import {listaFormAcessorios} from "../../models/acessorio";
 import TitleFormScreening from "./TitleFormScreening";
 
-export default function Formulario () {
+export default function FormScreening () {
   const classes = useStyles();
 
   const [equipamento, setEquipamento] = React.useState(Equipamento({}));
