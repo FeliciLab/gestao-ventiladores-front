@@ -4,6 +4,7 @@ import FormLabel from "@material-ui/core/FormLabel";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Radio from "@material-ui/core/Radio";
+import TextField from "@material-ui/core/TextField";
 
 const RadioControl = (props) => {
   useEffect(() => {
@@ -12,17 +13,31 @@ const RadioControl = (props) => {
 
   const [clean, setClean] = React.useState(false);
   const [value, setValue] = React.useState('');
+  const [other, setOther] = React.useState('');
 
-  const {name, action, flexDirection, formLabel, items} = props;
+  const {name, action, flexDirection, formLabel, items, hasOther} = props;
 
   if (clean && value !== '') {
     setValue('');
+    setOther('');
   }
 
   const updateParent = (event) => {
-    setValue(event.target.value);
-    action(event);
+    if (value !== 'other' && event.target.value === 'other') {
+      setValue(event.target.value);
+    }
+
+    if (event.target.value !== 'other' && value !== 'other') {
+      setValue(event.target.value);
+      return action(event, value, other);
+    }
+
+    if (event.target.value !== 'other') {
+      setOther(event.target.value);
+      return action(event, value, other)
+    }
   };
+
 
   return (
     <React.Fragment>
@@ -43,7 +58,19 @@ const RadioControl = (props) => {
               label={item.label}
             />
           ))}
+          {hasOther ? (<FormControlLabel
+            value={'other'}
+            control={<Radio color={"default"}/>}
+            label={'Outros'}
+          />) : (<span></span>)}
         </RadioGroup>
+        {hasOther ? (
+          <TextField
+            name={name}
+            value={other}
+            onChange={updateParent}
+          />
+        ) : (<span></span>)}
       </FormControl>
     </React.Fragment>
   );

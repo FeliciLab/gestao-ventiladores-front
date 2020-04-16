@@ -9,6 +9,8 @@ import typeStateEquipment from "../../models/typeStateEquipment";
 import SelectControl from "../_common/form/SelectControl";
 import InputFileImage from "../_common/form/InputFileImage";
 import {sendEquipmentPhoto} from "../../models/equipamentos";
+import {manufacturersEquipments, modelsEquipment} from "../../models/manufacturers";
+import InputRadioDialog from "../_common/form/InputRadioDialog";
 
 export default function CadastroEquipamento (props) {
   React.useEffect(( ) => {
@@ -26,12 +28,10 @@ export default function CadastroEquipamento (props) {
   }
 
   function atualizarEquipamentoParent (event) {
-    event.preventDefault();
     props.atualizarEquipamento(atualizarParent(event));
   }
 
   function atualizarTriagemParent (event) {
-    event.preventDefault();
     props.atualizarTriagem(atualizarParent(event));
   }
 
@@ -153,13 +153,13 @@ export default function CadastroEquipamento (props) {
           xs={12}
           sm={2}
         >
-          <TextField
-            id="marca"
-            onChange={atualizarTriagemParent}
-            defaultValue={props.triagem.marca}
-            name="marca"
-            label="Marca"
-            fullWidth
+          <InputRadioDialog
+            action={atualizarTriagemParent}
+            name={"marca"}
+            label={"Marca"}
+            hasOther={true}
+            defaultValue={manufacturersEquipments[0]}
+            items={manufacturersEquipments.map(item => ({label: item, value: item}))}
           />
         </Grid>
         <Grid
@@ -167,14 +167,13 @@ export default function CadastroEquipamento (props) {
           xs={12}
           sm={2}
         >
-          <TextField
-            required
-            id="modelo"
-            onChange={atualizarTriagemParent}
-            defaultValue={props.triagem.modelo}
-            name="modelo"
-            label="Modelo"
-            fullWidth
+          <InputRadioDialog
+            action={atualizarTriagemParent}
+            name={"modelo"}
+            label={"Modelo"}
+            hasOther={true}
+            defaultValue={modelsEquipment[0]}
+            items={modelsEquipment.map(item => ({label: item, value: item}))}
           />
         </Grid>
         <Grid
