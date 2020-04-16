@@ -6,13 +6,16 @@ import ActionTableList from "../_common/ActionTable/ActionTableList";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import {useHistory} from "react-router-dom";
+import {orange} from "@material-ui/core/colors";
+import QueueIcon from '@material-ui/icons/Queue';
+import {helperPropsColorIconButton} from "../_common/form/ColorIconButton";
 
 const headerData = [
   {id: 'numero_ordem_servico', name: 'Ordem de Serviço'},
   {id: 'numero_de_serie', name: 'Número de Série'},
   {id: 'marca', name: 'Marca'},
   {id: 'modelo', name: 'Modelo'},
-  {id: 'instituicao_de_origem', name: 'Origem'},
+  {id: 'nome_instituicao_origem', name: 'Origem'},
 ];
 
 const IndexDiagnosis = (props) => {
@@ -34,7 +37,7 @@ const IndexDiagnosis = (props) => {
               numero_ordem_servico: item.numero_ordem_servico,
               marca: item.triagem.marca || '',
               modelo: item.triagem.modelo || '',
-              instituicao_de_origem: item.triagem.instituicao_de_origem || '',
+              nome_instituicao_origem: item.triagem.nome_instituicao_origem || '',
               numero_de_serie: item.triagem.numero_de_serie,
             };
           }));
@@ -57,10 +60,7 @@ const IndexDiagnosis = (props) => {
   };
 
   const menuOptions = [
-    {
-      name: 'Efetuar diagnóstico',
-      action: openFormDiagnosis
-    }
+    helperPropsColorIconButton('Efetuar diagnóstico', openFormDiagnosis, 'white', orange[600], orange[700], <QueueIcon fontSize={"small"}/>)
   ];
 
   return (
@@ -79,6 +79,7 @@ const IndexDiagnosis = (props) => {
           </div>
 
           <ActionTableList
+            actionIconButton={true}
             dataTable={dataTable}
             headerTable={headerData}
             menuOptions={menuOptions}

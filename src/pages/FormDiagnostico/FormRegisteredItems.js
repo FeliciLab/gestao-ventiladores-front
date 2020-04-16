@@ -1,5 +1,4 @@
 import React from 'react';
-import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import TableFormRegisteredItems from "./TableFormRegisteredItems";
 
@@ -10,9 +9,14 @@ const FormRegisteredItems = (props) => {
 
   const [items, setItems] = React.useState([]);
 
+  const {updateItemsFromTable} = props;
+
+  const updateParent = (event) => {
+    updateItemsFromTable(event);
+  };
+
   return (
     <React.Fragment>
-      <Paper>
         <Typography
           variant={"h6"}
           gutterBottom
@@ -20,8 +24,10 @@ const FormRegisteredItems = (props) => {
         >
           2.1 PEÇAS E ACESSÓRIOS CADASTRADOS
         </Typography>
-        <TableFormRegisteredItems items={items}/>
-      </Paper>
+        <TableFormRegisteredItems
+          items={items}
+          updateParent={updateParent}
+        />
     </React.Fragment>
   );
 };

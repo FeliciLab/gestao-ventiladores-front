@@ -5,6 +5,11 @@ import Table from "@material-ui/core/Table";
 import TableHead from "@material-ui/core/TableHead";
 import {TableCell, TableRow} from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
+import TableBody from "@material-ui/core/TableBody";
+import Paper from "@material-ui/core/Paper";
+import InfoIcon from '@material-ui/icons/Info';
+import Chip from "@material-ui/core/Chip";
+import Button from "@material-ui/core/Button";
 
 const TableFormRegisteredItems = (props) => {
   useEffect(() => {
@@ -14,34 +19,48 @@ const TableFormRegisteredItems = (props) => {
   const [items, setItems] = useState([]);
 
   const headTable = [
-    {id: "quantidade", name: "Quantidade"},
-    {id: "nome", name: "Nome"},
     {id: "tipo", name: "Tipo"},
-    {id: "descricao", name: "Descricao"},
-    {id: "valor", name: "Valor"},
-    {id: "prioridade", name: "Prioridade"},
-    {id: "unidade_medida", name: "Unidade de medida"},
-    {id: "codigo", name: "Codigo"},
+    {id: "nome", name: "Nome do item"},
+    {id: "unidade_medida", name: "Unidade"},
+    {id: "quantidade", name: "Quantidade"},
     {id: "fabricante", name: "Fabricante"},
-  ]
+    {id: "codigo", name: "Codigo"},
+  ];
 
-  return <React.Fragment>
+  return (<React.Fragment>
     <TableContainer component={Paper}>
-      <Table size={"small"} aria-label={"Tabela de itens cadastrados"}>
+      <Table
+        size={"small"}
+        aria-label={"Tabela de itens cadastrados"}
+      >
         <TableHead>
           <TableRow>
             {headTable.map((item, index) => (
               <TableCell key={index}>{item.name}</TableCell>
             ))}
-            <TableCell>Ação</TableCell>
+            <TableCell>
+              <Button
+                endIcon={<InfoIcon style={{color: 'white'}}/>}
+              >asdas</Button>
+              <Chip
+                size="small"
+                label={"Descrição"}
+                style={{color: "#ddddd"}}
+                onDelete={() => false}
+              />
+            </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {items.map((item, index) => (
-            <TableRow>
-              {headTable.map((head,headIndex) => {
-                <TableCell key={headIndex}>{item[head.id]}</TableCell>
-              })}
+            <TableRow key={index}>
+              {
+                headTable.map(
+                  (head, headIndex) => (
+                    <TableCell key={headIndex}>{item[head.id]}</TableCell>
+                  )
+                )
+              }
               <TableCell>
                 <IconButton></IconButton>
               </TableCell>
@@ -50,7 +69,7 @@ const TableFormRegisteredItems = (props) => {
         </TableBody>
       </Table>
     </TableContainer>
-  </React.Fragment>;
+  </React.Fragment>);
 };
 
 TableFormRegisteredItems.protoType = {

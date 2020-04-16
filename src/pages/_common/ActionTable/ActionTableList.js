@@ -7,7 +7,7 @@ import ActionTableBodyLayout from "./ActionTableBodyLayout";
 
 const ActionTableList = (props) => {
   const [dataTable, setDataTable] = React.useState(props.dataTable || []);
-  const {headerTable, menuOptions} = props;
+  const {headerTable, menuOptions, actionIconButton} = props;
 
   useEffect(() => {
     setDataTable(props.dataTable);
@@ -22,6 +22,7 @@ const ActionTableList = (props) => {
         >
           <ActionTableHeaderLayout headerData={headerTable}/>
           <ActionTableBodyLayout
+            actionIconButton={actionIconButton}
             data={dataTable}
             headerKeys={headerTable.map(item => item.id)}
             menuOptions={menuOptions || []}
