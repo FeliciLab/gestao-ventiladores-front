@@ -15,9 +15,10 @@ const DialogModelsEquipments = (props) => {
   const [inputOther, setInputOther] = React.useState('');
   const [radioValue, setRadioValue] = React.useState('');
 
-  const {items, name, hasOther, action, label, dialogTitle} = props;
+  const {items, name, updateOpen, hasOther, action, label, dialogTitle} = props;
 
   function handleClose () {
+    updateOpen(false);
     setOpen(false);
   }
 

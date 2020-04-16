@@ -1,4 +1,4 @@
-function imageResize (file, maxWidth, maxHeight, qualityRate) {
+function imageResize ({file, maxWidth, maxHeight, qualityRate, fullImage}) {
   var reader = new FileReader();
   reader.readAsDataURL(file);
 
@@ -48,16 +48,19 @@ function imageResize (file, maxWidth, maxHeight, qualityRate) {
             const scale = (MAX_WIDTH / this.width);
 
             const can = document.createElement('canvas');
-            can.width = MAX_WIDTH;
-            can.height = this.height * scale;
+            can.width = fullImage ? this.width : MAX_WIDTH;
+            can.height = fullImage ? this.height : this.height * scale;
 
             can.style.visibility = 'hidden';
 
             const ctx = can.getContext('2d');
 
             ctx.clearRect(0, 0, MAX_WIDTH, MAX_HEIGHT);
-            ctx.drawImage(imagem, 0, 0, MAX_WIDTH, this.height * scale);
-            // ctx.drawImage(imagem, 0, 0, this.width, this.height, 0, 0, MAX_WIDTH, MAX_HEIGHT);
+            if (fullImage) {
+              ctx.drawImage(imagem, 0, 0, this.width, this.height);
+            } else {
+              ctx.drawImage(imagem, 0, 0, MAX_WIDTH, this.height * scale);
+            }
 
             const canvasUrl = can.toDataURL('image/jpeg', QUALITY_IMG);
             const BASE64_MARKER = 'base64,';

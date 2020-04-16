@@ -7,7 +7,7 @@ import getCities from "../../services/cities";
 import typeInstitute from "../../models/typeInstitute";
 import typeStateEquipment from "../../models/typeStateEquipment";
 import SelectControl from "../_common/form/SelectControl";
-import InputFileImage from "../_common/form/InputFileImage";
+// import InputFileImage from "../_common/form/InputFileImage";
 import {sendEquipmentPhoto} from "../../models/equipamentos";
 import {manufacturersEquipments, modelsEquipment} from "../../models/manufacturers";
 import InputRadioDialog from "../_common/form/InputRadioDialog";
@@ -56,18 +56,18 @@ export default function CadastroEquipamento (props) {
         1. Cadastro de Equipamento
       </Typography>
 
-      <Grid container>
-        <Grid
-          item
-          xs={6}
-        >
-          <InputFileImage
-            name={"foto_antes_limpeza"}
-            label={"Foto antes da limpeza"}
-            action={sendPhoto}
-          />
-        </Grid>
-      </Grid>
+      {/*<Grid container>*/}
+      {/*  <Grid*/}
+      {/*    item*/}
+      {/*    xs={6}*/}
+      {/*  >*/}
+      {/*    <InputFileImage*/}
+      {/*      name={"foto_antes_limpeza"}*/}
+      {/*      label={"Foto antes da limpeza"}*/}
+      {/*      action={sendPhoto}*/}
+      {/*    />*/}
+      {/*  </Grid>*/}
+      {/*</Grid>*/}
 
 
       <Grid
@@ -281,18 +281,18 @@ export default function CadastroEquipamento (props) {
         </Grid>
       </Grid>
 
-      <Grid container>
-        <Grid
-          item
-          xs={6}
-        >
-          <InputFileImage
-            name={"foto_apos_limpeza"}
-            label={"Foto após da limpeza"}
-            action={sendPhoto}
-          />
-        </Grid>
-      </Grid>
+      {/*<Grid container>*/}
+      {/*  <Grid*/}
+      {/*    item*/}
+      {/*    xs={6}*/}
+      {/*  >*/}
+      {/*    <InputFileImage*/}
+      {/*      name={"foto_apos_limpeza"}*/}
+      {/*      label={"Foto após da limpeza"}*/}
+      {/*      action={sendPhoto}*/}
+      {/*    />*/}
+      {/*  </Grid>*/}
+      {/*</Grid>*/}
     </React.Fragment>
   );
 }

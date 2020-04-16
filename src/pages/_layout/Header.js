@@ -58,6 +58,20 @@ export default function Header () {
             </Link>
 
             <Link
+              to="/entrega"
+              className={classes.link}
+            >
+              + Entrega
+            </Link>
+
+            <Link
+              to="/calibragem"
+              className={classes.link}
+            >
+              + Calibragem
+            </Link>
+
+            <Link
               to="/maintenance"
               className={classes.link}
             >+ Manuntenção</Link>

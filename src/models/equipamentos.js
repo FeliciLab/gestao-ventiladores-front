@@ -125,6 +125,7 @@ export function sendEquipmentPhoto (photo, label, id) {
 }
 
 export function salvarNovaTriagem (equipamento) {
+  delete(equipamento['_id'])
   return api.post(
     '/api/equipamentos',
     Object.assign(
