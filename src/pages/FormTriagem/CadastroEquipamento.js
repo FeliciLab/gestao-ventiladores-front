@@ -8,13 +8,20 @@ import typeInstitute from "../../models/typeInstitute";
 import typeStateEquipment from "../../models/typeStateEquipment";
 import SelectControl from "../_common/form/SelectControl";
 import InputFileImage from "../_common/form/InputFileImage";
+import {sendEquipmentPhoto} from "../../models/equipamentos";
 
 export default function CadastroEquipamento (props) {
+  React.useEffect(( ) => {
+    setEquipamento(props.equipamento)
+  }, [props])
+
   const cities = getCities('CE');
+
+  const [equipamento, setEquipamento] = React.useState({});
 
   function atualizarParent (event) {
     const doc = {};
-    doc[event.target.name] = event.target.value;
+    doc[event.target.name] = event.target.value.trim();
     return doc;
   }
 
@@ -28,9 +35,17 @@ export default function CadastroEquipamento (props) {
     props.atualizarTriagem(atualizarParent(event));
   }
 
-  const sendPhoto = (photo) => {
-    console.log(photo)
-  }
+  const sendPhoto = (photo, name) => {
+    sendEquipmentPhoto(photo, name, equipamento._id)
+      .then((result) => {
+        if (result) {
+          props.atualizarEquipamento({_id: result});
+          const doc = {}
+          doc[name] = result + '_' + name + '.jpeg'
+          props.atualizarTriagem(doc)
+        }
+      });
+  };
 
   return (
     <React.Fragment>
@@ -47,6 +62,7 @@ export default function CadastroEquipamento (props) {
           xs={6}
         >
           <InputFileImage
+            name={"foto_antes_limpeza"}
             label={"Foto antes da limpeza"}
             action={sendPhoto}
           />
@@ -267,9 +283,13 @@ export default function CadastroEquipamento (props) {
       </Grid>
 
       <Grid container>
-        <Grid item xs={6}>
+        <Grid
+          item
+          xs={6}
+        >
           <InputFileImage
-            label={"Foto antes da limpeza"}
+            name={"foto_apos_limpeza"}
+            label={"Foto após da limpeza"}
             action={sendPhoto}
           />
         </Grid>

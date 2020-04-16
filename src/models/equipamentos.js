@@ -1,8 +1,9 @@
-import api from "../services/api";
+import api, {getBaseUrl} from "../services/api";
 import {listaFormAcessorios} from "./acessorio";
 
 export function Equipamento (equipamento) {
   return {
+    _id: '',
     numero_ordem_servico: equipamento.numero_ordem_servico,
     status: equipamento.status || 'triagem',
     created_at: equipamento.created_at || new Date(),
@@ -92,6 +93,28 @@ export function getAllScreeningByStatus () {
     });
 }
 
+export function sendEquipmentPhoto (photo, label, id) {
+  const formData = new FormData();
+  if (id) {
+    formData.append('_id', id);
+  }
+  formData.append(label, photo, `${label}.jpeg`);
+
+  const url = getBaseUrl();
+
+  return api.post('/api/importar/imagem', formData, {
+    header: {
+      'Content-Type': 'multipart/form-data'
+    }
+  })
+    .then(result => {
+      return result.data;
+    })
+    .catch(err => {
+      return err;
+    });
+}
+
 export function salvarNovaTriagem (equipamento) {
   return api.post(
     '/api/equipamentos',
@@ -119,4 +142,19 @@ export function salvarNovaTriagem (equipamento) {
       console.log(err);
       return err;
     });
+}
+
+export function updateScreening (equipamento) {
+  const id = equipamento['_id']
+  delete(equipamento['_id'])
+  return api.put(
+    '/api/equipamento/' + id,
+    equipamento
+  ).then(result => {
+    console.log(result);
+    return result;
+  }).catch(err => {
+    console.log(err);
+    return err;
+  });
 }

@@ -4,7 +4,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Paper from "@material-ui/core/Paper";
 import CadastroEquipamento from "./CadastroEquipamento";
 import RelacaoDeMaterial from "./RelacaoDeMaterial";
-import {Equipamento, EquipamentoTriagem, salvarNovaTriagem} from "../../models/equipamentos";
+import {Equipamento, EquipamentoTriagem, salvarNovaTriagem, updateScreening} from "../../models/equipamentos";
 import {listaFormAcessorios} from "../../models/acessorio";
 import TitleFormScreening from "./TitleFormScreening";
 
@@ -32,7 +32,11 @@ export default function Formulario () {
   }
 
   function salvarEquipamento () {
-    salvarNovaTriagem(equipamento);
+    if (equipamento._id) {
+      return updateScreening(equipamento)
+    }
+
+    return salvarNovaTriagem(equipamento);
   }
 
   return (
