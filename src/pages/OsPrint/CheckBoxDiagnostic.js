@@ -16,37 +16,25 @@ const useStyles = makeStyles(() => ({
   }
 }));
 export default function CheckBoxDiagnostic (props) {
+  const {items} = props
   const classes = useStyles();
   return (
     <React.Fragment>
       <div className={classes.quadro}>
         <Grid container>
-          <Grid
-            item
-            xs={12}
-          >
-            <FormControlLabel
-              control={<Checkbox name="checkedC"/>}
-              label="Circuito duplo/UTI/COVID-19"
-            />
-          </Grid>
-          <Grid
-            item
-            xs={12}
-          >
-            <FormControlLabel
-              control={<Checkbox name="checkedC"/>}
-              label="Circuito único/Enfermaria/Não COVID-19"
-            />
-          </Grid>
-          <Grid
-            item
-            xs={12}
-          > <FormControlLabel
-            control={<Checkbox name="checkedC"/>}
-            label="Transporte"
-          />
-          </Grid>
+          {items.map((item, index) => (
+            <Grid
+              key={index}
+              item
+              xs={12}
+            >
+
+              <FormControlLabel
+                control={<Checkbox name="checkedC"/>}
+                label={item}
+              />
+            </Grid>
+          ))}
         </Grid>
       </div>
     </React.Fragment>

@@ -4,22 +4,29 @@ import InputLabel from "@material-ui/core/InputLabel";
 import Input from "@material-ui/core/Input";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import AttachFileIcon from "@material-ui/icons/AttachFile";
+import imageResize from "../../../services/imageResize";
 
-const InputFile = (props) => {
+const InputFileImage = (props) => {
 
   const [filename, setFilename] = useState('');
-  const {action, label, accept} = props;
+  const {action, label, accept, name} = props;
   const inputFileRef = createRef();
 
   const activateInputFile = () => {
-    inputFileRef.current.click()
-  }
+    inputFileRef.current.click();
+  };
 
-  const captureFile = () => {
-    const file = inputFileRef.current.files[0]
-    setFilename(file.name)
-    action(file)
-  }
+  const captureFile = (event) => {
+    event.preventDefault()
+    const file = inputFileRef.current.files[0];
+    imageResize(file)
+      .then(result => {
+        action(result['blob'], name);
+      });
+
+    setFilename(file.name);
+
+  };
 
   return (
     <React.Fragment>
@@ -45,4 +52,4 @@ const InputFile = (props) => {
   );
 };
 
-export default InputFile;
+export default InputFileImage;

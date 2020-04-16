@@ -1,9 +1,9 @@
 import React from "react";
-import Formulario from "./Formulario";
+import FormScreening from "./FormScreening";
 import Layout from "../_layout/Layout";
 
 export default function () {
   return <Layout>
-    <Formulario/>
+    <FormScreening/>
   </Layout>;
 }

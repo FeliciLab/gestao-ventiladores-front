@@ -3,6 +3,7 @@ import {listaFormAcessorios} from "./acessorio";
 
 export function Equipamento (equipamento) {
   return {
+    _id: '',
     numero_ordem_servico: equipamento.numero_ordem_servico,
     status: equipamento.status || 'triagem',
     created_at: equipamento.created_at || new Date(),
@@ -43,6 +44,17 @@ export function EquipamentoTriagem ({triagem}) {
   );
 }
 
+export function EquipmentDiagnosis ({diagnostico}) {
+  return Object.assign({
+    "resultado_tecnico": "",
+    "demanda_servicos": "",
+    "demanda_insumos": "",
+    "acao_orientacao": "",
+    "observacoes": "",
+    "itens": []
+  }, diagnostico);
+}
+
 
 /**
  * Seach screnning by status
@@ -51,7 +63,7 @@ export function EquipamentoTriagem ({triagem}) {
  *      manutencao
  *      etc
  */
-export function getScreeningByStatus (status) {
+export function getEquipmentByStatus (status) {
   return api.post(
     '/api/equipamentos/find',
     {status},
@@ -72,7 +84,7 @@ export function getScreeningByStatus (status) {
     });
 }
 
-export function getAllScreeningByStatus () {
+export function getAllEquipments () {
   return api.get(
     '/api/equipamentos',
     {
@@ -89,6 +101,26 @@ export function getAllScreeningByStatus () {
     .catch(error => {
       console.log(error);
       return error;
+    });
+}
+
+export function sendEquipmentPhoto (photo, label, id) {
+  const formData = new FormData();
+  if (id) {
+    formData.append('_id', id);
+  }
+  formData.append(label, photo, `${label}.jpeg`);
+
+  return api.post('/api/importar/imagem', formData, {
+    header: {
+      'Content-Type': 'multipart/form-data'
+    }
+  })
+    .then(result => {
+      return result.data;
+    })
+    .catch(err => {
+      return err;
     });
 }
 
@@ -117,4 +149,19 @@ export function salvarNovaTriagem (equipamento) {
     .catch(err => {
       return err;
     });
+}
+
+export function updateScreening (equipamento) {
+  const id = equipamento['_id'];
+  delete (equipamento['_id']);
+  return api.put(
+    '/api/equipamento/' + id,
+    equipamento
+  ).then(result => {
+    console.log(result);
+    return result;
+  }).catch(err => {
+    console.log(err);
+    return err;
+  });
 }

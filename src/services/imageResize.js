@@ -1,49 +1,78 @@
-const compress = (e) => {
-  const width = 1280;
-  const height = 720;
+function imageResize (file, maxWidth, maxHeight, qualityRate) {
+  var reader = new FileReader();
+  reader.readAsDataURL(file);
 
-  const fileName = e.target.files[0].name;
-  const reader = new FileReader();
-  reader.readAsDataURL(e.target.files[0]);
-  reader.onload = event => {
-    const img = new Image();
-    img.src = event.target.result;
-    img.onload = () => {
-      const elem = document.createElement('canvas');
+  // CONST
+  const MAX_WIDTH = maxWidth || 1280;
+  const MAX_HEIGHT = maxHeight || 720;
+  const QUALITY_IMG = qualityRate || 0.70;
 
-      elem.width = width;
-      const scaleFactor = width / img.width;
-      elem.height = img.height * scaleFactor;
+  const imagem = new Image();
 
-      const ctx = elem.getContext('2d');
-      // img.width and img.height will contain the original dimensions
-
-      ctx.drawImage(img, 0, 0, width, img.height * scaleFactor);
-
-      if (!HTMLCanvasElement.prototype.toBlob) {
-        Object.defineProperty(HTMLCanvasElement.prototype, 'toBlob', {
-          value: function (callback, type, quality) {
-            var dataURL = this.toDataURL(type, quality).split(',')[1];
-            setTimeout(function () {
-              var binStr = atob(dataURL),
-                len = binStr.length,
-                arr = new Uint8Array(len);
-              for (var i = 0; i < len; i++) {
-                arr[i] = binStr.charCodeAt(i);
-              }
-              callback(new Blob([arr], {type: type || 'image/png'}));
-            });
-          }
-        });
-      }
-
-      ctx.canvas.toBlob((blob) => {
-        const file = new File([blob], fileName, {
-          type: 'image/jpeg',
-          lastModified: Date.now()
-        });
-      }, 'image/jpeg', 1);
-    },
-      reader.onerror = error => console.log(error);
+  reader.onload = (e) => {
+    imagem.src = e.target.result;
   };
-};
+  reader.onabort = function () {
+    console.log('The upload was aborted.');
+  };
+  reader.onerror = function () {
+    console.log('An error occured while reading the file.');
+  };
+
+  let blob;
+  const getBlob = function () {
+    return new Promise((resolve) => {
+        const convert = (b64Data, contentType, sliceSize) => {
+          contentType = contentType || '';
+          sliceSize = sliceSize || 512;
+          const byteCharacters = atob(b64Data);
+          const byteArrays = [];
+          for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+            const slice = byteCharacters.slice(offset, offset + sliceSize);
+            const byteNumbers = new Array(slice.length);
+
+            for (let i = 0; i < slice.length; i++) byteNumbers[i] = slice.charCodeAt(i);
+
+            const byteArray = new Uint8Array(byteNumbers);
+            byteArrays.push(byteArray);
+          }
+
+          return new Blob(byteArrays, {type: contentType});
+        };
+
+        imagem.onload = function () {
+          if (this.width === 0 || this.height === 0) {
+            console.log('Image is empty');
+          } else {
+
+            const scale = (MAX_WIDTH / this.width);
+
+            const can = document.createElement('canvas');
+            can.width = MAX_WIDTH;
+            can.height = this.height * scale;
+
+            can.style.visibility = 'hidden';
+
+            const ctx = can.getContext('2d');
+
+            ctx.clearRect(0, 0, MAX_WIDTH, MAX_HEIGHT);
+            ctx.drawImage(imagem, 0, 0, MAX_WIDTH, this.height * scale);
+            // ctx.drawImage(imagem, 0, 0, this.width, this.height, 0, 0, MAX_WIDTH, MAX_HEIGHT);
+
+            const canvasUrl = can.toDataURL('image/jpeg', QUALITY_IMG);
+            const BASE64_MARKER = 'base64,';
+            const base64Index = canvasUrl.indexOf(BASE64_MARKER) + BASE64_MARKER.length;
+            const base64 = canvasUrl.substring(base64Index);
+            const data = canvasUrl.split(',')[1];
+            const mimeType = canvasUrl.split(',')[0].split(':')[1].split(';')[0];
+            blob = convert(data, mimeType, 1);
+            resolve({blob, base64});
+          }
+        };
+      }
+    );
+  };
+  return getBlob();
+}
+
+export default imageResize;

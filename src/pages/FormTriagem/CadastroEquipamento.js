@@ -7,30 +7,45 @@ import getCities from "../../services/cities";
 import typeInstitute from "../../models/typeInstitute";
 import typeStateEquipment from "../../models/typeStateEquipment";
 import SelectControl from "../_common/form/SelectControl";
-// import InputFile from "./InputFile";
+import InputFileImage from "../_common/form/InputFileImage";
+import {sendEquipmentPhoto} from "../../models/equipamentos";
+import {manufacturersEquipments, modelsEquipment} from "../../models/manufacturers";
+import InputRadioDialog from "../_common/form/InputRadioDialog";
 
 export default function CadastroEquipamento (props) {
+  React.useEffect(( ) => {
+    setEquipamento(props.equipamento)
+  }, [props])
+
   const cities = getCities('CE');
+
+  const [equipamento, setEquipamento] = React.useState({});
 
   function atualizarParent (event) {
     const doc = {};
-    doc[event.target.name] = event.target.value;
+    doc[event.target.name] = event.target.value.trim();
     return doc;
   }
 
   function atualizarEquipamentoParent (event) {
-    event.preventDefault();
     props.atualizarEquipamento(atualizarParent(event));
   }
 
   function atualizarTriagemParent (event) {
-    event.preventDefault();
     props.atualizarTriagem(atualizarParent(event));
   }
 
-  // const sendPhoto = (photo) => {
-  //   console.log(photo)
-  // }
+  const sendPhoto = (photo, name) => {
+    sendEquipmentPhoto(photo, name, equipamento._id)
+      .then((result) => {
+        if (result) {
+          props.atualizarEquipamento({_id: result});
+          const doc = {}
+          doc[name] = result + '_' + name + '.jpeg'
+          props.atualizarTriagem(doc)
+        }
+      });
+  };
 
   return (
     <React.Fragment>
@@ -46,12 +61,15 @@ export default function CadastroEquipamento (props) {
           item
           xs={6}
         >
-          {/*<InputFile*/}
-          {/*  label={"Foto antes da limpeza"}*/}
-          {/*  action={sendPhoto}*/}
-          {/*/>*/}
+          <InputFileImage
+            name={"foto_antes_limpeza"}
+            label={"Foto antes da limpeza"}
+            action={sendPhoto}
+          />
         </Grid>
       </Grid>
+
+
       <Grid
         container
         spacing={3}
@@ -135,13 +153,13 @@ export default function CadastroEquipamento (props) {
           xs={12}
           sm={2}
         >
-          <TextField
-            id="marca"
-            onChange={atualizarTriagemParent}
-            defaultValue={props.triagem.marca}
-            name="marca"
-            label="Marca"
-            fullWidth
+          <InputRadioDialog
+            action={atualizarTriagemParent}
+            name={"marca"}
+            label={"Marca"}
+            hasOther={true}
+            defaultValue={manufacturersEquipments[0]}
+            items={manufacturersEquipments.map(item => ({label: item, value: item}))}
           />
         </Grid>
         <Grid
@@ -149,14 +167,13 @@ export default function CadastroEquipamento (props) {
           xs={12}
           sm={2}
         >
-          <TextField
-            required
-            id="modelo"
-            onChange={atualizarTriagemParent}
-            defaultValue={props.triagem.modelo}
-            name="modelo"
-            label="Modelo"
-            fullWidth
+          <InputRadioDialog
+            action={atualizarTriagemParent}
+            name={"modelo"}
+            label={"Modelo"}
+            hasOther={true}
+            defaultValue={modelsEquipment[0]}
+            items={modelsEquipment.map(item => ({label: item, value: item}))}
           />
         </Grid>
         <Grid
@@ -260,6 +277,19 @@ export default function CadastroEquipamento (props) {
             action={atualizarTriagemParent}
             defaultValue={''}
             menuItems={typeStateEquipment.map(item => ({value: item, name: item}))}
+          />
+        </Grid>
+      </Grid>
+
+      <Grid container>
+        <Grid
+          item
+          xs={6}
+        >
+          <InputFileImage
+            name={"foto_apos_limpeza"}
+            label={"Foto após da limpeza"}
+            action={sendPhoto}
           />
         </Grid>
       </Grid>
