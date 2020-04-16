@@ -1,8 +1,6 @@
 import React, {useState} from 'react';
 import HeaderPrint from "../_common/print/HeaderPrint";
 import PagePrint from "../_common/print/PagePrint";
-import "../_common/print/print.css";
-import "../_common/print/landscapeCss.css";
 import TopicPrint from "../_common/print/TopicPrint";
 import TablePrint from "../_common/print/TablePrint";
 
@@ -19,7 +17,7 @@ const IndexOrderPrint = (props) => {
     {id: 'codigo_item', name: 'Código do Item'},
   ];
 
-  return (<div className={"page-container"}>
+  return (<div className={"landscape-print page-container"}>
     <PagePrint>
       <HeaderPrint
         number={data.equipment.numero_ordem_servico}

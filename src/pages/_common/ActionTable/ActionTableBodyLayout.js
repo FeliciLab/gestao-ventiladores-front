@@ -4,10 +4,11 @@ import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
 import PropTypes from 'prop-types';
 import ActionMenuLayout from "./ActionMenuLayout";
+import ActionButtonLayout from "./ActionButtonLayout";
 
 const ActionTableBodyLayout = (props) => {
   const [data, setData] = useState(props.data);
-  const {headerKeys, menuOptions} = props;
+  const {headerKeys, menuOptions, actionIconButton} = props;
 
   useEffect(() => {
     setData(props.data);
@@ -28,10 +29,16 @@ const ActionTableBodyLayout = (props) => {
                 ))
               }
               <TableCell>
-                <ActionMenuLayout
-                  item={item}
-                  menuOptions={menuOptions}
-                />
+                {actionIconButton ? <ActionButtonLayout
+                    item={item}
+                    menuOptions={menuOptions}
+                  /> :
+                  <ActionMenuLayout
+                    item={item}
+                    menuOptions={menuOptions}
+                  />
+                }
+
               </TableCell>
             </TableRow>
           );

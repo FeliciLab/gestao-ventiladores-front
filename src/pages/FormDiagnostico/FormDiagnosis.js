@@ -1,21 +1,28 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Paper from "@material-ui/core/Paper";
 import CadastroDiagnostico from "./CadastroDiagnostico";
 import CadastroItens from "./CreateNewItem";
-import IdentificacaoVentilador from "./IdentificacaoVentilador";
 import Container from "@material-ui/core/Container";
 import {EquipmentDiagnosis} from "../../models/equipamentos";
 import HeaderFormPage from "./HeaderFormPage";
 import {itemDiagnosisModel} from "../../models/itensDiagnosticos";
+import FormRegisteredItems from "./FormRegisteredItems";
 
 const FormDiagnosis = (props) => {
+  useEffect(() => {
+    setEquipment(props.equipment);
+    setDiagnosis(EquipmentDiagnosis(props.equipment));
+    if (props.equipment.diagnosis) {
+      setItemDiagnosis(props.equipment.diagnosis.itens);
+    }
+  }, [props]);
   const classes = useStyles();
 
-  const [equipment] = useState(props.equipment);
-  const [diagnosis, setDiagnosis] = useState(EquipmentDiagnosis(equipment));
-  const [itemsDiagnosis, setItemsDiagnosis] = useState(diagnosis.itens);
+  const [equipment, setEquipment] = useState({});
+  const [diagnosis, setDiagnosis] = useState({});
+  const [itemsDiagnosis, setItemsDiagnosis] = useState([]);
   const [itemDiagnosis, setItemDiagnosis] = useState(Object.assign({}, itemDiagnosisModel));
   const [clean, setClean] = useState(false);
 
@@ -46,6 +53,16 @@ const FormDiagnosis = (props) => {
 
   const updateItemsDiagnosis = (value) => {
     updateState(value, itemsDiagnosis, setItemsDiagnosis);
+  };
+
+  const updateItemsFromTable = (doc) => {
+    const items = itemsDiagnosis.map((item, index) => {
+      if (index === doc.index) {
+        return doc;
+      }
+      return item;
+    });
+    setItemsDiagnosis(items);
   };
 
   const saveForm = () => {
@@ -79,9 +96,9 @@ const FormDiagnosis = (props) => {
         </Paper>
 
         <Paper className={classes.paper}>
-          <IdentificacaoVentilador
-            diagnosis={diagnosis}
-            updateDiagnosis={updateDiagnosis}
+          <FormRegisteredItems
+            items={itemsDiagnosis}
+            updateItemsFromTable={updateItemsFromTable}
           />
         </Paper>
       </Container>

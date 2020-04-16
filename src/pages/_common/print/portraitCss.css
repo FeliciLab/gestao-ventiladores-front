@@ -1,12 +1,5 @@
-@page {
-  size: A4;
+.portaint-print @page {
+  size: A4 portrait;
   margin: 1.5cm;
 }
 
-@media print {
-  .pagina-tabela {
-    height: 100%;
-    width: 100%;
-    border: none;
-  }
-}

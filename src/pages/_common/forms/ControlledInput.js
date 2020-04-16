@@ -27,7 +27,6 @@ const ControlledInput = (props) => {
         <InputLabel htmlFor="component-helper">{label}</InputLabel>
         <Input
           type={type || 'text'}
-          id="component-simple"
           value={data}
           onChange={updateParent}
           name={name}

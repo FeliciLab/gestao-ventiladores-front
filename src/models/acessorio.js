@@ -21,8 +21,8 @@ export const listaAcessorios = [
 export function Acessorio (acessorio) {
   return Object.assign({
     descricao: '',
-    acompanha: true,
-    quantidade: 1,
+    acompanha: false,
+    quantidade: 0,
     estado_de_conservacao: ''
   }, acessorio)
 }
