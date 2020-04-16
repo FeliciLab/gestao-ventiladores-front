@@ -7,8 +7,12 @@ import RelacaoDeMaterial from "./RelacaoDeMaterial";
 import {Equipamento, EquipamentoTriagem, salvarNovaTriagem, updateScreening} from "../../models/equipamentos";
 import {listaFormAcessorios} from "../../models/acessorio";
 import TitleFormScreening from "./TitleFormScreening";
+import {useHistory} from "react-router-dom";
+
 
 export default function FormScreening () {
+  const history = useHistory();
+
   const classes = useStyles();
 
   const [equipamento, setEquipamento] = React.useState(Equipamento({}));
@@ -34,9 +38,16 @@ export default function FormScreening () {
   function salvarEquipamento () {
     if (equipamento._id) {
       return updateScreening(equipamento)
+        .then(() => {
+          history.push({pathname: '/'});
+        });
     }
 
-    return salvarNovaTriagem(equipamento);
+    return salvarNovaTriagem(equipamento)
+      .then(() => {
+        history.push({pathname: '/'});
+      });
+
   }
 
   return (

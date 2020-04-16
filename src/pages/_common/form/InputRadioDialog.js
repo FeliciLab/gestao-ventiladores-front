@@ -19,7 +19,12 @@ const InputRadioDialog = (props) => {
     setOpen(false);
   }
 
+  function updateOpen(value) {
+    setOpen(value)
+  }
+
   function openDialog () {
+    setOpen(false);
     setOpen(true);
   }
 
@@ -27,6 +32,7 @@ const InputRadioDialog = (props) => {
     <DialogModelsEquipments
       open={open}
       action={changeRadio}
+      updateOpen={updateOpen}
       defaultValue={defaultValue}
       name={name}
       label={label}
