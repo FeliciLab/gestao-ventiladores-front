@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {getAllEquipments} from "../../models/equipamentos";
+import {getAllEquipments} from "../../modelServices/equipamentoService";
 import Layout from "../_layout/Layout";
 import TableCheckedList from "../_common/SelectableTable/TableCheckedList";
 import Container from "@material-ui/core/Container";
