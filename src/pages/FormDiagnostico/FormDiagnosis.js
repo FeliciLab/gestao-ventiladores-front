@@ -22,7 +22,19 @@ const FormDiagnosis = (props) => {
 
   const [equipment, setEquipment] = useState({});
   const [diagnosis, setDiagnosis] = useState({});
-  const [itemsDiagnosis, setItemsDiagnosis] = useState([]);
+  const [itemsDiagnosis, setItemsDiagnosis] = useState([
+    {
+      "quantidade": "2",
+      "nome": "ashduha",
+      "tipo": "pecas",
+      "descricao": "ashduia",
+      "valor": 0,
+      "prioridade": "",
+      "unidade_medida": "ashdiuh",
+      "codigo": "dhauish",
+      "fabricante": "Fabricante"
+    }
+  ]);
   const [itemDiagnosis, setItemDiagnosis] = useState(Object.assign({}, itemDiagnosisModel));
   const [clean, setClean] = useState(false);
 

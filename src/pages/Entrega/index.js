@@ -25,7 +25,8 @@ const IndexDiagnosis = (props) => {
   const [equipments, setEquipments] = useState([]);
 
   async function getAll () {
-    try {
+    if (tableData.length !== 0) return;
+      try {
       const response = await getAllEquipments();
       setEquipments(response);
       tableData(response);
@@ -49,9 +50,7 @@ const IndexDiagnosis = (props) => {
     setDataTable(response);
   }
 
-  useEffect(() => {
-    getAll();
-  }, [props]);
+  useEffect(getAll, [props, getAll]);
 
   const openFormEntrega = (value) => {
     history.push(

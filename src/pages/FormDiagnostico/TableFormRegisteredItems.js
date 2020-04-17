@@ -4,12 +4,14 @@ import TableContainer from "@material-ui/core/TableContainer";
 import Table from "@material-ui/core/Table";
 import TableHead from "@material-ui/core/TableHead";
 import {TableCell, TableRow} from "@material-ui/core";
-import IconButton from "@material-ui/core/IconButton";
 import TableBody from "@material-ui/core/TableBody";
 import Paper from "@material-ui/core/Paper";
 import InfoIcon from '@material-ui/icons/Info';
 import ChipStyled from "../_common/components/ChipStyled";
 import {grey} from "@material-ui/core/colors";
+import Typography from "@material-ui/core/Typography";
+import TooptipInfo from "../_common/components/TooltipInfo";
+import CellInput from "../_common/components/CellInput";
 
 const TableFormRegisteredItems = (props) => {
   useEffect(() => {
@@ -27,6 +29,10 @@ const TableFormRegisteredItems = (props) => {
     {id: "codigo", name: "Codigo"},
   ];
 
+  function updateParent (event) {
+    console.log(event);
+  }
+
   return (<React.Fragment>
     <TableContainer component={Paper}>
       <Table
@@ -38,7 +44,7 @@ const TableFormRegisteredItems = (props) => {
             {headTable.map((item, index) => (
               <TableCell key={index}>{item.name}</TableCell>
             ))}
-            <TableCell>
+            <TableCell align={"right"}>
               <ChipStyled
                 color={"white"}
                 bgColor={grey[500]}
@@ -59,12 +65,33 @@ const TableFormRegisteredItems = (props) => {
               {
                 headTable.map(
                   (head, headIndex) => (
-                    <TableCell key={headIndex}>{item[head.id]}</TableCell>
+                    <TableCell key={headIndex}>
+                      <CellInput
+                        key={headIndex}
+                        label={''}
+                        name={head.id}
+                        action={updateParent}
+                        defaultValue={item[head.id]}
+                      />
+                      {/*<ControlledInput*/}
+                      {/*  label={''}*/}
+                      {/*  name={head.id}*/}
+                      {/*  action={updateParent}*/}
+                      {/*  defaultValue={item[head.id]}*/}
+                      {/*/>*/}
+                    </TableCell>
                   )
                 )
               }
-              <TableCell>
-                <IconButton></IconButton>
+              <TableCell
+                size={"small"}
+                align={"right"}
+              >
+                <TooptipInfo icon={<InfoIcon/>}>
+                  <Typography variant={'subtitle1'}>
+                    {item['descricao']}
+                  </Typography>
+                </TooptipInfo>
               </TableCell>
             </TableRow>
           ))}

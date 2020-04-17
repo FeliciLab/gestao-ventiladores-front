@@ -1,14 +1,15 @@
 import React from 'react';
-import InputLabel from "@material-ui/core/InputLabel";
-import Input from "@material-ui/core/Input";
-import FormControl from "@material-ui/core/FormControl";
+import TextField from "@material-ui/core/TextField";
 
 const ControlledInput = (props) => {
   React.useEffect(() => {
     setClean(props.clean);
+    if (props.defaultValue && props.defaultValue !== '' && data === '') {
+      setData(defaultValue)
+    }
   }, [props]);
 
-  const {label, name, action, type} = props;
+  const {label, name, action, type, defaultValue, fullWidth} = props;
   const [data, setData] = React.useState('');
   const [clean, setClean] = React.useState(false);
 
@@ -23,15 +24,14 @@ const ControlledInput = (props) => {
 
   return (
     <React.Fragment>
-      <FormControl fullWidth>
-        <InputLabel htmlFor="component-helper">{label}</InputLabel>
-        <Input
-          type={type || 'text'}
-          value={data}
-          onChange={updateParent}
-          name={name}
-        />
-      </FormControl>
+      <TextField
+        label={label}
+        name={name}
+        type={type || 'text'}
+        value={data}
+        onChange={updateParent}
+        fullWidth={fullWidth || true}
+      />
     </React.Fragment>
   );
 };
