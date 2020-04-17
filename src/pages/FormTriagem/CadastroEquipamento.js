@@ -7,7 +7,7 @@ import getCities from "../../services/cities";
 import typeInstitute from "../../models/typeInstitute";
 import typeStateEquipment from "../../models/typeStateEquipment";
 import SelectControl from "../_common/form/SelectControl";
-// import InputFileImage from "../_common/form/InputFileImage";
+import InputFileImage from "../_common/form/InputFileImage";
 import {sendEquipmentPhoto} from "../../modelServices/photoEquipmentService";
 import {manufacturersEquipments, modelsEquipment} from "../../models/manufacturers";
 import InputRadioDialog from "../_common/form/InputRadioDialog";
@@ -25,11 +25,22 @@ export default function CadastroEquipamento (props) {
   const {updateErrors} = props;
 
   const [equipamento, setEquipamento] = React.useState({});
+  const [localErrors, setLocalErrors] = React.useState({});
 
-  function sendErrorsParent() {
+  function sendErrorsParent () {
     setTimeout(() => {
-      updateErrors(Object.keys(errors));
-    }, 1000)
+      const keys = Object.keys(errors);
+      const errorsKeys = Object.assign({}, localErrors);
+
+      for (let index in errorsKeys) errorsKeys[index] = false;
+
+      for (let key of keys) {
+        errorsKeys[key] = true;
+      }
+
+      setLocalErrors(errorsKeys);
+      updateErrors({cadastroEquipamento: errorsKeys});
+    }, 500);
   }
 
   function atualizarParent (event) {
@@ -70,27 +81,15 @@ export default function CadastroEquipamento (props) {
       <Grid container>
         <Grid
           item
-          xs={12}
+          xs={6}
         >
-          {/*<ErrorAlertBar*/}
-          {/*  errors={errors}*/}
-          {/*  type={'error'}*/}
-          {/*/>*/}
+          <InputFileImage
+            name={"foto_antes_limpeza"}
+            label={"Foto antes da limpeza"}
+            action={sendPhoto}
+          />
         </Grid>
       </Grid>
-
-      {/*<Grid container>*/}
-      {/*  <Grid*/}
-      {/*    item*/}
-      {/*    xs={6}*/}
-      {/*  >*/}
-      {/*    <InputFileImage*/}
-      {/*      name={"foto_antes_limpeza"}*/}
-      {/*      label={"Foto antes da limpeza"}*/}
-      {/*      action={sendPhoto}*/}
-      {/*    />*/}
-      {/*  </Grid>*/}
-      {/*</Grid>*/}
 
 
       <Grid
@@ -110,6 +109,7 @@ export default function CadastroEquipamento (props) {
             name="numero_ordem_servico"
             id="numeroDaOrdemDeServico"
             label="Número da Ordem de Serviço"
+            required
             fullWidth
           />
           <ErrorAlertText error={errors.numero_ordem_servico}/>
@@ -120,6 +120,7 @@ export default function CadastroEquipamento (props) {
           sm={6}
         >
           <TextField
+            onBlur={sendErrorsParent}
             inputRef={register({required: true})}
             onChange={atualizarTriagemParent}
             defaultValue={props.triagem.numero_de_serie}
@@ -137,6 +138,7 @@ export default function CadastroEquipamento (props) {
           sm={6}
         >
           <TextField
+            onBlur={sendErrorsParent}
             inputRef={register({required: true})}
             onChange={atualizarTriagemParent}
             defaultValue={props.triagem.nome_equipamento}
@@ -153,7 +155,6 @@ export default function CadastroEquipamento (props) {
           sm={6}
         >
           <TextField
-            inputRef={register({required: true})}
             defaultValue={props.triagem.numero_do_patrimonio}
             onChange={atualizarTriagemParent}
             name="numero_do_patrimonio"
@@ -212,6 +213,8 @@ export default function CadastroEquipamento (props) {
           sm={2}
         >
           <TextField
+            onBlur={sendErrorsParent}
+            inputRef={register({required: true})}
             required
             id="fabricante"
             onChange={atualizarTriagemParent}
@@ -242,6 +245,8 @@ export default function CadastroEquipamento (props) {
           sm={4}
         >
           <TextField
+            onBlur={sendErrorsParent}
+            inputRef={register({required: true})}
             required
             id="nome_instituicao_origem"
             onChange={atualizarTriagemParent}
@@ -272,6 +277,8 @@ export default function CadastroEquipamento (props) {
           sm={4}
         >
           <TextField
+            onBlur={sendErrorsParent}
+            inputRef={register({required: true})}
             required
             id="nomeDoResponsavel"
             onChange={atualizarTriagemParent}
@@ -287,7 +294,6 @@ export default function CadastroEquipamento (props) {
           sm={4}
         >
           <TextField
-            required
             id="constatoDoResponsavel"
             onChange={atualizarTriagemParent}
             defaultValue={props.triagem.contato_responsavel}
@@ -302,6 +308,8 @@ export default function CadastroEquipamento (props) {
           sm={4}
         >
           <SelectControl
+            onBlur={sendErrorsParent}
+            inputRef={register({required: true})}
             label={"Estado de Conservação"}
             name={"estado_de_conservacao"}
             action={atualizarTriagemParent}
@@ -311,18 +319,18 @@ export default function CadastroEquipamento (props) {
         </Grid>
       </Grid>
 
-      {/*<Grid container>*/}
-      {/*  <Grid*/}
-      {/*    item*/}
-      {/*    xs={6}*/}
-      {/*  >*/}
-      {/*    <InputFileImage*/}
-      {/*      name={"foto_apos_limpeza"}*/}
-      {/*      label={"Foto após da limpeza"}*/}
-      {/*      action={sendPhoto}*/}
-      {/*    />*/}
-      {/*  </Grid>*/}
-      {/*</Grid>*/}
+      <Grid container>
+        <Grid
+          item
+          xs={6}
+        >
+          <InputFileImage
+            name={"foto_apos_limpeza"}
+            label={"Foto após da limpeza"}
+            action={sendPhoto}
+          />
+        </Grid>
+      </Grid>
     </React.Fragment>
   );
 }

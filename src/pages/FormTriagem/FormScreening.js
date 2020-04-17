@@ -9,6 +9,7 @@ import {listaFormAcessorios} from "../../models/acessorio";
 import TitleFormScreening from "./TitleFormScreening";
 import {useHistory} from "react-router-dom";
 import {saveNewScreening, updateScreening} from "../../modelServices/equipamentoService";
+import Alert from "@material-ui/lab/Alert";
 
 
 export default function FormScreening () {
@@ -19,8 +20,17 @@ export default function FormScreening () {
   const [equipamento, setEquipamento] = React.useState(Equipamento({}));
   const [triagem, setTriagem] = React.useState(EquipamentoTriagem({triagem: equipamento.triagem}));
   const [acessorios, setAcessorios] = React.useState([...listaFormAcessorios(triagem.acessorios), '']);
+  const [formErrors, setFormErrors] = React.useState({});
+  const [errorsFound, setErrorsFound] = React.useState(false);
 
-  function updateErrors (values, label) {
+  function updateErrors (values) {
+    const _formErrors = Object.assign({}, formErrors);
+    for (let indexValue in values) {
+      for (let index in _formErrors[indexValue]) _formErrors[indexValue][index] = false;
+    }
+
+    const errors = Object.assign(_formErrors, values);
+    setFormErrors(errors);
   }
 
   function atualizarEquipamento (value) {
@@ -39,7 +49,22 @@ export default function FormScreening () {
     atualizarTriagem({acessorios: value});
   }
 
+  function hasErrorsFound () {
+    for (let indexForm in formErrors) {
+      for (let index in formErrors[indexForm]) {
+        if (formErrors[indexForm][index]) {
+          setErrorsFound(true);
+          return true;
+        }
+      }
+    }
+
+    setErrorsFound(false);
+    return false;
+  }
+
   function salvarEquipamento () {
+    if (hasErrorsFound()) return;
     if (equipamento._id) {
       return updateScreening(equipamento)
         .then(() => {
@@ -60,6 +85,11 @@ export default function FormScreening () {
 
       <main className={classes.layout}>
         <TitleFormScreening saveEquipment={salvarEquipamento}/>
+
+        {errorsFound ?
+          <Alert color={"error"}>Não é possível salvar. Verifique o formulário e preencha os campos
+            corretamente.</Alert>
+          : ''}
 
         <Paper className={classes.paper}>
           <CadastroEquipamento
