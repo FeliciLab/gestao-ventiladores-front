@@ -1,25 +1,33 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import SaveIcon from "@material-ui/icons/Save";
 import OrangeButton from "../_common/forms/OrangeButton";
 import ControlledInput from "../_common/forms/ControlledInput";
 import RadioControl, {helperPropsItemsRadioControl} from "../_common/forms/RadioControl";
+import {itemDiagnosisModel} from "../../models/itensDiagnosticos";
 
 export default function CreateNewItem (props) {
-  useEffect(() => {
-    setClean(props.clean);
-  }, [props]);
-
-  const {updateItem, addNewItem} = props;
+  const {addNewItem} = props;
 
   const [clean, setClean] = useState(false);
+  const [item, setItem] = useState(itemDiagnosisModel);
 
-  const updateParent = (event) => {
-    const doc = {};
+  function updateItem (event) {
+    const doc = item;
     doc[event.target.name] = event.target.value;
-    updateItem(doc);
+    setItem(doc);
   };
+
+  function registerItem () {
+    addNewItem(item);
+    setItem(Object.assign({}, itemDiagnosisModel));
+    setClean(true);
+    setTimeout(() => {
+      setClean(false);
+    }, 500);
+
+  }
 
   const radioItems = [
     helperPropsItemsRadioControl('pecas', 'Peças'),
@@ -47,7 +55,7 @@ export default function CreateNewItem (props) {
           <RadioControl
             clean={clean}
             name={"tipo"}
-            action={updateParent}
+            action={updateItem}
             flexDirection={"row"}
             formLabel={"Tipo do item"}
             items={radioItems}
@@ -61,7 +69,7 @@ export default function CreateNewItem (props) {
         >
           <ControlledInput
             label={"Fabricante"}
-            action={updateParent}
+            action={updateItem}
             name={"fabricante"}
             clean={clean}
           />
@@ -75,7 +83,7 @@ export default function CreateNewItem (props) {
         >
           <ControlledInput
             label={"Código do item"}
-            action={updateParent}
+            action={updateItem}
             name={"codigo"}
             clean={clean}
           />
@@ -87,7 +95,7 @@ export default function CreateNewItem (props) {
         >
           <ControlledInput
             label={"Nome do item"}
-            action={updateParent}
+            action={updateItem}
             name={"nome"}
             clean={clean}
           />
@@ -100,7 +108,7 @@ export default function CreateNewItem (props) {
         >
           <ControlledInput
             label={"Unidade de medida"}
-            action={updateParent}
+            action={updateItem}
             name={"unidade_medida"}
             clean={clean}
           />
@@ -112,7 +120,7 @@ export default function CreateNewItem (props) {
         >
           <ControlledInput
             label={"Quantidade"}
-            action={updateParent}
+            action={updateItem}
             name={"quantidade"}
             clean={clean}
             type={"number"}
@@ -125,7 +133,7 @@ export default function CreateNewItem (props) {
         >
           <ControlledInput
             label={"Descrição do Item"}
-            action={updateParent}
+            action={updateItem}
             name={"descricao"}
             clean={clean}
           />
@@ -143,7 +151,7 @@ export default function CreateNewItem (props) {
           xs="auto"
         >
           <OrangeButton
-            onClick={addNewItem}
+            onClick={registerItem}
             startIcon={<SaveIcon/>}
           > ADICIONAR NOVO ITEM </OrangeButton>
         </Grid>

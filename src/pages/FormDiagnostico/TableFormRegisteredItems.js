@@ -9,9 +9,7 @@ import Paper from "@material-ui/core/Paper";
 import InfoIcon from '@material-ui/icons/Info';
 import ChipStyled from "../_common/components/ChipStyled";
 import {grey} from "@material-ui/core/colors";
-import Typography from "@material-ui/core/Typography";
-import TooptipInfo from "../_common/components/TooltipInfo";
-import CellInput from "../_common/components/CellInput";
+import RowTableItem from "./RowTableItem";
 
 const TableFormRegisteredItems = (props) => {
   useEffect(() => {
@@ -62,35 +60,17 @@ const TableFormRegisteredItems = (props) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {items.map((item, index) => (
-            <TableRow key={index}>
-              {
-                headTable.map(
-                  (head, headIndex) => (
-                    <TableCell key={headIndex}>
-                      <CellInput
-                        key={headIndex}
-                        label={''}
-                        name={head.id}
-                        action={(event) => updateParent(event, index, head.id)}
-                        defaultValue={item[head.id]}
-                      />
-                    </TableCell>
-                  )
-                )
-              }
-              <TableCell
-                size={"small"}
-                align={"right"}
-              >
-                <TooptipInfo icon={<InfoIcon/>}>
-                  <Typography variant={'subtitle1'}>
-                    {item['descricao']}
-                  </Typography>
-                </TooptipInfo>
-              </TableCell>
-            </TableRow>
-          ))}
+          {items.map((item, index) => {
+            return (
+              <RowTableItem
+                key={index}
+                headTable={headTable}
+                updateParent={updateParent}
+                index={index}
+                data={item}
+              />
+            );
+          })}
         </TableBody>
       </Table>
     </TableContainer>

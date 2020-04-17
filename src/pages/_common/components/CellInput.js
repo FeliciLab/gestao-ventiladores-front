@@ -6,13 +6,14 @@ import {green, red} from "@material-ui/core/colors";
 import ColorIconButton from "../forms/ColorIconButton";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
+import {TableCell} from "@material-ui/core";
 
 export default function CellInput (props) {
 
   const {name, defaultValue, action, label} = props;
 
   const [showInput, setShowInput] = React.useState(false);
-  const [valueInput, setValueInput] = React.useState('')
+  const [valueInput, setValueInput] = React.useState('');
 
   const icons = {
     done: {
@@ -36,13 +37,12 @@ export default function CellInput (props) {
   }
 
   function updateParent (event) {
-    setValueInput(event.target.value)
+    setValueInput(event.target.value);
     action(event);
   }
 
   return (<React.Fragment>
-    <div onClick={changeInput}>
-
+    <TableCell onClick={changeInput}>
       {showInput ?
         (<React.Fragment>
           <Grid container>
@@ -76,6 +76,6 @@ export default function CellInput (props) {
             {valueInput === '' ? defaultValue : valueInput}
           </Typography>
         </React.Fragment>)}
-    </div>
+    </TableCell>
   </React.Fragment>);
 }

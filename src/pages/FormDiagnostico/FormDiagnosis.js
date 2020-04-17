@@ -7,64 +7,40 @@ import CadastroItens from "./CreateNewItem";
 import Container from "@material-ui/core/Container";
 import {EquipmentDiagnosis} from "../../models/equipamentos";
 import HeaderFormPage from "./HeaderFormPage";
-import {itemDiagnosisModel} from "../../models/itensDiagnosticos";
 import FormRegisteredItems from "./FormRegisteredItems";
 
 const FormDiagnosis = (props) => {
-  useEffect(() => {
-    setEquipment(props.equipment);
-    setDiagnosis(EquipmentDiagnosis(props.equipment));
-    if (props.equipment.diagnosis) {
-      setItemDiagnosis(props.equipment.diagnosis.itens);
-    }
-  }, [props]);
   const classes = useStyles();
 
   const [equipment, setEquipment] = useState({});
   const [diagnosis, setDiagnosis] = useState({});
-  const [itemsDiagnosis, setItemsDiagnosis] = useState([
-    {
-      "quantidade": "2",
-      "nome": "ashduha",
-      "tipo": "pecas",
-      "descricao": "ashduia",
-      "valor": 0,
-      "prioridade": "",
-      "unidade_medida": "ashdiuh",
-      "codigo": "dhauish",
-      "fabricante": "Fabricante"
-    }
-  ]);
-  const [itemDiagnosis, setItemDiagnosis] = useState(Object.assign({}, itemDiagnosisModel));
+  const [itemsDiagnosis, setItemsDiagnosis] = useState([]);
   const [clean, setClean] = useState(false);
 
-  const addNewItem = () => {
-    const doc = [...itemsDiagnosis, itemDiagnosis];
-    updateItemsDiagnosis(doc);
-    let item = Object.assign({}, itemDiagnosis);
-    for (let i in item) {
-      item[i] = itemDiagnosisModel[i];
+  useEffect(() => {
+    setEquipment(props.equipment);
+    setDiagnosis(EquipmentDiagnosis(props.equipment));
+    if (itemsDiagnosis.length === 0 &&
+      props.equipment &&
+      props.equipment.diagnostico &&
+      props.equipment.diagnostico.itens &&
+      props.equipment.diagnostico.itens.length > 0
+    ) {
+      setItemsDiagnosis(props.equipment.diagnostico.itens);
     }
+  }, [props, itemsDiagnosis]);
 
+  const addNewItem = (item) => {
+    const items = itemsDiagnosis.slice();
+    items.push(item);
+    setItemsDiagnosis(items);
     setClean(true);
   };
 
-  const updateState = (value, old, setFunc) => {
-    setClean(false);
-    const doc = Object.assign(old, value);
-    setFunc(doc);
-  };
-
   const updateDiagnosis = (value) => {
-    updateState(value, diagnosis, setDiagnosis);
-  };
-
-  const updateItem = (value) => {
-    updateState(value, itemDiagnosis, setItemDiagnosis);
-  };
-
-  const updateItemsDiagnosis = (value) => {
-    updateState(value, itemsDiagnosis, setItemsDiagnosis);
+    const doc = Object.assign({}, diagnosis, value);
+    setDiagnosis(doc);
+    setClean(false);
   };
 
   const updateItemsFromTable = (value, index, field) => {
@@ -80,7 +56,12 @@ const FormDiagnosis = (props) => {
   };
 
   const saveForm = () => {
-
+    const diagnosis = {
+      diagnosis: {
+        ...diagnosis,
+        itens: itemsDiagnosis
+      }
+    };
   };
 
   return (
@@ -102,9 +83,7 @@ const FormDiagnosis = (props) => {
 
         <Paper className={classes.paper}>
           <CadastroItens
-            itemDiagnosis={itemDiagnosis}
             addNewItem={addNewItem}
-            updateItem={updateItem}
             clean={clean}
           />
         </Paper>

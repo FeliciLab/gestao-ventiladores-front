@@ -5,14 +5,29 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 
 const SelectControl = (props) => {
-  const {label, name, action, defaultValue, menuItems} = props;
+  const {
+    label,
+    name,
+    action,
+    defaultValue,
+    menuItems
+  } = props;
+
+  const [value, setValue] = React.useState('');
+
+  React.useEffect(() => {
+    if (value === '' && defaultValue) {
+      setValue(defaultValue);
+    }
+  }, [defaultValue, value]);
+
   return (
     <React.Fragment>
       <FormControl fullWidth>
         <InputLabel>{label}</InputLabel>
         <Select
           name={name}
-          defaultValue={defaultValue}
+          value={value}
           onChange={action}
         >
           {menuItems.map((item, index) => (
