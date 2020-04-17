@@ -12,6 +12,7 @@ export default function CellInput (props) {
   const {name, defaultValue, action, label} = props;
 
   const [showInput, setShowInput] = React.useState(false);
+  const [valueInput, setValueInput] = React.useState('')
 
   const icons = {
     done: {
@@ -35,6 +36,7 @@ export default function CellInput (props) {
   }
 
   function updateParent (event) {
+    setValueInput(event.target.value)
     action(event);
   }
 
@@ -60,19 +62,10 @@ export default function CellInput (props) {
               item
               xs={"auto"}
             >
-              <span style={{marginRight: "3px"}}>
               <ColorIconButton
-                action={() => console.log('ok')}
+                action={() => setShowInput(false)}
                 name={"Aceitar"}
                 icon={icons.done}
-                item={defaultValue}
-              />
-               </span>
-
-              <ColorIconButton
-                action={() => console.log('ok')}
-                name={"Cancelar"}
-                icon={icons.close}
                 item={defaultValue}
               />
             </Grid>
@@ -80,7 +73,7 @@ export default function CellInput (props) {
 
         </React.Fragment>) : (<React.Fragment>
           <Typography variant={"subtitle2"}>
-            {defaultValue}
+            {valueInput === '' ? defaultValue : valueInput}
           </Typography>
         </React.Fragment>)}
     </div>

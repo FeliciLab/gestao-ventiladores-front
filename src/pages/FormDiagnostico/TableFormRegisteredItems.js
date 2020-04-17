@@ -20,6 +20,8 @@ const TableFormRegisteredItems = (props) => {
 
   const [items, setItems] = useState([]);
 
+  const {updateItemsFromTable} = props;
+
   const headTable = [
     {id: "tipo", name: "Tipo"},
     {id: "nome", name: "Nome do item"},
@@ -29,8 +31,8 @@ const TableFormRegisteredItems = (props) => {
     {id: "codigo", name: "Codigo"},
   ];
 
-  function updateParent (event) {
-    console.log(event);
+  function updateParent (event, index, field) {
+    updateItemsFromTable(event.target.value, index, field);
   }
 
   return (<React.Fragment>
@@ -70,15 +72,9 @@ const TableFormRegisteredItems = (props) => {
                         key={headIndex}
                         label={''}
                         name={head.id}
-                        action={updateParent}
+                        action={(event) => updateParent(event, index, head.id)}
                         defaultValue={item[head.id]}
                       />
-                      {/*<ControlledInput*/}
-                      {/*  label={''}*/}
-                      {/*  name={head.id}*/}
-                      {/*  action={updateParent}*/}
-                      {/*  defaultValue={item[head.id]}*/}
-                      {/*/>*/}
                     </TableCell>
                   )
                 )

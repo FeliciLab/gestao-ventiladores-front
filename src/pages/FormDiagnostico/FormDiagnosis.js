@@ -67,13 +67,15 @@ const FormDiagnosis = (props) => {
     updateState(value, itemsDiagnosis, setItemsDiagnosis);
   };
 
-  const updateItemsFromTable = (doc) => {
-    const items = itemsDiagnosis.map((item, index) => {
-      if (index === doc.index) {
-        return doc;
+  const updateItemsFromTable = (value, index, field) => {
+    const items = itemsDiagnosis.map((item, idx) => {
+      if (idx === index) {
+        item[field] = value;
       }
+
       return item;
     });
+
     setItemsDiagnosis(items);
   };
 

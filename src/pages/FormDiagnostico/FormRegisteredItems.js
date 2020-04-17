@@ -26,7 +26,7 @@ const FormRegisteredItems = (props) => {
         </Typography>
         <TableFormRegisteredItems
           items={items}
-          updateParent={updateParent}
+          updateItemsFromTable={updateItemsFromTable}
         />
     </React.Fragment>
   );
