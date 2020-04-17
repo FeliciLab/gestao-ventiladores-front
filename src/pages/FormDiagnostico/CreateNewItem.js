@@ -4,7 +4,7 @@ import Typography from "@material-ui/core/Typography";
 import SaveIcon from "@material-ui/icons/Save";
 import OrangeButton from "../_common/forms/OrangeButton";
 import ControlledInput from "../_common/forms/ControlledInput";
-import RadioControl, {helperPropsItemsRadioControl} from "../_common/form/RadioControl";
+import RadioControl, {helperPropsItemsRadioControl} from "../_common/forms/RadioControl";
 
 export default function CreateNewItem (props) {
   useEffect(() => {

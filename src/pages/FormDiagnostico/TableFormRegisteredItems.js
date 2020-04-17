@@ -8,8 +8,8 @@ import IconButton from "@material-ui/core/IconButton";
 import TableBody from "@material-ui/core/TableBody";
 import Paper from "@material-ui/core/Paper";
 import InfoIcon from '@material-ui/icons/Info';
-import Chip from "@material-ui/core/Chip";
-import Button from "@material-ui/core/Button";
+import ChipStyled from "../_common/components/ChipStyled";
+import {grey} from "@material-ui/core/colors";
 
 const TableFormRegisteredItems = (props) => {
   useEffect(() => {
@@ -39,10 +39,12 @@ const TableFormRegisteredItems = (props) => {
               <TableCell key={index}>{item.name}</TableCell>
             ))}
             <TableCell>
-              <Button
-                endIcon={<InfoIcon style={{color: 'white'}}/>}
-              >asdas</Button>
-              <Chip
+              <ChipStyled
+                color={"white"}
+                bgColor={grey[500]}
+                deleteIconColor={"white"}
+                deleteIconBgColor={grey[500]}
+                deleteIcon={<InfoIcon/>}
                 size="small"
                 label={"Descrição"}
                 style={{color: "#ddddd"}}

@@ -6,11 +6,11 @@ import equipmentTypes from "../../models/equipmentTypes";
 import getCities from "../../services/cities";
 import typeInstitute from "../../models/typeInstitute";
 import typeStateEquipment from "../../models/typeStateEquipment";
-import SelectControl from "../_common/form/SelectControl";
-import InputFileImage from "../_common/form/InputFileImage";
+import SelectControl from "../_common/forms/SelectControl";
+import InputFileImage from "../_common/forms/InputFileImage";
 import {sendEquipmentPhoto} from "../../modelServices/photoEquipmentService";
 import {manufacturersEquipments, modelsEquipment} from "../../models/manufacturers";
-import InputRadioDialog from "../_common/form/InputRadioDialog";
+import InputRadioDialog from "../_common/forms/InputRadioDialog";
 import {useForm} from "react-hook-form";
 import ErrorAlertText from "../_common/alerts/ErrorAlertText";
 

@@ -6,7 +6,7 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import {useHistory} from "react-router-dom";
 import {getAllEquipments} from "../../modelServices/equipamentoService";
-import {helperPropsColorIconButton} from "../_common/form/ColorIconButton";
+import {helperPropsColorIconButton} from "../_common/forms/ColorIconButton";
 import {orange} from "@material-ui/core/colors";
 import MarkunreadMailboxIcon from "@material-ui/icons/MarkunreadMailbox";
 
