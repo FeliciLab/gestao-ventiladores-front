@@ -87,8 +87,13 @@ export default function FormScreening () {
         <TitleFormScreening saveEquipment={salvarEquipamento}/>
 
         {errorsFound ?
-          <Alert color={"error"}>Não é possível salvar. Verifique o formulário e preencha os campos
-            corretamente.</Alert>
+          <Alert
+            color={"error"}
+            onClose={() => setErrorsFound(false)}
+          >
+            Não é possível salvar. Verifique o formulário e preencha os campos
+            corretamente.
+          </Alert>
           : ''}
 
         <Paper className={classes.paper}>
