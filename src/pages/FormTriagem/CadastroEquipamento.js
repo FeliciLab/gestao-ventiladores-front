@@ -8,18 +8,29 @@ import typeInstitute from "../../models/typeInstitute";
 import typeStateEquipment from "../../models/typeStateEquipment";
 import SelectControl from "../_common/form/SelectControl";
 // import InputFileImage from "../_common/form/InputFileImage";
-import {sendEquipmentPhoto} from "../../models/equipamentos";
+import {sendEquipmentPhoto} from "../../modelServices/photoEquipmentService";
 import {manufacturersEquipments, modelsEquipment} from "../../models/manufacturers";
 import InputRadioDialog from "../_common/form/InputRadioDialog";
+import {useForm} from "react-hook-form";
+import ErrorAlertText from "../_common/alerts/ErrorAlertText";
 
 export default function CadastroEquipamento (props) {
-  React.useEffect(( ) => {
-    setEquipamento(props.equipamento)
-  }, [props])
+  React.useEffect(() => {
+    setEquipamento(props.equipamento);
+  }, [props]);
+
 
   const cities = getCities('CE');
+  const {register, errors} = useForm({mode: 'onBlur'});
+  const {updateErrors} = props;
 
   const [equipamento, setEquipamento] = React.useState({});
+
+  function sendErrorsParent() {
+    setTimeout(() => {
+      updateErrors(Object.keys(errors));
+    }, 1000)
+  }
 
   function atualizarParent (event) {
     const doc = {};
@@ -40,9 +51,9 @@ export default function CadastroEquipamento (props) {
       .then((result) => {
         if (result) {
           props.atualizarEquipamento({_id: result});
-          const doc = {}
-          doc[name] = result + '_' + name + '.jpeg'
-          props.atualizarTriagem(doc)
+          const doc = {};
+          doc[name] = result + '_' + name + '.jpeg';
+          props.atualizarTriagem(doc);
         }
       });
   };
@@ -55,6 +66,18 @@ export default function CadastroEquipamento (props) {
       >
         1. Cadastro de Equipamento
       </Typography>
+
+      <Grid container>
+        <Grid
+          item
+          xs={12}
+        >
+          {/*<ErrorAlertBar*/}
+          {/*  errors={errors}*/}
+          {/*  type={'error'}*/}
+          {/*/>*/}
+        </Grid>
+      </Grid>
 
       {/*<Grid container>*/}
       {/*  <Grid*/}
@@ -80,14 +103,16 @@ export default function CadastroEquipamento (props) {
           sm={6}
         >
           <TextField
+            onBlur={sendErrorsParent}
+            inputRef={register({required: true})}
             onChange={atualizarEquipamentoParent}
             defaultValue={props.equipamento.numero_ordem_servico}
             name="numero_ordem_servico"
             id="numeroDaOrdemDeServico"
             label="Número da Ordem de Serviço"
-            required
             fullWidth
           />
+          <ErrorAlertText error={errors.numero_ordem_servico}/>
         </Grid>
         <Grid
           item
@@ -95,6 +120,7 @@ export default function CadastroEquipamento (props) {
           sm={6}
         >
           <TextField
+            inputRef={register({required: true})}
             onChange={atualizarTriagemParent}
             defaultValue={props.triagem.numero_de_serie}
             id="numeroDeSerie"
@@ -103,6 +129,7 @@ export default function CadastroEquipamento (props) {
             required
             fullWidth
           />
+          <ErrorAlertText error={errors.numero_de_serie}/>
         </Grid>
         <Grid
           item
@@ -110,7 +137,7 @@ export default function CadastroEquipamento (props) {
           sm={6}
         >
           <TextField
-            required
+            inputRef={register({required: true})}
             onChange={atualizarTriagemParent}
             defaultValue={props.triagem.nome_equipamento}
             id="nomeDoEquipamento"
@@ -118,6 +145,7 @@ export default function CadastroEquipamento (props) {
             label="Nome do Equipamento"
             fullWidth
           />
+          <ErrorAlertText error={errors.nome_equipamento}/>
         </Grid>
         <Grid
           item
@@ -125,6 +153,7 @@ export default function CadastroEquipamento (props) {
           sm={6}
         >
           <TextField
+            inputRef={register({required: true})}
             defaultValue={props.triagem.numero_do_patrimonio}
             onChange={atualizarTriagemParent}
             name="numero_do_patrimonio"
@@ -132,6 +161,7 @@ export default function CadastroEquipamento (props) {
             label="Número do Patrimônio"
             fullWidth
           />
+          <ErrorAlertText error={errors.numero_do_patrimonio}/>
         </Grid>
 
 

@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from "react";
-import {getAllEquipments} from "../../models/equipamentos";
+import React, {useEffect, useState} from 'react';
+import {getAllEquipments} from "../../modelServices/equipamentoService";
 import Layout from "../_layout/Layout";
 import Container from "@material-ui/core/Container";
 import ActionTableList from "../_common/ActionTable/ActionTableList";
@@ -28,9 +28,9 @@ const IndexDiagnosis = (props) => {
   useEffect(() => {
     if (equipments.length === 0 && !requestBlock) {
       getAllEquipments()
-        .then((result) => {
+        .then(result => {
           if (!result) return;
-          console.log("result", result);
+
           setEquipments(result);
           setDataTable(result.map(item => {
             return {
@@ -42,8 +42,8 @@ const IndexDiagnosis = (props) => {
             };
           }));
         })
-        .catch((error) => {
-          console.log("consultando triagem", error);
+        .catch(error => {
+          console.log('consultando triagem', error);
         });
 
       setRequestBlock(true);
@@ -51,24 +51,15 @@ const IndexDiagnosis = (props) => {
   }, [requestBlock, equipments]);
 
   const openFormDiagnosis = (value) => {
-    history.push(
-      {
-        pathname: "/novo-diagnostico",
-        state: {
-          data: equipments.find(
-            (item) => item.numero_ordem_servico === value.numero_ordem_servico
-          ),
-        },
-      },
-      [equipments]
-    );
+    history.push({
+      pathname: '/novo-diagnostico',
+      state: {
+        data: equipments.find(item => item.numero_ordem_servico === value.numero_ordem_servico)
+      }
+    }, [equipments]);
   };
 
   const menuOptions = [
-    {
-      name: "Efetuar diagnóstico",
-      action: openFormDiagnosis,
-    },
     helperPropsColorIconButton('Efetuar diagnóstico', openFormDiagnosis, 'white', orange[600], orange[700], <QueueIcon fontSize={"small"}/>)
   ];
 
@@ -92,10 +83,12 @@ const IndexDiagnosis = (props) => {
             dataTable={dataTable}
             headerTable={headerData}
             menuOptions={menuOptions}
-          ></ActionTableList>
+          >
+          </ActionTableList>
         </Container>
       </Layout>
     </div>
+
   );
 };
 

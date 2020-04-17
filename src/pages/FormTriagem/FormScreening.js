@@ -4,10 +4,11 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Paper from "@material-ui/core/Paper";
 import CadastroEquipamento from "./CadastroEquipamento";
 import RelacaoDeMaterial from "./RelacaoDeMaterial";
-import {Equipamento, EquipamentoTriagem, salvarNovaTriagem, updateScreening} from "../../models/equipamentos";
+import {Equipamento, EquipamentoTriagem} from "../../models/equipamentos";
 import {listaFormAcessorios} from "../../models/acessorio";
 import TitleFormScreening from "./TitleFormScreening";
 import {useHistory} from "react-router-dom";
+import {saveNewScreening, updateScreening} from "../../modelServices/equipamentoService";
 
 
 export default function FormScreening () {
@@ -18,6 +19,9 @@ export default function FormScreening () {
   const [equipamento, setEquipamento] = React.useState(Equipamento({}));
   const [triagem, setTriagem] = React.useState(EquipamentoTriagem({triagem: equipamento.triagem}));
   const [acessorios, setAcessorios] = React.useState([...listaFormAcessorios(triagem.acessorios), '']);
+
+  function updateErrors (values, label) {
+  }
 
   function atualizarEquipamento (value) {
     const equip = Object.assign(equipamento, value);
@@ -43,7 +47,7 @@ export default function FormScreening () {
         });
     }
 
-    return salvarNovaTriagem(equipamento)
+    return saveNewScreening(equipamento)
       .then(() => {
         history.push({pathname: '/'});
       });
@@ -59,6 +63,7 @@ export default function FormScreening () {
 
         <Paper className={classes.paper}>
           <CadastroEquipamento
+            updateErrors={updateErrors}
             atualizarTriagem={atualizarTriagem}
             atualizarEquipamento={atualizarEquipamento}
             equipamento={equipamento}
