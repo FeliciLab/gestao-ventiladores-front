@@ -2,14 +2,13 @@ import React from "react";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import AppBar from "@material-ui/core/AppBar";
-import {makeStyles} from "@material-ui/core/styles";
+import { fade, makeStyles } from '@material-ui/core/styles';
 import {Link} from "react-router-dom";
-import AccessAlarmIcon from '@material-ui/icons/AccessAlarm';
-import ThreeDRotation from '@material-ui/icons/ThreeDRotation';
 import PollIcon from '@material-ui/icons/Poll';
-import Button from "@material-ui/core/Button";
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import Popover from '@material-ui/core/Popover';
+import Button from '@material-ui/core/Button';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import IconButton from '@material-ui/core/IconButton';
 import HealingIcon from '@material-ui/icons/Healing';
@@ -17,11 +16,16 @@ import SubtitlesIcon from '@material-ui/icons/Subtitles';
 import BallotIcon from '@material-ui/icons/Ballot';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import MoveToInboxIcon from '@material-ui/icons/MoveToInbox';
+import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+
+
 import '../../global.css'
 
 
 export default function Header () {
   const classes = useStyles();
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const isMenuOpen = Boolean(anchorEl);
@@ -35,7 +39,20 @@ export default function Header () {
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
+  const handlePopoverOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handlePopoverClose = () => {
+    setAnchorEl(null);
+  };
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const open = Boolean(anchorEl);
+  const id = open ? 'simple-popover' : undefined;
   const menuPainel = 'painel-menu';
+  const idPopover = 'id-popover';
 
   function gotopage(event, route) {
     event.preventDefault();
@@ -72,6 +89,7 @@ export default function Header () {
       <Link to="/novo-painel" class={'linkSubMenu'}>Novo
       </Link>
       </MenuItem>
+
     </Menu>
   );
   return (
@@ -91,18 +109,33 @@ export default function Header () {
               <br/> Ventiladores
             </Typography>
           </div>
-          <div className={classes.divUser}>
-            <Typography
-              className={classes.textUser}
-              noWrap
-            >
-              {/*usuario, joe*/}
-            </Typography>
+          <div>
+          <Typography aria-describedby={'mouse-over-popover'}
+          aria-owns={open ? 'mouse-over-popover' : undefined}
+          aria-haspopup="true"
+           variant="contained" 
+          >
+            <IconButton
+              aria-label="Painel de informações"
+              aria-haspopup="true"
+              color="inherit"
+             >
+              <AccountCircle />
+            </IconButton>
+            Junior Oliveira
+            <IconButton
+              onClick={handlePopoverOpen}
+              aria-haspopup="true"
+              color="inherit"
+             >
+              <KeyboardArrowDownIcon />
+            </IconButton>
+          </Typography>
+          
           </div>
         </Toolbar>
         <div className={classes.appBarFooter}>
           <div className={classes.divTextFooter}>
-<<<<<<< HEAD
           <MenuItem onClick={handleProfileMenuOpen}>
             <IconButton
               aria-label="Painel de informações"
@@ -169,47 +202,6 @@ export default function Header () {
             </IconButton>
             <MoveToInboxIcon />ENTREGA
           </MenuItem>
-=======
-            <Link
-              to="/"
-              className={classes.link}
-            >
-              + Triagem
-            </Link>
-
-            <Link
-              to="/diagnosticos"
-              className={classes.link}
-            >
-              + Diagnóstico
-            </Link>
-
-            <Link
-              to="/demandas"
-              className={classes.link}
-            >
-              + Demanda
-            </Link>
-
-            <Link
-              to="/entrega"
-              className={classes.link}
-            >
-              + Entrega
-            </Link>
-
-            <Link
-              to="/calibragem"
-              className={classes.link}
-            >
-              + Calibragem
-            </Link>
-
-            <Link
-              to="/maintenance"
-              className={classes.link}
-            >+ Manuntenção</Link>
->>>>>>> bf91f6bb4b2d647de8c2a3bbd03797e5f1735432
           </div>
         </div>
       </AppBar>
@@ -277,5 +269,14 @@ const useStyles = makeStyles((theme) => ({
     alignSelf: "center",
     color: "#fff",
     textDecoration: "none",
+  },
+  typography: {
+    padding: theme.spacing(2),
+  },
+  popover: {
+    pointerEvents: 'none',
+  },
+  paper: {
+    padding: theme.spacing(1),
   }
 }));
