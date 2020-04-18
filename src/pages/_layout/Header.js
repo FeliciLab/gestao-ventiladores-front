@@ -102,6 +102,7 @@ export default function Header () {
         </Toolbar>
         <div className={classes.appBarFooter}>
           <div className={classes.divTextFooter}>
+<<<<<<< HEAD
           <MenuItem onClick={handleProfileMenuOpen}>
             <IconButton
               aria-label="Painel de informações"
@@ -168,6 +169,47 @@ export default function Header () {
             </IconButton>
             <MoveToInboxIcon />ENTREGA
           </MenuItem>
+=======
+            <Link
+              to="/"
+              className={classes.link}
+            >
+              + Triagem
+            </Link>
+
+            <Link
+              to="/diagnosticos"
+              className={classes.link}
+            >
+              + Diagnóstico
+            </Link>
+
+            <Link
+              to="/demandas"
+              className={classes.link}
+            >
+              + Demanda
+            </Link>
+
+            <Link
+              to="/entrega"
+              className={classes.link}
+            >
+              + Entrega
+            </Link>
+
+            <Link
+              to="/calibragem"
+              className={classes.link}
+            >
+              + Calibragem
+            </Link>
+
+            <Link
+              to="/maintenance"
+              className={classes.link}
+            >+ Manuntenção</Link>
+>>>>>>> bf91f6bb4b2d647de8c2a3bbd03797e5f1735432
           </div>
         </div>
       </AppBar>

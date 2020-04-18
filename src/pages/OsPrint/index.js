@@ -10,6 +10,8 @@ import Rodape from "./Rodape";
 
 export default function OsPrint (props) {
   const [csvData] = React.useState(props.location.state.data);
+  const checkBoxClinic = ['Circuito duplo/UTI/COVID-19', 'Circuito único/Enfermaria/Não COVID-19', 'Transporte'];
+  const checkBoxTechnical = ['Verificação/Análise', 'Aguardando', 'Liberado', 'Sem reparo'];
 
   return (
     <div className={'portaint-print page-container'}>
@@ -62,7 +64,7 @@ export default function OsPrint (props) {
               </div>
               <div className={'page-content'}>
                 <div className={'page-content'}>
-                  <CheckBoxDiagnostic/>
+                  <CheckBoxDiagnostic items={checkBoxClinic}/>
                 </div>
               </div>
 
@@ -87,7 +89,53 @@ export default function OsPrint (props) {
               <div className={'page-content'}>
                 <Rodape
                   numero={data['numero_ordem_servico']}
-                  pagina={'01'}
+                  pagina={'02'}
+                />
+              </div>
+            </div>
+
+            <div className={'page'}>
+              <div className={'page-content'}>
+                <Cabecalho
+                  pagina="03"
+                  subtitle={'Diagnóstico do equipamento'}
+                  numero={data['numero_ordem_servico']}
+                  datahora={new Date(data['created_at']['$date'])}
+                ></Cabecalho>
+              </div>
+              <div className={'page-content'}>
+                <SubtituloPagina texto="1. Resultado do Diagnóstico Técnico"></SubtituloPagina>
+              </div>
+              <div className={'page-content'}>
+                <div className={'page-content'}>
+                  <QuadroDiagnosticos numberRows={5}/>
+                </div>
+              </div>
+              <div className={'page-content'}>
+                <SubtituloPagina texto="2. Demanda por Serviço"></SubtituloPagina>
+              </div>
+              <div className={'page-content'}>
+                <div className={'page-content'}>
+                  <QuadroDiagnosticos numberRows={5}/>
+                </div>
+              </div>
+              <div className={'page-content'}>
+                <SubtituloPagina texto="3. Demanda por Insumo"></SubtituloPagina>
+              </div>
+              <div className={'page-content'}>
+                <div className={'page-content'}>
+                  <QuadroDiagnosticos numberRows={5}/>
+                </div>
+              </div>
+              <div className={'page-content'}>
+                <div className={'page-content'}>
+                  <CheckBoxDiagnostic items={checkBoxTechnical}/>
+                </div>
+              </div>
+              <div className={'page-content'}>
+                <Rodape
+                  numero={data['numero_ordem_servico']}
+                  pagina={'03'}
                 />
               </div>
             </div>

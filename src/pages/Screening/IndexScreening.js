@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {getAllScreeningByStatus} from "../../models/equipamentos";
+import {getAllEquipments} from "../../modelServices/equipamentoService";
 import Layout from "../_layout/Layout";
 import TableCheckedList from "../_common/SelectableTable/TableCheckedList";
 import Container from "@material-ui/core/Container";
@@ -24,7 +24,7 @@ const IndexScreening = (props) => {
 
   useEffect(() => {
     if (screening.length === 0 && !requestBlock) {
-      getAllScreeningByStatus()
+      getAllEquipments()
         .then(result => {
           if (!result) return;
           setScreening(result);

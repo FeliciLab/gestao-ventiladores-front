@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {getScreeningByStatus} from "../../models/equipamentos";
 import Layout from "../_layout/Layout";
 import Container from "@material-ui/core/Container";
 import ActionTableList from "../_common/ActionTable/ActionTableList";
 import DialogItems from "./DialogItems";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
+import {getEquipmentByStatus} from "../../modelServices/equipamentoService";
 
 const headerData = [
   {id: 'numero_ordem_servico', name: 'Ordem de Serviço'},
@@ -24,7 +24,7 @@ const IndexDemand = (props) => {
 
   useEffect(() => {
     if (screening.length === 0 && !requestBlock) {
-      getScreeningByStatus('diagnostico')
+      getEquipmentByStatus('diagnostico')
         .then(result => {
           if (!result) return;
 
