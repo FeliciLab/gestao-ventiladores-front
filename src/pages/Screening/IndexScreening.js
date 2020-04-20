@@ -1,5 +1,4 @@
-import React, {useEffect, useState} from 'react';
-import {getAllEquipments} from "../../modelServices/equipamentoService";
+import React, {useState} from 'react';
 import Layout from "../_layout/Layout";
 import TableCheckedList from "../_common/SelectableTable/TableCheckedList";
 import Container from "@material-ui/core/Container";
@@ -8,44 +7,47 @@ import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import AddIcon from "@material-ui/icons/Add";
 import withStyles from "@material-ui/core/styles/withStyles";
+import {getAllServiceOrder} from "../../modelServices/serviceOrderService";
 
 const IndexScreening = (props) => {
   const history = useHistory();
+
   const [requestBlock, setRequestBlock] = useState(false);
   const [screening, setScreening] = useState([]);
   const [dataTable, setDataTable] = useState([]);
+
   const headerData = [
     {id: 'numero_ordem_servico', name: 'Ordem de Serviço'},
     {id: 'numero_de_serie', name: 'Número de Série'},
     {id: 'marca', name: 'Marca'},
     {id: 'modelo', name: 'Modelo'},
-    {id: 'instituicao_de_origem', name: 'Origem'}
+    {id: 'origem', name: 'Origem'}
   ];
 
-  useEffect(() => {
-    if (screening.length === 0 && !requestBlock) {
-      getAllEquipments()
-        .then(result => {
-          if (!result) return;
-          setScreening(result);
-          setDataTable(result.map(item => {
-            return {
-              numero_ordem_servico: item.numero_ordem_servico,
-              marca: item.triagem.marca || '',
-              modelo: item.triagem.modelo || '',
-              instituicao_de_origem: item.triagem.instituicao_de_origem || '',
-              numero_de_serie: item.triagem.numero_de_serie,
-            };
-          }));
-        })
-        .catch(error => {
-          console.log('consultando triagem', error);
-        });
-      setRequestBlock(true);
-    }
-  }, [requestBlock, screening]);
+  if (screening.length === 0 && !requestBlock) {
+    getAllServiceOrder()
+      .then(result => {
+        if (!result) return;
+        setScreening(result);
+        setDataTable(result.map(item => {
+          return {
+            numero_ordem_servico: item.numero_ordem_servico,
+            marca: item.equipamento[0].marca || '',
+            modelo: item.equipamento[0].modelo || '',
+            instituicao_de_origem: item.equipamento[0].instituicao_de_origem || '',
+            numero_de_serie: item.equipamento[0].numero_de_serie,
+            origem: item.equipamento[0].nome_instituicao_origem,
+          };
+        }));
+      })
+      .catch(error => {
+        console.log('consultando triagem', error);
+      });
 
-  const actionPrint = (data) => {
+    setRequestBlock(true);
+  }
+
+  function actionPrint (data) {
     history.push({
       pathname: "/osprint",
       state: {
@@ -71,7 +73,7 @@ const IndexScreening = (props) => {
                 variant={"contained"}
                 color="primary"
                 disableElevation
-                startIcon={<AddIcon/> }
+                startIcon={<AddIcon/>}
               >
                 Nova Triagem
               </ColorButton>

@@ -13,7 +13,10 @@ export function sendEquipmentPhoto (photo, label, id) {
     }
   })
     .then(result => {
-      return result.data;
+      if (result.data) {
+        return result.data;
+      }
+      return false
     })
     .catch(err => {
       return err;

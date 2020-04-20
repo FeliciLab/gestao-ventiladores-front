@@ -6,7 +6,7 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import {useHistory} from "react-router-dom";
 import {getAllEquipments} from "../../modelServices/equipamentoService";
-import {helperPropsColorIconButton} from "../_common/form/ColorIconButton";
+import {helperPropsColorIconButton} from "../_common/forms/ColorIconButton";
 import {orange} from "@material-ui/core/colors";
 import MarkunreadMailboxIcon from "@material-ui/icons/MarkunreadMailbox";
 
@@ -25,7 +25,8 @@ const IndexDiagnosis = (props) => {
   const [equipments, setEquipments] = useState([]);
 
   async function getAll () {
-    try {
+    if (tableData.length !== 0) return;
+      try {
       const response = await getAllEquipments();
       setEquipments(response);
       tableData(response);
@@ -49,9 +50,7 @@ const IndexDiagnosis = (props) => {
     setDataTable(response);
   }
 
-  useEffect(() => {
-    getAll();
-  }, [props]);
+  useEffect(getAll, [props, getAll]);
 
   const openFormEntrega = (value) => {
     history.push(
