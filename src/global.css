@@ -82,10 +82,6 @@ form textarea {
   opacity: 0.8;
 }
 
-.MuiList-root{
-  display: inline-flex !important;
-}
-
 .linkSubMenu{
   text-Decoration: none;
   display: block;

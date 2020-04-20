@@ -6,9 +6,8 @@ import { fade, makeStyles } from '@material-ui/core/styles';
 import {Link} from "react-router-dom";
 import PollIcon from '@material-ui/icons/Poll';
 import Menu from '@material-ui/core/Menu';
+
 import MenuItem from '@material-ui/core/MenuItem';
-import Popover from '@material-ui/core/Popover';
-import Button from '@material-ui/core/Button';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import IconButton from '@material-ui/core/IconButton';
 import HealingIcon from '@material-ui/icons/Healing';
@@ -16,13 +15,9 @@ import SubtitlesIcon from '@material-ui/icons/Subtitles';
 import BallotIcon from '@material-ui/icons/Ballot';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import MoveToInboxIcon from '@material-ui/icons/MoveToInbox';
-import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
-import AccountCircle from '@material-ui/icons/AccountCircle';
 
-
-import '../../global.css'
-
-
+import UserButton from "./UserButton.js";
+import './styles.css';
 export default function Header () {
   const classes = useStyles();
 
@@ -39,12 +34,12 @@ export default function Header () {
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
-  const handlePopoverOpen = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handlePopoverClose = () => {
-    setAnchorEl(null);
-  };
+  // const handlePopoverOpen = (event) => {
+  //   setAnchorEl(event.currentTarget);
+  // };
+  // const handlePopoverClose = () => {
+  //   setAnchorEl(null);
+  // };
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -80,7 +75,8 @@ export default function Header () {
       open={isMenuOpen}
       onClose={handleClose}
       elevation={0}
-      getContentAnchorEl={null}>
+      getContentAnchorEl={null}
+      >
       <MenuItem onClick={(event) => gotopage(event, 'lista-painel')} variant="outlined">
       <Link to="/lista-painel" class={'linkSubMenu'}>LISTA
       </Link>
@@ -94,48 +90,23 @@ export default function Header () {
   );
   return (
     <header>
-      <AppBar
-        position="absolute"
-        className={classes.appBar}
-      >
+      <AppBar position="absolute" className={classes.appBar}>
         <Toolbar className={classes.toolbar}>
           <div className={classes.divTitle}>
-            <Typography
-              className={classes.text}
-              noWrap
-            >
+            <Typography className={classes.text} noWrap>
               Central
               <br/> de
               <br/> Ventiladores
             </Typography>
           </div>
           <div>
-          <Typography aria-describedby={'mouse-over-popover'}
-          aria-owns={open ? 'mouse-over-popover' : undefined}
-          aria-haspopup="true"
-           variant="contained" 
-          >
-            <IconButton
-              aria-label="Painel de informações"
-              aria-haspopup="true"
-              color="inherit"
-             >
-              <AccountCircle />
-            </IconButton>
-            Junior Oliveira
-            <IconButton
-              onClick={handlePopoverOpen}
-              aria-haspopup="true"
-              color="inherit"
-             >
-              <KeyboardArrowDownIcon />
-            </IconButton>
-          </Typography>
-          
+            <Typography>
+              <UserButton />
+            </Typography> 
           </div>
         </Toolbar>
         <div className={classes.appBarFooter}>
-          <div className={classes.divTextFooter}>
+          <div className={classes.divTextFooter} >
           <MenuItem onClick={handleProfileMenuOpen}>
             <IconButton
               aria-label="Painel de informações"
@@ -226,7 +197,7 @@ const useStyles = makeStyles((theme) => ({
       width: 1200,
       marginLeft: "auto",
       marginRight: "auto",
-    },
+    }
   },
   appBarFooter: {
     width: "100%",
