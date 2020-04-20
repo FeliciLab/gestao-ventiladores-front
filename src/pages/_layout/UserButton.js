@@ -34,6 +34,7 @@ export default function UserButton () {
         open={isMenuOpen}
         onClose={handleMenuClose}
         className={classes.list} 
+        getContentAnchorEl={null}
         >
         <MenuItem onClick={handleMenuClose}>Perfil</MenuItem>
         <MenuItem onClick={handleMenuClose}>Deslogar</MenuItem>

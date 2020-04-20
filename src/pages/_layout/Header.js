@@ -2,9 +2,9 @@ import React from "react";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import AppBar from "@material-ui/core/AppBar";
-import { fade, makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import {Link} from "react-router-dom";
-import MenuAppBar from './Menu';
+//import MenuAppBar from './Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import IconButton from '@material-ui/core/IconButton';
@@ -13,7 +13,6 @@ import './styles.css';
 export default function Header () {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const isMenuOpen = Boolean(anchorEl);
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -22,15 +21,10 @@ export default function Header () {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const handleMobileMenuOpen = (event) => {
-    setMobileMoreAnchorEl(event.currentTarget);
-  };
- 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
-  const open = Boolean(anchorEl);
   const menuPainel = 'painel-menu';
 
   function gotopage(event, route) {
