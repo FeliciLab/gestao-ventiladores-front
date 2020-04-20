@@ -15,11 +15,14 @@ const SelectControl = (props) => {
 
   const [value, setValue] = React.useState('');
 
-  React.useEffect(() => {
-    if (value === '' && defaultValue) {
-      setValue(defaultValue);
-    }
-  }, [defaultValue, value]);
+  if (value === '' && defaultValue) {
+    setValue(defaultValue);
+  }
+
+  function updateValue (event) {
+    setValue(event.target.value)
+    action(event)
+  }
 
   return (
     <React.Fragment>
@@ -28,7 +31,7 @@ const SelectControl = (props) => {
         <Select
           name={name}
           value={value}
-          onChange={action}
+          onChange={updateValue}
         >
           {menuItems.map((item, index) => (
             <MenuItem

@@ -5,7 +5,7 @@ import Paper from "@material-ui/core/Paper";
 import CadastroDiagnostico from "./CadastroDiagnostico";
 import CadastroItens from "./CreateNewItem";
 import Container from "@material-ui/core/Container";
-import {ServiceOrderDiagnosis} from "../../models/ordem_servico";
+import {ServiceOrderDiagnosis} from "../../models/serviceOrder";
 import HeaderFormPage from "./HeaderFormPage";
 import FormRegisteredItems from "./FormRegisteredItems";
 

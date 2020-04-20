@@ -4,12 +4,13 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Paper from "@material-ui/core/Paper";
 import CadastroEquipamento from "./CadastroEquipamento";
 import RelacaoDeMaterial from "./RelacaoDeMaterial";
-import {ServiceOrder, ServiceOrderScreening} from "../../models/ordem_servico";
+import {ServiceOrder, ServiceOrderScreening} from "../../models/serviceOrder";
 import {listaFormAcessorios} from "../../models/acessorio";
 import TitleFormScreening from "./TitleFormScreening";
 import {useHistory} from "react-router-dom";
 import {saveNewScreening, updateScreening} from "../../modelServices/equipamentoService";
 import Alert from "@material-ui/lab/Alert";
+import {Equipamento} from "../../models/equipamentos";
 
 
 export default function FormScreening () {
@@ -17,9 +18,11 @@ export default function FormScreening () {
 
   const classes = useStyles();
 
-  const [equipamento, setEquipamento] = React.useState(ServiceOrder({}));
-  const [triagem, setTriagem] = React.useState(ServiceOrderScreening({triagem: equipamento.triagem}));
-  const [acessorios, setAcessorios] = React.useState([...listaFormAcessorios(triagem.acessorios), '']);
+  const [equipamento, setEquipamento] = React.useState(Equipamento({}))
+  const [serviceOrder, setServiceOrder] = React.useState(ServiceOrder({}));
+  const [screening, setScreening] = React.useState(ServiceOrderScreening({screening: equipamento.screening}));
+  const [acessorios, setAcessorios] = React.useState([...listaFormAcessorios(screening.acessorios), '']);
+
   const [formErrors, setFormErrors] = React.useState({});
   const [errorsFound, setErrorsFound] = React.useState(false);
 
@@ -33,15 +36,20 @@ export default function FormScreening () {
     setFormErrors(errors);
   }
 
+  function updateServiceOrder (value ) {
+    const doc = Object.assign({}, serviceOrder, value);
+    setServiceOrder(doc);
+  }
+
   function atualizarEquipamento (value) {
     const equip = Object.assign(equipamento, value);
     setEquipamento(equip);
   }
 
   function atualizarTriagem (value) {
-    const triag = Object.assign(triagem, value);
-    setTriagem(triag);
-    atualizarEquipamento({triagem: triag});
+    const triag = Object.assign(screening, value);
+    setScreening(triag);
+    atualizarEquipamento({screening: triag});
   }
 
   function atualizarAcessorios (value) {
@@ -63,7 +71,7 @@ export default function FormScreening () {
     return false;
   }
 
-  function salvarEquipamento () {
+  function saveDocuments () {
     if (hasErrorsFound()) return;
     if (equipamento._id) {
       return updateScreening(equipamento)
@@ -84,7 +92,7 @@ export default function FormScreening () {
       <CssBaseline/>
 
       <main className={classes.layout}>
-        <TitleFormScreening saveEquipment={salvarEquipamento}/>
+        <TitleFormScreening saveEquipment={saveDocuments}/>
 
         {errorsFound ?
           <Alert
@@ -101,8 +109,10 @@ export default function FormScreening () {
             updateErrors={updateErrors}
             atualizarTriagem={atualizarTriagem}
             atualizarEquipamento={atualizarEquipamento}
+            updateServiceOrder={updateServiceOrder}
             equipamento={equipamento}
-            triagem={triagem}
+            screening={screening}
+            serviceOrder={serviceOrder}
           />
         </Paper>
 
