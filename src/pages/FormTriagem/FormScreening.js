@@ -4,7 +4,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Paper from "@material-ui/core/Paper";
 import CadastroEquipamento from "./CadastroEquipamento";
 import RelacaoDeMaterial from "./RelacaoDeMaterial";
-import {Equipamento, EquipamentoTriagem} from "../../models/equipamentos";
+import {ServiceOrder, ServiceOrderScreening} from "../../models/ordem_servico";
 import {listaFormAcessorios} from "../../models/acessorio";
 import TitleFormScreening from "./TitleFormScreening";
 import {useHistory} from "react-router-dom";
@@ -17,8 +17,8 @@ export default function FormScreening () {
 
   const classes = useStyles();
 
-  const [equipamento, setEquipamento] = React.useState(Equipamento({}));
-  const [triagem, setTriagem] = React.useState(EquipamentoTriagem({triagem: equipamento.triagem}));
+  const [equipamento, setEquipamento] = React.useState(ServiceOrder({}));
+  const [triagem, setTriagem] = React.useState(ServiceOrderScreening({triagem: equipamento.triagem}));
   const [acessorios, setAcessorios] = React.useState([...listaFormAcessorios(triagem.acessorios), '']);
   const [formErrors, setFormErrors] = React.useState({});
   const [errorsFound, setErrorsFound] = React.useState(false);

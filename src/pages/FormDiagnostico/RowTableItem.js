@@ -7,12 +7,6 @@ import Typography from "@material-ui/core/Typography";
 import SelectControl from "../_common/forms/SelectControl";
 
 export default function RowTableItem (props) {
-  React.useEffect(() => {
-    if (props.data && Object.keys(props.data).length !== 0 && Object.keys(item).length === 0) {
-      setItem(props.data);
-    }
-  }, [props]);
-
   const {
     index,
     headTable,
@@ -25,6 +19,10 @@ export default function RowTableItem (props) {
     {value: 'pecas', name: 'Peças'},
     {value: 'acessorio', name: 'Acessórios'}
   ];
+
+  if (props.data && Object.keys(props.data).length !== 0 && Object.keys(item).length === 0) {
+    setItem(props.data);
+  }
 
   return (<React.Fragment>
     <TableRow>

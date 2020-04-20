@@ -5,11 +5,16 @@ import Paper from "@material-ui/core/Paper";
 import CadastroDiagnostico from "./CadastroDiagnostico";
 import CadastroItens from "./CreateNewItem";
 import Container from "@material-ui/core/Container";
-import {EquipmentDiagnosis} from "../../models/equipamentos";
+import {ServiceOrderDiagnosis} from "../../models/ordem_servico";
 import HeaderFormPage from "./HeaderFormPage";
 import FormRegisteredItems from "./FormRegisteredItems";
 
 const FormDiagnosis = (props) => {
+  useEffect(() => {
+    setEquipment(props.equipment);
+    setDiagnosis(ServiceOrderDiagnosis(props.equipment));
+  }, [props]);
+
   const classes = useStyles();
 
   const [equipment, setEquipment] = useState({});
@@ -17,20 +22,16 @@ const FormDiagnosis = (props) => {
   const [itemsDiagnosis, setItemsDiagnosis] = useState([]);
   const [clean, setClean] = useState(false);
 
-  useEffect(() => {
-    setEquipment(props.equipment);
-    setDiagnosis(EquipmentDiagnosis(props.equipment));
-    if (itemsDiagnosis.length === 0 &&
-      props.equipment &&
-      props.equipment.diagnostico &&
-      props.equipment.diagnostico.itens &&
-      props.equipment.diagnostico.itens.length > 0
-    ) {
-      setItemsDiagnosis(props.equipment.diagnostico.itens);
-    }
-  }, [props, itemsDiagnosis]);
+  if (itemsDiagnosis.length === 0 &&
+    props.equipment &&
+    props.equipment.diagnostico &&
+    props.equipment.diagnostico.itens &&
+    props.equipment.diagnostico.itens.length > 0
+  ) {
+    setItemsDiagnosis(props.equipment.diagnostico.itens);
+  }
 
-  const addNewItem = (item) => {
+  function addNewItem (item) {
     const items = itemsDiagnosis.slice();
     items.push(item);
     setItemsDiagnosis(items);
@@ -43,7 +44,7 @@ const FormDiagnosis = (props) => {
     setClean(false);
   };
 
-  const updateItemsFromTable = (value, index, field) => {
+  function updateItemsFromTable (value, index, field) {
     const items = itemsDiagnosis.map((item, idx) => {
       if (idx === index) {
         item[field] = value;
@@ -55,13 +56,14 @@ const FormDiagnosis = (props) => {
     setItemsDiagnosis(items);
   };
 
-  const saveForm = () => {
-    const diagnosis = {
+  function saveForm () {
+    const doc = {
       diagnosis: {
         ...diagnosis,
         itens: itemsDiagnosis
       }
     };
+    console.log(doc)
   };
 
   return (
