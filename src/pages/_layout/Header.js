@@ -4,23 +4,14 @@ import Typography from "@material-ui/core/Typography";
 import AppBar from "@material-ui/core/AppBar";
 import { fade, makeStyles } from '@material-ui/core/styles';
 import {Link} from "react-router-dom";
-import PollIcon from '@material-ui/icons/Poll';
-import Menu from '@material-ui/core/Menu';
-
+import MenuAppBar from './Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import AssignmentIcon from '@material-ui/icons/Assignment';
+import Menu from '@material-ui/core/Menu';
 import IconButton from '@material-ui/core/IconButton';
-import HealingIcon from '@material-ui/icons/Healing';
-import SubtitlesIcon from '@material-ui/icons/Subtitles';
-import BallotIcon from '@material-ui/icons/Ballot';
-import DashboardIcon from '@material-ui/icons/Dashboard';
-import MoveToInboxIcon from '@material-ui/icons/MoveToInbox';
-
 import UserButton from "./UserButton.js";
 import './styles.css';
 export default function Header () {
   const classes = useStyles();
-
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const isMenuOpen = Boolean(anchorEl);
@@ -34,20 +25,13 @@ export default function Header () {
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
-  // const handlePopoverOpen = (event) => {
-  //   setAnchorEl(event.currentTarget);
-  // };
-  // const handlePopoverClose = () => {
-  //   setAnchorEl(null);
-  // };
+ 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
   const open = Boolean(anchorEl);
-  const id = open ? 'simple-popover' : undefined;
   const menuPainel = 'painel-menu';
-  const idPopover = 'id-popover';
 
   function gotopage(event, route) {
     event.preventDefault();
@@ -63,20 +47,18 @@ export default function Header () {
     <Menu
       anchorEl={anchorEl}
       anchorOrigin={{
-        vertical: 'bottom',
-        horizontal: 'center',
-      }}
-      id={menuPainel}
+          vertical: 'bottom',
+          horizontal: 'center',
+      }}      
       keepMounted
       transformOrigin={{
-        vertical: 'top',
-        horizontal: 'center',
+          vertical: 'top',
+          horizontal: 'center',
       }}
       open={isMenuOpen}
       onClose={handleClose}
       elevation={0}
-      getContentAnchorEl={null}
-      >
+      getContentAnchorEl={null}>
       <MenuItem onClick={(event) => gotopage(event, 'lista-painel')} variant="outlined">
       <Link to="/lista-painel" class={'linkSubMenu'}>LISTA
       </Link>
@@ -85,9 +67,38 @@ export default function Header () {
       <Link to="/novo-painel" class={'linkSubMenu'}>Novo
       </Link>
       </MenuItem>
+  </Menu>
+// console.log(isMenuOpen),
+// <MenuAppBar 
+//     anchorEl={anchorEl}
+//     open={isMenuOpen}
+//     onClose={handleClose}
+//     />
+);
 
-    </Menu>
-  );
+  const menus = [
+    {name: 'PAINEL', icon: 'Vectorcalibragem'},
+    {name: 'TRIAGEM', icon: 'Vectortri'},
+    {name: 'DIAGNÓSTICO', icon: 'Vectordiagnostico'},
+    {name: 'CONSERTO', icon: 'Vectorconserto'},
+    {name: 'TESTE', icon: 'Vectorteste'},
+    {name: 'CALIBRAGEM', icon: 'Vectorcalibragem'},
+    {name: 'ENTREGA', icon: 'Vectorentrega'}
+  ];
+
+const listItems = menus.map((menu) =>
+<MenuItem onClick={handleProfileMenuOpen}>
+  <IconButton
+    aria-label="Painel de informações"
+    aria-controls={menuPainel}
+    aria-haspopup="true"
+    color="inherit">  
+    <img src={process.env.PUBLIC_URL+'/img/'+menu.icon+'.png'} />
+  </IconButton>
+  <p>{menu.name}</p>
+</MenuItem>
+);
+
   return (
     <header>
       <AppBar position="absolute" className={classes.appBar}>
@@ -107,72 +118,7 @@ export default function Header () {
         </Toolbar>
         <div className={classes.appBarFooter}>
           <div className={classes.divTextFooter} >
-          <MenuItem onClick={handleProfileMenuOpen}>
-            <IconButton
-              aria-label="Painel de informações"
-              aria-controls={menuPainel}
-              aria-haspopup="true"
-              color="inherit">
-              <PollIcon />
-            </IconButton>
-            <p>PAINEL</p>
-          </MenuItem>
-          <MenuItem onClick={handleProfileMenuOpen}>
-            <IconButton
-              aria-label="Triagem"
-              aria-controls={menuPainel}
-              aria-haspopup="true"
-              color="inherit">
-              <AssignmentIcon />
-            </IconButton>
-            <p>TRIAGEM</p>
-          </MenuItem>
-          <MenuItem onClick={handleProfileMenuOpen}>
-            <IconButton
-              aria-label="Triagem"
-              aria-controls={menuPainel}
-              aria-haspopup="true"
-              color="inherit">
-              <SubtitlesIcon />
-            </IconButton>
-            DIAGNÓSTICO
-          </MenuItem>
-          <MenuItem onClick={handleProfileMenuOpen}>
-            <IconButton
-              aria-label="Triagem"
-              aria-controls={menuPainel}
-              aria-haspopup="true"
-              color="inherit">
-            </IconButton>
-            <HealingIcon />CONSERTO
-          </MenuItem>
-          <MenuItem onClick={handleProfileMenuOpen}>
-            <IconButton
-              aria-label="Teste"
-              aria-controls={menuPainel}
-              aria-haspopup="true"
-              color="inherit">
-            </IconButton>
-            <BallotIcon />TESTE
-          </MenuItem>
-          <MenuItem onClick={handleProfileMenuOpen}>
-            <IconButton
-              aria-label="Teste"
-              aria-controls={menuPainel}
-              aria-haspopup="true"
-              color="inherit">
-            </IconButton>
-            <DashboardIcon />CALIBRAGEM
-          </MenuItem>
-          <MenuItem onClick={handleProfileMenuOpen}>
-            <IconButton
-              aria-label="Teste"
-              aria-controls={menuPainel}
-              aria-haspopup="true"
-              color="inherit">
-            </IconButton>
-            <MoveToInboxIcon />ENTREGA
-          </MenuItem>
+          {listItems}
           </div>
         </div>
       </AppBar>
