@@ -1,5 +1,5 @@
 import React from 'react';
-import ColorIconButton from "../form/ColorIconButton";
+import ColorIconButton from "../forms/ColorIconButton";
 
 const ActionButtonLayout = (props) => {
   const {item, menuOptions} = props;

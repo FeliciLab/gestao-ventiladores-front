@@ -4,30 +4,28 @@ import TableFormRegisteredItems from "./TableFormRegisteredItems";
 
 const FormRegisteredItems = (props) => {
   React.useEffect(() => {
-    setItems(props.items);
-  }, [props.items]);
+    if (props.items) {
+      setItems(props.items);
+    }
+  }, [props]);
 
   const [items, setItems] = React.useState([]);
 
   const {updateItemsFromTable} = props;
 
-  const updateParent = (event) => {
-    updateItemsFromTable(event);
-  };
-
   return (
     <React.Fragment>
-        <Typography
-          variant={"h6"}
-          gutterBottom
-          component={"h6"}
-        >
-          2.1 PEÇAS E ACESSÓRIOS CADASTRADOS
-        </Typography>
-        <TableFormRegisteredItems
-          items={items}
-          updateParent={updateParent}
-        />
+      <Typography
+        variant={"h6"}
+        gutterBottom
+        component={"h6"}
+      >
+        2.1 PEÇAS E ACESSÓRIOS CADASTRADOS
+      </Typography>
+      <TableFormRegisteredItems
+        items={items}
+        updateItemsFromTable={updateItemsFromTable}
+      />
     </React.Fragment>
   );
 };

@@ -1,15 +1,12 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {Grid} from "@material-ui/core";
 import CampoConteudo from "./CampoConteudo";
 
 
 export default function DadosEquipamento (props) {
-  useEffect(() => {
-    setEquipamento(props.equipamento);
-  }, [props.equipamento]);
+  const {equipamento} = props;
 
-  const [equipamento, setEquipamento] = useState({triagem: {}});
-  if (!props.equipamento) {
+  if (!equipamento) {
     return (<div></div>);
   }
 
@@ -36,7 +33,7 @@ export default function DadosEquipamento (props) {
         <div className={'header-content'}>
           <CampoConteudo
             titulo='Número de série:'
-            texto={equipamento.triagem.numero_de_serie}
+            texto={equipamento.numero_de_serie}
           ></CampoConteudo>
         </div>
       </Grid>
@@ -48,7 +45,7 @@ export default function DadosEquipamento (props) {
         <div className={'header-content'}>
           <CampoConteudo
             titulo='Origem'
-            texto={equipamento.triagem.nome_instituicao_origem}
+            texto={equipamento.nome_instituicao_origem}
           ></CampoConteudo>
         </div>
       </Grid>
@@ -59,7 +56,7 @@ export default function DadosEquipamento (props) {
         <div className={'header-content'}>
           <CampoConteudo
             titulo='Nº Patrimônio'
-            texto={equipamento.triagem.numero_do_patrimonio}
+            texto={equipamento.numero_do_patrimonio}
           ></CampoConteudo>
         </div>
       </Grid>
@@ -71,7 +68,7 @@ export default function DadosEquipamento (props) {
         <div className={'header-content'}>
           <CampoConteudo
             titulo='Cidade de Origem'
-            texto={equipamento.triagem.municipio_origem}
+            texto={equipamento.municipio_origem}
           ></CampoConteudo>
         </div>
       </Grid>
@@ -82,7 +79,7 @@ export default function DadosEquipamento (props) {
         <div className={'header-content'}>
           <CampoConteudo
             titulo='Marca'
-            texto={equipamento.triagem.marca}
+            texto={equipamento.marca}
           ></CampoConteudo>
         </div>
       </Grid>
@@ -94,7 +91,7 @@ export default function DadosEquipamento (props) {
         <div className={'header-content'}>
           <CampoConteudo
             titulo='Tipo de equipamento'
-            texto={equipamento.triagem.tipo}
+            texto={equipamento.tipo}
           ></CampoConteudo>
         </div>
       </Grid>
@@ -105,11 +102,11 @@ export default function DadosEquipamento (props) {
         <div className={'header-content model-fab'}>
           <CampoConteudo
             titulo='Modelo'
-            texto={equipamento.triagem.modelo}
+            texto={equipamento.modelo}
           ></CampoConteudo>
           <CampoConteudo
             titulo='Fabricante'
-            texto={equipamento.triagem.fabricante}
+            texto={equipamento.fabricante}
           ></CampoConteudo>
         </div>
       </Grid>

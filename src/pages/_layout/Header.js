@@ -4,7 +4,7 @@ import Typography from "@material-ui/core/Typography";
 import AppBar from "@material-ui/core/AppBar";
 import { makeStyles } from '@material-ui/core/styles';
 import {Link} from "react-router-dom";
-//import MenuAppBar from './Menu';
+import SubMenuAppBar from './SubMenuAppBar';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import IconButton from '@material-ui/core/IconButton';
@@ -36,40 +36,6 @@ export default function Header () {
       }} ></Link>
     )
   }
-
-  const renderMenu = (
-    <Menu
-      anchorEl={anchorEl}
-      anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'center',
-      }}      
-      keepMounted
-      transformOrigin={{
-          vertical: 'top',
-          horizontal: 'center',
-      }}
-      open={isMenuOpen}
-      onClose={handleClose}
-      elevation={0}
-      getContentAnchorEl={null}>
-      <MenuItem onClick={(event) => gotopage(event, 'lista-painel')} variant="outlined">
-      <Link to="/lista-painel" class={'linkSubMenu'}>LISTA
-      </Link>
-      </MenuItem>
-      <MenuItem>
-      <Link to="/novo-painel" class={'linkSubMenu'}>Novo
-      </Link>
-      </MenuItem>
-  </Menu>
-// console.log(isMenuOpen),
-// <MenuAppBar 
-//     anchorEl={anchorEl}
-//     open={isMenuOpen}
-//     onClose={handleClose}
-//     />
-);
-
   const menus = [
     {name: 'PAINEL', icon: 'Vectorcalibragem'},
     {name: 'TRIAGEM', icon: 'Vectortri'},
@@ -112,11 +78,11 @@ const listItems = menus.map((menu) =>
         </Toolbar>
         <div className={classes.appBarFooter}>
           <div className={classes.divTextFooter} >
-          {listItems}
+          {/* <MenuAppBar /> */}
           </div>
         </div>
       </AppBar>
-      {renderMenu}
+      <SubMenuAppBar />
     </header>
   );
 }

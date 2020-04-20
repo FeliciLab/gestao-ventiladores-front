@@ -4,7 +4,7 @@ import Menu from '@material-ui/core/Menu';
 import {Link} from "react-router-dom";
 
 
-export default function MenuAppBar(props) {
+export default function SubMenuAppBar(props) {
    
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
@@ -12,16 +12,13 @@ export default function MenuAppBar(props) {
     const handleMenu = (event) => {
       setAnchorEl(event.currentTarget);
     };
-  
+
     const handleClose = () => {
       setAnchorEl(null);
     };
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
-
-
-
     function gotopage(event, route) {
         event.preventDefault();
         //window.location.replace(route);
