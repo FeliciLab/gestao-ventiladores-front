@@ -11,7 +11,7 @@ import {useHistory} from "react-router-dom";
 import {saveNewEquipment, updateEquipment,} from "../../modelServices/equipamentoService";
 import Alert from "@material-ui/lab/Alert";
 import {Equipamento} from "../../models/equipamentos";
-import {saveNewOrderService} from "../../modelServices/serviceOrderService";
+import {saveNewOrderService, updateServiceOrderRequest} from "../../modelServices/serviceOrderService";
 
 
 export default function FormScreening () {
@@ -19,7 +19,7 @@ export default function FormScreening () {
 
   const classes = useStyles();
 
-  const [equipamento, setEquipamento] = React.useState(Equipamento({}))
+  const [equipamento, setEquipamento] = React.useState(Equipamento({}));
   const [serviceOrder, setServiceOrder] = React.useState(ServiceOrder({}));
   const [screening, setScreening] = React.useState(ServiceOrderScreening({screening: equipamento.screening}));
   const [acessorios, setAcessorios] = React.useState([...listaFormAcessorios(screening.acessorios), '']);
@@ -37,13 +37,14 @@ export default function FormScreening () {
     setFormErrors(errors);
   }
 
-  function updateServiceOrder (value ) {
-    const doc = Object.assign({}, serviceOrder, value);
-    setServiceOrder(doc);
+  function updateServiceOrder (value) {
+    const doc = Object.assign({}, serviceOrder);
+    setServiceOrder(Object.assign({}, doc, value));
   }
 
   function atualizarEquipamento (value) {
-    const equip = Object.assign(equipamento, value);
+    let _equip = JSON.parse(JSON.stringify(equipamento));
+    const equip = Object.assign({}, _equip, value);
     setEquipamento(equip);
   }
 
@@ -74,38 +75,40 @@ export default function FormScreening () {
 
   async function saveDocuments () {
     if (hasErrorsFound()) return;
-    let equipamentoId = ''
+    let equipamentoId = '';
 
     try {
-      if (equipamento._id === '') {
-       await saveNewEquipment(equipamento)
-       equipamentoId = equipamento._id
+      if (equipamento._id && equipamento._id !== '') {
+        await updateEquipment(equipamento);
+        equipamentoId = equipamento._id;
       } else {
-        equipamentoId = await updateEquipment(equipamento)
+        const equip = await saveNewEquipment(equipamento);
+        equipamentoId = equip._id;
       }
+      console.log('equipamento OK');
     } catch (e) {
-      console.log('falha ao salvar equipamento', e)
-      return false
+      console.log('falha ao salvar equipamento', e);
+      return false;
     }
 
-    setScreening({
-      acessorios: acessorios.slice(0)
-    })
+    const screen = Object.assign({}, screening, {acessorios: acessorios.filter(item => item !== '')});
+    const order = Object.assign({},
+      serviceOrder,
+      {triagem: screen},
+      {equipamento_id: equipamentoId}
+    );
 
-    setServiceOrder({
-      equipamento_id: equipamentoId,
-      triagem: Object.assign({}, screening)
-    })
-
+    console.log(order);
     try {
-      if (serviceOrder._id) {
-        await updateServiceOrder(serviceOrder)
+      if (order._id && order._id !== '') {
+        await updateServiceOrderRequest(order);
       } else {
-        await saveNewOrderService(serviceOrder)
+        await saveNewOrderService(order);
       }
+      console.log('salvo');
     } catch (e) {
-      console.log('falha ao salvar ordem de serviço', e)
-      return false
+      console.log('falha ao salvar ordem de serviço', e);
+      return false;
     }
 
 
@@ -138,7 +141,6 @@ export default function FormScreening () {
             equipamento={equipamento}
             screening={screening}
             serviceOrder={serviceOrder}
-            serviceNumber={0}
           />
         </Paper>
 

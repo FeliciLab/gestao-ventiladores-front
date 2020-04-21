@@ -1,8 +1,6 @@
 import api from "../services/api";
 import {ServiceOrder} from "../models/serviceOrder";
 
-const DEFAULT_URL = '/api/ordem_servicos'
-
 /**
  * Seach screnning by status
  *      triagem
@@ -12,7 +10,7 @@ const DEFAULT_URL = '/api/ordem_servicos'
  */
 export function getServiceOrderByStatus (status) {
   return api.post(
-     DEFAULT_URL + '/find',
+     '/api/ordem_servicos' + '/find',
     {
       query: {
         status
@@ -37,7 +35,7 @@ export function getServiceOrderByStatus (status) {
 
 export function getAllServiceOrder () {
   return api.get(
-    DEFAULT_URL,
+    '/api/ordem_servicos',
     {
       headers: {
         'Access-Control-Allow-Origin': '*',
@@ -67,7 +65,7 @@ export function saveNewOrderService (serviceOrder) {
   delete (serviceOrder['_id']);
   const model = mapModelRequest(serviceOrder)
   return api.post(
-    DEFAULT_URL,
+    '/api/ordem_servicos',
     Object.assign(
       model,
       {
@@ -92,13 +90,13 @@ export function saveNewOrderService (serviceOrder) {
     });
 }
 
-export function updateServiceOrder (serviceOrder) {
+export function updateServiceOrderRequest (serviceOrder) {
   const id = serviceOrder['_id'];
   delete (serviceOrder['_id']);
   const model = mapModelRequest(serviceOrder)
 
-  return api.put(
-    DEFAULT_URL + id,
+  return api.post(
+    '/api/ordem_servicos',
     Object.assign({}, model, {updated_at: new Date()})
   ).then(result => {
     console.log(result);

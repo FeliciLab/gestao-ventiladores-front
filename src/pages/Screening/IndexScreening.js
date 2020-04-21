@@ -30,13 +30,14 @@ const IndexScreening = (props) => {
         if (!result) return;
         setScreening(result);
         setDataTable(result.map(item => {
+          const equip = item.equipamento[0] || {}
           return {
             numero_ordem_servico: item.numero_ordem_servico,
-            marca: item.equipamento[0].marca || '',
-            modelo: item.equipamento[0].modelo || '',
-            instituicao_de_origem: item.equipamento[0].instituicao_de_origem || '',
-            numero_de_serie: item.equipamento[0].numero_de_serie,
-            origem: item.equipamento[0].nome_instituicao_origem,
+            marca: equip.marca || '',
+            modelo: equip.modelo || '',
+            instituicao_de_origem: equip.instituicao_de_origem || '',
+            numero_de_serie: equip.numero_de_serie || '',
+            origem: equip.nome_instituicao_origem || '',
           };
         }));
       })
