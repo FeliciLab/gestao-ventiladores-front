@@ -2,18 +2,10 @@ import React from "react";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import AppBar from "@material-ui/core/AppBar";
-import { makeStyles } from '@material-ui/core/styles';
-import {Link} from "react-router-dom";
+import {makeStyles} from '@material-ui/core/styles';
 import SubMenuAppBar from './SubMenuAppBar';
 import MenuAppBar from './MenuAppBar';
 import UserButton from "./UserButton.js";
-import AssessmentIcon from '@material-ui/icons/Assessment';
-import AssignmentIcon from '@material-ui/icons/Assignment';
-import SubtitlesIcon from '@material-ui/icons/Subtitles';
-import HealingIcon from '@material-ui/icons/Healing';
-import BallotIcon from '@material-ui/icons/Ballot';
-import DashboardIcon from '@material-ui/icons/Dashboard';
-import MoveToInboxIcon from '@material-ui/icons/MoveToInbox';
 
 import './styles.css';
 

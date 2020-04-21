@@ -1,10 +1,10 @@
 import React from 'react';
-import DialogModelsEquipments from "../../FormTriagem/DialogModelsEquipment";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Input from "@material-ui/core/Input";
 import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
+import DialogModelsEquipments from "../../ScreeningForm/DialogModelsEquipment";
 
 const InputRadioDialog = (props) => {
   const {action, name, label, hasOther, defaultValue, items} = props;
