@@ -8,7 +8,7 @@ import Typography from "@material-ui/core/Typography";
 import {useHistory} from "react-router-dom";
 import {orange} from "@material-ui/core/colors";
 import QueueIcon from '@material-ui/icons/Queue';
-import {helperPropsColorIconButton} from "../_common/form/ColorIconButton";
+import {helperPropsColorIconButton} from "../_common/forms/ColorIconButton";
 
 const headerData = [
   {id: 'numero_ordem_servico', name: 'Ordem de Serviço'},

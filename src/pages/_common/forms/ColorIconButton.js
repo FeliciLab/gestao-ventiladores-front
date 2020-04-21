@@ -17,14 +17,28 @@ const ColorIconButton = (props) => {
   }))(IconButton);
 
   return (<React.Fragment>
-    <ColorIconButton title={name} onClick={() => action(item)} size={size || 'small'}>
+    <ColorIconButton
+      title={name}
+      onClick={() => action(item)}
+      size={size || 'small'}
+    >
       {icon}
     </ColorIconButton>
   </React.Fragment>);
 };
 
-export function helperPropsColorIconButton (name, action, color, bgColor, hoverColor, icon) {
-  return {name, action, icon: {color, bgColor, hoverColor, icon}};
+export function helperPropsColorIconButton (name, action, color, bgColor, hoverColor, icon, size) {
+  return {
+    name,
+    action,
+    icon: {
+      color,
+      bgColor,
+      hoverColor,
+      icon,
+      size: size || 'small'
+    }
+  };
 }
 
 export default ColorIconButton;

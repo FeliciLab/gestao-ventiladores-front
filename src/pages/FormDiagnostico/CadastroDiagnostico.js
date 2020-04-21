@@ -39,7 +39,7 @@ export default function CadastroEquipamento (props) {
         >
           <TextField
             InputLabelProps={{
-              shrink: diagnosis.resultado_tecnico !== '',
+              shrink: true
             }}
             onChange={updateParent}
             defaultValue={diagnosis.resultado_tecnico}
@@ -58,7 +58,7 @@ export default function CadastroEquipamento (props) {
         >
           <TextField
             InputLabelProps={{
-              shrink: diagnosis.demanda_servicos !== '',
+              shrink: true
             }}
             onChange={updateParent}
             defaultValue={diagnosis.demanda_servicos}
@@ -77,7 +77,7 @@ export default function CadastroEquipamento (props) {
         >
           <TextField
             InputLabelProps={{
-              shrink: diagnosis.demanda_insumos !== '',
+              shrink: true
             }}
             multiline
             rows="6"

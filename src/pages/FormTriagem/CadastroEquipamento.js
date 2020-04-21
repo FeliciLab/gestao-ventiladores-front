@@ -6,26 +6,29 @@ import equipmentTypes from "../../models/equipmentTypes";
 import getCities from "../../services/cities";
 import typeInstitute from "../../models/typeInstitute";
 import typeStateEquipment from "../../models/typeStateEquipment";
-import SelectControl from "../_common/form/SelectControl";
-import InputFileImage from "../_common/form/InputFileImage";
+import SelectControl from "../_common/forms/SelectControl";
+import InputFileImage from "../_common/forms/InputFileImage";
 import {sendEquipmentPhoto} from "../../modelServices/photoEquipmentService";
 import {manufacturersEquipments, modelsEquipment} from "../../models/manufacturers";
-import InputRadioDialog from "../_common/form/InputRadioDialog";
+import InputRadioDialog from "../_common/forms/InputRadioDialog";
 import {useForm} from "react-hook-form";
 import ErrorAlertText from "../_common/alerts/ErrorAlertText";
 
 export default function CadastroEquipamento (props) {
-  React.useEffect(() => {
-    setEquipamento(props.equipamento);
-  }, [props]);
-
-
   const cities = getCities('CE');
-  const {register, errors} = useForm({mode: 'onBlur'});
-  const {updateErrors} = props;
 
-  const [equipamento, setEquipamento] = React.useState({});
+  const {register, errors} = useForm({mode: 'onBlur'});
+  const {
+    updateErrors,
+    equipamento,
+    serviceOrder,
+    atualizarEquipamento,
+    atualizarTriagem,
+    updateServiceOrder
+  } = props;
+
   const [localErrors, setLocalErrors] = React.useState({});
+
 
   function sendErrorsParent () {
     setTimeout(() => {
@@ -43,28 +46,43 @@ export default function CadastroEquipamento (props) {
     }, 500);
   }
 
-  function atualizarParent (event) {
+  function updateEquipment (event) {
     const doc = {};
     doc[event.target.name] = event.target.value.trim();
-    return doc;
+    if (event.target.name === 'marca' && equipamento.fabricante === '') {
+      doc['fabricante'] = event.target.value.trim();
+    }
+    atualizarEquipamento(doc);
   }
 
-  function atualizarEquipamentoParent (event) {
-    props.atualizarEquipamento(atualizarParent(event));
+  function updateScreening (event) {
+    const doc = {};
+    doc[event.target.name] = event.target.value.trim();
+    atualizarTriagem(doc);
   }
 
-  function atualizarTriagemParent (event) {
-    props.atualizarTriagem(atualizarParent(event));
+  function updateServiceOrderParent (event) {
+    const doc = {};
+    doc[event.target.name] = event.target.value.trim();
+    updateServiceOrder(doc);
   }
 
   const sendPhoto = (photo, name) => {
-    sendEquipmentPhoto(photo, name, equipamento._id)
+    sendEquipmentPhoto(photo, name, serviceOrder._id)
       .then((result) => {
         if (result) {
-          props.atualizarEquipamento({_id: result});
-          const doc = {};
-          doc[name] = result + '_' + name + '.jpeg';
-          props.atualizarTriagem(doc);
+          updateServiceOrderParent({
+            target: {
+              name: '_id',
+              value: result
+            }
+          });
+          updateScreening({
+            target: {
+              name,
+              value: result + '_' + name + '.jpeg'
+            }
+          });
         }
       });
   };
@@ -102,12 +120,11 @@ export default function CadastroEquipamento (props) {
           sm={6}
         >
           <TextField
-            onBlur={sendErrorsParent}
-            inputRef={register({required: true})}
-            onChange={atualizarEquipamentoParent}
-            defaultValue={props.equipamento.numero_ordem_servico}
+            // onBlur={sendErrorsParent}
+            // inputRef={register({required: true})}
+            onChange={updateServiceOrderParent}
+            value={serviceOrder.numero_ordem_servico}
             name="numero_ordem_servico"
-            id="numeroDaOrdemDeServico"
             label="Número da Ordem de Serviço"
             required
             fullWidth
@@ -122,8 +139,8 @@ export default function CadastroEquipamento (props) {
           <TextField
             onBlur={sendErrorsParent}
             inputRef={register({required: true})}
-            onChange={atualizarTriagemParent}
-            defaultValue={props.triagem.numero_de_serie}
+            onChange={updateEquipment}
+            value={equipamento.numero_de_serie}
             id="numeroDeSerie"
             name="numero_de_serie"
             label="Número de Série"
@@ -140,8 +157,8 @@ export default function CadastroEquipamento (props) {
           <TextField
             onBlur={sendErrorsParent}
             inputRef={register({required: true})}
-            onChange={atualizarTriagemParent}
-            defaultValue={props.triagem.nome_equipamento}
+            onChange={updateEquipment}
+            value={equipamento.nome_equipamento}
             id="nomeDoEquipamento"
             name="nome_equipamento"
             label="Nome do Equipamento"
@@ -155,8 +172,8 @@ export default function CadastroEquipamento (props) {
           sm={6}
         >
           <TextField
-            defaultValue={props.triagem.numero_do_patrimonio}
-            onChange={atualizarTriagemParent}
+            value={equipamento.numero_do_patrimonio}
+            onChange={updateEquipment}
             name="numero_do_patrimonio"
             id="numeroDoPatrimonio"
             label="Número do Patrimônio"
@@ -174,8 +191,8 @@ export default function CadastroEquipamento (props) {
           <SelectControl
             label={"Tipo do Equipamento"}
             name={"tipo"}
-            action={atualizarTriagemParent}
-            defaultValue={''}
+            action={updateEquipment}
+            value={''}
             menuItems={equipmentTypes.map(item => ({value: item, name: item}))}
           />
         </Grid>
@@ -185,11 +202,11 @@ export default function CadastroEquipamento (props) {
           sm={2}
         >
           <InputRadioDialog
-            action={atualizarTriagemParent}
+            action={updateEquipment}
             name={"marca"}
             label={"Marca"}
             hasOther={true}
-            defaultValue={manufacturersEquipments[0]}
+            value={manufacturersEquipments[0]}
             items={manufacturersEquipments.map(item => ({label: item, value: item}))}
           />
         </Grid>
@@ -199,11 +216,11 @@ export default function CadastroEquipamento (props) {
           sm={2}
         >
           <InputRadioDialog
-            action={atualizarTriagemParent}
+            action={updateEquipment}
             name={"modelo"}
             label={"Modelo"}
             hasOther={true}
-            defaultValue={modelsEquipment[0]}
+            value={modelsEquipment[0]}
             items={modelsEquipment.map(item => ({label: item, value: item}))}
           />
         </Grid>
@@ -217,8 +234,8 @@ export default function CadastroEquipamento (props) {
             inputRef={register({required: true})}
             required
             id="fabricante"
-            onChange={atualizarTriagemParent}
-            defaultValue={props.triagem.fabricante}
+            onChange={updateEquipment}
+            value={equipamento.fabricante}
             name="fabricante"
             label="Fabricante"
             fullWidth
@@ -234,8 +251,8 @@ export default function CadastroEquipamento (props) {
           <SelectControl
             label={"Município de Origem"}
             name={"municipio_origem"}
-            action={atualizarTriagemParent}
-            defaultValue={''}
+            action={updateEquipment}
+            value={''}
             menuItems={cities.map(item => ({value: item, name: item}))}
           />
         </Grid>
@@ -249,7 +266,7 @@ export default function CadastroEquipamento (props) {
             inputRef={register({required: true})}
             required
             id="nome_instituicao_origem"
-            onChange={atualizarTriagemParent}
+            onChange={updateEquipment}
             name="nome_instituicao_origem"
             label="Nome da Instituição"
             fullWidth
@@ -263,8 +280,8 @@ export default function CadastroEquipamento (props) {
           <SelectControl
             label={"Tipo da instituição"}
             name={"tipo_instituicao_origem"}
-            action={atualizarTriagemParent}
-            defaultValue={''}
+            action={updateEquipment}
+            value={''}
             menuItems={typeInstitute.map(item => ({value: item, name: item}))}
           />
         </Grid>
@@ -281,8 +298,8 @@ export default function CadastroEquipamento (props) {
             inputRef={register({required: true})}
             required
             id="nomeDoResponsavel"
-            onChange={atualizarTriagemParent}
-            defaultValue={props.triagem.nome_responsavel}
+            onChange={updateEquipment}
+            value={equipamento.nome_responsavel}
             name="nome_responsavel"
             label="Nome do Responsável"
             fullWidth
@@ -295,8 +312,8 @@ export default function CadastroEquipamento (props) {
         >
           <TextField
             id="constatoDoResponsavel"
-            onChange={atualizarTriagemParent}
-            defaultValue={props.triagem.contato_responsavel}
+            onChange={updateEquipment}
+            value={equipamento.contato_responsavel}
             name="contato_responsavel"
             label="Contato do Responsável"
             fullWidth
@@ -312,8 +329,8 @@ export default function CadastroEquipamento (props) {
             inputRef={register({required: true})}
             label={"Estado de Conservação"}
             name={"estado_de_conservacao"}
-            action={atualizarTriagemParent}
-            defaultValue={''}
+            action={updateEquipment}
+            value={''}
             menuItems={typeStateEquipment.map(item => ({value: item, name: item}))}
           />
         </Grid>

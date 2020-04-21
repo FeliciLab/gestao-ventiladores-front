@@ -4,12 +4,14 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Paper from "@material-ui/core/Paper";
 import CadastroEquipamento from "./CadastroEquipamento";
 import RelacaoDeMaterial from "./RelacaoDeMaterial";
-import {Equipamento, EquipamentoTriagem} from "../../models/equipamentos";
+import {ServiceOrder, ServiceOrderScreening} from "../../models/serviceOrder";
 import {listaFormAcessorios} from "../../models/acessorio";
 import TitleFormScreening from "./TitleFormScreening";
 import {useHistory} from "react-router-dom";
-import {saveNewScreening, updateScreening} from "../../modelServices/equipamentoService";
+import {saveNewEquipment, updateEquipment,} from "../../modelServices/equipamentoService";
 import Alert from "@material-ui/lab/Alert";
+import {Equipamento} from "../../models/equipamentos";
+import {saveNewOrderService, updateServiceOrderRequest} from "../../modelServices/serviceOrderService";
 
 
 export default function FormScreening () {
@@ -18,8 +20,10 @@ export default function FormScreening () {
   const classes = useStyles();
 
   const [equipamento, setEquipamento] = React.useState(Equipamento({}));
-  const [triagem, setTriagem] = React.useState(EquipamentoTriagem({triagem: equipamento.triagem}));
-  const [acessorios, setAcessorios] = React.useState([...listaFormAcessorios(triagem.acessorios), '']);
+  const [serviceOrder, setServiceOrder] = React.useState(ServiceOrder({}));
+  const [screening, setScreening] = React.useState(ServiceOrderScreening({screening: equipamento.screening}));
+  const [acessorios, setAcessorios] = React.useState([...listaFormAcessorios(screening.acessorios), '']);
+
   const [formErrors, setFormErrors] = React.useState({});
   const [errorsFound, setErrorsFound] = React.useState(false);
 
@@ -33,15 +37,21 @@ export default function FormScreening () {
     setFormErrors(errors);
   }
 
+  function updateServiceOrder (value) {
+    const doc = Object.assign({}, serviceOrder);
+    setServiceOrder(Object.assign({}, doc, value));
+  }
+
   function atualizarEquipamento (value) {
-    const equip = Object.assign(equipamento, value);
+    let _equip = JSON.parse(JSON.stringify(equipamento));
+    const equip = Object.assign({}, _equip, value);
     setEquipamento(equip);
   }
 
   function atualizarTriagem (value) {
-    const triag = Object.assign(triagem, value);
-    setTriagem(triag);
-    atualizarEquipamento({triagem: triag});
+    const triag = Object.assign(screening, value);
+    setScreening(triag);
+    atualizarEquipamento({screening: triag});
   }
 
   function atualizarAcessorios (value) {
@@ -63,20 +73,46 @@ export default function FormScreening () {
     return false;
   }
 
-  function salvarEquipamento () {
+  async function saveDocuments () {
     if (hasErrorsFound()) return;
-    if (equipamento._id) {
-      return updateScreening(equipamento)
-        .then(() => {
-          history.push({pathname: '/'});
-        });
+    let equipamentoId = '';
+
+    try {
+      if (equipamento._id && equipamento._id !== '') {
+        await updateEquipment(equipamento);
+        equipamentoId = equipamento._id;
+      } else {
+        const equip = await saveNewEquipment(equipamento);
+        equipamentoId = equip._id;
+      }
+      console.log('equipamento OK');
+    } catch (e) {
+      console.log('falha ao salvar equipamento', e);
+      return false;
     }
 
-    return saveNewScreening(equipamento)
-      .then(() => {
-        history.push({pathname: '/'});
-      });
+    const screen = Object.assign({}, screening, {acessorios: acessorios.filter(item => item !== '')});
+    const order = Object.assign({},
+      serviceOrder,
+      {triagem: screen},
+      {equipamento_id: equipamentoId}
+    );
 
+    console.log(order);
+    try {
+      if (order._id && order._id !== '') {
+        await updateServiceOrderRequest(order);
+      } else {
+        await saveNewOrderService(order);
+      }
+      console.log('salvo');
+    } catch (e) {
+      console.log('falha ao salvar ordem de serviço', e);
+      return false;
+    }
+
+
+    return history.push({pathname: '/'});
   }
 
   return (
@@ -84,7 +120,7 @@ export default function FormScreening () {
       <CssBaseline/>
 
       <main className={classes.layout}>
-        <TitleFormScreening saveEquipment={salvarEquipamento}/>
+        <TitleFormScreening saveEquipment={saveDocuments}/>
 
         {errorsFound ?
           <Alert
@@ -101,8 +137,10 @@ export default function FormScreening () {
             updateErrors={updateErrors}
             atualizarTriagem={atualizarTriagem}
             atualizarEquipamento={atualizarEquipamento}
+            updateServiceOrder={updateServiceOrder}
             equipamento={equipamento}
-            triagem={triagem}
+            screening={screening}
+            serviceOrder={serviceOrder}
           />
         </Paper>
 

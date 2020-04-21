@@ -1,5 +1,5 @@
 import api from "../services/api";
-import {Equipamento} from "../models/equipamentos";
+import {ServiceOrder} from "../models/serviceOrder";
 
 /**
  * Seach screnning by status
@@ -8,10 +8,14 @@ import {Equipamento} from "../models/equipamentos";
  *      manutencao
  *      etc
  */
-export function getEquipmentByStatus (status) {
+export function getServiceOrderByStatus (status) {
   return api.post(
-    '/api/equipamentos/find',
-    {status},
+     '/api/ordem_servicos' + '/find',
+    {
+      query: {
+        status
+      }
+    },
     {
       headers: {
         'Access-Control-Allow-Origin': '*',
@@ -29,9 +33,9 @@ export function getEquipmentByStatus (status) {
     });
 }
 
-export function getAllEquipments () {
+export function getAllServiceOrder () {
   return api.get(
-    '/api/equipamentos',
+    '/api/ordem_servicos',
     {
       headers: {
         'Access-Control-Allow-Origin': '*',
@@ -49,19 +53,19 @@ export function getAllEquipments () {
     });
 }
 
-export function mapModelRequest (equipment) {
-  const model = Equipamento({});
+export function mapModelRequest(equipment) {
+  const model = ServiceOrder({});
   for (let field in model) {
-    model[field] = equipment[field];
+    model[field] = equipment[field]
   }
-  return model;
+  return model
 }
 
-export function saveNewEquipment (equipamento) {
-  delete (equipamento['_id']);
-  const model = mapModelRequest(equipamento);
+export function saveNewOrderService (serviceOrder) {
+  delete (serviceOrder['_id']);
+  const model = mapModelRequest(serviceOrder)
   return api.post(
-    '/api/equipamentos',
+    '/api/ordem_servicos',
     Object.assign(
       model,
       {
@@ -79,22 +83,20 @@ export function saveNewEquipment (equipamento) {
     }
   )
     .then(res => {
-      if (res && res.data) return res.data;
-
-      return false;
+      return res;
     })
     .catch(err => {
       return err;
     });
 }
 
-export function updateEquipment (equipamento) {
-  const id = equipamento['_id'];
-  delete (equipamento['_id']);
-  const model = mapModelRequest(equipamento);
+export function updateServiceOrderRequest (serviceOrder) {
+  const id = serviceOrder['_id'];
+  delete (serviceOrder['_id']);
+  const model = mapModelRequest(serviceOrder)
 
-  return api.put(
-    '/api/equipamento/' + id,
+  return api.post(
+    '/api/ordem_servicos',
     Object.assign({}, model, {updated_at: new Date()})
   ).then(result => {
     console.log(result);

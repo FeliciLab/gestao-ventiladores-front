@@ -4,12 +4,12 @@ import TableContainer from "@material-ui/core/TableContainer";
 import Table from "@material-ui/core/Table";
 import TableHead from "@material-ui/core/TableHead";
 import {TableCell, TableRow} from "@material-ui/core";
-import IconButton from "@material-ui/core/IconButton";
 import TableBody from "@material-ui/core/TableBody";
 import Paper from "@material-ui/core/Paper";
 import InfoIcon from '@material-ui/icons/Info';
-import Chip from "@material-ui/core/Chip";
-import Button from "@material-ui/core/Button";
+import ChipStyled from "../_common/components/ChipStyled";
+import {grey} from "@material-ui/core/colors";
+import RowTableItem from "./RowTableItem";
 
 const TableFormRegisteredItems = (props) => {
   useEffect(() => {
@@ -17,6 +17,8 @@ const TableFormRegisteredItems = (props) => {
   }, [props.items]);
 
   const [items, setItems] = useState([]);
+
+  const {updateItemsFromTable} = props;
 
   const headTable = [
     {id: "tipo", name: "Tipo"},
@@ -26,6 +28,10 @@ const TableFormRegisteredItems = (props) => {
     {id: "fabricante", name: "Fabricante"},
     {id: "codigo", name: "Codigo"},
   ];
+
+  function updateParent (event, index, field) {
+    updateItemsFromTable(event.target.value, index, field);
+  }
 
   return (<React.Fragment>
     <TableContainer component={Paper}>
@@ -38,11 +44,13 @@ const TableFormRegisteredItems = (props) => {
             {headTable.map((item, index) => (
               <TableCell key={index}>{item.name}</TableCell>
             ))}
-            <TableCell>
-              <Button
-                endIcon={<InfoIcon style={{color: 'white'}}/>}
-              >asdas</Button>
-              <Chip
+            <TableCell align={"right"}>
+              <ChipStyled
+                color={"white"}
+                bgColor={grey[500]}
+                deleteIconColor={"white"}
+                deleteIconBgColor={grey[500]}
+                deleteIcon={<InfoIcon/>}
                 size="small"
                 label={"Descrição"}
                 style={{color: "#ddddd"}}
@@ -52,20 +60,17 @@ const TableFormRegisteredItems = (props) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {items.map((item, index) => (
-            <TableRow key={index}>
-              {
-                headTable.map(
-                  (head, headIndex) => (
-                    <TableCell key={headIndex}>{item[head.id]}</TableCell>
-                  )
-                )
-              }
-              <TableCell>
-                <IconButton></IconButton>
-              </TableCell>
-            </TableRow>
-          ))}
+          {items.map((item, index) => {
+            return (
+              <RowTableItem
+                key={index}
+                headTable={headTable}
+                updateParent={updateParent}
+                index={index}
+                data={item}
+              />
+            );
+          })}
         </TableBody>
       </Table>
     </TableContainer>

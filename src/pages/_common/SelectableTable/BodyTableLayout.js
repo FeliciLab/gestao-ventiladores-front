@@ -36,7 +36,7 @@ const BodyTableLayout = (props) => {
               </TableCell>
               {
                 headerKeys.map((key, index) => (
-                  <TableCell key={index}>{item[key]}</TableCell>
+                  <TableCell key={index}>{item[key] || ''}</TableCell>
                 ))
               }
             </TableRow>

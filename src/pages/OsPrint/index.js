@@ -32,7 +32,7 @@ export default function OsPrint (props) {
               </div>
               <div className={'page-content'}>
                 <div className={'border-black'}>
-                  <DadosEquipamento equipamento={data}/>
+                  <DadosEquipamento equipamento={data.equipamento[0]}/>
                 </div>
               </div>
               <div className={'page-content'}>
