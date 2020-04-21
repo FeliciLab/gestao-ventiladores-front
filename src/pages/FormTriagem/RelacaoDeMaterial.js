@@ -2,33 +2,33 @@ import React from "react";
 import Typography from "@material-ui/core/Typography";
 import {Grid} from "@material-ui/core";
 import {Acessorio} from "../../models/acessorio";
-import AcessorioForm from "./AcessorioForm";
-
+import PropTypes from 'prop-types';
+import AccessoryFormList from "./AccessoryFormList";
 
 const acessorioModel = Acessorio();
 
-export default function RelacaoDeMaterial (props) {
-  const [acessorios, setAcessorio] = React.useState(props.acessorios);
+function RelacaoDeMaterial (props) {
+  const {acessorios, atualizarAcessorios} = props
 
   function adicionarAcessorio () {
     const acess = [...acessorios, Object.assign({}, acessorioModel)];
-    setAcessorio(acess);
+    atualizarAcessorios(acess);
   }
 
   function atualizarAcessorioParent (index, value) {
-    const acess = acessorios;
+    const acess = acessorios.slice(0);
     acess[index] = Object.assign(acess[index], value);
-    setAcessorio(acess);
-    props.atualizarAcessorios(acessorios);
+    atualizarAcessorios(acess);
   }
 
-  function removerLinha (id) {
-    try {
-      setAcessorio(acessorios.filter((acessorio, index) => index !== id));
-      props.atualizarAcessorios(acessorios);
-    } catch (err) {
-      console.log("erro ao deletar casos, tente novamente");
-    }
+  function removerLinha (index) {
+    const docs = [
+      ...acessorios.slice(0, index),
+      ...acessorios.slice(index + 1, acessorios.length -1),
+      acessorioModel
+    ];
+
+    atualizarAcessorios(docs);
   }
 
   return (
@@ -51,21 +51,18 @@ export default function RelacaoDeMaterial (props) {
           </Typography>
         </Grid>
       </Grid>
-      {
-        acessorios.map((acessorio, index) => (
-            <AcessorioForm
-              ultimo={index === (acessorios.length - 1)}
-              penultimo={index === (acessorios.length - 2)}
-              acessorio={acessorio}
-              atualizarAcessorio={atualizarAcessorioParent}
-              adicionarAcessorio={adicionarAcessorio}
-              removerLinha={removerLinha}
-              index={index}
-              key={index}
-            />
-          )
-        )
-      }
+      <AccessoryFormList
+        accessories={acessorios}
+        atualizarAcessorioParent={atualizarAcessorioParent}
+        adicionarAcessorio={adicionarAcessorio}
+        removerLinha={removerLinha}
+      />
     </div>
   );
 }
+
+RelacaoDeMaterial.protoType = {
+  acessorios: PropTypes.array
+};
+
+export default RelacaoDeMaterial;

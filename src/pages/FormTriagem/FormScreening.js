@@ -8,9 +8,10 @@ import {ServiceOrder, ServiceOrderScreening} from "../../models/serviceOrder";
 import {listaFormAcessorios} from "../../models/acessorio";
 import TitleFormScreening from "./TitleFormScreening";
 import {useHistory} from "react-router-dom";
-import {saveNewScreening, updateScreening} from "../../modelServices/equipamentoService";
+import {saveNewEquipment, updateEquipment,} from "../../modelServices/equipamentoService";
 import Alert from "@material-ui/lab/Alert";
 import {Equipamento} from "../../models/equipamentos";
+import {saveNewOrderService} from "../../modelServices/serviceOrderService";
 
 
 export default function FormScreening () {
@@ -71,20 +72,44 @@ export default function FormScreening () {
     return false;
   }
 
-  function saveDocuments () {
+  async function saveDocuments () {
     if (hasErrorsFound()) return;
-    if (equipamento._id) {
-      return updateScreening(equipamento)
-        .then(() => {
-          history.push({pathname: '/'});
-        });
+    let equipamentoId = ''
+
+    try {
+      if (equipamento._id === '') {
+       await saveNewEquipment(equipamento)
+       equipamentoId = equipamento._id
+      } else {
+        equipamentoId = await updateEquipment(equipamento)
+      }
+    } catch (e) {
+      console.log('falha ao salvar equipamento', e)
+      return false
     }
 
-    return saveNewScreening(equipamento)
-      .then(() => {
-        history.push({pathname: '/'});
-      });
+    setScreening({
+      acessorios: acessorios.slice(0)
+    })
 
+    setServiceOrder({
+      equipamento_id: equipamentoId,
+      triagem: Object.assign({}, screening)
+    })
+
+    try {
+      if (serviceOrder._id) {
+        await updateServiceOrder(serviceOrder)
+      } else {
+        await saveNewOrderService(serviceOrder)
+      }
+    } catch (e) {
+      console.log('falha ao salvar ordem de serviço', e)
+      return false
+    }
+
+
+    return history.push({pathname: '/'});
   }
 
   return (
@@ -113,6 +138,7 @@ export default function FormScreening () {
             equipamento={equipamento}
             screening={screening}
             serviceOrder={serviceOrder}
+            serviceNumber={0}
           />
         </Paper>
 

@@ -1,4 +1,5 @@
 import api from "../services/api";
+import {ServiceOrder} from "../models/serviceOrder";
 
 const DEFAULT_URL = '/api/ordem_servicos'
 
@@ -54,12 +55,21 @@ export function getAllServiceOrder () {
     });
 }
 
-export function saveNewScreening (equipamento) {
-  delete (equipamento['_id']);
+export function mapModelRequest(equipment) {
+  const model = ServiceOrder({});
+  for (let field in model) {
+    model[field] = equipment[field]
+  }
+  return model
+}
+
+export function saveNewOrderService (serviceOrder) {
+  delete (serviceOrder['_id']);
+  const model = mapModelRequest(serviceOrder)
   return api.post(
     DEFAULT_URL,
     Object.assign(
-      equipamento,
+      model,
       {
         status: 'triagem',
         created_at: new Date(),
@@ -82,12 +92,14 @@ export function saveNewScreening (equipamento) {
     });
 }
 
-export function updateScreening (equipamento) {
-  const id = equipamento['_id'];
-  delete (equipamento['_id']);
+export function updateServiceOrder (serviceOrder) {
+  const id = serviceOrder['_id'];
+  delete (serviceOrder['_id']);
+  const model = mapModelRequest(serviceOrder)
+
   return api.put(
     DEFAULT_URL + id,
-    equipamento
+    Object.assign({}, model, {updated_at: new Date()})
   ).then(result => {
     console.log(result);
     return result;

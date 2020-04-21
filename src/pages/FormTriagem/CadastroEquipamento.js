@@ -18,24 +18,25 @@ export default function CadastroEquipamento (props) {
   const cities = getCities('CE');
 
   const {register, errors} = useForm({mode: 'onBlur'});
-  const {updateErrors} = props;
+  const {updateErrors, equipamento, screening, serviceOrder} = props;
 
-  const [equipamento, setEquipamento] = React.useState({});
-  const [screening, setScreening] = React.useState({});
-  const [serviceOrder, setServiceOrder] = React.useState({});
   const [localErrors, setLocalErrors] = React.useState({});
 
-  if (!equipamento.hasOwnProperty('numero_de_serie')) {
-    setEquipamento(props.equipamento);
-  }
-
-  if (!serviceOrder.hasOwnProperty('numero_ordem_servico')) {
-    setServiceOrder(props.serviceOrder);
-  }
-
-  if (!screening.hasOwnProperty('acessorios')) {
-    setScreening(props.screening);
-  }
+  // const [equipamento, setEquipamento] = React.useState({});
+  // const [screening, setScreening] = React.useState({});
+  // const [serviceOrder, setServiceOrder] = React.useState({});
+  //
+  // if (!equipamento.hasOwnProperty('numero_de_serie')) {
+  //   setEquipamento(props.equipamento);
+  // }
+  //
+  // if (!serviceOrder.hasOwnProperty('numero_ordem_servico')) {
+  //   setServiceOrder(props.serviceOrder);
+  // }
+  //
+  // if (!screening.hasOwnProperty('acessorios')) {
+  //   setScreening(props.screening);
+  // }
 
   function sendErrorsParent () {
     setTimeout(() => {
@@ -59,21 +60,21 @@ export default function CadastroEquipamento (props) {
     if (event.target.name === 'marca' && equipamento.fabricante === '') {
       doc['fabricante'] = event.target.value.trim();
     }
-    setEquipamento(doc);
+    // setEquipamento(doc);
     props.atualizarEquipamento(doc);
   }
 
   function updateScreening (event) {
     const doc = Object.assign({}, screening);
     doc[event.target.name] = event.target.value.trim();
-    setEquipamento(doc);
+    // setScreening(doc);
     props.atualizarTriagem(doc);
   }
 
   function updateServiceOrder (event) {
     const doc = Object.assign({}, serviceOrder);
     doc[event.target.name] = event.target.value.trim();
-    setServiceOrder(doc);
+    // setServiceOrder(doc);
     props.updateServiceOrder(doc);
   }
 
@@ -137,7 +138,7 @@ export default function CadastroEquipamento (props) {
             onBlur={sendErrorsParent}
             inputRef={register({required: true})}
             onChange={updateServiceOrder}
-            defaultValue={serviceOrder.numero_ordem_servico}
+            value={serviceOrder.numero_ordem_servico}
             name="numero_ordem_servico"
             id="numeroDaOrdemDeServico"
             label="Número da Ordem de Serviço"
