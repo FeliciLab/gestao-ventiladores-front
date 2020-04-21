@@ -34,15 +34,9 @@ const FormDiagnosis = (props) => {
   };
 
   function updateItemsFromTable (value, index, field) {
-    const items = serviceOrder.diagnostico.itens.slice().map((item, idx) => {
-      if (idx === index) {
-        item[field] = value;
-      }
-
-      return item;
-    });
-
-    updateServiceOrderDiagnosis({itens: items});
+    const items = serviceOrder.diagnostico.itens
+    items[index][field] = value
+    updateServiceOrderDiagnosis({itens: items})
   };
 
   async function saveForm () {

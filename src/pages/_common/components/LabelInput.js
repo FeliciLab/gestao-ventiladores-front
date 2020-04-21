@@ -1,19 +1,16 @@
 import React from 'react';
-import ControlledInput from "../forms/ControlledInput";
 import DoneIcon from '@material-ui/icons/Done';
-import CloseIcon from '@material-ui/icons/Close';
-import {green, red} from "@material-ui/core/colors";
+import {green} from "@material-ui/core/colors";
 import ColorIconButton from "../forms/ColorIconButton";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
-import {TableCell} from "@material-ui/core";
+import TextField from "@material-ui/core/TextField";
 
-export default function CellInput (props) {
+const LabelInput = (props) => {
 
-  const {name, defaultValue, action, label} = props;
-
+  const {name, value, action, label} = props;
   const [showInput, setShowInput] = React.useState(false);
-  const [valueInput, setValueInput] = React.useState('');
+  const [currentValue, setCurrentValue] = React.useState('');
 
   const icons = {
     done: {
@@ -21,28 +18,22 @@ export default function CellInput (props) {
       color: green[100],
       bgColor: green[600],
       hoverColor: green[800]
-    },
-    close: {
-      icon: <CloseIcon fontSize={"small"}/>,
-      color: red[100],
-      bgColor: red[600],
-      hoverColor: red[800]
     }
   };
 
   function changeInput () {
     if (!showInput) {
+      setCurrentValue(value);
       setShowInput(true);
     }
   }
 
-  function updateParent (event) {
-    setValueInput(event.target.value);
-    action(event);
+  function updateParent () {
+    action(currentValue);
   }
 
   return (<React.Fragment>
-    <TableCell onClick={changeInput}>
+    <span onClick={changeInput}>
       {showInput ?
         (<React.Fragment>
           <Grid container>
@@ -50,12 +41,9 @@ export default function CellInput (props) {
               item
               xs={true}
             >
-              <ControlledInput
-                fullWidth={false}
-                label={label}
-                name={name}
-                action={updateParent}
-                defaultValue={defaultValue}
+              <TextField
+                onChange={(event) => setCurrentValue(event.target.value)} fullWidth label={label} name={name}
+                value={currentValue}
               />
             </Grid>
             <Grid
@@ -63,19 +51,20 @@ export default function CellInput (props) {
               xs={"auto"}
             >
               <ColorIconButton
-                action={() => setShowInput(false)}
+                action={updateParent}
                 name={"Aceitar"}
                 icon={icons.done}
-                item={defaultValue}
+                item={value}
               />
             </Grid>
           </Grid>
 
         </React.Fragment>) : (<React.Fragment>
           <Typography variant={"subtitle2"}>
-            {valueInput === '' ? defaultValue : valueInput}
+            {currentValue !== '' ? currentValue : value}
           </Typography>
         </React.Fragment>)}
-    </TableCell>
+    </span>
   </React.Fragment>);
-}
+};
+export default LabelInput;

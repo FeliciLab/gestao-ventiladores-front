@@ -24,8 +24,8 @@ const TableFormRegisteredItems = (props) => {
     {id: "codigo", name: "Codigo"},
   ];
 
-  function updateParent (event, index, field) {
-    updateItemsFromTable(event.target.value, index, field);
+  function updateParent (value, index, field) {
+    updateItemsFromTable(value, index, field);
   }
 
   return (<React.Fragment>
