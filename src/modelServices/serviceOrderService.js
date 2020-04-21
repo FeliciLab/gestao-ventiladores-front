@@ -10,7 +10,7 @@ import {ServiceOrder} from "../models/serviceOrder";
  */
 export function getServiceOrderByStatus (status) {
   return api.post(
-     '/api/ordem_servicos' + '/find',
+     '/api/ordem_servicos/find',
     {
       query: {
         status
@@ -91,7 +91,6 @@ export function saveNewOrderService (serviceOrder) {
 }
 
 export function updateServiceOrderRequest (serviceOrder) {
-  const id = serviceOrder['_id'];
   delete (serviceOrder['_id']);
   const model = mapModelRequest(serviceOrder)
 

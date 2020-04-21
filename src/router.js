@@ -1,13 +1,12 @@
 import React from "react";
 import {Route, Switch} from "react-router-dom";
 
-import FormTriagem from "./pages/FormTriagem";
-import IndexFormDiagnosis from "./pages/FormDiagnostico";
-// import FormDemand from "./pages/FormDemand";
+import FormTriagem from "./pages/ScreeningForm";
+import IndexFormDiagnosis from "./pages/DiagnosisForm";
 import OsPrint from "./pages/OsPrint";
-import IndexScreening from "./pages/Screening/IndexScreening";
+import Screening from "./pages/Screening/index";
 import IndexDemand from "./pages/Demand";
-import IndexDiagnosis from "./pages/Diagnosis";
+import Diagnosis from "./pages/Diagnosis";
 import IndexOrderPrint from "./pages/OrderPrint";
 import FormEntrega from "./pages/FormEntrega";
 import Entrega from "./pages/Entrega";
@@ -15,12 +14,11 @@ import Calibragem from "./pages/FormCalibragem";
 
 const Routes = () => (
   <Switch>
-    <Route path="/" exact component={IndexScreening} />
-    <Route path="/triagens" exact component={IndexScreening} />
+    <Route path="/" exact component={Screening} />
+    <Route path="/triagens" exact component={Screening} />
     <Route path="/nova-triagem" exact component={FormTriagem} />
     <Route path="/novo-diagnostico" exact component={IndexFormDiagnosis} />
-    {/* <Route path="/nova-demandas" exact component={FormDemand} /> */}
-    <Route path="/diagnosticos" exact component={IndexDiagnosis} />
+    <Route path="/diagnosticos" exact component={Diagnosis} />
     <Route path="/demandas" exact component={IndexDemand} />
     <Route path="/ordem-compra" exact component={IndexOrderPrint} />
     <Route path="/osprint" component={OsPrint} />
