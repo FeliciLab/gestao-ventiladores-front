@@ -120,8 +120,8 @@ export default function CadastroEquipamento (props) {
           sm={6}
         >
           <TextField
-            // onBlur={sendErrorsParent}
-            // inputRef={register({required: true})}
+            onBlur={sendErrorsParent}
+            inputRef={register({required: true})}
             onChange={updateServiceOrderParent}
             value={serviceOrder.numero_ordem_servico}
             name="numero_ordem_servico"

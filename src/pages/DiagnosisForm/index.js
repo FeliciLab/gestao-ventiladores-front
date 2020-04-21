@@ -2,22 +2,26 @@ import React, {useEffect, useState} from "react";
 import FormDiagnosis from "./FormDiagnosis";
 import Layout from "../_layout/Layout";
 import {useHistory} from "react-router-dom";
+import {ServiceOrderDiagnosis} from "../../models/serviceOrder";
 
 export default function IndexFormDiagnosis (props) {
   useEffect(() => {
     if (props.location && props.location.state && props.location.state.data) {
-      setEquipment(props.location.state.data)
+      setServiceOrder(
+        Object.assign({}, {diagnostico: ServiceOrderDiagnosis()}, props.location.state.data)
+      );
     }
-  }, [props])
+  }, [props]);
+
   const history = useHistory();
 
-  const [equipment, setEquipment] = useState({});
+  const [serviceOrder, setServiceOrder] = useState({});
 
-  if (!equipment) {
+  if (!serviceOrder) {
     history.goBack();
   }
 
   return <Layout>
-    <FormDiagnosis equipment={equipment}/>;
+    <FormDiagnosis serviceOrder={serviceOrder}/>;
   </Layout>;
 }

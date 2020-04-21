@@ -3,49 +3,38 @@ import {makeStyles} from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Paper from "@material-ui/core/Paper";
 import CadastroDiagnostico from "./CadastroDiagnostico";
-import CadastroItens from "./CreateNewItem";
 import Container from "@material-ui/core/Container";
-import {ServiceOrderDiagnosis} from "../../models/serviceOrder";
 import HeaderFormPage from "./HeaderFormPage";
+import {ServiceOrder} from "../../models/serviceOrder";
+import CadastroItens from "./CreateNewItem";
 import FormRegisteredItems from "./FormRegisteredItems";
+import {updateServiceOrderRequest} from "../../modelServices/serviceOrderService";
+import Alert from "@material-ui/lab/Alert";
+import {useHistory} from 'react-router-dom';
 
 const FormDiagnosis = (props) => {
+  const history = useHistory();
+  const classes = useStyles();
   useEffect(() => {
-    setEquipment(props.equipment);
-    setDiagnosis(ServiceOrderDiagnosis(props.equipment));
+    setServiceOrder(props.serviceOrder);
   }, [props]);
 
-  const classes = useStyles();
+  const [serviceOrder, setServiceOrder] = useState(ServiceOrder());
+  const [errorsFound, setErrorsFound] = useState(false);
 
-  const [equipment, setEquipment] = useState({});
-  const [diagnosis, setDiagnosis] = useState({});
-  const [itemsDiagnosis, setItemsDiagnosis] = useState([]);
-  const [clean, setClean] = useState(false);
-
-  if (itemsDiagnosis.length === 0 &&
-    props.equipment &&
-    props.equipment.diagnostico &&
-    props.equipment.diagnostico.itens &&
-    props.equipment.diagnostico.itens.length > 0
-  ) {
-    setItemsDiagnosis(props.equipment.diagnostico.itens);
+  function updateServiceOrderDiagnosis (value) {
+    const diagnosis = Object.assign({}, serviceOrder.diagnostico, value);
+    setServiceOrder(Object.assign({}, serviceOrder, {diagnostico: diagnosis}));
   }
 
   function addNewItem (item) {
-    const items = itemsDiagnosis.slice();
+    const items = serviceOrder.diagnostico.itens.slice();
     items.push(item);
-    setItemsDiagnosis(items);
-    setClean(true);
-  };
-
-  const updateDiagnosis = (value) => {
-    const doc = Object.assign({}, diagnosis, value);
-    setDiagnosis(doc);
-    setClean(false);
+    updateServiceOrderDiagnosis({itens: items});
   };
 
   function updateItemsFromTable (value, index, field) {
-    const items = itemsDiagnosis.map((item, idx) => {
+    const items = serviceOrder.diagnostico.itens.slice().map((item, idx) => {
       if (idx === index) {
         item[field] = value;
       }
@@ -53,17 +42,20 @@ const FormDiagnosis = (props) => {
       return item;
     });
 
-    setItemsDiagnosis(items);
+    updateServiceOrderDiagnosis({itens: items});
   };
 
-  function saveForm () {
-    const doc = {
-      diagnosis: {
-        ...diagnosis,
-        itens: itemsDiagnosis
-      }
-    };
-    console.log(doc)
+  async function saveForm () {
+    try {
+      await updateServiceOrderRequest(Object.assign({}, serviceOrder, {status: 'diagnostico'}));
+      history.push({pathname: '/diagnosticos'})
+    } catch (e) {
+      console.log('erro ao salvar ordem de serviço', e);
+      setErrorsFound(true);
+      setTimeout(() => {
+        setErrorsFound(false);
+      }, 2000);
+    }
   };
 
   return (
@@ -72,27 +64,28 @@ const FormDiagnosis = (props) => {
 
       <Container>
         <HeaderFormPage
-          equipment={equipment}
+          serviceOrderNumber={serviceOrder.numero_ordem_servico}
           saveForm={saveForm}
         />
 
+        <div style={{display: errorsFound ? 'block' : 'none'}}>
+          <Alert variant="filled" severity={'error'}>Não é possível salvar o formulário. Verifique os campos.</Alert>
+        </div>
+
         <Paper className={classes.paper}>
           <CadastroDiagnostico
-            diagnosis={diagnosis}
-            updateDiagnosis={updateDiagnosis}
+            diagnosis={serviceOrder && serviceOrder.diagnostico ? serviceOrder.diagnostico : {}}
+            updateDiagnosis={updateServiceOrderDiagnosis}
           />
         </Paper>
 
         <Paper className={classes.paper}>
-          <CadastroItens
-            addNewItem={addNewItem}
-            clean={clean}
-          />
+          <CadastroItens addNewItem={addNewItem}/>
         </Paper>
 
         <Paper className={classes.paper}>
           <FormRegisteredItems
-            items={itemsDiagnosis}
+            items={serviceOrder && serviceOrder.diagnostico && serviceOrder.diagnostico.itens ? serviceOrder.diagnostico.itens : []}
             updateItemsFromTable={updateItemsFromTable}
           />
         </Paper>

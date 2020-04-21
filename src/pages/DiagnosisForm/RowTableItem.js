@@ -31,7 +31,7 @@ export default function RowTableItem (props) {
           (head, headIndex) => {
             if (head.id === 'tipo') {
               return (
-                <TableCell key={index}>
+                <TableCell key={headIndex}>
                   <SelectControl
                     label={''}
                     name={"tipo"}

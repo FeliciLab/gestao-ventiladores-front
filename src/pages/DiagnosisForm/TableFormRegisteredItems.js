@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import PropType from 'prop-types';
 import TableContainer from "@material-ui/core/TableContainer";
 import Table from "@material-ui/core/Table";
@@ -12,12 +12,7 @@ import {grey} from "@material-ui/core/colors";
 import RowTableItem from "./RowTableItem";
 
 const TableFormRegisteredItems = (props) => {
-  useEffect(() => {
-    setItems(props.items);
-  }, [props.items]);
-
-  const [items, setItems] = useState([]);
-
+  const {items} = props;
   const {updateItemsFromTable} = props;
 
   const headTable = [
@@ -42,18 +37,12 @@ const TableFormRegisteredItems = (props) => {
         <TableHead>
           <TableRow>
             {headTable.map((item, index) => (
-              <TableCell key={index}>{item.name}</TableCell>
+              <TableCell key={`${index}_${new Date().toISOString()}`}>{item.name}</TableCell>
             ))}
             <TableCell align={"right"}>
               <ChipStyled
-                color={"white"}
-                bgColor={grey[500]}
-                deleteIconColor={"white"}
-                deleteIconBgColor={grey[500]}
-                deleteIcon={<InfoIcon/>}
-                size="small"
-                label={"Descrição"}
-                style={{color: "#ddddd"}}
+                color={"white"} bgColor={grey[500]} deleteIconColor={"white"} deleteIconBgColor={grey[500]}
+                deleteIcon={<InfoIcon/>} size="small" label={"Descrição"} style={{color: "#ddddd"}}
                 onDelete={() => false}
               />
             </TableCell>
@@ -63,11 +52,8 @@ const TableFormRegisteredItems = (props) => {
           {items.map((item, index) => {
             return (
               <RowTableItem
-                key={index}
-                headTable={headTable}
-                updateParent={updateParent}
-                index={index}
-                data={item}
+                key={`${index}_${new Date().toISOString()}`} headTable={headTable} updateParent={updateParent}
+                index={index} data={item}
               />
             );
           })}
