@@ -5,60 +5,20 @@ import AppBar from "@material-ui/core/AppBar";
 import { makeStyles } from '@material-ui/core/styles';
 import {Link} from "react-router-dom";
 import SubMenuAppBar from './SubMenuAppBar';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
-import IconButton from '@material-ui/core/IconButton';
+import MenuAppBar from './MenuAppBar';
 import UserButton from "./UserButton.js";
+import AssessmentIcon from '@material-ui/icons/Assessment';
+import AssignmentIcon from '@material-ui/icons/Assignment';
+import SubtitlesIcon from '@material-ui/icons/Subtitles';
+import HealingIcon from '@material-ui/icons/Healing';
+import BallotIcon from '@material-ui/icons/Ballot';
+import DashboardIcon from '@material-ui/icons/Dashboard';
+import MoveToInboxIcon from '@material-ui/icons/MoveToInbox';
+
 import './styles.css';
+
 export default function Header () {
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const isMenuOpen = Boolean(anchorEl);
-  const handleProfileMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget);
-    console.log(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const menuPainel = 'painel-menu';
-
-  function gotopage(event, route) {
-    event.preventDefault();
-    //window.location.replace(route);
-    return (
-      <Link to={{
-        pathname:{route}
-      }} ></Link>
-    )
-  }
-  const menus = [
-    {name: 'PAINEL', icon: 'Vectorcalibragem'},
-    {name: 'TRIAGEM', icon: 'Vectortri'},
-    {name: 'DIAGNÓSTICO', icon: 'Vectordiagnostico'},
-    {name: 'CONSERTO', icon: 'Vectorconserto'},
-    {name: 'TESTE', icon: 'Vectorteste'},
-    {name: 'CALIBRAGEM', icon: 'Vectorcalibragem'},
-    {name: 'ENTREGA', icon: 'Vectorentrega'}
-  ];
-
-const listItems = menus.map((menu) =>
-<MenuItem onClick={handleProfileMenuOpen}>
-  <IconButton
-    aria-label="Painel de informações"
-    aria-controls={menuPainel}
-    aria-haspopup="true"
-    color="inherit">  
-    <img src={process.env.PUBLIC_URL+'/img/'+menu.icon+'.png'} />
-  </IconButton>
-  <p>{menu.name}</p>
-</MenuItem>
-);
-
   return (
     <header>
       <AppBar position="absolute" className={classes.appBar}>
@@ -78,7 +38,7 @@ const listItems = menus.map((menu) =>
         </Toolbar>
         <div className={classes.appBarFooter}>
           <div className={classes.divTextFooter} >
-          {/* <MenuAppBar /> */}
+          <MenuAppBar />         
           </div>
         </div>
       </AppBar>
