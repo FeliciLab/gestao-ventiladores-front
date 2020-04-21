@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import Layout from "../_layout/Layout";
 import TableCheckedList from "../_common/SelectableTable/TableCheckedList";
 import Container from "@material-ui/core/Container";
 import {useHistory} from 'react-router-dom';
@@ -58,7 +57,6 @@ const IndexScreening = (props) => {
   };
 
   return (
-    <Layout>
       <Container>
         <div style={{width: '100%', marginTop: '2rem'}}>
           <Grid
@@ -90,8 +88,6 @@ const IndexScreening = (props) => {
           actionBarTextButton="Gerar Ordem de Serviços"
         />
       </Container>
-
-    </Layout>
   );
 };
 

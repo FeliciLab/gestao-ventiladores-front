@@ -1,46 +1,25 @@
 import React, {useEffect, useState} from 'react';
-import {getAllEquipments} from "../../modelServices/equipamentoService";
 import Layout from "../_layout/Layout";
+import TableScreeningServiceOrders from "./TableScreeningServiceOrders";
 import Container from "@material-ui/core/Container";
-import ActionTableList from "../_common/ActionTable/ActionTableList";
+import Tab from "@material-ui/core/Tab";
+import Tabs from "@material-ui/core/Tabs";
+import TabPanel from "../_common/components/TabPanel";
 import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import {useHistory} from "react-router-dom";
-import {orange} from "@material-ui/core/colors";
-import QueueIcon from '@material-ui/icons/Queue';
-import {helperPropsColorIconButton} from "../_common/forms/ColorIconButton";
+import TableDiagnosisServiceOrder from "./TableDiagnosisServiceOrder";
+import {getAllServiceOrder} from "../../modelServices/serviceOrderService";
 
-const headerData = [
-  {id: 'numero_ordem_servico', name: 'Ordem de Serviço'},
-  {id: 'numero_de_serie', name: 'Número de Série'},
-  {id: 'marca', name: 'Marca'},
-  {id: 'modelo', name: 'Modelo'},
-  {id: 'nome_instituicao_origem', name: 'Origem'},
-];
-
-const IndexDiagnosis = (props) => {
-  const history = useHistory();
-
+export default function Diagnosis (props) {
+  const [tabValue, setTabValue] = useState(0);
   const [requestBlock, setRequestBlock] = useState(false);
-  const [equipments, setEquipments] = useState([]);
-  const [dataTable, setDataTable] = useState([]);
+  const [serviceOrders, setServiceOrders] = useState([]);
 
   useEffect(() => {
-    if (equipments.length === 0 && !requestBlock) {
-      getAllEquipments()
+    if (serviceOrders.length === 0 && !requestBlock) {
+      getAllServiceOrder()
         .then(result => {
           if (!result) return;
-
-          setEquipments(result);
-          setDataTable(result.map(item => {
-            return {
-              numero_ordem_servico: item.numero_ordem_servico,
-              marca: item.triagem.marca || '',
-              modelo: item.triagem.modelo || '',
-              nome_instituicao_origem: item.triagem.nome_instituicao_origem || '',
-              numero_de_serie: item.triagem.numero_de_serie,
-            };
-          }));
+          setServiceOrders(result);
         })
         .catch(error => {
           console.log('consultando triagem', error);
@@ -48,48 +27,36 @@ const IndexDiagnosis = (props) => {
 
       setRequestBlock(true);
     }
-  }, [requestBlock, equipments]);
+  }, [requestBlock, serviceOrders]);
 
-  const openFormDiagnosis = (value) => {
-    history.push({
-      pathname: '/novo-diagnostico',
-      state: {
-        data: equipments.find(item => item.numero_ordem_servico === value.numero_ordem_servico)
-      }
-    }, [equipments]);
-  };
 
-  const menuOptions = [
-    helperPropsColorIconButton('Efetuar diagnóstico', openFormDiagnosis, 'white', orange[600], orange[700], <QueueIcon fontSize={"small"}/>)
-  ];
+  function changeTab (event, newValue) {
+    setTabValue(newValue);
+  }
 
   return (
-    <div>
-      <Layout>
-        <Container>
-          <div style={{marginTop: "2rem"}}>
-            <Grid container justify={"space-between"}>
-              <Grid item xs={"auto"}>
-                <Typography variant={"h5"} component={"h5"}>
-                  Lista de equipamentos cadastrados
-                </Typography>
-              </Grid>
-              <Grid item xs={"auto"}></Grid>
-            </Grid>
-          </div>
+    <Layout>
+      <Container>
+        <Grid container style={{marginTop: '2rem'}}>
+          <Grid item xs={12}>
+            <Tabs
+              value={tabValue} onChange={changeTab}
+              variant={"fullWidth"} aria-label={'Abas de listagens de equipamentos'} centered
+            >
+              <Tab label={"OS em Triagens"} aria-controls={"equipamentos-com-triagem"}/>
+              <Tab label={"OS em Diagnósticos"} aria-controls={"equipamentos-com-diagnostico"}/>
+            </Tabs>
+          </Grid>
+        </Grid>
 
-          <ActionTableList
-            actionIconButton={true}
-            dataTable={dataTable}
-            headerTable={headerData}
-            menuOptions={menuOptions}
-          >
-          </ActionTableList>
-        </Container>
-      </Layout>
-    </div>
 
+        <TabPanel value={tabValue} index={0}>
+          <TableScreeningServiceOrders serviceOrderScreening={serviceOrders.filter(item => item && item.status === 'triagem')}/>
+        </TabPanel>
+        <TabPanel value={tabValue} index={1}>
+          <TableDiagnosisServiceOrder serviceOrderDiagnosis={serviceOrders.filter(item => item && item.status === 'diagnostico')}/>
+        </TabPanel>
+      </Container>
+    </Layout>
   );
-};
-
-export default IndexDiagnosis;
+}

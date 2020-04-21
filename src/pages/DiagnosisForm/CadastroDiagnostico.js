@@ -1,16 +1,10 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 
 export default function CadastroEquipamento (props) {
-  useEffect(() => {
-    setDiagnosis(props.diagnosis);
-  }, [props]);
-
-  const {updateDiagnosis} = props;
-
-  const [diagnosis, setDiagnosis] = useState(props.diagnosis);
+  const {diagnosis, updateDiagnosis} = props;
 
   const updateParent = (event) => {
     event.preventDefault();
@@ -42,7 +36,7 @@ export default function CadastroEquipamento (props) {
               shrink: true
             }}
             onChange={updateParent}
-            defaultValue={diagnosis.resultado_tecnico}
+            value={diagnosis.resultado_tecnico || ''}
             name="resultado_tecnico"
             multiline
             rows="6"
@@ -61,7 +55,7 @@ export default function CadastroEquipamento (props) {
               shrink: true
             }}
             onChange={updateParent}
-            defaultValue={diagnosis.demanda_servicos}
+            value={diagnosis.demanda_servicos || ''}
             name="demanda_servicos"
             multiline
             rows="6"
@@ -83,7 +77,7 @@ export default function CadastroEquipamento (props) {
             rows="6"
             id="demandaPorInsumos"
             onChange={updateParent}
-            defaultValue={diagnosis.demanda_insumos}
+            value={diagnosis.demanda_insumos || ''}
             name="demanda_insumos"
             label="Demanda por Insumos"
             fullWidth

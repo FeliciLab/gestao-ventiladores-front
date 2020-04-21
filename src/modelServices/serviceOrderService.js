@@ -10,7 +10,7 @@ import {ServiceOrder} from "../models/serviceOrder";
  */
 export function getServiceOrderByStatus (status) {
   return api.post(
-     '/api/ordem_servicos' + '/find',
+    '/api/ordem_servicos/find',
     {
       query: {
         status
@@ -53,17 +53,27 @@ export function getAllServiceOrder () {
     });
 }
 
-export function mapModelRequest(equipment) {
+export function mapModelRequest (equipment) {
   const model = ServiceOrder({});
   for (let field in model) {
-    model[field] = equipment[field]
+    if (equipment[field]['$oid']) {
+      model[field] = equipment[field]['$oid'];
+      continue;
+    }
+    if (equipment[field]['$date']) {
+      model[field] = new Date(equipment[field]['$date']);
+      continue;
+    }
+
+    model[field] = equipment[field];
   }
-  return model
+  console.log(model);
+  return model;
 }
 
 export function saveNewOrderService (serviceOrder) {
   delete (serviceOrder['_id']);
-  const model = mapModelRequest(serviceOrder)
+  const model = mapModelRequest(serviceOrder);
   return api.post(
     '/api/ordem_servicos',
     Object.assign(
@@ -91,18 +101,11 @@ export function saveNewOrderService (serviceOrder) {
 }
 
 export function updateServiceOrderRequest (serviceOrder) {
-  const id = serviceOrder['_id'];
-  delete (serviceOrder['_id']);
-  const model = mapModelRequest(serviceOrder)
-
+  const model = mapModelRequest(serviceOrder);
   return api.post(
     '/api/ordem_servicos',
     Object.assign({}, model, {updated_at: new Date()})
   ).then(result => {
-    console.log(result);
     return result;
-  }).catch(err => {
-    console.log(err);
-    return err;
   });
 }
