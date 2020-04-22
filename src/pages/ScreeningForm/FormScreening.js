@@ -134,21 +134,14 @@ export default function FormScreening () {
 
         <Paper className={classes.paper}>
           <CadastroEquipamento
-            updateErrors={updateErrors}
-            atualizarTriagem={atualizarTriagem}
-            atualizarEquipamento={atualizarEquipamento}
-            updateServiceOrder={updateServiceOrder}
-            equipamento={equipamento}
-            screening={screening}
+            updateErrors={updateErrors} atualizarTriagem={atualizarTriagem} atualizarEquipamento={atualizarEquipamento}
+            updateServiceOrder={updateServiceOrder} equipamento={equipamento} screening={screening}
             serviceOrder={serviceOrder}
           />
         </Paper>
 
         <Paper className={classes.paper}>
-          <RelacaoDeMaterial
-            acessorios={acessorios}
-            atualizarAcessorios={atualizarAcessorios}
-          />
+          <RelacaoDeMaterial acessorios={acessorios} atualizarAcessorios={atualizarAcessorios}/>
         </Paper>
       </main>
     </React.Fragment>

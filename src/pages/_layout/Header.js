@@ -3,7 +3,6 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import AppBar from "@material-ui/core/AppBar";
 import {makeStyles} from '@material-ui/core/styles';
-import SubMenuAppBar from './SubMenuAppBar';
 import MenuAppBar from './MenuAppBar';
 import UserButton from "./UserButton.js";
 
@@ -11,6 +10,7 @@ import './styles.css';
 
 export default function Header () {
   const classes = useStyles();
+  const showUser = false
   return (
     <header>
       <AppBar position="absolute" className={classes.appBar}>
@@ -22,11 +22,7 @@ export default function Header () {
               <br/> Ventiladores
             </Typography>
           </div>
-          <div>
-            <Typography>
-              <UserButton />
-            </Typography> 
-          </div>
+          {showUser ? <UserButton /> : <React.Fragment></React.Fragment>}
         </Toolbar>
         <div className={classes.appBarFooter}>
           <div className={classes.divTextFooter} >
@@ -34,7 +30,6 @@ export default function Header () {
           </div>
         </div>
       </AppBar>
-      <SubMenuAppBar />
     </header>
   );
 }

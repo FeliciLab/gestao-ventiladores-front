@@ -6,7 +6,6 @@ import equipmentTypes from "../../models/equipmentTypes";
 import getCities from "../../services/cities";
 import typeInstitute from "../../models/typeInstitute";
 import typeStateEquipment from "../../models/typeStateEquipment";
-import SelectControl from "../_common/forms/SelectControl";
 import InputFileImage from "../_common/forms/InputFileImage";
 import {sendEquipmentPhoto} from "../../modelServices/photoEquipmentService";
 import {manufacturersEquipments, modelsEquipment} from "../../models/manufacturers";
@@ -89,36 +88,17 @@ export default function CadastroEquipamento (props) {
 
   return (
     <React.Fragment>
-      <Typography
-        variant="h6"
-        gutterBottom
-      >
-        1. Cadastro de Equipamento
-      </Typography>
+      <Typography variant="h6" gutterBottom>1. Cadastro de Equipamento</Typography>
 
       <Grid container>
-        <Grid
-          item
-          xs={6}
-        >
-          <InputFileImage
-            name={"foto_antes_limpeza"}
-            label={"Foto antes da limpeza"}
-            action={sendPhoto}
-          />
+        <Grid item xs={6}>
+          <InputFileImage name={"foto_antes_limpeza"} label={"Foto antes da limpeza"} action={sendPhoto}/>
         </Grid>
       </Grid>
 
 
-      <Grid
-        container
-        spacing={3}
-      >
-        <Grid
-          item
-          xs={12}
-          sm={6}
-        >
+      <Grid container spacing={3}>
+        <Grid item xs={12} sm={6}>
           <TextField
             onBlur={sendErrorsParent}
             inputRef={register({required: true})}
@@ -131,11 +111,7 @@ export default function CadastroEquipamento (props) {
           />
           <ErrorAlertText error={errors.numero_ordem_servico}/>
         </Grid>
-        <Grid
-          item
-          xs={12}
-          sm={6}
-        >
+        <Grid item xs={12} sm={6}>
           <TextField
             onBlur={sendErrorsParent}
             inputRef={register({required: true})}
@@ -149,11 +125,7 @@ export default function CadastroEquipamento (props) {
           />
           <ErrorAlertText error={errors.numero_de_serie}/>
         </Grid>
-        <Grid
-          item
-          xs={12}
-          sm={6}
-        >
+        <Grid item xs={12} sm={6}>
           <TextField
             onBlur={sendErrorsParent}
             inputRef={register({required: true})}
@@ -166,11 +138,7 @@ export default function CadastroEquipamento (props) {
           />
           <ErrorAlertText error={errors.nome_equipamento}/>
         </Grid>
-        <Grid
-          item
-          xs={12}
-          sm={6}
-        >
+        <Grid item xs={12} sm={6}>
           <TextField
             value={equipamento.numero_do_patrimonio}
             onChange={updateEquipment}
@@ -183,24 +151,23 @@ export default function CadastroEquipamento (props) {
         </Grid>
 
 
-        <Grid
-          item
-          xs={12}
-          sm={6}
-        >
-          <SelectControl
-            label={"Tipo do Equipamento"}
-            name={"tipo"}
-            action={updateEquipment}
-            value={''}
-            menuItems={equipmentTypes.map(item => ({value: item, name: item}))}
-          />
+        <Grid item xs={12} sm={6}>
+          <TextField
+            fullWidth
+            select
+            label="Tipo do Equipamento"
+            value={equipamento.tipo}
+            onChange={updateEquipment}
+            name={'tipo'}
+            SelectProps={{native: true,}}
+          >
+            {equipmentTypes.map((option, index) => (
+              <option key={index} value={option}>{option}</option>
+            ))}
+          </TextField>
         </Grid>
-        <Grid
-          item
-          xs={12}
-          sm={2}
-        >
+
+        <Grid item xs={12} sm={2}>
           <InputRadioDialog
             action={updateEquipment}
             name={"marca"}
@@ -210,11 +177,7 @@ export default function CadastroEquipamento (props) {
             items={manufacturersEquipments.map(item => ({label: item, value: item}))}
           />
         </Grid>
-        <Grid
-          item
-          xs={12}
-          sm={2}
-        >
+        <Grid item xs={12} sm={2}>
           <InputRadioDialog
             action={updateEquipment}
             name={"modelo"}
@@ -224,11 +187,7 @@ export default function CadastroEquipamento (props) {
             items={modelsEquipment.map(item => ({label: item, value: item}))}
           />
         </Grid>
-        <Grid
-          item
-          xs={6}
-          sm={2}
-        >
+        <Grid item xs={6} sm={2}>
           <TextField
             onBlur={sendErrorsParent}
             inputRef={register({required: true})}
@@ -243,24 +202,22 @@ export default function CadastroEquipamento (props) {
         </Grid>
 
 
-        <Grid
-          item
-          xs={12}
-          sm={4}
-        >
-          <SelectControl
-            label={"Município de Origem"}
-            name={"municipio_origem"}
-            action={updateEquipment}
-            value={''}
-            menuItems={cities.map(item => ({value: item, name: item}))}
-          />
+        <Grid item xs={12} sm={4}>
+          <TextField
+            fullWidth
+            select
+            label="Município de Origem"
+            value={equipamento.municipio_origem}
+            onChange={updateEquipment}
+            SelectProps={{native: true,}}
+            name={'municipio_origem'}
+          >
+            {cities.map((option, index) => (
+              <option key={index} value={option}>{option}</option>
+            ))}
+          </TextField>
         </Grid>
-        <Grid
-          item
-          xs={6}
-          sm={4}
-        >
+        <Grid item xs={6} sm={4}>
           <TextField
             onBlur={sendErrorsParent}
             inputRef={register({required: true})}
@@ -272,27 +229,25 @@ export default function CadastroEquipamento (props) {
             fullWidth
           />
         </Grid>
-        <Grid
-          item
-          xs={12}
-          sm={4}
-        >
-          <SelectControl
-            label={"Tipo da instituição"}
-            name={"tipo_instituicao_origem"}
-            action={updateEquipment}
-            value={''}
-            menuItems={typeInstitute.map(item => ({value: item, name: item}))}
-          />
+        <Grid item xs={12} sm={4}>
+          <TextField
+            fullWidth
+            select
+            label="Tipo da instituição"
+            value={equipamento.tipo_instituicao_origem}
+            SelectProps={{native: true,}}
+            onChange={updateEquipment}
+            name={'tipo_instituicao_origem'}
+          >
+            {typeInstitute.map((option, index) => (
+              <option key={index} value={option}>{option}</option>
+            ))}
+          </TextField>
         </Grid>
 
 
         {/*ROW*/}
-        <Grid
-          item
-          xs={6}
-          sm={4}
-        >
+        <Grid item xs={6} sm={4}>
           <TextField
             onBlur={sendErrorsParent}
             inputRef={register({required: true})}
@@ -305,11 +260,7 @@ export default function CadastroEquipamento (props) {
             fullWidth
           />
         </Grid>
-        <Grid
-          item
-          xs={6}
-          sm={4}
-        >
+        <Grid item xs={6} sm={4}>
           <TextField
             id="constatoDoResponsavel"
             onChange={updateEquipment}
@@ -319,33 +270,26 @@ export default function CadastroEquipamento (props) {
             fullWidth
           />
         </Grid>
-        <Grid
-          item
-          xs={6}
-          sm={4}
-        >
-          <SelectControl
-            onBlur={sendErrorsParent}
-            inputRef={register({required: true})}
-            label={"Estado de Conservação"}
-            name={"estado_de_conservacao"}
-            action={updateEquipment}
-            value={''}
-            menuItems={typeStateEquipment.map(item => ({value: item, name: item}))}
-          />
+        <Grid item xs={6} sm={4}>
+          <TextField
+            fullWidth
+            select
+            label="Estado de Conservação"
+            value={serviceOrder.triagem.estado_de_conservacao}
+            onChange={updateScreening}
+            name={'estado_de_conservacao'}
+            SelectProps={{native: true,}}
+          >
+            {typeStateEquipment.map((option, index) => (
+              <option key={index} value={option}>{option}</option>
+            ))}
+          </TextField>
         </Grid>
       </Grid>
 
       <Grid container>
-        <Grid
-          item
-          xs={6}
-        >
-          <InputFileImage
-            name={"foto_apos_limpeza"}
-            label={"Foto após da limpeza"}
-            action={sendPhoto}
-          />
+        <Grid item xs={6}>
+          <InputFileImage name={"foto_apos_limpeza"} label={"Foto após da limpeza"} action={sendPhoto}/>
         </Grid>
       </Grid>
     </React.Fragment>

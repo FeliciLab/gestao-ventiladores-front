@@ -37,11 +37,11 @@ export default function SubMenuAppBar (props) {
         getContentAnchorEl={null}
       >
         <MenuItem onClick={(event) => gotopage(event, 'lista-painel')} variant="outlined">
-          <Link to="/lista-painel" class={'linkSubMenu'}>LISTA
+          <Link to="/lista-painel" className={'linkSubMenu'}>LISTA
           </Link>
         </MenuItem>
         <MenuItem>
-          <Link to="/novo-painel" class={'linkSubMenu'}>Novo
+          <Link to="/novo-painel" className={'linkSubMenu'}>Novo
           </Link>
         </MenuItem>
       </Menu>

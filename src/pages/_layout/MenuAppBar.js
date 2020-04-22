@@ -18,8 +18,8 @@ export default function MenuAppBar () {
     {name: 'DEMANDA', icon: <BallotIcon/>, route: 'demandas'},
     {name: 'MANUTENÇÃO', icon: <HealingIcon/>, route: 'triagem'},
   ];
-  const listItems = menus.map((menu) =>
-    <MenuItem>
+  const listItems = menus.map((menu, index) =>
+    <MenuItem key={index}>
       <IconButton
         aria-label="Painel de informações"
         aria-controls={menuPainel}

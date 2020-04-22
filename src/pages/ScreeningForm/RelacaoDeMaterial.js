@@ -8,7 +8,7 @@ import AccessoryFormList from "./AccessoryFormList";
 const acessorioModel = Acessorio();
 
 function RelacaoDeMaterial (props) {
-  const {acessorios, atualizarAcessorios} = props
+  const {acessorios, atualizarAcessorios} = props;
 
   function adicionarAcessorio () {
     const acess = [...acessorios, Object.assign({}, acessorioModel)];
@@ -24,7 +24,7 @@ function RelacaoDeMaterial (props) {
   function removerLinha (index) {
     const docs = [
       ...acessorios.slice(0, index),
-      ...acessorios.slice(index + 1, acessorios.length -1),
+      ...acessorios.slice(index + 1, acessorios.length - 1),
       acessorioModel
     ];
 
@@ -32,32 +32,19 @@ function RelacaoDeMaterial (props) {
   }
 
   return (
-    <div>
-      <Grid
-        container
-        justify={"space-between"}
-        alignItems={"center"}
-      >
-        <Grid
-          item
-          xs={12}
-          sm={7}
-        >
-          <Typography
-            variant="h6"
-            gutterBottom
-          >
+    <React.Fragment>
+      <Grid container justify={"space-between"} alignItems={"center"}>
+        <Grid item xs={12} sm={7}>
+          <Typography variant="h6" gutterBottom>
             2. Relação de Material / Acessórios Entregues
           </Typography>
         </Grid>
       </Grid>
       <AccessoryFormList
-        accessories={acessorios}
-        atualizarAcessorioParent={atualizarAcessorioParent}
-        adicionarAcessorio={adicionarAcessorio}
-        removerLinha={removerLinha}
+        accessories={acessorios} atualizarAcessorioParent={atualizarAcessorioParent}
+        adicionarAcessorio={adicionarAcessorio} removerLinha={removerLinha}
       />
-    </div>
+    </React.Fragment>
   );
 }
 
