@@ -2,32 +2,69 @@ import React from "react";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import AppBar from "@material-ui/core/AppBar";
-import {makeStyles} from '@material-ui/core/styles';
-import MenuAppBar from './MenuAppBar';
-import UserButton from "./UserButton.js";
-
-import './styles.css';
+import {makeStyles} from "@material-ui/core/styles";
+import {Link} from "react-router-dom";
+import AssignmentSharpIcon from '@material-ui/icons/AssignmentSharp';
+import SubtitlesSharpIcon from '@material-ui/icons/SubtitlesSharp';
+import LocalMallSharpIcon from '@material-ui/icons/LocalMallSharp';
+import UnarchiveSharpIcon from '@material-ui/icons/UnarchiveSharp';
+import Container from "@material-ui/core/Container";
+import {green} from "@material-ui/core/colors";
 
 export default function Header () {
   const classes = useStyles();
-  const showUser = false
+
+  const menuRoutes = [
+    {label: 'TRIAGEM', pathname: '/triagens', icon: <AssignmentSharpIcon font={"small"}/>},
+    {label: 'DIAGNÓSTICO', pathname: '/diagnosticos', icon: <SubtitlesSharpIcon font={"small"}/>},
+    {label: 'DEMANDA', pathname: '/demandas', icon: <LocalMallSharpIcon font={"small"}/>},
+    {label: 'ENTREGA', pathname: '/demandas', icon: <UnarchiveSharpIcon font={"small"}/>},
+  ];
+
   return (
     <header>
-      <AppBar position="absolute" className={classes.appBar}>
+      <AppBar
+        position="absolute"
+        className={classes.appBar}
+      >
         <Toolbar className={classes.toolbar}>
           <div className={classes.divTitle}>
-            <Typography className={classes.text} noWrap>
-              Central
-              <br/> de
-              <br/> Ventiladores
+            <Typography
+              className={classes.text}
+              noWrap
+            >
+              <strong>
+                CENTRAL
+                <br/> DE
+                <br/> VENTILADORES
+              </strong>
             </Typography>
           </div>
-          {showUser ? <UserButton /> : <React.Fragment></React.Fragment>}
+          <div className={classes.divUser}>
+            <Typography
+              className={classes.textUser}
+              noWrap
+            >
+              {/*usuario, joe*/}
+            </Typography>
+          </div>
         </Toolbar>
         <div className={classes.appBarFooter}>
-          <div className={classes.divTextFooter} >
-          <MenuAppBar />         
-          </div>
+          <Container style={{height: '100%'}}>
+            <div className={classes.divTextFooter}>
+              {menuRoutes.map((item, index) => (
+                <Link
+                  key={index}
+                  to={item.pathname}
+                  className={classes.link}
+                >
+                  <div style={{display: 'flex', alignItems: "center"}}>
+                    {item.icon} <span style={{marginLeft: '0.5rem'}}>{item.label}</span>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </Container>
         </div>
       </AppBar>
     </header>
@@ -38,7 +75,7 @@ const useStyles = makeStyles((theme) => ({
   appBar: {
     position: "relative",
     height: 300,
-    background: "#4CAF50",
+    background: green[500],
   },
   toolbar: {
     marginTop: 20,
@@ -50,18 +87,17 @@ const useStyles = makeStyles((theme) => ({
       width: 1200,
       marginLeft: "auto",
       marginRight: "auto",
-    }
+    },
   },
   appBarFooter: {
     width: "100%",
-    background: "#357a38",
+    background: green['800'],
     height: 60,
     position: "absolute",
     bottom: 0,
   },
   divTextFooter: {
     height: 60,
-    justifyContent: "space-evenly",
     display: "flex",
     marginLeft: theme.spacing(2),
     marginRight: theme.spacing(2),
@@ -89,18 +125,10 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: "bold",
   },
   link: {
+    marginRight: "2rem",
     fontSize: 18,
     alignSelf: "center",
     color: "#fff",
     textDecoration: "none",
   },
-  typography: {
-    padding: theme.spacing(2),
-  },
-  popover: {
-    pointerEvents: 'none',
-  },
-  paper: {
-    padding: theme.spacing(1),
-  }
 }));
