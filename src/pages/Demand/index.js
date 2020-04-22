@@ -32,10 +32,9 @@ const IndexDemand = (props) => {
       .then(async (result) => {
         if (!result) return;
         await setServiceOrder(result);
-        const _items = getListItemsDistinct(result)
-        console.log(_items)
+        const _items = getListItemsDistinct(result);
         await setItems(_items);
-        await setDataTable(getItemsDataTable(_items))
+        await setDataTable(getItemsDataTable(_items));
       })
       .catch((error) => {
         console.log("consultando triagem", error);
@@ -43,7 +42,7 @@ const IndexDemand = (props) => {
     setRequestBlock(true);
   }
 
-  function getListItemsDistinct(result) {
+  function getListItemsDistinct (result) {
     return result.filter((item) => {
       return item.status === 'diagnostico' && item.diagnostico && item.diagnostico.itens.length > 0;
     })
@@ -61,10 +60,8 @@ const IndexDemand = (props) => {
       }, {});
   }
 
-  function getItemsDataTable(_items) {
-    console.log(_items)
+  function getItemsDataTable (_items) {
     return Object.values(_items).map(item => {
-      console.log(item)
       return {
         "tipo": item.tipo || '',
         "nome": item.nome,
@@ -72,19 +69,20 @@ const IndexDemand = (props) => {
         "quantidade": item.quantidade || 0,
         "fabricante": item.fabricante || '',
         "codigo": item.codigo || '',
-      }
-    }).sort((a,b) => {
-      const ammA = 100000 + parseInt(a.quantidade)
-      const ammB = 100000 + parseInt(b.quantidade)
-      const aParam = `${ammA}_${a.nome}`
-      const bParam = `${ammB}_${b.nome}`
-      return bParam.localeCompare(aParam)
+      };
     })
+      .sort((a, b) => a.nome.toUpperCase().localeCompare(b.nome.toUpperCase()))
+      .sort((a, b) => b.quantidade - a.quantidade);
   }
 
-  const toogleDialog = (value) => {
+  function toogleDialog (value) {
     setOpenDialog(value);
-  };
+  }
+
+  function createNewBuyOrderDialog (dataChecked) {
+    setDataDialog(dataChecked.map(data => items[data.nome]));
+    setOpenDialog(true);
+  }
 
   return (
     <div>
@@ -106,6 +104,7 @@ const IndexDemand = (props) => {
               dataTable={dataTable}
               selectKeyField="nome"
               headerTable={headerData}
+              actionFunction={createNewBuyOrderDialog}
               actionBarTitle="Lista de Itens"
               actionBarTextButton="Gerar Ordem de Compra"
             />
@@ -113,6 +112,7 @@ const IndexDemand = (props) => {
         </Container>
       </Layout>
       <DialogItems
+        headerTable={headerData}
         openDialog={openDialog}
         dataDialog={dataDialog}
         toogleDialog={toogleDialog}

@@ -18,7 +18,7 @@ const DialogItems = (props) => {
   const [open, setOpen] = useState(false);
   const [dataDialog, setDataDialog] = useState({});
   const [itemsDialog, setItemsDialog] = useState([]);
-  const {toogleDialog} = props;
+  const {toogleDialog, headerTable} = props;
 
   useEffect(() => {
     setOpen(props.openDialog);
@@ -26,7 +26,7 @@ const DialogItems = (props) => {
     if (props.dataDialog.diagnostico && props.dataDialog.diagnostico.itens) {
       setItemsDialog(props.dataDialog.diagnostico.itens);
     }
-  }, [props, open, dataDialog]);
+  }, [props]);
 
   return (
     <Dialog
@@ -58,10 +58,7 @@ const DialogItems = (props) => {
           <Grid container justify={"space-between"}>
             <Grid item xs={"auto"}>
               <Typography variant={"h5"} component={"h5"}>
-                FILA DE DEMANDAS DE AQUISIÇÕES
-              </Typography>
-              <Typography variant={"h5"} component={"h5"}>
-                <strong>OS Nº: {dataDialog.numero_ordem_servico}</strong>
+                LISTA DE ITENS SELECIONADOS
               </Typography>
             </Grid>
             <Grid item xs={"auto"}></Grid>
@@ -69,6 +66,7 @@ const DialogItems = (props) => {
           </Grid>
         </div>
         <DialogTableItems
+          headerTable={headerTable}
           itemsDialog={itemsDialog}
           dataTable={dataDialog}
         />

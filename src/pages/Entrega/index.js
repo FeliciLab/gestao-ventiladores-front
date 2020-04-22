@@ -26,7 +26,7 @@ const IndexDiagnosis = (props) => {
 
   async function getAll () {
     if (tableData.length !== 0) return;
-      try {
+    try {
       const response = await getAllEquipments();
       setEquipments(response);
       tableData(response);
@@ -40,10 +40,10 @@ const IndexDiagnosis = (props) => {
     const response = result.map((item) => {
       return {
         numero_ordem_servico: item.numero_ordem_servico,
-        tipo: item.triagem.tipo,
-        marca: item.triagem.marca || "",
-        modelo: item.triagem.modelo || "",
-        fabricante: item.triagem.fabricante || "",
+        tipo: item.tipo,
+        marca: item.marca || "",
+        modelo: item.modelo || "",
+        fabricante: item.fabricante || "",
       };
     });
 
@@ -74,7 +74,7 @@ const IndexDiagnosis = (props) => {
       orange[600],
       orange[700],
       <MarkunreadMailboxIcon fontSize={"small"}/>
-      )
+    )
   ];
 
   return (

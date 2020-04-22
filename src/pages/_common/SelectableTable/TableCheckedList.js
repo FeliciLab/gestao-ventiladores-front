@@ -8,11 +8,13 @@ import BodyTableLayout from "./BodyTableLayout";
 
 const TableCheckedList = (props) => {
   const [dataTable, setDataTable] = React.useState(props.dataTable || []);
-  const selectKeyField = props.selectKeyField;
-  const headerTable = props.headerTable;
-  const actionFunction = props.actionFunction;
-  const actionBarTitle = props.actionBarTitle;
-  const actionBarTextButton = props.actionBarTextButton;
+  const {
+    selectKeyField,
+    headerTable,
+    actionFunction,
+    actionBarTitle,
+    actionBarTextButton,
+  } = props
 
   useEffect(() => {
     setDataTable(props.dataTable)
