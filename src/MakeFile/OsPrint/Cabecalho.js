@@ -71,7 +71,7 @@ export default function Cabecalho(props) {
               align={"center"}
               className={`${classes.titleTexto} ${classes.bordarCaixaCental}`}
             >
-              <strong>CENTRAL DE VENTILADORES</strong>
+              <strong>CENTRAL DE VENTILADORES1</strong>
             </Typography>
             <Typography
               align={"center"}

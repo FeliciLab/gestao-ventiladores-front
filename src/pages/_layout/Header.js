@@ -2,65 +2,31 @@ import React from "react";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import AppBar from "@material-ui/core/AppBar";
-import {makeStyles} from "@material-ui/core/styles";
-import {Link} from "react-router-dom";
+import {makeStyles} from '@material-ui/core/styles';
+import MenuAppBar from './MenuAppBar';
+import UserButton from "./UserButton.js";
+
+import './styles.css';
 
 export default function Header () {
   const classes = useStyles();
-
+  const showUser = false
   return (
     <header>
-      <AppBar
-        position="absolute"
-        className={classes.appBar}
-      >
+      <AppBar position="absolute" className={classes.appBar}>
         <Toolbar className={classes.toolbar}>
           <div className={classes.divTitle}>
-            <Typography
-              className={classes.text}
-              noWrap
-            >
+            <Typography className={classes.text} noWrap>
               Central
               <br/> de
               <br/> Ventiladores
             </Typography>
           </div>
-          <div className={classes.divUser}>
-            <Typography
-              className={classes.textUser}
-              noWrap
-            >
-              {/*usuario, joe*/}
-            </Typography>
-          </div>
+          {showUser ? <UserButton /> : <React.Fragment></React.Fragment>}
         </Toolbar>
         <div className={classes.appBarFooter}>
-          <div className={classes.divTextFooter}>
-            <Link
-              to="/"
-              className={classes.link}
-            >
-              + Triagem
-            </Link>
-
-            <Link
-              to="/diagnosticos"
-              className={classes.link}
-            >
-              + Diagnóstico
-            </Link>
-
-            <Link
-              to="/demandas"
-              className={classes.link}
-            >
-              + Demanda
-            </Link>
-
-            <Link
-              to="/maintenance"
-              className={classes.link}
-            >+ Manuntenção</Link>
+          <div className={classes.divTextFooter} >
+          <MenuAppBar />         
           </div>
         </div>
       </AppBar>
@@ -84,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
       width: 1200,
       marginLeft: "auto",
       marginRight: "auto",
-    },
+    }
   },
   appBarFooter: {
     width: "100%",
@@ -128,4 +94,13 @@ const useStyles = makeStyles((theme) => ({
     color: "#fff",
     textDecoration: "none",
   },
+  typography: {
+    padding: theme.spacing(2),
+  },
+  popover: {
+    pointerEvents: 'none',
+  },
+  paper: {
+    padding: theme.spacing(1),
+  }
 }));

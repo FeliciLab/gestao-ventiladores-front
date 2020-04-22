@@ -1,4 +1,5 @@
 import api from "../services/api";
+import {Equipamento} from "../models/equipamentos";
 
 /**
  * Seach screnning by status
@@ -48,12 +49,21 @@ export function getAllEquipments () {
     });
 }
 
-export function saveNewScreening (equipamento) {
-  delete(equipamento['_id'])
+export function mapModelRequest (equipment) {
+  const model = Equipamento({});
+  for (let field in model) {
+    model[field] = equipment[field];
+  }
+  return model;
+}
+
+export function saveNewEquipment (equipamento) {
+  delete (equipamento['_id']);
+  const model = mapModelRequest(equipamento);
   return api.post(
     '/api/equipamentos',
     Object.assign(
-      equipamento,
+      model,
       {
         status: 'triagem',
         created_at: new Date(),
@@ -69,19 +79,23 @@ export function saveNewScreening (equipamento) {
     }
   )
     .then(res => {
-      return res;
+      if (res && res.data) return res.data;
+
+      return false;
     })
     .catch(err => {
       return err;
     });
 }
 
-export function updateScreening (equipamento) {
+export function updateEquipment (equipamento) {
   const id = equipamento['_id'];
   delete (equipamento['_id']);
+  const model = mapModelRequest(equipamento);
+
   return api.put(
     '/api/equipamento/' + id,
-    equipamento
+    Object.assign({}, model, {updated_at: new Date()})
   ).then(result => {
     console.log(result);
     return result;
