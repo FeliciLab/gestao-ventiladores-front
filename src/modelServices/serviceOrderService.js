@@ -60,7 +60,7 @@ export function mapModelRequest (equipment) {
 
     model[field] = equipment[field];
   }
-  console.log(model);
+
   return model;
 }
 
