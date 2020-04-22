@@ -3,14 +3,7 @@ import Typography from "@material-ui/core/Typography";
 import TableFormRegisteredItems from "./TableFormRegisteredItems";
 
 const FormRegisteredItems = (props) => {
-  React.useEffect(() => {
-    if (props.items) {
-      setItems(props.items);
-    }
-  }, [props]);
-
-  const [items, setItems] = React.useState([]);
-
+  const {items} = props;
   const {updateItemsFromTable} = props;
 
   return (

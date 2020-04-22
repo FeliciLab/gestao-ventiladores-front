@@ -1,16 +1,11 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
+import ErrorAlertText from "../_common/alerts/ErrorAlertText";
 
 export default function CadastroEquipamento (props) {
-  useEffect(() => {
-    setDiagnosis(props.diagnosis);
-  }, [props]);
-
-  const {updateDiagnosis} = props;
-
-  const [diagnosis, setDiagnosis] = useState(props.diagnosis);
+  const {errors, register, diagnosis, updateDiagnosis} = props;
 
   const updateParent = (event) => {
     event.preventDefault();
@@ -28,21 +23,15 @@ export default function CadastroEquipamento (props) {
         1. Cadastro De Diagnóstico
       </Typography>
 
-      <Grid
-        container
-        spacing={3}
-      >
-        <Grid
-          item
-          xs={12}
-          sm={12}
-        >
+      <Grid container spacing={3}>
+        <Grid item xs={12} sm={12}>
           <TextField
+            inputRef={register({required: true})}
             InputLabelProps={{
               shrink: true
             }}
             onChange={updateParent}
-            defaultValue={diagnosis.resultado_tecnico}
+            value={diagnosis.resultado_tecnico || ''}
             name="resultado_tecnico"
             multiline
             rows="6"
@@ -50,18 +39,15 @@ export default function CadastroEquipamento (props) {
             label="Resultado do Diagnostico Técnico"
             fullWidth
           />
+          <ErrorAlertText error={errors.resultado_tecnico}/>
         </Grid>
-        <Grid
-          item
-          xs={12}
-          sm={12}
-        >
+        <Grid item xs={12} sm={12}>
           <TextField
             InputLabelProps={{
               shrink: true
             }}
             onChange={updateParent}
-            defaultValue={diagnosis.demanda_servicos}
+            value={diagnosis.demanda_servicos || ''}
             name="demanda_servicos"
             multiline
             rows="6"
@@ -70,11 +56,7 @@ export default function CadastroEquipamento (props) {
             fullWidth
           />
         </Grid>
-        <Grid
-          item
-          xs={12}
-          sm={12}
-        >
+        <Grid item xs={12} sm={12}>
           <TextField
             InputLabelProps={{
               shrink: true
@@ -83,7 +65,7 @@ export default function CadastroEquipamento (props) {
             rows="6"
             id="demandaPorInsumos"
             onChange={updateParent}
-            defaultValue={diagnosis.demanda_insumos}
+            value={diagnosis.demanda_insumos || ''}
             name="demanda_insumos"
             label="Demanda por Insumos"
             fullWidth

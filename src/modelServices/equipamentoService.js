@@ -1,4 +1,5 @@
 import api from "../services/api";
+import {Equipamento} from "../models/equipamentos";
 
 /**
  * Seach screnning by status
@@ -23,7 +24,7 @@ export function getEquipmentByStatus(status) {
     .then((response) => {
       return response.data;
     })
-    .catch((error) => {
+    .catch(error => {
       console.log(error);
       return error;
     });
@@ -33,61 +34,81 @@ export function getAllEquipments() {
   return api
     .get("/api/equipamentos", {
       headers: {
-        "Access-Control-Allow-Origin": "*",
-        Accept: "application/json",
-        "Content-Type": "application/json",
+        'Access-Control-Allow-Origin': '*',
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
       },
-    })
+    }
+  )
     .then((response) => {
       return response.data;
     })
-    .catch((error) => {
+    .catch(error => {
       console.log(error);
       return error;
     });
 }
 
-export async function getTodosEquipamentos() {
-  return await api.get("/api/equipamentos");
+export function mapModelRequest (equipment) {
+  const model = Equipamento({});
+  for (let field in model) {
+    model[field] = equipment[field];
+  }
+  return model;
 }
 
-export function saveNewScreening(equipamento) {
-  delete equipamento["_id"];
-  return api
-    .post(
-      "/api/equipamentos",
-      Object.assign(equipamento, {
-        status: "triagem",
-        created_at: new Date(),
-        updated_at: new Date(),
-      }),
+export function saveNewEquipment (equipamento) {
+  delete (equipamento['_id']);
+  const model = mapModelRequest(equipamento);
+  return api.post(
+    '/api/equipamentos',
+    Object.assign(
+      model,
       {
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
+        status: 'triagem',
+        created_at: new Date(),
+        updated_at: new Date()
+      },
+    ),
+    {
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
       }
-    )
-    .then((res) => {
-      return res;
+    }
+  )
+    .then(res => {
+      if (res && res.data) return res.data;
+
+      return false;
     })
-    .catch((err) => {
+    .catch(err => {
       return err;
     });
 }
 
-export function updateScreening(equipamento) {
-  const id = equipamento["_id"];
-  delete equipamento["_id"];
-  return api
-    .put("/api/equipamento/" + id, equipamento)
-    .then((result) => {
-      console.log(result);
-      return result;
-    })
-    .catch((err) => {
-      console.log(err);
-      return err;
-    });
+export function updateEquipment (equipamento) {
+  const id = equipamento['_id'];
+  delete (equipamento['_id']);
+  const model = mapModelRequest(equipamento);
+
+  return api.put(
+    '/api/equipamento/' + id,
+    Object.assign({}, model, {updated_at: new Date()})
+  ).then(result => {
+    console.log(result);
+    return result;
+  }).catch(err => {
+    console.log(err);
+    return err;
+  });
+}
+
+export function deleteEquipmentRequest(_id) {
+  return api.delete(
+    '/api/equipamentos?_id=' + _id
+  ).then(res => {
+    return res.data
+  })
 }

@@ -8,17 +8,21 @@ import {ServiceOrder, ServiceOrderScreening} from "../../models/serviceOrder";
 import {listaFormAcessorios} from "../../models/acessorio";
 import TitleFormScreening from "./TitleFormScreening";
 import {useHistory} from "react-router-dom";
-import {saveNewScreening, updateScreening} from "../../modelServices/equipamentoService";
+import {deleteEquipmentRequest, saveNewEquipment, updateEquipment,} from "../../modelServices/equipamentoService";
 import Alert from "@material-ui/lab/Alert";
 import {Equipamento} from "../../models/equipamentos";
+import {saveNewOrderService, updateServiceOrderRequest} from "../../modelServices/serviceOrderService";
+import {useForm} from "react-hook-form";
 
 
 export default function FormScreening () {
   const history = useHistory();
 
+  const {register, errors, triggerValidation} = useForm({mode: 'onBlur', reValidateMode: 'onChange'});
+
   const classes = useStyles();
 
-  const [equipamento, setEquipamento] = React.useState(Equipamento({}))
+  const [equipamento, setEquipamento] = React.useState(Equipamento({}));
   const [serviceOrder, setServiceOrder] = React.useState(ServiceOrder({}));
   const [screening, setScreening] = React.useState(ServiceOrderScreening({screening: equipamento.screening}));
   const [acessorios, setAcessorios] = React.useState([...listaFormAcessorios(screening.acessorios), '']);
@@ -36,13 +40,14 @@ export default function FormScreening () {
     setFormErrors(errors);
   }
 
-  function updateServiceOrder (value ) {
-    const doc = Object.assign({}, serviceOrder, value);
-    setServiceOrder(doc);
+  function updateServiceOrder (value) {
+    const doc = Object.assign({}, serviceOrder);
+    setServiceOrder(Object.assign({}, doc, value));
   }
 
   function atualizarEquipamento (value) {
-    const equip = Object.assign(equipamento, value);
+    let _equip = JSON.parse(JSON.stringify(equipamento));
+    const equip = Object.assign({}, _equip, value);
     setEquipamento(equip);
   }
 
@@ -57,34 +62,59 @@ export default function FormScreening () {
     atualizarTriagem({acessorios: value});
   }
 
-  function hasErrorsFound () {
-    for (let indexForm in formErrors) {
-      for (let index in formErrors[indexForm]) {
-        if (formErrors[indexForm][index]) {
-          setErrorsFound(true);
-          return true;
-        }
-      }
-    }
-
-    setErrorsFound(false);
-    return false;
+  function showErrorBar () {
+    setErrorsFound(true);
+    setTimeout(() => {
+      setErrorsFound(false);
+    }, 10000);
   }
 
-  function saveDocuments () {
-    if (hasErrorsFound()) return;
-    if (equipamento._id) {
-      return updateScreening(equipamento)
-        .then(() => {
-          history.push({pathname: '/'});
-        });
+  async function saveDocuments () {
+    await triggerValidation();
+    console.log(errors);
+    if (Object.keys(errors).length > 0) {
+      showErrorBar()
+      return;
     }
 
-    return saveNewScreening(equipamento)
-      .then(() => {
-        history.push({pathname: '/'});
-      });
+    let equipamentoId = '';
 
+    try {
+      if (equipamento._id && equipamento._id !== '') {
+        await updateEquipment(equipamento);
+        equipamentoId = equipamento._id;
+      } else {
+        const equip = await saveNewEquipment(equipamento);
+        equipamentoId = equip._id;
+      }
+      console.log('equipamento OK');
+    } catch (e) {
+      console.log('falha ao salvar equipamento', e);
+      return false;
+    }
+
+    const screen = Object.assign({}, screening, {acessorios: acessorios.filter(item => item !== '')});
+    const order = Object.assign({},
+      serviceOrder,
+      {triagem: screen},
+      {equipamento_id: equipamentoId}
+    );
+
+    try {
+      if (order._id && order._id !== '') {
+        await updateServiceOrderRequest(Object.assign(order, {status: 'triagem'}));
+      } else {
+        await saveNewOrderService(Object.assign(order, {status: 'triagem'}));
+      }
+    } catch (e) {
+      deleteEquipmentRequest(equipamentoId)
+      showErrorBar()
+      console.log('falha ao salvar ordem de serviço', e);
+      return false;
+    }
+
+
+    return history.push({pathname: '/'});
   }
 
   return (
@@ -106,6 +136,8 @@ export default function FormScreening () {
 
         <Paper className={classes.paper}>
           <CadastroEquipamento
+            register={register}
+            errors={errors}
             updateErrors={updateErrors}
             atualizarTriagem={atualizarTriagem}
             atualizarEquipamento={atualizarEquipamento}
@@ -117,10 +149,7 @@ export default function FormScreening () {
         </Paper>
 
         <Paper className={classes.paper}>
-          <RelacaoDeMaterial
-            acessorios={acessorios}
-            atualizarAcessorios={atualizarAcessorios}
-          />
+          <RelacaoDeMaterial acessorios={acessorios} atualizarAcessorios={atualizarAcessorios}/>
         </Paper>
       </main>
     </React.Fragment>

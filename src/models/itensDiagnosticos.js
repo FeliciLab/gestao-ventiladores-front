@@ -1,11 +1,9 @@
 export const itemDiagnosisModel = {
-  "quantidade": 0,
-  "nome": "",
   "tipo": "pecas",
-  "descricao": "",
-  "valor": 0.00,
-  "prioridade": "",
-  "unidade_medida": "",
+  "fabricante": "",
   "codigo": "",
-  "fabricante": ""
+  "nome": "",
+  "unidade_medida": "",
+  "quantidade": 0,
+  "descricao": "",
 };

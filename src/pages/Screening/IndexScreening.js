@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import Layout from "../_layout/Layout";
 import TableCheckedList from "../_common/SelectableTable/TableCheckedList";
 import Container from "@material-ui/core/Container";
 import {useHistory} from 'react-router-dom';
@@ -30,13 +29,14 @@ const IndexScreening = (props) => {
         if (!result) return;
         setScreening(result);
         setDataTable(result.map(item => {
+          const equip = item.equipamento[0] || {}
           return {
             numero_ordem_servico: item.numero_ordem_servico,
-            marca: item.equipamento[0].marca || '',
-            modelo: item.equipamento[0].modelo || '',
-            instituicao_de_origem: item.equipamento[0].instituicao_de_origem || '',
-            numero_de_serie: item.equipamento[0].numero_de_serie,
-            origem: item.equipamento[0].nome_instituicao_origem,
+            marca: equip.marca || '',
+            modelo: equip.modelo || '',
+            instituicao_de_origem: equip.instituicao_de_origem || '',
+            numero_de_serie: equip.numero_de_serie || '',
+            origem: equip.nome_instituicao_origem || '',
           };
         }));
       })
@@ -57,7 +57,6 @@ const IndexScreening = (props) => {
   };
 
   return (
-    <Layout>
       <Container>
         <div style={{width: '100%', marginTop: '2rem'}}>
           <Grid
@@ -89,8 +88,6 @@ const IndexScreening = (props) => {
           actionBarTextButton="Gerar Ordem de Serviços"
         />
       </Container>
-
-    </Layout>
   );
 };
 

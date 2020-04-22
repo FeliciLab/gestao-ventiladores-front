@@ -9,21 +9,27 @@ import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 
-export default function AcessorioForm (props) {
+export default function AccessoryFormRow (props) {
+  const {
+    acessorio,
+    atualizarAcessorio,
+    adicionarAcessorio,
+    removerLinha,
+    index
+  } = props;
+
   function atualizarAcessorioParent (event) {
     const doc = {};
     doc[event.target.name] = event.target.value;
-    props.atualizarAcessorio(props.index, doc);
-    if (props.ultimo && event.target.name === 'descricao' && event.target.value.trim() !== '') {
-      props.adicionarAcessorio()
-    }
-    if (props.penultimo && event.target.name === 'descricao' && event.target.value.trim() === '') {
-        props.removerLinha(props.index + 1);
-    }
-  }
+    atualizarAcessorio(props.index, doc);
 
-  function removerLinhaParent () {
-    props.removerLinha(props.index);
+    if (props.ultimo && event.target.name === 'descricao' && event.target.value.trim() !== '') {
+      adicionarAcessorio();
+    }
+
+    if (props.penultimo && event.target.name === 'descricao' && event.target.value.trim() === '') {
+      removerLinha(props.index + 1);
+    }
   }
 
   return (
@@ -41,7 +47,7 @@ export default function AcessorioForm (props) {
         <TextField
           required
           onChange={atualizarAcessorioParent}
-          defaultValue={props.acessorio.descricao}
+          value={acessorio.descricao}
           name="descricao"
           label="Descrição"
           fullWidth
@@ -56,7 +62,7 @@ export default function AcessorioForm (props) {
           <InputLabel>Acompanha</InputLabel>
           <Select
             name={"acompanha"}
-            defaultValue={props.acessorio.acompanha || false}
+            value={acessorio.acompanha || false}
             onChange={atualizarAcessorioParent}
           >
             <MenuItem value={true}>Sim</MenuItem>
@@ -72,7 +78,7 @@ export default function AcessorioForm (props) {
         <TextField
           required
           onChange={atualizarAcessorioParent}
-          defaultValue={props.acessorio.quantidade}
+          value={acessorio.quantidade}
           name="quantidade"
           label="Quantidade"
           type="number"
@@ -87,7 +93,7 @@ export default function AcessorioForm (props) {
         <TextField
           required
           onChange={atualizarAcessorioParent}
-          defaultValue={props.acessorio.estado_de_conservacao}
+          value={acessorio.estado_de_conservacao}
           name="estado_de_conservacao"
           label="Estado de Conservação"
           fullWidth
@@ -99,7 +105,7 @@ export default function AcessorioForm (props) {
         sm={1}
       >
         <Tooltip title="Remover">
-          <Button onClick={() => removerLinhaParent()}>
+          <Button onClick={() => removerLinha(index)}>
             <DeleteIcon></DeleteIcon>
           </Button>
         </Tooltip>

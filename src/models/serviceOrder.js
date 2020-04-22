@@ -1,23 +1,29 @@
 import {listaFormAcessorios} from "./acessorio";
 
 export function ServiceOrder (serviceOrder) {
-  return {
-    _id: '',
-    numero_ordem_servico: serviceOrder.numero_ordem_servico,
-    status: serviceOrder.status || 'triagem',
-    created_at: serviceOrder.created_at || new Date(),
-    updated_at: serviceOrder.updated_at || new Date(),
-    triagem: ServiceOrderScreening(
-      {
-        triagem: serviceOrder.triagem
-      } || {
-        triagem: {
-          acessorios: listaFormAcessorios([])
-        }
-      }
-    )
-  };
+  return Object.assign({},
+    {
+      _id: '',
+      numero_ordem_servico: serviceOrder && serviceOrder.numero_ordem_servico ? serviceOrder.numero_ordem_servico : '',
+      status: '',
+      equipamento_id: '',
+      created_at: new Date(),
+      updated_at: new Date(),
+      triagem: {},
+      diagnostico: {}
+    },
+    serviceOrder,
+    {
+      triagem: ServiceOrderScreening(
+        serviceOrder && serviceOrder.triagem ? {triagem: serviceOrder.triagem} : {triagem: {acessorios: listaFormAcessorios([])}}
+      )
+    },
+    {
+      diagnostico: ServiceOrderDiagnosis(serviceOrder && serviceOrder.diagnostico ? serviceOrder.diagnostico : {})
+    }
+  );
 }
+
 
 export function ServiceOrderScreening ({triagem}) {
   return Object.assign(
@@ -30,7 +36,7 @@ export function ServiceOrderScreening ({triagem}) {
   );
 }
 
-export function ServiceOrderDiagnosis ({diagnostico}) {
+export function ServiceOrderDiagnosis (diagnostico) {
   return Object.assign({
     "resultado_tecnico": "",
     "demanda_servicos": "",
@@ -38,5 +44,5 @@ export function ServiceOrderDiagnosis ({diagnostico}) {
     "acao_orientacao": "",
     "observacoes": "",
     "itens": []
-  }, diagnostico);
+  }, diagnostico || {});
 }
