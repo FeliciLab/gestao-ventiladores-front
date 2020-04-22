@@ -16,16 +16,10 @@ import Grid from "@material-ui/core/Grid";
 const DialogItems = (props) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
-  const [dataDialog, setDataDialog] = useState({});
-  const [itemsDialog, setItemsDialog] = useState([]);
-  const {toogleDialog, headerTable} = props;
+  const {toogleDialog, headerTable, dataDialog} = props;
 
   useEffect(() => {
     setOpen(props.openDialog);
-    setDataDialog(props.dataDialog);
-    if (props.dataDialog.diagnostico && props.dataDialog.diagnostico.itens) {
-      setItemsDialog(props.dataDialog.diagnostico.itens);
-    }
   }, [props]);
 
   return (
@@ -67,7 +61,6 @@ const DialogItems = (props) => {
         </div>
         <DialogTableItems
           headerTable={headerTable}
-          itemsDialog={itemsDialog}
           dataTable={dataDialog}
         />
       </Container>

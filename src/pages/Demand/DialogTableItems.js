@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {useHistory} from 'react-router-dom';
 import Table from "@material-ui/core/Table";
 import TableContainer from "@material-ui/core/TableContainer";
@@ -13,16 +13,14 @@ const DialogTableItems = (props) => {
 
   const {headerTable} = props;
   const [dataTable, setDataTable] = useState([]);
-  const [itemsDialog, setItemsDialog] = useState([]);
 
-  useEffect(() => {
-    setDataTable(props.dataTable || []);
-    setItemsDialog(props.itemsDialog.map(item => {
+  if (dataTable.length === 0) {
+    setDataTable(props.dataTable.map(item => {
       if (item.tipo === 'pecas') item.tipo = "Peças";
       if (item.tipo === 'acessorio') item.tipo = "Acessório";
       return item;
     }) || []);
-  }, [props]);
+  }
 
   const actionPrint = (data) => {
     history.push({

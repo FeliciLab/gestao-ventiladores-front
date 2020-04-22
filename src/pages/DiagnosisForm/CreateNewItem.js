@@ -24,7 +24,7 @@ export default function CreateNewItem (props) {
 
   function updateItem (event) {
     const doc = {};
-    doc[event.target.name] = event.target.value.trim();
+    doc[event.target.name] = event.target.value;
     setItem(Object.assign({}, item, doc));
   };
 
