@@ -29,7 +29,10 @@ export default function RowTableItem (props) {
               return (
                 <TableCell key={headIndex}>
                   <TextField
-                    select label="" value={data[head.id]} onChange={(event) => updateParent(event, index, head.id)}
+                    select
+                    label=""
+                    value={data[head.id]}
+                    onChange={(event) => updateParent(event, index, head.id)}
                     name={'tipo'}
                   >
                     {radioItems.map((option) => (

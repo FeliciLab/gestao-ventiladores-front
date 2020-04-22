@@ -71,7 +71,6 @@ export default function FormScreening () {
 
   async function saveDocuments () {
     await triggerValidation();
-    console.log(errors);
     if (Object.keys(errors).length > 0) {
       showErrorBar()
       return;

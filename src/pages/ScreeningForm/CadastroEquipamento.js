@@ -26,9 +26,9 @@ export default function CadastroEquipamento (props) {
 
   function updateEquipment (event) {
     const doc = {};
-    doc[event.target.name] = event.target.value.trim();
+    doc[event.target.name] = event.target.value;
     if (event.target.name === 'marca' && equipamento.fabricante === '') {
-      doc['fabricante'] = event.target.value.trim();
+      doc['fabricante'] = event.target.value;
     }
     atualizarEquipamento(doc);
   }
