@@ -5,8 +5,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import SubtitlesIcon from '@material-ui/icons/Subtitles';
 import {makeStyles} from '@material-ui/core/styles';
-// import HealingIcon from '@material-ui/icons/Healing';
-// import BallotIcon from '@material-ui/icons/Ballot';
+import BallotIcon from '@material-ui/icons/Ballot';
+// imporqt HealingIcon from '@material-ui/icons/Healing';
 
 export default function MenuAppBar () {
   const classes = useStyles();
@@ -15,7 +15,7 @@ export default function MenuAppBar () {
   const menus = [
     {name: 'TRIAGEM', icon: <AssignmentIcon/>, route: '/'},
     {name: 'DIAGNÓSTICO', icon: <SubtitlesIcon/>, route: 'diagnosticos'},
-    // {name: 'DEMANDA', icon: <BallotIcon/>, route: 'demandas'},
+    {name: 'DEMANDA', icon: <BallotIcon/>, route: 'demandas'},
     // {name: 'MANUTENÇÃO', icon: <HealingIcon/>, route: 'triagem'},
   ];
 
