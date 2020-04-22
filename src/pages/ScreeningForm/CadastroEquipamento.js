@@ -10,40 +10,19 @@ import InputFileImage from "../_common/forms/InputFileImage";
 import {sendEquipmentPhoto} from "../../modelServices/photoEquipmentService";
 import {manufacturersEquipments, modelsEquipment} from "../../models/manufacturers";
 import InputRadioDialog from "../_common/forms/InputRadioDialog";
-import {useForm} from "react-hook-form";
 import ErrorAlertText from "../_common/alerts/ErrorAlertText";
 
 export default function CadastroEquipamento (props) {
   const cities = getCities('CE');
-
-  const {register, errors} = useForm({mode: 'onBlur'});
   const {
-    updateErrors,
+    errors,
+    register,
     equipamento,
     serviceOrder,
     atualizarEquipamento,
     atualizarTriagem,
     updateServiceOrder
   } = props;
-
-  const [localErrors, setLocalErrors] = React.useState({});
-
-
-  function sendErrorsParent () {
-    setTimeout(() => {
-      const keys = Object.keys(errors);
-      const errorsKeys = Object.assign({}, localErrors);
-
-      for (let index in errorsKeys) errorsKeys[index] = false;
-
-      for (let key of keys) {
-        errorsKeys[key] = true;
-      }
-
-      setLocalErrors(errorsKeys);
-      updateErrors({cadastroEquipamento: errorsKeys});
-    }, 500);
-  }
 
   function updateEquipment (event) {
     const doc = {};
@@ -100,7 +79,6 @@ export default function CadastroEquipamento (props) {
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
           <TextField
-            onBlur={sendErrorsParent}
             inputRef={register({required: true})}
             onChange={updateServiceOrderParent}
             value={serviceOrder.numero_ordem_servico}
@@ -113,7 +91,6 @@ export default function CadastroEquipamento (props) {
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
-            onBlur={sendErrorsParent}
             inputRef={register({required: true})}
             onChange={updateEquipment}
             value={equipamento.numero_de_serie}
@@ -127,7 +104,6 @@ export default function CadastroEquipamento (props) {
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
-            onBlur={sendErrorsParent}
             inputRef={register({required: true})}
             onChange={updateEquipment}
             value={equipamento.nome_equipamento}
@@ -189,7 +165,6 @@ export default function CadastroEquipamento (props) {
         </Grid>
         <Grid item xs={6} sm={2}>
           <TextField
-            onBlur={sendErrorsParent}
             inputRef={register({required: true})}
             required
             id="fabricante"
@@ -219,7 +194,6 @@ export default function CadastroEquipamento (props) {
         </Grid>
         <Grid item xs={6} sm={4}>
           <TextField
-            onBlur={sendErrorsParent}
             inputRef={register({required: true})}
             required
             id="nome_instituicao_origem"
@@ -249,7 +223,6 @@ export default function CadastroEquipamento (props) {
         {/*ROW*/}
         <Grid item xs={6} sm={4}>
           <TextField
-            onBlur={sendErrorsParent}
             inputRef={register({required: true})}
             required
             id="nomeDoResponsavel"

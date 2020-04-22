@@ -49,11 +49,11 @@ export function getAllServiceOrder () {
 export function mapModelRequest (equipment) {
   const model = ServiceOrder({});
   for (let field in model) {
-    if (equipment[field]['$oid']) {
+    if (typeof(equipment[field]) === 'object' && equipment[field] !== null && equipment[field]['$oid']) {
       model[field] = equipment[field]['$oid'];
       continue;
     }
-    if (equipment[field]['$date']) {
+    if (typeof(equipment[field]) === 'object' && equipment[field] !== null && equipment[field]['$date']) {
       model[field] = new Date(equipment[field]['$date']);
       continue;
     }

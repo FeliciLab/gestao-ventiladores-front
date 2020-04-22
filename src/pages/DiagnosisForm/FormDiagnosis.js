@@ -11,10 +11,15 @@ import FormRegisteredItems from "./FormRegisteredItems";
 import {updateServiceOrderRequest} from "../../modelServices/serviceOrderService";
 import Alert from "@material-ui/lab/Alert";
 import {useHistory} from 'react-router-dom';
+import {useForm} from "react-hook-form";
 
 const FormDiagnosis = (props) => {
   const history = useHistory();
   const classes = useStyles();
+
+  const {register, errors, triggerValidation} = useForm({mode: 'onBlur', reValidateMode: 'onChange'});
+
+
   useEffect(() => {
     setServiceOrder(props.serviceOrder);
   }, [props]);
@@ -34,21 +39,29 @@ const FormDiagnosis = (props) => {
   };
 
   function updateItemsFromTable (value, index, field) {
-    const items = serviceOrder.diagnostico.itens
-    items[index][field] = value
-    updateServiceOrderDiagnosis({itens: items})
+    const items = serviceOrder.diagnostico.itens;
+    items[index][field] = value;
+    updateServiceOrderDiagnosis({itens: items});
   };
 
+  function showErrorsBar () {
+    setErrorsFound(true);
+    setTimeout(() => {
+      setErrorsFound(false);
+    }, 10000);
+  }
+
   async function saveForm () {
+    await triggerValidation();
+    if (Object.keys(errors).length > 0) {
+      return showErrorsBar();
+    }
     try {
       await updateServiceOrderRequest(Object.assign({}, serviceOrder, {status: 'diagnostico'}));
-      history.push({pathname: '/diagnosticos'})
+      history.push({pathname: '/diagnosticos'});
     } catch (e) {
       console.log('erro ao salvar ordem de serviço', e);
-      setErrorsFound(true);
-      setTimeout(() => {
-        setErrorsFound(false);
-      }, 2000);
+      showErrorsBar();
     }
   };
 
@@ -68,6 +81,8 @@ const FormDiagnosis = (props) => {
 
         <Paper className={classes.paper}>
           <CadastroDiagnostico
+            register={register}
+            errors={errors}
             diagnosis={serviceOrder && serviceOrder.diagnostico ? serviceOrder.diagnostico : {}}
             updateDiagnosis={updateServiceOrderDiagnosis}
           />

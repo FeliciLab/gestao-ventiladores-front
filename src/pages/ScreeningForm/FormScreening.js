@@ -8,14 +8,17 @@ import {ServiceOrder, ServiceOrderScreening} from "../../models/serviceOrder";
 import {listaFormAcessorios} from "../../models/acessorio";
 import TitleFormScreening from "./TitleFormScreening";
 import {useHistory} from "react-router-dom";
-import {saveNewEquipment, updateEquipment,} from "../../modelServices/equipamentoService";
+import {deleteEquipmentRequest, saveNewEquipment, updateEquipment,} from "../../modelServices/equipamentoService";
 import Alert from "@material-ui/lab/Alert";
 import {Equipamento} from "../../models/equipamentos";
 import {saveNewOrderService, updateServiceOrderRequest} from "../../modelServices/serviceOrderService";
+import {useForm} from "react-hook-form";
 
 
 export default function FormScreening () {
   const history = useHistory();
+
+  const {register, errors, triggerValidation} = useForm({mode: 'onBlur', reValidateMode: 'onChange'});
 
   const classes = useStyles();
 
@@ -59,22 +62,21 @@ export default function FormScreening () {
     atualizarTriagem({acessorios: value});
   }
 
-  function hasErrorsFound () {
-    for (let indexForm in formErrors) {
-      for (let index in formErrors[indexForm]) {
-        if (formErrors[indexForm][index]) {
-          setErrorsFound(true);
-          return true;
-        }
-      }
-    }
-
-    setErrorsFound(false);
-    return false;
+  function showErrorBar () {
+    setErrorsFound(true);
+    setTimeout(() => {
+      setErrorsFound(false);
+    }, 10000);
   }
 
   async function saveDocuments () {
-    if (hasErrorsFound()) return;
+    await triggerValidation();
+    console.log(errors);
+    if (Object.keys(errors).length > 0) {
+      showErrorBar()
+      return;
+    }
+
     let equipamentoId = '';
 
     try {
@@ -98,15 +100,15 @@ export default function FormScreening () {
       {equipamento_id: equipamentoId}
     );
 
-    console.log(order);
     try {
       if (order._id && order._id !== '') {
-        await updateServiceOrderRequest(order);
+        await updateServiceOrderRequest(Object.assign(order, {status: 'triagem'}));
       } else {
-        await saveNewOrderService(order);
+        await saveNewOrderService(Object.assign(order, {status: 'triagem'}));
       }
-      console.log('salvo');
     } catch (e) {
+      deleteEquipmentRequest(equipamentoId)
+      showErrorBar()
       console.log('falha ao salvar ordem de serviço', e);
       return false;
     }
@@ -134,8 +136,14 @@ export default function FormScreening () {
 
         <Paper className={classes.paper}>
           <CadastroEquipamento
-            updateErrors={updateErrors} atualizarTriagem={atualizarTriagem} atualizarEquipamento={atualizarEquipamento}
-            updateServiceOrder={updateServiceOrder} equipamento={equipamento} screening={screening}
+            register={register}
+            errors={errors}
+            updateErrors={updateErrors}
+            atualizarTriagem={atualizarTriagem}
+            atualizarEquipamento={atualizarEquipamento}
+            updateServiceOrder={updateServiceOrder}
+            equipamento={equipamento}
+            screening={screening}
             serviceOrder={serviceOrder}
           />
         </Paper>

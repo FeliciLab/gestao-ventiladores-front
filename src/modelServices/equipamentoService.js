@@ -104,3 +104,11 @@ export function updateEquipment (equipamento) {
     return err;
   });
 }
+
+export function deleteEquipmentRequest(_id) {
+  return api.delete(
+    '/api/equipamentos?_id=' + _id
+  ).then(res => {
+    return res.data
+  })
+}
