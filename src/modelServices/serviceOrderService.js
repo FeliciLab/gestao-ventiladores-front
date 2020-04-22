@@ -35,14 +35,7 @@ export function getServiceOrderByStatus (status) {
 
 export function getAllServiceOrder () {
   return api.get(
-    '/api/ordem_servicos',
-    {
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-    }
+    '/api/ordem_servicos'
   )
     .then((response) => {
       return response.data;
