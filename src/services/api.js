@@ -1,7 +1,7 @@
 import axios from "axios";
 
-// const baseUrl = 'https://api.centralventiladores.dev.org.br';
-const baseUrl = 'http://localhost:5000';
+const baseUrl = 'https://api.centralventiladores.dev.org.br';
+// const baseUrl = 'http://localhost:5000';
 
 const api = axios.create({
   headers: {
