@@ -2,9 +2,10 @@ import React from "react";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
+import ErrorAlertText from "../_common/alerts/ErrorAlertText";
 
 export default function CadastroEquipamento (props) {
-  const {diagnosis, updateDiagnosis} = props;
+  const {errors, register, diagnosis, updateDiagnosis} = props;
 
   const updateParent = (event) => {
     event.preventDefault();
@@ -22,16 +23,10 @@ export default function CadastroEquipamento (props) {
         1. Cadastro De Diagnóstico
       </Typography>
 
-      <Grid
-        container
-        spacing={3}
-      >
-        <Grid
-          item
-          xs={12}
-          sm={12}
-        >
+      <Grid container spacing={3}>
+        <Grid item xs={12} sm={12}>
           <TextField
+            inputRef={register({required: true})}
             InputLabelProps={{
               shrink: true
             }}
@@ -44,12 +39,9 @@ export default function CadastroEquipamento (props) {
             label="Resultado do Diagnostico Técnico"
             fullWidth
           />
+          <ErrorAlertText error={errors.resultado_tecnico}/>
         </Grid>
-        <Grid
-          item
-          xs={12}
-          sm={12}
-        >
+        <Grid item xs={12} sm={12}>
           <TextField
             InputLabelProps={{
               shrink: true
@@ -64,11 +56,7 @@ export default function CadastroEquipamento (props) {
             fullWidth
           />
         </Grid>
-        <Grid
-          item
-          xs={12}
-          sm={12}
-        >
+        <Grid item xs={12} sm={12}>
           <TextField
             InputLabelProps={{
               shrink: true

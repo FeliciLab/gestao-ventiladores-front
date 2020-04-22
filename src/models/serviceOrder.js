@@ -4,7 +4,7 @@ export function ServiceOrder (serviceOrder) {
   return Object.assign({},
     {
       _id: '',
-      numero_ordem_servico: serviceOrder ? serviceOrder.numero_ordem_servico : '',
+      numero_ordem_servico: serviceOrder && serviceOrder.numero_ordem_servico ? serviceOrder.numero_ordem_servico : '',
       status: '',
       equipamento_id: '',
       created_at: new Date(),
@@ -19,7 +19,7 @@ export function ServiceOrder (serviceOrder) {
       )
     },
     {
-      diagnostico: ServiceOrderDiagnosis(serviceOrder ? serviceOrder.diagnostico : {})
+      diagnostico: ServiceOrderDiagnosis(serviceOrder && serviceOrder.diagnostico ? serviceOrder.diagnostico : {})
     }
   );
 }
