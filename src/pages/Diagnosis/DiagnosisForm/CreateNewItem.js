@@ -2,8 +2,8 @@ import React, {useState} from "react";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import SaveIcon from "@material-ui/icons/Save";
-import ThemeButton from "../_common/forms/ThemeButton";
-import {itemDiagnosisModel} from "../../models/itensDiagnosticos";
+import ThemeButton from "../../_common/forms/ThemeButton";
+import {itemDiagnosisModel} from "../../../models/itensDiagnosticos";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
 import RadioGroup from "@material-ui/core/RadioGroup";
@@ -11,7 +11,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Radio from "@material-ui/core/Radio";
 import TextField from "@material-ui/core/TextField";
 import {useForm} from "react-hook-form";
-import ErrorAlertText from "../_common/alerts/ErrorAlertText";
+import ErrorAlertText from "../../_common/alerts/ErrorAlertText";
 
 export default function CreateNewItem (props) {
   const {addNewItem} = props;

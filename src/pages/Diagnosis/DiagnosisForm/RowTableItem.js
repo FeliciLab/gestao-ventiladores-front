@@ -1,11 +1,11 @@
 import React from 'react';
 import {TableCell, TableRow} from "@material-ui/core";
-import TooptipInfo from "../_common/components/TooltipInfo";
+import TooptipInfo from "../../_common/components/TooltipInfo";
 import InfoIcon from "@material-ui/icons/Info";
 import Typography from "@material-ui/core/Typography";
 import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
-import LabelInput from "../_common/components/LabelInput";
+import LabelInput from "../../_common/components/LabelInput";
 
 export default function RowTableItem (props) {
   const {

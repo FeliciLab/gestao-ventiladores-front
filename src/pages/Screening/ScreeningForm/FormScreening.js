@@ -4,14 +4,14 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Paper from "@material-ui/core/Paper";
 import CadastroEquipamento from "./CadastroEquipamento";
 import RelacaoDeMaterial from "./RelacaoDeMaterial";
-import {ServiceOrder, ServiceOrderScreening} from "../../models/serviceOrder";
-import {listaFormAcessorios} from "../../models/acessorio";
+import {ServiceOrder, ServiceOrderScreening} from "../../../models/serviceOrder";
+import {listaFormAcessorios} from "../../../models/acessorio";
 import TitleFormScreening from "./TitleFormScreening";
 import {useHistory} from "react-router-dom";
-import {deleteEquipmentRequest, saveNewEquipment, updateEquipment,} from "../../modelServices/equipamentoService";
+import {deleteEquipmentRequest, saveNewEquipment, updateEquipment,} from "../../../modelServices/equipamentoService";
 import Alert from "@material-ui/lab/Alert";
-import {Equipamento} from "../../models/equipamentos";
-import {saveNewOrderService, updateServiceOrderRequest} from "../../modelServices/serviceOrderService";
+import {Equipamento} from "../../../models/equipamentos";
+import {saveNewOrderService, updateServiceOrderRequest} from "../../../modelServices/serviceOrderService";
 import {useForm} from "react-hook-form";
 
 

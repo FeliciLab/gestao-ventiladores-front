@@ -1,16 +1,16 @@
-import React from 'react'
-import grey from '@material-ui/core/colors/grey'
+import React from 'react';
+import grey from '@material-ui/core/colors/grey';
 import {Typography} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
 
 const useClass = makeStyles(() => ({
   titulo: {
     color: grey[500],
-    fontSize: '12pt'
+    fontSize: '10pt'
   },
   texto: {
     color: grey[900],
-    fontSize: '14pt'
+    fontSize: '12pt'
   }
 }));
 

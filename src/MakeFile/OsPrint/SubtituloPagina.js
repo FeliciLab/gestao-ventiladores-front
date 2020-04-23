@@ -6,7 +6,7 @@ import grey from "@material-ui/core/colors/grey";
 const useClass = makeStyles(() => ({
   texto: {
     color: grey[900],
-    fontSize: '14pt',
+    fontSize: '12pt',
     fontWeight: 'bold',
     paddingTop: '8px',
     paddingBottom: '8px',
