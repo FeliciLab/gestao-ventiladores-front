@@ -57,6 +57,9 @@ export function mapModelRequest (equipment) {
       model[field] = new Date(equipment[field]['$date']);
       continue;
     }
+    if (field === 'created_at' || field === 'updated_at') {
+      model[field] = new Date(equipment[field]);
+    }
 
     model[field] = equipment[field];
   }
@@ -97,7 +100,7 @@ export function updateServiceOrderRequest (serviceOrder) {
   const model = mapModelRequest(serviceOrder);
   return api.post(
     '/api/ordem_servicos',
-    Object.assign({}, model, {updated_at: new Date()})
+    Object.assign({}, model, {created_at: new Date(model.created_at), updated_at: new Date()})
   ).then(result => {
     return result;
   });
