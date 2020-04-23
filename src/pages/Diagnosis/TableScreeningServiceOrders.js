@@ -1,11 +1,11 @@
 import React from 'react';
 import ActionTableList from "../_common/ActionTable/ActionTableList";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
+import {Grid, Typography} from "@material-ui/core";
 import {useHistory} from "react-router-dom";
 import {orange} from "@material-ui/core/colors";
 import QueueIcon from '@material-ui/icons/Queue';
 import {helperPropsColorIconButton} from "../_common/forms/ColorIconButton";
+import moment from "moment-timezone";
 
 const headerData = [
   {id: 'numero_ordem_servico', name: 'Ordem de Serviço'},
@@ -13,6 +13,7 @@ const headerData = [
   {id: 'marca', name: 'Marca'},
   {id: 'modelo', name: 'Modelo'},
   {id: 'origem', name: 'Origem'},
+  {id: 'created_at', name: 'Data de criação'},
 ];
 
 const TableScreeningServiceOrders = (props) => {
@@ -22,6 +23,9 @@ const TableScreeningServiceOrders = (props) => {
 
   const dataTable = serviceOrderScreening.map(item => {
     const equip = item.equipamento[0] || {};
+    if (typeof (item.created_at) === 'object' && item.created_at && item.created_at['$date']) {
+      item.created_at = item.created_at['$date'];
+    }
     return {
       numero_ordem_servico: item.numero_ordem_servico,
       marca: equip.marca || '',
@@ -29,6 +33,7 @@ const TableScreeningServiceOrders = (props) => {
       instituicao_de_origem: equip.instituicao_de_origem || '',
       numero_de_serie: equip.numero_de_serie || '',
       origem: equip.nome_instituicao_origem || '',
+      created_at: moment.tz(new Date(item.created_at), 'America/Fortaleza').format('DD/MM/Y')
     };
   });
 

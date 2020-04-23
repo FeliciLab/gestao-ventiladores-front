@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
-import HeaderPrint from "../_common/print/HeaderPrint";
-import PagePrint from "../_common/print/PagePrint";
-import TopicPrint from "../_common/print/TopicPrint";
-import TablePrint from "../_common/print/TablePrint";
+import HeaderPrint from "../../pages/_common/print/HeaderPrint";
+import PagePrint from "../../pages/_common/print/PagePrint";
+import TopicPrint from "../../pages/_common/print/TopicPrint";
+import TablePrint from "../../pages/_common/print/TablePrint";
 
 const IndexOrderPrint = (props) => {
   const [data] = useState(props.location.state.data);

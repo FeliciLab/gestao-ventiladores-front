@@ -1,7 +1,7 @@
 import React from "react";
 import Typography from "@material-ui/core/Typography";
 import {Grid} from "@material-ui/core";
-import {Acessorio} from "../../models/acessorio";
+import {Acessorio} from "../../../models/acessorio";
 import PropTypes from 'prop-types';
 import AccessoryFormList from "./AccessoryFormList";
 

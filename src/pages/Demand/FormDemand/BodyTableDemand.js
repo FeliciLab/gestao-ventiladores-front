@@ -4,6 +4,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
 import ToolTip from "./infoButton";
+
 export default function BodyTableDemand(props) {
   function selecionarLinha(event, id) {
     props.atualizarLinhaSelecionada(id);
