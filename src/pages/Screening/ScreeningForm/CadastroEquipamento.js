@@ -128,19 +128,14 @@ export default function CadastroEquipamento (props) {
 
 
         <Grid item xs={12} sm={6}>
-          <TextField
-            fullWidth
-            select
-            label="Tipo do Equipamento"
-            value={equipamento.tipo}
-            onChange={updateEquipment}
+          <InputRadioDialog
+            action={updateEquipment}
             name={'tipo'}
-            SelectProps={{native: true,}}
-          >
-            {equipmentTypes.map((option, index) => (
-              <option key={index} value={option}>{option}</option>
-            ))}
-          </TextField>
+            label="Tipo do Equipamento"
+            hasOther={true}
+            value={equipamento.tipo}
+            items={equipmentTypes.map(item => ({label: item, value: item}))}
+          />
         </Grid>
 
         <Grid item xs={12} sm={2}>

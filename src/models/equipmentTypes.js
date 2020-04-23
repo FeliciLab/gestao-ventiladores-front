@@ -1,6 +1,7 @@
 const equipmentTypes = [
-  'Ventilador pulmonar',
   'Ventilador pulmonar de circuito duplo/ UTI/ COVID-19',
-  'Ventilador pulmonar de transporte'
+  'Ventilador pulmonar de circuito único/ Enfermaria /Não COVID-19',
+  'Ventilador pulmonar de transporte',
+  'Monitor'
 ];
 export default equipmentTypes;
