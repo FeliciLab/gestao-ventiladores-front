@@ -84,7 +84,7 @@ export default function Footer() {
       <div style={{alignSelf: "center"}}>
         <Typography className={classes.text} noWrap>
           © 2017 - 2020 – GOVERNO DO ESTADO DO CEARÁ. TODOS OS DIREITOS
-          RESERVADOS - v0.4.6
+          RESERVADOS - v0.4.7
         </Typography>
       </div>
     </div>
