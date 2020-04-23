@@ -54,9 +54,9 @@ export default function CreateNewItem (props) {
         >
           <Grid item xs={12} md={6}>
             <FormControl component="fieldset">
-              <FormLabel component="legend">Gender</FormLabel>
+              <FormLabel component="legend">Tipo do item</FormLabel>
               <RadioGroup
-                aria-label="gender" name="tipo" value={item.tipo} onChange={updateItem} style={{flexDirection: 'row'}}
+                aria-label="tipo-do-item" name="tipo" value={item.tipo} onChange={updateItem} style={{flexDirection: 'row'}}
                 required
               >
                 <FormControlLabel value="pecas" name="tipo" control={<Radio color={'default'}/>} label="Peça"/>

@@ -2,9 +2,7 @@ import React from 'react';
 import DoneIcon from '@material-ui/icons/Done';
 import {green} from "@material-ui/core/colors";
 import ColorIconButton from "../forms/ColorIconButton";
-import Typography from "@material-ui/core/Typography";
-import Grid from "@material-ui/core/Grid";
-import TextField from "@material-ui/core/TextField";
+import {Grid, TableCell, TextField, Typography} from "@material-ui/core";
 
 const LabelInput = (props) => {
 
@@ -33,7 +31,7 @@ const LabelInput = (props) => {
   }
 
   return (<React.Fragment>
-    <span onClick={changeInput}>
+    <TableCell onClick={changeInput}>
       {showInput ?
         (<React.Fragment>
           <Grid container>
@@ -64,7 +62,7 @@ const LabelInput = (props) => {
             {currentValue !== '' ? currentValue : value}
           </Typography>
         </React.Fragment>)}
-    </span>
+    </TableCell>
   </React.Fragment>);
 };
 export default LabelInput;
