@@ -1,7 +1,7 @@
-export const conservationStateList = [
+export const accessoryConservationStateList = [
   "Bom", "Regular", "Ruim"
 ];
 
-export function mapOptionsConservationState () {
-  return conservationStateList.map(item => ({label: item, value: item}));
+export function accessoryMapOptionsConservationState () {
+  return accessoryConservationStateList.map(item => ({label: item, value: item}));
 }

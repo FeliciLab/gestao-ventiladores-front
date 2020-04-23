@@ -8,7 +8,7 @@ import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
-import {mapOptionsConservationState} from "../../../models/conservationState";
+import {accessoryMapOptionsConservationState} from "../../../models/conservationState";
 
 
 export default function AccessoryFormRow (props) {
@@ -19,7 +19,7 @@ export default function AccessoryFormRow (props) {
     removerLinha,
     index
   } = props;
-  const conservationOption = mapOptionsConservationState()
+  const conservationOption = accessoryMapOptionsConservationState()
 
   function atualizarAcessorioParent (event) {
     const doc = {};
