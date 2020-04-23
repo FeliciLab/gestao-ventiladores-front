@@ -8,6 +8,8 @@ import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
+import {mapOptionsConservationState} from "../../../models/conservationState";
+
 
 export default function AccessoryFormRow (props) {
   const {
@@ -17,6 +19,7 @@ export default function AccessoryFormRow (props) {
     removerLinha,
     index
   } = props;
+  const conservationOption = mapOptionsConservationState()
 
   function atualizarAcessorioParent (event) {
     const doc = {};
@@ -91,13 +94,18 @@ export default function AccessoryFormRow (props) {
         sm={3}
       >
         <TextField
+          select
           required
           onChange={atualizarAcessorioParent}
-          value={acessorio.estado_de_conservacao}
+          value={acessorio.estado_de_conservacao || ''}
           name="estado_de_conservacao"
           label="Estado de Conservação"
           fullWidth
-        />
+        >
+          {conservationOption.map((item, index) => (
+            <MenuItem key={index} value={item.value}> {item.label}</MenuItem>
+          ))}
+        </TextField>
       </Grid>
       <Grid
         item
@@ -109,7 +117,7 @@ export default function AccessoryFormRow (props) {
             <DeleteIcon></DeleteIcon>
           </Button>
         </Tooltip>
-      </Grid>
+      </Grid>;
     </Grid>
   );
 }
