@@ -54,6 +54,7 @@ const FormDiagnosis = (props) => {
   async function saveForm () {
     await triggerValidation();
     if (Object.keys(errors).length > 0) {
+      console.log(errors)
       return showErrorsBar();
     }
     try {

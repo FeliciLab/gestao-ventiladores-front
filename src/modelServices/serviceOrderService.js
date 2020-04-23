@@ -1,5 +1,7 @@
 import api from "../services/api";
-import {ServiceOrder} from "../models/serviceOrder";
+import {ServiceOrder, ServiceOrderDiagnosis, ServiceOrderScreening} from "../models/serviceOrder";
+import {itemDiagnosisModel} from "../models/itensDiagnosticos";
+import {Acessorio} from "../models/acessorio";
 
 /**
  * Seach screnning by status
@@ -46,22 +48,62 @@ export function getAllServiceOrder () {
     });
 }
 
-export function mapModelRequest (equipment) {
+export function mapModelRequest (serviceOrder) {
   const model = ServiceOrder({});
+  const modelScreening = ServiceOrderScreening(serviceOrder);
+  const modelDiagnosis = ServiceOrderDiagnosis(serviceOrder.diagnostico || {})
+  const modelAccessory = Acessorio({});
+  const modelItems = itemDiagnosisModel;
   for (let field in model) {
-    if (typeof(equipment[field]) === 'object' && equipment[field] !== null && equipment[field]['$oid']) {
-      model[field] = equipment[field]['$oid'];
+    if (typeof (serviceOrder[field]) === 'object' && serviceOrder[field] !== null && serviceOrder[field]['$oid']) {
+      model[field] = serviceOrder[field]['$oid'];
       continue;
     }
-    if (typeof(equipment[field]) === 'object' && equipment[field] !== null && equipment[field]['$date']) {
-      model[field] = new Date(equipment[field]['$date']);
+    if (typeof (serviceOrder[field]) === 'object' && serviceOrder[field] !== null && serviceOrder[field]['$date']) {
+      model[field] = new Date(serviceOrder[field]['$date']);
       continue;
     }
     if (field === 'created_at' || field === 'updated_at') {
-      model[field] = new Date(equipment[field]);
+      model[field] = new Date(serviceOrder[field]);
     }
 
-    model[field] = equipment[field];
+    if (field === 'triagem' && serviceOrder[field]) {
+      for (let fieldScreening in modelScreening) {
+        if (fieldScreening === 'acessorios') {
+          for (let indexAccessory in serviceOrder['triagem']['acessorios']) {
+            const item = {};
+            for (let fieldModelAccessory in modelAccessory) {
+              item[fieldModelAccessory] = serviceOrder['triagem']['acessorios'][indexAccessory][fieldModelAccessory];
+            }
+            model['triagem']['acessorios'][indexAccessory] = item;
+          }
+          continue;
+        }
+
+        model['triagem'][fieldScreening] = serviceOrder['triagem'][fieldScreening];
+      }
+      continue;
+    }
+
+    if (field === 'diagnostico' && serviceOrder[field]) {
+      for (let fieldDiagnosis in modelDiagnosis) {
+        if (fieldDiagnosis === 'itens') {
+          for (let indexItem in serviceOrder['diagnostico']['itens']) {
+            const item = {};
+            for (let fieldModelItem in modelItems) {
+              item[fieldModelItem] = serviceOrder['diagnostico']['itens'][indexItem][fieldModelItem];
+            }
+            model['diagnostico']['itens'][indexItem] = item;
+          }
+          continue;
+        }
+
+        model['diagnostico'][fieldDiagnosis] = serviceOrder['diagnostico'][fieldDiagnosis];
+      }
+      continue;
+    }
+
+    model[field] = serviceOrder[field];
   }
 
   return model;

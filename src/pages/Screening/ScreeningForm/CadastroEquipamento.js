@@ -11,6 +11,7 @@ import {sendEquipmentPhoto} from "../../../modelServices/photoEquipmentService";
 import {manufacturersEquipments, modelsEquipment} from "../../../models/manufacturers";
 import InputRadioDialog from "../../_common/forms/InputRadioDialog";
 import ErrorAlertText from "../../_common/alerts/ErrorAlertText";
+import MenuItem from "@material-ui/core/MenuItem";
 
 export default function CadastroEquipamento (props) {
   const cities = getCities('CE');
@@ -179,11 +180,10 @@ export default function CadastroEquipamento (props) {
             label="Município de Origem"
             value={equipamento.municipio_origem}
             onChange={updateEquipment}
-            SelectProps={{native: true,}}
             name={'municipio_origem'}
           >
             {cities.map((option, index) => (
-              <option key={index} value={option}>{option}</option>
+              <MenuItem key={index} value={option}>{option}</MenuItem>
             ))}
           </TextField>
         </Grid>
@@ -204,12 +204,11 @@ export default function CadastroEquipamento (props) {
             select
             label="Tipo da instituição"
             value={equipamento.tipo_instituicao_origem}
-            SelectProps={{native: true,}}
             onChange={updateEquipment}
             name={'tipo_instituicao_origem'}
           >
             {typeInstitute.map((option, index) => (
-              <option key={index} value={option}>{option}</option>
+              <MenuItem key={index} value={option}>{option}</MenuItem>
             ))}
           </TextField>
         </Grid>
@@ -246,10 +245,9 @@ export default function CadastroEquipamento (props) {
             value={serviceOrder.triagem.estado_de_conservacao}
             onChange={updateScreening}
             name={'estado_de_conservacao'}
-            SelectProps={{native: true,}}
           >
             {typeStateEquipment.map((option, index) => (
-              <option key={index} value={option}>{option}</option>
+              <MenuItem key={index} value={option}>{option}</MenuItem>
             ))}
           </TextField>
         </Grid>
