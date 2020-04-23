@@ -1,5 +1,10 @@
 import {listaFormAcessorios} from "./acessorio";
 
+export const serviceOrderStatus = {
+  diagnostico: 'diagnóstico',
+  triagem: 'triagem'
+}
+
 export function ServiceOrder (serviceOrder) {
   return Object.assign({},
     {

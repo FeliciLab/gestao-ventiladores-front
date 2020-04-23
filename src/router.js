@@ -1,6 +1,7 @@
 import React from "react";
 import {Route, Switch} from "react-router-dom";
 
+import IndexServiceOrder from "./pages/SerrviceOrder";
 import FormTriagem from "./pages/Screening/ScreeningForm";
 import IndexFormDiagnosis from "./pages/Diagnosis/DiagnosisForm";
 import OsPrint from "./MakeFile/OsPrint";
@@ -14,7 +15,8 @@ import Calibragem from "./pages/FormCalibragem";
 
 const Routes = () => (
   <Switch>
-    <Route path="/" exact component={Screening} />
+    <Route path="/" exact component={IndexServiceOrder} />
+    <Route path="/ordens-servicos" exact component={IndexServiceOrder} />
     <Route path="/triagens" exact component={Screening} />
     <Route path="/nova-triagem" exact component={FormTriagem} />
     <Route path="/novo-diagnostico" exact component={IndexFormDiagnosis} />

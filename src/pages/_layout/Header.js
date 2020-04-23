@@ -6,6 +6,7 @@ import {makeStyles} from "@material-ui/core/styles";
 import {Link} from "react-router-dom";
 import AssignmentSharpIcon from '@material-ui/icons/AssignmentSharp';
 import SubtitlesSharpIcon from '@material-ui/icons/SubtitlesSharp';
+import LibraryBooksSharpIcon from '@material-ui/icons/LibraryBooksSharp';
 // import LocalMallSharpIcon from '@material-ui/icons/LocalMallSharp';
 // import UnarchiveSharpIcon from '@material-ui/icons/UnarchiveSharp';
 import Container from "@material-ui/core/Container";
@@ -15,6 +16,7 @@ export default function Header () {
   const classes = useStyles();
 
   const menuRoutes = [
+    {label: 'ORDENS DE SERVIÇO', pathname: '/ordens-servicos', icon: <LibraryBooksSharpIcon font={"small"}/>},
     {label: 'TRIAGEM', pathname: '/triagens', icon: <AssignmentSharpIcon font={"small"}/>},
     {label: 'DIAGNÓSTICO', pathname: '/diagnosticos', icon: <SubtitlesSharpIcon font={"small"}/>},
     // {label: 'DEMANDA', pathname: '/demandas', icon: <LocalMallSharpIcon font={"small"}/>},

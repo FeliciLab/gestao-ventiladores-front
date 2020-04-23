@@ -7,3 +7,7 @@ export const itemDiagnosisModel = {
   "quantidade": 0,
   "descricao": "",
 };
+
+export function getItemDiagnosis(item) {
+  return Object.assign({}, itemDiagnosisModel, item)
+}
