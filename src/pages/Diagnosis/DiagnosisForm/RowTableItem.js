@@ -32,7 +32,7 @@ export default function RowTableItem (props) {
                     select
                     label=""
                     value={data[head.id]}
-                    onChange={(event) => updateParent(event, index, head.id)}
+                    onChange={(event) => updateParent(event.target.value, index, head.id)}
                     name={'tipo'}
                   >
                     {radioItems.map((option) => (
@@ -46,13 +46,13 @@ export default function RowTableItem (props) {
             }
 
             return (
-              <TableCell key={headIndex}>
                 <LabelInput
-                  label={''} name={head.id} action={(event) => updateParent(event, index, head.id)}
+                  key={headIndex}
+                  label={''}
+                  name={head.id}
+                  action={(value) => updateParent(value, index, head.id)}
                   value={data[head.id]}
                 />
-              </TableCell>
-
             );
           }
         )

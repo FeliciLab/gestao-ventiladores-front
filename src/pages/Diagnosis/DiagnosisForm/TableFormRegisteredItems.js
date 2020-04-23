@@ -52,8 +52,11 @@ const TableFormRegisteredItems = (props) => {
           {items.map((item, index) => {
             return (
               <RowTableItem
-                key={`${index}_${new Date().toISOString()}`} headTable={headTable} updateParent={updateParent}
-                index={index} data={item}
+                key={`${index}_${new Date().toISOString()}`}
+                headTable={headTable}
+                updateParent={updateParent}
+                index={index}
+                data={item}
               />
             );
           })}
