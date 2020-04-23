@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react";
 import FormDiagnosis from "./FormDiagnosis";
-import Layout from "../_layout/Layout";
+import Layout from "../../_layout/Layout";
 import {useHistory} from "react-router-dom";
-import {ServiceOrderDiagnosis} from "../../models/serviceOrder";
+import {ServiceOrderDiagnosis} from "../../../models/serviceOrder";
 
 export default function IndexFormDiagnosis (props) {
   useEffect(() => {

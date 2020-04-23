@@ -7,7 +7,7 @@ import {TableCell, TableRow} from "@material-ui/core";
 import TableBody from "@material-ui/core/TableBody";
 import Paper from "@material-ui/core/Paper";
 import InfoIcon from '@material-ui/icons/Info';
-import ChipStyled from "../_common/components/ChipStyled";
+import ChipStyled from "../../_common/components/ChipStyled";
 import {grey} from "@material-ui/core/colors";
 import RowTableItem from "./RowTableItem";
 

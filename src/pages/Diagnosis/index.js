@@ -1,11 +1,8 @@
 import React, {useEffect, useState} from 'react';
+import {Container, Grid, Tab, Tabs} from "@material-ui/core";
 import Layout from "../_layout/Layout";
-import TableScreeningServiceOrders from "./TableScreeningServiceOrders";
-import Container from "@material-ui/core/Container";
-import Tab from "@material-ui/core/Tab";
-import Tabs from "@material-ui/core/Tabs";
 import TabPanel from "../_common/components/TabPanel";
-import Grid from "@material-ui/core/Grid";
+import TableScreeningServiceOrders from "./TableScreeningServiceOrders";
 import TableDiagnosisServiceOrder from "./TableDiagnosisServiceOrder";
 import {getAllServiceOrder} from "../../modelServices/serviceOrderService";
 

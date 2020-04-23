@@ -1,13 +1,6 @@
-import React from "react";
-import {withStyles, makeStyles} from "@material-ui/core/styles";
-import {
-  Table,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableContainer,
-  Paper,
-} from "@material-ui/core";
+import React from 'react';
+import {makeStyles, withStyles} from "@material-ui/core/styles";
+import {Paper, Table, TableCell, TableContainer, TableHead, TableRow} from "@material-ui/core";
 import TableBody from "@material-ui/core/TableBody";
 import {grey} from "@material-ui/core/colors";
 
@@ -16,17 +9,17 @@ const greyColor = grey[300];
 const StyledTableCell = withStyles((theme) => ({
   head: {
     backgroundColor: greyColor,
-    fontWeight: "bolder",
+    fontWeight: 'bolder',
     border: 1,
     borderColor: greyColor,
-    borderStyle: "solid",
-    paddingTop: "5px",
-    paddingBottom: "5px",
-    height: "24px",
-    textAlign: "center",
+    borderStyle: 'solid',
+    paddingTop: '3px',
+    paddingBottom: '3px',
+    // height: '10px',
+    textAlign: 'center'
   },
   body: {
-    fontSize: 12,
+    fontSize: '12pt'
   },
 }))(TableCell);
 
@@ -34,32 +27,36 @@ const StyledTd = withStyles(() => ({
   body: {
     border: 1,
     borderColor: greyColor,
-    borderStyle: "solid",
-    paddingTop: "5px",
-    paddingBottom: "5px",
-    height: "24px",
-    fontSize: 12,
-  },
+    borderStyle: 'solid',
+    paddingTop: '3px',
+    paddingBottom: '3px',
+    // height: '10px',
+    fontSize: '12pt'
+  }
 }))(TableCell);
+
 
 const useStyles = makeStyles({
   table: {
-    width: "100%",
+    width: '100%',
     border: 1,
     borderColor: greyColor,
-    borderStyle: "solid",
+    borderStyle: 'solid',
   },
   quadro: {
     border: 1,
     borderColor: grey[900],
-    borderStyle: "solid",
-    padding: "5px",
-  },
+    borderStyle: 'solid',
+  }
 });
 
-export default function TabelaAcessoriso(props) {
+export default function TabelaAcessoriso (props) {
   const classes = useStyles();
-  if (!props || !props.equipamento) return <div></div>;
+
+  if (!props || !props.equipamento) return (<div></div>);
+
+  const acessorios = props.equipamento.triagem.acessorios || [];
+  const rows = [...acessorios];
 
   return (
     <div className={classes.quadro}>
@@ -71,26 +68,28 @@ export default function TabelaAcessoriso(props) {
         >
           <TableHead>
             <TableRow>
-              <StyledTableCell>item</StyledTableCell>
-              <StyledTableCell>descrissao</StyledTableCell>
+              <StyledTableCell>Descrição</StyledTableCell>
+              <StyledTableCell>Acompanha</StyledTableCell>
               <StyledTableCell>Qtde</StyledTableCell>
-              <StyledTableCell>Fabricante</StyledTableCell>
-              <StyledTableCell>fornecedor 1</StyledTableCell>
-              <StyledTableCell>fornecedor 2</StyledTableCell>
+              <StyledTableCell>Estado de Conservação</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            <TableRow>
-              <StyledTd component="th" scope="row">
-                {props.equipamento.name}
-              </StyledTd>
-              <StyledTd>{props.equipamento.id}</StyledTd>
-              <StyledTd>{props.equipamento.name}</StyledTd>
-              <StyledTd>{props.equipamento.amount}</StyledTd>
-              <StyledTd>{props.equipamento.type}</StyledTd>
-              <StyledTd>{props.equipamento.provider}</StyledTd>
-              <StyledTd>{props.equipamento.provider}</StyledTd>
-            </TableRow>
+            {
+              rows.map((row, index) => (
+                <TableRow key={index}>
+                  <StyledTd
+                    component="th"
+                    scope="row"
+                  >
+                    {row.descricao}
+                  </StyledTd>
+                  <StyledTd>{row.acompanha === true ? 'Sim' : '-'}</StyledTd>
+                  <StyledTd>{row.quantidade || ''}</StyledTd>
+                  <StyledTd>{row.estado_de_conservacao || ''}</StyledTd>
+                </TableRow>
+              ))
+            }
           </TableBody>
         </Table>
       </TableContainer>

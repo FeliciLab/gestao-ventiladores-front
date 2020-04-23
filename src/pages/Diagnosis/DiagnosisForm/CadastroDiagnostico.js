@@ -2,7 +2,7 @@ import React from "react";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
-import ErrorAlertText from "../_common/alerts/ErrorAlertText";
+import ErrorAlertText from "../../_common/alerts/ErrorAlertText";
 
 export default function CadastroEquipamento (props) {
   const {errors, register, diagnosis, updateDiagnosis} = props;
