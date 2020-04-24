@@ -1,6 +1,7 @@
 import React from "react";
 import Typography from "@material-ui/core/Typography";
 import {makeStyles} from "@material-ui/core/styles";
+import green from "@material-ui/core/colors/green";
 
 export default function Footer() {
   const classes = useStyles();
@@ -83,7 +84,7 @@ export default function Footer() {
       <div style={{alignSelf: "center"}}>
         <Typography className={classes.text} noWrap>
           © 2017 - 2020 – GOVERNO DO ESTADO DO CEARÁ. TODOS OS DIREITOS
-          RESERVADOS - v0.4.3
+          RESERVADOS - v0.4.9
         </Typography>
       </div>
     </div>
@@ -95,7 +96,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     position: "relative",
     height: 280,
-    background: "#0A7231",
+    background: green[800],
     flexDirection: "column",
   },
   info: {

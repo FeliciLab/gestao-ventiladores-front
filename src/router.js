@@ -1,20 +1,22 @@
 import React from "react";
 import {Route, Switch} from "react-router-dom";
 
-import FormTriagem from "./pages/ScreeningForm";
-import IndexFormDiagnosis from "./pages/DiagnosisForm";
-import OsPrint from "./pages/OsPrint";
+import IndexServiceOrder from "./pages/SerrviceOrder";
+import FormTriagem from "./pages/Screening/ScreeningForm";
+import IndexFormDiagnosis from "./pages/Diagnosis/DiagnosisForm";
+import OsPrint from "./MakeFile/OsPrint";
 import Screening from "./pages/Screening/index";
 import IndexDemand from "./pages/Demand";
 import Diagnosis from "./pages/Diagnosis";
-import IndexOrderPrint from "./pages/OrderPrint";
+import IndexOrderPrint from "./MakeFile/OrderPrint";
 import FormEntrega from "./pages/FormEntrega";
 import Entrega from "./pages/Entrega";
 import Calibragem from "./pages/FormCalibragem";
 
 const Routes = () => (
   <Switch>
-    <Route path="/" exact component={Screening} />
+    <Route path="/" exact component={IndexServiceOrder} />
+    <Route path="/ordens-servicos" exact component={IndexServiceOrder} />
     <Route path="/triagens" exact component={Screening} />
     <Route path="/nova-triagem" exact component={FormTriagem} />
     <Route path="/novo-diagnostico" exact component={IndexFormDiagnosis} />
