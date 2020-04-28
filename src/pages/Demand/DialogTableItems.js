@@ -29,7 +29,7 @@ const DialogTableItems = (props) => {
           </Typography>
         </Grid>
         <Grid item xs={'auto'}>
-          <ThemeButton onClick={action(dataTable)} startIcon={<SaveSharpIcon/>}>Salvar ordem de compra</ThemeButton>
+          <ThemeButton onClick={() => action(dataTable)} startIcon={<SaveSharpIcon/>}>Salvar ordem de compra</ThemeButton>
         </Grid>
       </Grid>
       <TableContainer>

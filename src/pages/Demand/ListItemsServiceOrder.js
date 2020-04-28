@@ -4,7 +4,7 @@ import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import TableCheckedList from "../_common/SelectableTable/TableCheckedList";
 import {makeStyles} from "@material-ui/core/styles";
-import DialogItems from "./DialogItems";
+import NewPurchaseOrderDialog from "./NewPurchaseOrderDialog";
 
 const headerData = [
   {id: "tipo", name: "Tipo"},
@@ -19,8 +19,8 @@ const ListItemServiceOrder = (props) => {
   useEffect(() => {
     async function setData () {
       await setDataTable(Object.values(props.itemsServiceOrder).map(item => {
-        const name = item.nome.trim().replace(" ", "_");
-        const purchased = props.itemsPurchaseOrder[name] ? props.itemsPurchaseOrder[name].quantidade : 0;
+        const purchased = props.itemsPurchaseOrder[item.nome] ? props.itemsPurchaseOrder[item.nome].quantidade : 0;
+        console.log(item.nome, purchased)
         return {
           "tipo": item.tipo || '',
           "nome": item.nome,
@@ -32,7 +32,7 @@ const ListItemServiceOrder = (props) => {
       })
         .filter(item => item.quantidade > 0)
         .sort((a, b) => a.nome.toUpperCase().localeCompare(b.nome.toUpperCase()))
-        .sort((a, b) => b.quantidade - a.quantidade));
+      );
     }
 
     setData();
@@ -75,7 +75,7 @@ const ListItemServiceOrder = (props) => {
       />
     </Paper>
 
-    <DialogItems
+    <NewPurchaseOrderDialog
       reloadData={reloadData}
       headerTable={headerData}
       openDialog={openDialog}

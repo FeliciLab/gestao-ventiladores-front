@@ -73,17 +73,20 @@ const PurchaseOrderTable = (props) => {
                 if (head.id === 'action') {
                   return (
                     <TableCell key={indexHead}>
+                      <span className={classes.actionButtons}>
+
                       <ColorIconButton
                         item={_purchaseOrder}
                         action={editOrder}
                         name={"Editar"}
                         icon={{icon: <EditIcon/>}}
                       />
+                      </span>
                       <ColorIconButton
                         item={_purchaseOrder}
                         action={handlePrint}
                         name={"Imprimir"}
-                        icon={{icon: <PrintIcon/>, bgColor: blue[600]}}
+                        icon={{icon: <PrintIcon/>, bgColor: blue[600], hoverColor: blue[800]}}
                       />
                     </TableCell>
                   );
@@ -113,7 +116,9 @@ const useStyle = makeStyles((theme) => ({
     maxHeight: "84px",
     overflowY: "auto"
   },
-  actionButtons: {}
+  actionButtons: {
+    marginRight: theme.spacing(1)
+  }
 }));
 
 const headerData = [

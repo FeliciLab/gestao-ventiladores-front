@@ -65,6 +65,7 @@ const TableCheckedList = (props) => {
         </Table>
       </TableContainer>
       <ActionBarLayout
+        dataChecked={dataTable.filter(item => item.checked)}
         action={actionFunction}
         titleBar={actionBarTitle}
         textButton={actionBarTextButton}

@@ -9,7 +9,7 @@ import DialogTableItems from "./DialogTableItems";
 import {PurchaseOrder} from "../../models/purchaseOrder";
 import {savePurchaseOrder} from "../../modelServices/purchaseOrderService";
 
-const DialogItems = (props) => {
+const NewPurchaseOrderDialog = (props) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const {toogleDialog, headerTable, dataDialog, reloadData} = props;
@@ -51,11 +51,12 @@ const DialogItems = (props) => {
             variant="h6"
             className={classes.title}
           >
-            Lista de Itens
+            Nova ordem de compra
           </Typography>
         </StyledToolbar>
       </AppBar>
       <Container>
+        <Typography variante={"h5"} className={classes.titleList}>Lista de itens</Typography>
         <DialogTableItems
           action={saveOrder}
           toogleDialog={toogleDialog}
@@ -77,6 +78,10 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: theme.spacing(2),
     flex: 1,
   },
+  titleList: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2)
+  }
 }));
 
 const StyledToolbar = withStyles((theme) => ({
@@ -92,4 +97,4 @@ const Transition = React.forwardRef(function Transition (props, ref) {
     ref={ref} {...props} />;
 });
 
-export default DialogItems;
+export default NewPurchaseOrderDialog;

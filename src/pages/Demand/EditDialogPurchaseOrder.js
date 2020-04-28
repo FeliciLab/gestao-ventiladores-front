@@ -19,7 +19,7 @@ const EditDialogPurchaseOrder = (props) => {
   }, [props]);
 
   async function updateData (data) {
-    const purchaseOrder = PurchaseOrder(
+    const _purchaseOrder = PurchaseOrder(
       Object.assign(
         purchaseOrder,
         {
@@ -28,7 +28,7 @@ const EditDialogPurchaseOrder = (props) => {
         }
       ));
     try {
-      await savePurchaseOrder(purchaseOrder);
+      await savePurchaseOrder(_purchaseOrder);
       reloadData();
       toogleDialog(false);
     } catch (e) {

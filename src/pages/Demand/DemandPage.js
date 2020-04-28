@@ -15,7 +15,7 @@ const DemandPage = (props) => {
       const itemsPurchased = props.purchaseOrders.slice().reduce((acc, curr, index) => {
         if (curr.itens) {
           for (let item of curr.itens) {
-            const name = item.nome.trim().replace(" ", "_");
+            const name = item.nome
             if (!acc.hasOwnProperty(name)) {
               acc[name] = Object.assign({}, item);
               acc[name]['quantidade'] = 0;
@@ -35,7 +35,7 @@ const DemandPage = (props) => {
         .map(item => item.diagnostico.itens)
         .reduce((acc, curr) => {
           for (let item of curr) {
-            const name = item.nome.trim().replace(" ", "_");
+            const name = item.nome
             if (!acc.hasOwnProperty(name)) {
               acc[name] = Object.assign({}, item);
               acc[name]['quantidade'] = 0;
@@ -65,7 +65,7 @@ const DemandPage = (props) => {
 
   return (
     <React.Fragment>
-      <Container>
+      <Container className={classes.containerBottom}>
         <Grid container className={classes.titleList}>
           <Grid item xs={12}>
             <Tabs
@@ -96,7 +96,7 @@ const DemandPage = (props) => {
           </Grid>
 
           <Paper className={classes.paper}>
-            <PurchaseOrderTable purchaseOrders={purchaseOrders}/>
+            <PurchaseOrderTable reloadData={reloadData} purchaseOrders={purchaseOrders}/>
           </Paper>
         </TabPanel>
       </Container>
@@ -118,6 +118,9 @@ const useStyles = makeStyles((theme) => ({
   titleList: {
     marginTop: theme.spacing(3),
     marginBottom: theme.spacing(3)
+  },
+  containerBottom: {
+    paddingBottom: theme.spacing(6)
   }
 }));
 export default DemandPage;
