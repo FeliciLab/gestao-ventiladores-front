@@ -1,47 +1,52 @@
 import React, {useState} from 'react';
-import {useHistory} from 'react-router-dom';
-import Table from "@material-ui/core/Table";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableBody from "@material-ui/core/TableBody";
-import TableHead from "@material-ui/core/TableHead";
-import {TableCell} from "@material-ui/core";
-import TableRow from "@material-ui/core/TableRow";
+import {Grid, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography} from "@material-ui/core";
+import {makeStyles} from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
+import ThemeButton from "../_common/forms/ThemeButton";
+import SaveSharpIcon from '@material-ui/icons/SaveSharp';
+import {PurchaseOrder} from "../../models/purchaseOrder";
+import {savePurchaseOrder} from "../../modelServices/purchaseOrderService";
 
 const DialogTableItems = (props) => {
-  const history = useHistory();
-
-  const {headerTable} = props;
+  const classes = useStyle();
+  const {headerTable, reloadData, toogleDialog} = props;
   const [dataTable, setDataTable] = useState([]);
 
   if (dataTable.length === 0) {
-    setDataTable(props.dataTable.map(item => {
-      if (item.tipo === 'pecas') item.tipo = "Peças";
-      if (item.tipo === 'acessorio') item.tipo = "Acessório";
-      return item;
-    }) || []);
+    setDataTable(props.dataTable || []);
   }
 
-  const actionPrint = (data) => {
-    history.push({
-      pathname: "/ordem-compra",
-      state: {
-        data: {
-          equipment: dataTable,
-          items: itemsDialog.filter(item => data.find(d => d.nome === item.nome))
-        }
-      }
-    }, [dataTable]);
-  };
-
   function updateAmmount (value, index) {
-    const _dataTable = dataTable;
+    const _dataTable = dataTable.slice();
     _dataTable[index].quantidade = value;
     setDataTable(_dataTable);
   }
 
+  async function saveOrder () {
+    console.log(dataTable, dataTable.filter(item => item.quantidade > 0), PurchaseOrder({itens: dataTable.filter(item => item.quantidade > 0)}))
+
+    const purchaseOrder = PurchaseOrder({itens: dataTable.filter(item => item.quantidade > 0)});
+    try {
+      await savePurchaseOrder(purchaseOrder);
+      reloadData();
+      toogleDialog(false);
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
   return (
     <React.Fragment>
+      <Grid container justify={"space-between"} className={classes.titleRow}>
+        <Grid item xs={'auto'}>
+          <Typography variant={"h4"}>
+            LISTA DE ITENS SELECIONADOS
+          </Typography>
+        </Grid>
+        <Grid item xs={'auto'}>
+          <ThemeButton onClick={saveOrder} startIcon={<SaveSharpIcon/>}>Salvar ordem de compra</ThemeButton>
+        </Grid>
+      </Grid>
       <TableContainer>
         <Table>
           <TableHead>
@@ -55,6 +60,9 @@ const DialogTableItems = (props) => {
             {dataTable.map((item, index) => (
               <TableRow key={index}>
                 {headerTable.map((head, headerIndex) => {
+                  if (head.id === 'tipo') return (
+                    <TableCell key={headerIndex}>{item[head.id] === 'pecas' ? 'Peças' : 'Acessórios'}</TableCell>
+                  );
                   if (head.id !== 'quantidade') return (
                     <TableCell key={headerIndex}>{item[head.id]}</TableCell>
                   );
@@ -82,5 +90,12 @@ const DialogTableItems = (props) => {
     </React.Fragment>
   );
 };
+
+const useStyle = makeStyles(() => ({
+  titleRow: {
+    marginTop: '2rem',
+    marginBottom: '2rem'
+  }
+}));
 
 export default DialogTableItems;

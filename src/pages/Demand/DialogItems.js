@@ -1,22 +1,16 @@
 import React, {useEffect, useState} from 'react';
-import Dialog from "@material-ui/core/Dialog";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import IconButton from "@material-ui/core/IconButton";
+import {AppBar, Container, Dialog, IconButton, Toolbar, Typography} from "@material-ui/core";
 import CloseIcon from '@material-ui/icons/Close';
-import Typography from "@material-ui/core/Typography";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import Slide from "@material-ui/core/Slide";
 import withStyles from "@material-ui/core/styles/withStyles";
 import orange from "@material-ui/core/colors/orange";
 import DialogTableItems from "./DialogTableItems";
-import {Container} from "@material-ui/core";
-import Grid from "@material-ui/core/Grid";
 
 const DialogItems = (props) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
-  const {toogleDialog, headerTable, dataDialog} = props;
+  const {toogleDialog, headerTable, dataDialog, reloadData} = props;
 
   useEffect(() => {
     setOpen(props.openDialog);
@@ -48,18 +42,9 @@ const DialogItems = (props) => {
         </StyledToolbar>
       </AppBar>
       <Container>
-        <div style={{marginTop: "2rem"}}>
-          <Grid container justify={"space-between"}>
-            <Grid item xs={"auto"}>
-              <Typography variant={"h5"} component={"h5"}>
-                LISTA DE ITENS SELECIONADOS
-              </Typography>
-            </Grid>
-            <Grid item xs={"auto"}></Grid>
-
-          </Grid>
-        </div>
         <DialogTableItems
+          toogleDialog={toogleDialog}
+          reloadData={reloadData}
           headerTable={headerTable}
           dataTable={dataDialog}
         />
