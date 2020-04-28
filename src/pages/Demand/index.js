@@ -1,100 +1,65 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from "react";
 import Layout from "../_layout/Layout";
-import Container from "@material-ui/core/Container";
-import ActionTableList from "../_common/ActionTable/ActionTableList";
-import DialogItems from "./DialogItems";
-import Grid from "@material-ui/core/Grid";
+import {getAllServiceOrder} from "../../modelServices/serviceOrderService";
+import {getAllPurchaseOrders} from "../../modelServices/purchaseOrderService";
+import LinearProgress from "@material-ui/core/LinearProgress";
+import DemandPage from "./DemandPage";
 import Typography from "@material-ui/core/Typography";
-import {getEquipmentByStatus} from "../../modelServices/equipamentoService";
-
-const headerData = [
-  {id: 'numero_ordem_servico', name: 'Ordem de Serviço'},
-  {id: 'numero_de_serie', name: 'Número de Série'},
-  {id: 'marca', name: 'Marca'},
-  {id: 'modelo', name: 'Modelo'},
-  {id: 'instituicao_de_origem', name: 'Origem'},
-];
+import Container from "@material-ui/core/Container";
 
 const IndexDemand = (props) => {
+  const [serviceOrders, setServiceOrder] = useState([]);
+  const [purchaseOrder, setPurchaseOrder] = useState([]);
   const [requestBlock, setRequestBlock] = useState(false);
-  const [screening, setScreening] = useState([]);
-  const [dataTable, setDataTable] = useState([]);
-  const [openDialog, setOpenDialog] = useState(false);
-  const [dataDialog, setDataDialog] = useState([]);
+  const [loadingData, setLoadingData] = useState(true);
+  const [progress, setProgress] = useState(0);
 
-  useEffect(() => {
-    if (screening.length === 0 && !requestBlock) {
-      getEquipmentByStatus('diagnostico')
-        .then(result => {
-          if (!result) return;
+  if (!requestBlock) {
+    setRequestBlock(true);
+    getData()
+  }
 
-          setScreening(result);
-          setDataTable(result.filter(item => {
-            return item.diagnostico && item.diagnostico.itens.length > 0;
-          }).map(item => {
-            return {
-              numero_ordem_servico: item.numero_ordem_servico,
-              marca: item.triagem.marca || '',
-              modelo: item.triagem.modelo || '',
-              instituicao_de_origem: item.triagem.instituicao_de_origem || '',
-              numero_de_serie: item.triagem.numero_de_serie,
-            };
-          }));
-        })
-        .catch(error => {
-          console.log('consultando triagem', error);
-        });
-      setRequestBlock(true);
-    }
-  }, [requestBlock, screening]);
+  async function getData () {
+    await setLoadingData(true);
+    await setProgress(10);
 
-  const openDialogItems = (data) => {
-    const _dataDialog = screening.find(item => item.numero_ordem_servico === data.numero_ordem_servico)
-    setDataDialog(_dataDialog);
-    setOpenDialog(true);
-  };
+    const _purchaseOrder = await getAllPurchaseOrders()
+    await setPurchaseOrder(_purchaseOrder.slice());
+    await setProgress(40);
 
-  const toogleDialog = (value) => {
-    setOpenDialog(value);
-  };
+    const _serviceOrder = await getAllServiceOrder()
+    await setProgress(80);
+    await setServiceOrder(_serviceOrder || []);
 
-  const menuOptions = [
-    {
-      name: 'Listar itens de compra',
-      action: openDialogItems
-    }
-  ];
+    await setProgress(100);
+    await setLoadingData(false);
+  }
 
-  return (
-    <div>
+  async function reloadData () {
+    await setRequestBlock(false);
+  }
+
+  if (loadingData) {
+    return (<React.Fragment>
       <Layout>
-        <Container>
-          <div style={{marginTop: "2rem"}}>
-            <Grid container justify={"space-between"}>
-              <Grid item xs={"auto"}>
-                <Typography variant={"h5"} component={"h5"}>
-                  Lista de equipamentos com diagnóstico e itens cadastrados
-                </Typography>
-              </Grid>
-              <Grid item xs={"auto"}></Grid>
-            </Grid>
-          </div>
-
-          <ActionTableList
-            dataTable={dataTable}
-            headerTable={headerData}
-            menuOptions={menuOptions}
-          >
-          </ActionTableList>
+        <Container style={{padding: '5rem'}}>
+          <Typography variant={"h6"}>Carregando dados...</Typography>
+          <LinearProgress variant="determinate" value={progress}/>
         </Container>
       </Layout>
-      <DialogItems
-        openDialog={openDialog}
-        dataDialog={dataDialog}
-        toogleDialog={toogleDialog}
-      />
-    </div>
+    </React.Fragment>);
+  }
 
+  return (
+    <React.Fragment>
+      <Layout>
+        <DemandPage
+          serviceOrders={serviceOrders}
+          purchaseOrders={purchaseOrder}
+          reloadData={reloadData}
+        />
+      </Layout>
+    </React.Fragment>
   );
 };
 

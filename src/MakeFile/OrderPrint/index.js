@@ -20,12 +20,17 @@ const IndexOrderPrint = (props) => {
   return (<div className={"landscape-print page-container"}>
     <PagePrint>
       <HeaderPrint
-        number={data.equipment.numero_ordem_servico}
+        typeAbbreviation={'OC'}
+        number={data.numero_ordem_compra}
         subTitle={"ORDEM DE COMPRA"}
         pageNumber={"01"}
       />
-      <TopicPrint text={"1. Descrição material"}/>
-      <TablePrint headerTable={headerTable} bodyData={data.items} dateTime={new Date()}/>
+      <TopicPrint text={"1. Descrição material"}/>yarn 
+      <TablePrint
+        headerTable={headerTable}
+        bodyData={data.itens.map(item => Object.assign(item, {tipo: item.tipo === 'pecas' ? "Peça" : "Acessório"}))}
+        dateTime={new Date()}
+      />
     </PagePrint>
   </div>);
 };

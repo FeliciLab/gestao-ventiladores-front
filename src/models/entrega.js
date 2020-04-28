@@ -1,5 +1,4 @@
 import api from "../services/api";
-import {listaFormAcessorios} from "./acessorio";
 
 export function Entrega(entrega) {
   return {
@@ -23,27 +22,6 @@ export function Entrega(entrega) {
 //     diagnostico
 //   );
 // }
-
-
-
-export async function getEquipmentByStatus(status) {
-  try {
-    const response = await api.post(
-      "/api/equipamentos/find",
-      {status},
-      {
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    return response.data;
-  } catch (error) {
-    return error;
-  }
-}
 
 export async function getAllEntregas() {
   try {

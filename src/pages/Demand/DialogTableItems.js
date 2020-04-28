@@ -1,53 +1,86 @@
-import React, {useEffect, useState} from 'react';
-import TableCheckedList from "../_common/SelectableTable/TableCheckedList";
-import {useHistory} from 'react-router-dom';
-
-const headerData = [
-  {id: "nome", name: "Nome"},
-  {id: "tipo", name: "Tipo"},
-  {id: "quantidade", name: "Quantidade"},
-  {id: "descricao", name: "Descrição"},
-  {id: "valor", name: "Valor"},
-  {id: "prioridade", name: "Prioridade"},
-];
+import React, {useState} from 'react';
+import {Grid, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography} from "@material-ui/core";
+import {makeStyles} from "@material-ui/core/styles";
+import TextField from "@material-ui/core/TextField";
+import ThemeButton from "../_common/forms/ThemeButton";
+import SaveSharpIcon from '@material-ui/icons/SaveSharp';
 
 const DialogTableItems = (props) => {
-  const history = useHistory();
-
+  const classes = useStyle();
+  const {headerTable, action} = props;
   const [dataTable, setDataTable] = useState([]);
-  const [itemsDialog, setItemsDialog] = useState([])
 
-  useEffect(() => {
+  if (dataTable.length === 0) {
     setDataTable(props.dataTable || []);
-    setItemsDialog(props.itemsDialog.map(item => {
-      if (item.tipo === 'pecas') item.tipo = "Peças";
-      if (item.tipo === 'acessorio') item.tipo = "Acessório";
-      return item
-    }) || []);
-  }, [props]);
+  }
 
-  const actionPrint = (data) => {
-    history.push({
-      pathname: "/ordem-compra",
-      state: {
-        data: {
-          equipment: dataTable,
-          items: itemsDialog.filter(item => data.find(d => d.nome === item.nome))
-        }
-      }
-    }, [dataTable]);
-  };
+  function updateAmmount (value, index) {
+    const _dataTable = dataTable.slice();
+    _dataTable[index].quantidade = value;
+    setDataTable(_dataTable);
+  }
 
   return (
-      <TableCheckedList
-        dataTable={itemsDialog}
-        selectKeyField="nome"
-        headerTable={headerData}
-        actionFunction={actionPrint}
-        actionBarTitle="Lista de Itens"
-        actionBarTextButton="Gerar Ordem de Compra"
-      />
+    <React.Fragment>
+      <Grid container justify={"space-between"} className={classes.titleRow}>
+        <Grid item xs={'auto'}>
+          <Typography variant={"h4"}>
+            LISTA DE ITENS SELECIONADOS
+          </Typography>
+        </Grid>
+        <Grid item xs={'auto'}>
+          <ThemeButton onClick={() => action(dataTable)} startIcon={<SaveSharpIcon/>}>Salvar ordem de compra</ThemeButton>
+        </Grid>
+      </Grid>
+      <TableContainer>
+        <Table>
+          <TableHead>
+            <TableRow>
+              {headerTable.map((item, index) => (
+                <TableCell key={index}>{item.name}</TableCell>
+              ))}
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {dataTable.map((item, index) => (
+              <TableRow key={index}>
+                {headerTable.map((head, headerIndex) => {
+                  if (head.id === 'tipo') return (
+                    <TableCell key={headerIndex}>{item[head.id] === 'pecas' ? 'Peças' : 'Acessórios'}</TableCell>
+                  );
+                  if (head.id !== 'quantidade') return (
+                    <TableCell key={headerIndex}>{item[head.id]}</TableCell>
+                  );
+
+                  return (
+                    <TableCell key={headerIndex}>
+                      <TextField
+                        label={""}
+                        type={"number"}
+                        fullWidth
+                        value={item[head.id]}
+                        onChange={(event) => updateAmmount(event.target.value, index)}
+                      />
+                    </TableCell>
+                  );
+
+                })
+                }
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+
+      </TableContainer>
+    </React.Fragment>
   );
 };
+
+const useStyle = makeStyles(() => ({
+  titleRow: {
+    marginTop: '2rem',
+    marginBottom: '2rem'
+  }
+}));
 
 export default DialogTableItems;

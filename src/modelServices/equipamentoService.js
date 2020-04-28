@@ -8,18 +8,19 @@ import {Equipamento} from "../models/equipamentos";
  *      manutencao
  *      etc
  */
-export function getEquipmentByStatus (status) {
-  return api.post(
-    '/api/equipamentos/find',
-    {status},
-    {
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-    }
-  )
+export function getEquipmentByStatus(status) {
+  return api
+    .post(
+      "/api/equipamentos/find",
+      {status},
+      {
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      }
+    )
     .then((response) => {
       return response.data;
     })
@@ -29,10 +30,9 @@ export function getEquipmentByStatus (status) {
     });
 }
 
-export function getAllEquipments () {
-  return api.get(
-    '/api/equipamentos',
-    {
+export function getAllEquipments() {
+  return api
+    .get("/api/equipamentos", {
       headers: {
         'Access-Control-Allow-Origin': '*',
         'Accept': 'application/json',

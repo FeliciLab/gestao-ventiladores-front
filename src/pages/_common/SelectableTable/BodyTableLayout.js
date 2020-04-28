@@ -20,23 +20,23 @@ const BodyTableLayout = (props) => {
           const labelId = `enhanced-table-checkbox-${index}`;
           return (
             <TableRow
+              key={index}
               hover
-              onClick={(event) => checkSelectedRow(item[selectKeyField])}
               role="checkbox"
               tabIndex={-1}
-              key={index}
               aria-checked={item.checked}
               selected={item.checked}
             >
               <TableCell padding="checkbox">
                 <Checkbox
+                  onClick={(event) => checkSelectedRow(item[selectKeyField])}
                   checked={item.checked === true}
                   inputProps={{'aria-labelledby': labelId}}
                 />
               </TableCell>
               {
                 headerKeys.map((key, index) => (
-                  <TableCell key={index}>{item[key] || ''}</TableCell>
+                  <TableCell key={index}>{item[key].toString() || ''}</TableCell>
                 ))
               }
             </TableRow>

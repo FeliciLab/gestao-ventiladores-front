@@ -1,32 +1,40 @@
 import React, {useEffect, useState} from 'react';
-import Dialog from "@material-ui/core/Dialog";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import IconButton from "@material-ui/core/IconButton";
-import CloseIcon from '@material-ui/icons/Close';
-import Typography from "@material-ui/core/Typography";
+import {AppBar, Container, Dialog, IconButton, Toolbar, Typography} from "@material-ui/core";
+import CloseIcon from "@material-ui/icons/Close";
+import DialogTableItems from "./DialogTableItems";
 import makeStyles from "@material-ui/core/styles/makeStyles";
-import Slide from "@material-ui/core/Slide";
 import withStyles from "@material-ui/core/styles/withStyles";
 import orange from "@material-ui/core/colors/orange";
-import DialogTableItems from "./DialogTableItems";
-import {Container} from "@material-ui/core";
-import Grid from "@material-ui/core/Grid";
+import Slide from "@material-ui/core/Slide";
+import {PurchaseOrder} from "../../models/purchaseOrder";
+import {savePurchaseOrder} from "../../modelServices/purchaseOrderService";
 
-const DialogItems = (props) => {
+const EditDialogPurchaseOrder = (props) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
-  const [dataDialog, setDataDialog] = useState({});
-  const [itemsDialog, setItemsDialog] = useState([]);
-  const {toogleDialog} = props;
+  const {toogleDialog, headerTable, dataDialog, reloadData, purchaseOrder} = props;
 
   useEffect(() => {
     setOpen(props.openDialog);
-    setDataDialog(props.dataDialog);
-    if (props.dataDialog.diagnostico && props.dataDialog.diagnostico.itens) {
-      setItemsDialog(props.dataDialog.diagnostico.itens);
+  }, [props]);
+
+  async function updateData (data) {
+    const _purchaseOrder = PurchaseOrder(
+      Object.assign(
+        purchaseOrder,
+        {
+          itens: data.filter(item => item.quantidade > 0),
+          updated_at: new Date()
+        }
+      ));
+    try {
+      await savePurchaseOrder(_purchaseOrder);
+      reloadData();
+      toogleDialog(false);
+    } catch (e) {
+      console.log(e);
     }
-  }, [props, open, dataDialog]);
+  }
 
   return (
     <Dialog
@@ -49,27 +57,15 @@ const DialogItems = (props) => {
             variant="h6"
             className={classes.title}
           >
-            Lista de Itens
+            Edição da ordem de compra: {purchaseOrder.numero_ordem_compra}
           </Typography>
         </StyledToolbar>
       </AppBar>
       <Container>
-        <div style={{marginTop: "2rem"}}>
-          <Grid container justify={"space-between"}>
-            <Grid item xs={"auto"}>
-              <Typography variant={"h5"} component={"h5"}>
-                FILA DE DEMANDAS DE AQUISIÇÕES
-              </Typography>
-              <Typography variant={"h5"} component={"h5"}>
-                <strong>OS Nº: {dataDialog.numero_ordem_servico}</strong>
-              </Typography>
-            </Grid>
-            <Grid item xs={"auto"}></Grid>
-
-          </Grid>
-        </div>
+        <Typography variante={"h5"} className={classes.titleList}>Lista de itens</Typography>
         <DialogTableItems
-          itemsDialog={itemsDialog}
+          action={updateData}
+          headerTable={headerTable}
           dataTable={dataDialog}
         />
       </Container>
@@ -86,6 +82,10 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: theme.spacing(2),
     flex: 1,
   },
+  titleList: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2)
+  }
 }));
 
 const StyledToolbar = withStyles((theme) => ({
@@ -101,4 +101,4 @@ const Transition = React.forwardRef(function Transition (props, ref) {
     ref={ref} {...props} />;
 });
 
-export default DialogItems;
+export default EditDialogPurchaseOrder;

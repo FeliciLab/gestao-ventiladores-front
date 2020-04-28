@@ -16,8 +16,6 @@ export default function FormEntrega(props) {
 
   const [equipment] = useState(props.equipment);
 
-  console.log(equipment);
-
   return (
     <React.Fragment>
       <CssBaseline />
