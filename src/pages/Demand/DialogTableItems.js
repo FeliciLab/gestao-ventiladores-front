@@ -4,12 +4,10 @@ import {makeStyles} from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import ThemeButton from "../_common/forms/ThemeButton";
 import SaveSharpIcon from '@material-ui/icons/SaveSharp';
-import {PurchaseOrder} from "../../models/purchaseOrder";
-import {savePurchaseOrder} from "../../modelServices/purchaseOrderService";
 
 const DialogTableItems = (props) => {
   const classes = useStyle();
-  const {headerTable, reloadData, toogleDialog} = props;
+  const {headerTable, action} = props;
   const [dataTable, setDataTable] = useState([]);
 
   if (dataTable.length === 0) {
@@ -22,19 +20,6 @@ const DialogTableItems = (props) => {
     setDataTable(_dataTable);
   }
 
-  async function saveOrder () {
-    console.log(dataTable, dataTable.filter(item => item.quantidade > 0), PurchaseOrder({itens: dataTable.filter(item => item.quantidade > 0)}))
-
-    const purchaseOrder = PurchaseOrder({itens: dataTable.filter(item => item.quantidade > 0)});
-    try {
-      await savePurchaseOrder(purchaseOrder);
-      reloadData();
-      toogleDialog(false);
-    } catch (e) {
-      console.log(e);
-    }
-  }
-
   return (
     <React.Fragment>
       <Grid container justify={"space-between"} className={classes.titleRow}>
@@ -44,7 +29,7 @@ const DialogTableItems = (props) => {
           </Typography>
         </Grid>
         <Grid item xs={'auto'}>
-          <ThemeButton onClick={saveOrder} startIcon={<SaveSharpIcon/>}>Salvar ordem de compra</ThemeButton>
+          <ThemeButton onClick={action(dataTable)} startIcon={<SaveSharpIcon/>}>Salvar ordem de compra</ThemeButton>
         </Grid>
       </Grid>
       <TableContainer>

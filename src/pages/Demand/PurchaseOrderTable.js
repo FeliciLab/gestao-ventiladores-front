@@ -1,21 +1,39 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography} from "@material-ui/core";
 import ColorIconButton from "../_common/forms/ColorIconButton";
 import PrintIcon from '@material-ui/icons/Print';
+import EditIcon from '@material-ui/icons/Edit';
 import {useHistory} from 'react-router-dom';
 import makeStyles from '@material-ui/core/styles/makeStyles';
+import {blue} from "@material-ui/core/colors";
+import EditDialogPurchaseOrder from "./EditDialogPurchaseOrder";
 
 
 const PurchaseOrderTable = (props) => {
   const classes = useStyle();
   const history = useHistory();
-  const {purchaseOrders} = props;
+
+  const {purchaseOrders, reloadData} = props;
+
+  const [openDialog, setOpenDiaglog] = useState(false);
+  const [purchaseOrder, setPurchaseOrder] = useState({});
+  const [dataDialog, setDataDialog] = useState([]);
 
   const headerTable = [
     {id: 'numero_ordem_compra', label: 'Ordem de Compra'},
     {id: 'itens', label: 'Itens da OC'},
     {id: 'action', label: 'Ações'}
   ];
+
+  function toogleDialog (value) {
+    setOpenDiaglog(value)
+  }
+
+  function editOrder (order) {
+    setPurchaseOrder(order)
+    setDataDialog(order.itens)
+    setOpenDiaglog(true)
+  }
 
   function handlePrint (doc) {
     console.log("print", doc);
@@ -38,14 +56,14 @@ const PurchaseOrderTable = (props) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {purchaseOrders.map((purchaseOrder, indexPurchaseOrder) => (
+          {purchaseOrders.map((_purchaseOrder, indexPurchaseOrder) => (
             <TableRow key={indexPurchaseOrder}>
               {headerTable.map((head, indexHead) => {
                 if (head.id === 'itens') {
                   return <TableCell key={indexHead}>
                     <div className={classes.tableRow}>
 
-                      {purchaseOrder['itens'].map((item, indexItem) => (
+                      {_purchaseOrder['itens'].map((item, indexItem) => (
                         <Typography key={indexItem} variant={'body2'}>{item.nome}: {item.quantidade}</Typography>
                       ))}
                     </div>
@@ -56,16 +74,22 @@ const PurchaseOrderTable = (props) => {
                   return (
                     <TableCell key={indexHead}>
                       <ColorIconButton
-                        item={purchaseOrder}
+                        item={_purchaseOrder}
+                        action={editOrder}
+                        name={"Editar"}
+                        icon={{icon: <EditIcon/>}}
+                      />
+                      <ColorIconButton
+                        item={_purchaseOrder}
                         action={handlePrint}
                         name={"Imprimir"}
-                        icon={{icon: <PrintIcon/>}}
+                        icon={{icon: <PrintIcon/>, bgColor: blue[600]}}
                       />
                     </TableCell>
                   );
                 }
 
-                return <TableCell key={indexHead}>{purchaseOrder[head.id]}</TableCell>;
+                return <TableCell key={indexHead}>{_purchaseOrder[head.id]}</TableCell>;
               })}
             </TableRow>
           ))}
@@ -73,6 +97,14 @@ const PurchaseOrderTable = (props) => {
 
       </Table>
     </TableContainer>
+    <EditDialogPurchaseOrder
+      purchaseOrder={purchaseOrder}
+      reloadData={reloadData}
+      headerTable={headerData}
+      openDialog={openDialog}
+      dataDialog={dataDialog}
+      toogleDialog={toogleDialog}
+    />
   </React.Fragment>);
 };
 
@@ -80,7 +112,17 @@ const useStyle = makeStyles((theme) => ({
   tableRow: {
     maxHeight: "84px",
     overflowY: "auto"
-  }
+  },
+  actionButtons: {}
 }));
+
+const headerData = [
+  {id: "tipo", name: "Tipo"},
+  {id: "nome", name: "Nome do item"},
+  {id: "unidade_medida", name: "Unidade"},
+  {id: "quantidade", name: "Quantidade"},
+  {id: "fabricante", name: "Fabricante"},
+  {id: "codigo", name: "Código do item"},
+];
 
 export default PurchaseOrderTable;

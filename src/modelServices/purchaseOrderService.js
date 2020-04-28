@@ -3,7 +3,6 @@ import api from "../services/api";
 export function getAllPurchaseOrders () {
   return api.get('/api/ordem_compra')
     .then(res => {
-      console.log('axios', res.data);
       return res.data || [];
     })
     .catch(err => {

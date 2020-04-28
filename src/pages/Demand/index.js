@@ -14,7 +14,6 @@ const IndexDemand = (props) => {
   const [loadingData, setLoadingData] = useState(true);
   const [progress, setProgress] = useState(0);
 
-
   if (!requestBlock) {
     setRequestBlock(true);
     getData()
@@ -25,28 +24,19 @@ const IndexDemand = (props) => {
     await setProgress(10);
 
     const _purchaseOrder = await getAllPurchaseOrders()
-    console.log('await', _purchaseOrder)
-
     await setPurchaseOrder(_purchaseOrder.slice());
-    await setProgress(20);
-
-    setProgress(40);
+    await setProgress(40);
 
     const _serviceOrder = await getAllServiceOrder()
     await setProgress(80);
     await setServiceOrder(_serviceOrder || []);
 
-    setProgress(100);
-    setLoadingData(false);
+    await setProgress(100);
+    await setLoadingData(false);
   }
 
   async function reloadData () {
     await setRequestBlock(false);
-    getData()
-      .then(() => {
-        setRequestBlock(true)
-        setLoadingData(false)
-      });
   }
 
   if (loadingData) {
