@@ -3,8 +3,11 @@ import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typogr
 import ColorIconButton from "../_common/forms/ColorIconButton";
 import PrintIcon from '@material-ui/icons/Print';
 import {useHistory} from 'react-router-dom';
+import makeStyles from '@material-ui/core/styles/makeStyles';
+
 
 const PurchaseOrderTable = (props) => {
+  const classes = useStyle();
   const history = useHistory();
   const {purchaseOrders} = props;
 
@@ -40,9 +43,12 @@ const PurchaseOrderTable = (props) => {
               {headerTable.map((head, indexHead) => {
                 if (head.id === 'itens') {
                   return <TableCell key={indexHead}>
-                    {purchaseOrder['itens'].map((item, indexItem) => (
-                      <Typography key={indexItem} variant={'body2'}>{item.nome}: {item.quantidade}</Typography>
-                    ))}
+                    <div className={classes.tableRow}>
+
+                      {purchaseOrder['itens'].map((item, indexItem) => (
+                        <Typography key={indexItem} variant={'body2'}>{item.nome}: {item.quantidade}</Typography>
+                      ))}
+                    </div>
                   </TableCell>;
                 }
 
@@ -69,5 +75,12 @@ const PurchaseOrderTable = (props) => {
     </TableContainer>
   </React.Fragment>);
 };
+
+const useStyle = makeStyles((theme) => ({
+  tableRow: {
+    maxHeight: "84px",
+    overflowY: "auto"
+  }
+}));
 
 export default PurchaseOrderTable;
