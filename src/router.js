@@ -9,8 +9,7 @@ import Screening from "./pages/Screening/index";
 import IndexDemand from "./pages/Demand";
 import Diagnosis from "./pages/Diagnosis";
 import IndexOrderPrint from "./MakeFile/OrderPrint";
-import FormEntrega from "./pages/FormEntrega";
-import Entrega from "./pages/Entrega";
+import Delivery from "./pages/Delivery";
 import Calibragem from "./pages/FormCalibragem";
 
 const Routes = () => (
@@ -24,8 +23,7 @@ const Routes = () => (
     <Route path="/demandas" exact component={IndexDemand} />
     <Route path="/ordem-compra" exact component={IndexOrderPrint} />
     <Route path="/osprint" component={OsPrint} />
-    <Route path="/entrega" component={Entrega} />
-    <Route path="/nova-entrega" component={FormEntrega} />
+    <Route path="/entregas" component={Delivery} />
     <Route path="/calibragem" component={Calibragem} />
   </Switch>
 );
