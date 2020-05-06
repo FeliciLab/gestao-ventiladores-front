@@ -6,7 +6,7 @@ import TableRow from "@material-ui/core/TableRow";
 
 
 const HeaderTableLayout = (props) => {
-  const {headerData, checkAllRow} = props;
+  const {headerData, checkAllRow, hasActions} = props;
   const [amountChecked, setAmountChecked] = useState(0);
   const [amount, setAmount] = useState(-1);
 
@@ -36,6 +36,7 @@ const HeaderTableLayout = (props) => {
             </TableCell>
           ))
         }
+        {hasActions ? <TableCell>Ações</TableCell> : <React.Fragment></React.Fragment>}
       </TableRow>
     </TableHead>
   );

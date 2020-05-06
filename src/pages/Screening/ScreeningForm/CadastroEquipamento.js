@@ -13,6 +13,7 @@ import InputRadioDialog from "../../_common/forms/InputRadioDialog";
 import ErrorAlertText from "../../_common/alerts/ErrorAlertText";
 import MenuItem from "@material-ui/core/MenuItem";
 
+
 export default function CadastroEquipamento (props) {
   const cities = getCities('CE');
   const {
@@ -242,8 +243,8 @@ export default function CadastroEquipamento (props) {
             fullWidth
             select
             label="Estado de Conservação"
-            value={serviceOrder.triagem.estado_de_conservacao}
-            onChange={updateScreening}
+            value={equipamento.estado_de_conservacao}
+            onChange={updateEquipment}
             name={'estado_de_conservacao'}
           >
             {typeStateEquipment.map((option, index) => (

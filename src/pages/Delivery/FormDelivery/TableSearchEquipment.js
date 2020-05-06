@@ -14,34 +14,6 @@ import withStyles from "@material-ui/core/styles/withStyles";
 
 
 export default function TableSearchEquipment (props) {
-  useEffect(() => {
-    const {serviceOrders} = props;
-    const dataTable = serviceOrders.map(item => {
-      const equipamento = item.equipamento[0] || {};
-      return {
-        numero_ordem_servico: item.numero_ordem_servico,
-        tipo: equipamento.tipo || '',
-        numero_de_serie: equipamento.numero_de_serie || "",
-        marca: equipamento.marca || "",
-        modelo: equipamento.modelo || "",
-
-      };
-    });
-
-    setDataTableServiceOrders(dataTable);
-
-    if (Object.keys(checkedRows).length === 0) {
-      const check = {};
-      for (let serviceOrder of serviceOrders.slice()) {
-        if (!check.hasOwnProperty(serviceOrder.numero_ordem_servico)) {
-          check[serviceOrder.numero_ordem_servico] = false;
-        }
-      }
-      setCheckedRows(Object.assign({}, check));
-    }
-  }, [props]);
-
-
   const classes = useStyle();
 
   const {serviceOrders, updateForm} = props;
@@ -111,6 +83,32 @@ export default function TableSearchEquipment (props) {
     selectOne(serviceOrderNumber);
   }
 
+  function definedData () {
+    const dataTable = serviceOrders.map(item => {
+      const equipamento = item.equipamento[0] || {};
+      return {
+        numero_ordem_servico: item.numero_ordem_servico,
+        tipo: equipamento.tipo || '',
+        numero_de_serie: equipamento.numero_de_serie || "",
+        marca: equipamento.marca || "",
+        modelo: equipamento.modelo || "",
+
+      };
+    });
+
+    setDataTableServiceOrders(dataTable);
+
+    if (Object.keys(checkedRows).length === 0) {
+      const check = {};
+      for (let serviceOrder of serviceOrders.slice()) {
+        if (!check.hasOwnProperty(serviceOrder.numero_ordem_servico)) {
+          check[serviceOrder.numero_ordem_servico] = false;
+        }
+      }
+      setCheckedRows(Object.assign({}, check));
+    }
+  }
+  useEffect(definedData, [definedData, serviceOrders]);
   return (<React.Fragment>
     <TextField
       label={"Burcar pelo equipamento"}

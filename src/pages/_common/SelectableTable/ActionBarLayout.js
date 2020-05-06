@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Tooltip from "@material-ui/core/Tooltip";
@@ -7,33 +7,20 @@ import {lighten, makeStyles} from "@material-ui/core/styles";
 import clsx from "clsx";
 import PropTypes from 'prop-types';
 
+
 const ActionBarLayout = (props) => {
   const classes = useStyles();
-  const [dataChecked, setDataChecked] = useState(props.dataChecked || []);
-  const [ammountChecked, setAmmountChecked] = useState(dataChecked);
-
-  const {action, textButton, titleBar} = props;
-
-  useEffect(() => {
-    setDataChecked(props.dataChecked);
-    if (dataChecked) {
-      setAmmountChecked(dataChecked.length);
-    }
-  }, [dataChecked, props.dataChecked]);
+  const {dataChecked, action, textButton, titleBar, ammount} = props;
 
   return (
-    <Toolbar
-      className={clsx(classes.root, {
-        [classes.highlight]: ammountChecked > 0,
-      })}
-    >
+    <Toolbar className={clsx(classes.root, {[classes.highlight]: ammount > 0,})}>
       {
-        ammountChecked > 0 ? (
+        ammount > 0 ? (
           <Typography
             variant="subtitle1"
             component="div"
           >
-            {ammountChecked} Ite{ammountChecked > 1 ? 'ns' : 'm'} selecionados
+            {ammount} Ite{ammount > 1 ? 'ns' : 'm'} selecionados
           </Typography>
         ) : (
           <Typography
@@ -46,10 +33,10 @@ const ActionBarLayout = (props) => {
       }
 
       {
-        ammountChecked > 0 ? (
+        ammount > 0 ? (
           <Tooltip title="Gerar Ordem Serviço">
             <Button
-              onClick={(event) => action(dataChecked)}
+              onClick={(event) => action(Object.values(dataChecked))}
               variant="outlined"
             >{textButton}</Button>
           </Tooltip>

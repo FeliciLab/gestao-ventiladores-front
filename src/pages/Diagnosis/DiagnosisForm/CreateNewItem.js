@@ -13,6 +13,7 @@ import TextField from "@material-ui/core/TextField";
 import {useForm} from "react-hook-form";
 import ErrorAlertText from "../../_common/alerts/ErrorAlertText";
 
+
 export default function CreateNewItem (props) {
   const {addNewItem} = props;
   const {register, errors, triggerValidation, handleSubmit} = useForm({
@@ -61,6 +62,7 @@ export default function CreateNewItem (props) {
               >
                 <FormControlLabel value="pecas" name="tipo" control={<Radio color={'default'}/>} label="Peça"/>
                 <FormControlLabel value="acessorio" name="tipo" control={<Radio color={'default'}/>} label="Acessório"/>
+                <FormControlLabel value="insumo" name="tipo" control={<Radio color={'default'}/>} label="Insumo"/>
               </RadioGroup>
             </FormControl>
           </Grid>

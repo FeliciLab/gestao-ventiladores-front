@@ -12,12 +12,14 @@ import IndexOrderPrint from "./MakeFile/OrderPrint";
 import Delivery from "./pages/Delivery";
 import Calibragem from "./pages/FormCalibragem";
 
+
 const Routes = () => (
   <Switch>
     <Route path="/" exact component={IndexServiceOrder} />
     <Route path="/ordens-servicos" exact component={IndexServiceOrder} />
     <Route path="/triagens" exact component={Screening} />
     <Route path="/nova-triagem" exact component={FormTriagem} />
+    <Route path="/editar-triagem" exact component={FormTriagem} />
     <Route path="/novo-diagnostico" exact component={IndexFormDiagnosis} />
     <Route path="/diagnosticos" exact component={Diagnosis} />
     <Route path="/demandas" exact component={IndexDemand} />

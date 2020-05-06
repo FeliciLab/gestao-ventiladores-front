@@ -117,7 +117,7 @@ export default function AccessoryFormRow (props) {
             <DeleteIcon></DeleteIcon>
           </Button>
         </Tooltip>
-      </Grid>;
+      </Grid>
     </Grid>
   );
 }

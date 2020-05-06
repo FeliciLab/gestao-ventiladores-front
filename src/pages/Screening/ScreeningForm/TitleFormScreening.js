@@ -1,21 +1,18 @@
 import React from 'react';
 import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
 import SaveIcon from "@material-ui/icons/Save";
+import ThemeButton from "../../_common/forms/ThemeButton";
+import Grid from "@material-ui/core/Grid";
+import BackspaceSharpIcon from '@material-ui/icons/BackspaceSharp';
+import {blue} from "@material-ui/core/colors";
+
 
 const TitleFormScreening = (props) => {
-  const {saveEquipment} = props;
+  const {saveEquipment, cleanForm} = props;
   return (
     <React.Fragment>
-      <div
-        style={{
-          display: "flex",
-          height: 100,
-          flexDirection: "row",
-          justifyContent: "space-between",
-        }}
-      >
-        <div style={{alignSelf: "center"}}>
+      <Grid container justify={'space-between'}>
+        <Grid item xs={'auto'}>
           <Typography style={{fontSize: 20, fontWeight: "bold"}}>
             Triagem do Equipamento
           </Typography>
@@ -23,22 +20,30 @@ const TitleFormScreening = (props) => {
             Após o recebimento, o cadastro do equipamento deverá ser
             realizado. Para isso, preencha os campos abaixo:
           </Typography>
-        </div>
-        <div style={{alignSelf: "center"}}>
-          <Button
+        </Grid>
+        <Grid item xs={'auto'}>
+          <ThemeButton
+            bgColor={blue[600]}
+            hoverColor={blue[800]}
+            onClick={cleanForm}
+            variant="contained"
+            startIcon={<BackspaceSharpIcon/>}
+            style={{marginRight: '20px'}}
+          >
+            Limpar Formulário
+          </ThemeButton>
+
+          <ThemeButton
             onClick={saveEquipment}
             variant="contained"
-            style={{
-              backgroundColor: "#ff9800",
-              borderRadius: 20,
-              color: "#fff",
-            }}
             startIcon={<SaveIcon/>}
           >
             Salvar
-          </Button>
-        </div>
-      </div>
+          </ThemeButton>
+        </Grid>
+      </Grid>
+
+
     </React.Fragment>
   );
 };

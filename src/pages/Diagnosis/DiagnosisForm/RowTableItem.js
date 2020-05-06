@@ -7,6 +7,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
 import LabelInput from "../../_common/components/LabelInput";
 
+
 export default function RowTableItem (props) {
   const {
     index,
@@ -17,7 +18,8 @@ export default function RowTableItem (props) {
 
   const radioItems = [
     {value: 'pecas', label: 'Peças'},
-    {value: 'acessorio', label: 'Acessórios'}
+    {value: 'acessorio', label: 'Acessórios'},
+    {value: 'insumo', label: 'Insumo'}
   ];
 
   return (<React.Fragment>
@@ -46,13 +48,13 @@ export default function RowTableItem (props) {
             }
 
             return (
-                <LabelInput
-                  key={headIndex}
-                  label={''}
-                  name={head.id}
-                  action={(value) => updateParent(value, index, head.id)}
-                  value={data[head.id]}
-                />
+              <LabelInput
+                key={headIndex}
+                label={''}
+                name={head.id}
+                action={(value) => updateParent(value, index, head.id)}
+                value={data[head.id]}
+              />
             );
           }
         )

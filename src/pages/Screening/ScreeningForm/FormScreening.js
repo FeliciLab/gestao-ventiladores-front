@@ -1,11 +1,11 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Paper from "@material-ui/core/Paper";
 import CadastroEquipamento from "./CadastroEquipamento";
 import RelacaoDeMaterial from "./RelacaoDeMaterial";
-import {ServiceOrder, ServiceOrderScreening} from "../../../models/serviceOrder";
-import {listaFormAcessorios} from "../../../models/acessorio";
+import {ServiceOrderScreening} from "../../../models/serviceOrder";
+import {Acessorio, listaFormAcessorios} from "../../../models/acessorio";
 import TitleFormScreening from "./TitleFormScreening";
 import {useHistory} from "react-router-dom";
 import {deleteEquipmentRequest, saveNewEquipment, updateEquipment,} from "../../../modelServices/equipamentoService";
@@ -15,20 +15,43 @@ import {saveNewOrderService, updateServiceOrderRequest} from "../../../modelServ
 import {useForm} from "react-hook-form";
 
 
-export default function FormScreening () {
+export default function FormScreening (props) {
   const history = useHistory();
-
   const {register, errors, triggerValidation} = useForm({mode: 'onBlur', reValidateMode: 'onChange'});
+
+  const {serviceOrder, reloadData, updateServiceOrder} = props
 
   const classes = useStyles();
 
-  const [equipamento, setEquipamento] = React.useState(Equipamento({}));
-  const [serviceOrder, setServiceOrder] = React.useState(ServiceOrder({}));
-  const [screening, setScreening] = React.useState(ServiceOrderScreening({screening: equipamento.screening}));
-  const [acessorios, setAcessorios] = React.useState([...listaFormAcessorios(screening.acessorios), '']);
-
+  const [equipamento, setEquipamento] = React.useState({});
+  const [screening, setScreening] = React.useState({});
+  const [acessorios, setAcessorios] = React.useState([]);
   const [formErrors, setFormErrors] = React.useState({});
   const [errorsFound, setErrorsFound] = React.useState(false);
+
+  function editingServiceOrder () {
+    if (!serviceOrder.hasOwnProperty('_id') || serviceOrder._id === '') {
+      return
+    }
+    console.log(serviceOrder)
+    if (serviceOrder.equipamento) {
+      setEquipamento(Object.assign({}, Equipamento( serviceOrder.equipamento[0])))
+    }
+    setScreening(Object.assign({}, serviceOrder.triagem))
+    setAcessorios([...serviceOrder.triagem.acessorios.slice(), Acessorio({})])
+  }
+
+  useEffect(editingServiceOrder, [serviceOrder])
+
+  if (!equipamento.hasOwnProperty('numero_de_serie')) {
+    setEquipamento(Object.assign(Equipamento({})))
+  }
+  if (!screening.hasOwnProperty('acessorios')) {
+    setScreening(ServiceOrderScreening({triagem: {}}))
+  }
+  if (acessorios.length === 0) {
+    setAcessorios(listaFormAcessorios([]))
+  }
 
   function updateErrors (values) {
     const _formErrors = Object.assign({}, formErrors);
@@ -40,9 +63,8 @@ export default function FormScreening () {
     setFormErrors(errors);
   }
 
-  function updateServiceOrder (value) {
-    const doc = Object.assign({}, serviceOrder);
-    setServiceOrder(Object.assign({}, doc, value));
+  function handleUpdateServiceOrder (value) {
+    updateServiceOrder(value);
   }
 
   function atualizarEquipamento (value) {
@@ -105,6 +127,8 @@ export default function FormScreening () {
       } else {
         await saveNewOrderService(Object.assign(order, {status: 'triagem'}));
       }
+
+      reloadData()
     } catch (e) {
       deleteEquipmentRequest(equipamentoId)
       showErrorBar()
@@ -140,7 +164,7 @@ export default function FormScreening () {
             updateErrors={updateErrors}
             atualizarTriagem={atualizarTriagem}
             atualizarEquipamento={atualizarEquipamento}
-            updateServiceOrder={updateServiceOrder}
+            updateServiceOrder={handleUpdateServiceOrder}
             equipamento={equipamento}
             screening={screening}
             serviceOrder={serviceOrder}
