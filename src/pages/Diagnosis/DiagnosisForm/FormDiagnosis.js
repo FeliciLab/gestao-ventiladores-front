@@ -13,19 +13,21 @@ import Alert from "@material-ui/lab/Alert";
 import {useHistory} from 'react-router-dom';
 import {useForm} from "react-hook-form";
 
+
 const FormDiagnosis = (props) => {
+  const {register, errors, triggerValidation} = useForm({mode: 'onBlur', reValidateMode: 'onChange'});
   const history = useHistory();
   const classes = useStyles();
+  const {data} = props;
 
-  const {register, errors, triggerValidation} = useForm({mode: 'onBlur', reValidateMode: 'onChange'});
-
-
-  useEffect(() => {
-    setServiceOrder(props.serviceOrder);
-  }, [props]);
-
-  const [serviceOrder, setServiceOrder] = useState(ServiceOrder());
   const [errorsFound, setErrorsFound] = useState(false);
+  const [serviceOrder, setServiceOrder] = useState({});
+
+  useEffect(defineDataForm, [data]);
+
+  function defineDataForm () {
+    setServiceOrder(Object.assign({}, ServiceOrder({diagnostico: {}}), data));
+  }
 
   function updateServiceOrderDiagnosis (value) {
     const diagnosis = Object.assign({}, serviceOrder.diagnostico, value);
@@ -54,11 +56,14 @@ const FormDiagnosis = (props) => {
   async function saveForm () {
     await triggerValidation();
     if (Object.keys(errors).length > 0) {
-      console.log(errors)
+      console.log(errors);
       return showErrorsBar();
     }
     try {
-      await updateServiceOrderRequest(Object.assign({}, serviceOrder, {status: 'diagnostico'}));
+      await updateServiceOrderRequest(
+        Object.assign({}, {diagnostico: serviceOrder.diagnostico}, {status: 'diagnostico'}),
+        serviceOrder._id['$oid']
+      );
       history.push({pathname: '/diagnosticos'});
     } catch (e) {
       console.log('erro ao salvar ordem de serviço', e);

@@ -47,8 +47,6 @@ export function ServiceOrderDiagnosis (diagnostico) {
   return Object.assign({
     "resultado_tecnico": "",
     "demanda_servicos": "",
-    "demanda_insumos": "",
-    "acao_orientacao": "",
     "observacoes": "",
     "itens": []
   }, diagnostico || {});
