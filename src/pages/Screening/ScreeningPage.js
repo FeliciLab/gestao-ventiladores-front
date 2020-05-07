@@ -44,11 +44,15 @@ export default function ScreeningPage (props) {
   function handleEditScreening (data) {
     const doc = serviceOrders.find(item => item.numero_ordem_servico === data.numero_ordem_servico);
     setServiceOrder(Object.assign({}, doc));
-    setTabValue(1)
+    setTabValue(1);
   }
 
-  function updateServiceOrder(value) {
-    setServiceOrder(Object.assign({}, serviceOrder, value))
+  function updateServiceOrder (value) {
+    setServiceOrder(Object.assign({}, serviceOrder, value));
+  }
+
+  function cleanServiceOrder () {
+    setServiceOrder(ServiceOrder({}));
   }
 
   return (<React.Fragment>
@@ -68,7 +72,12 @@ export default function ScreeningPage (props) {
         <IndexScreening serviceOrders={serviceOrders} editScreening={handleEditScreening} loadingData={loadingData}/>
       </TabPanel>
       <TabPanel value={tabValue} index={1}>
-        <FormScreening serviceOrder={serviceOrder} updateServiceOrder={updateServiceOrder} reloadData={reloadData}/>
+        <FormScreening
+          cleanServiceOrder={cleanServiceOrder}
+          serviceOrder={serviceOrder}
+          updateServiceOrder={updateServiceOrder}
+          reloadData={reloadData}
+        />
       </TabPanel>
     </Container>
   </React.Fragment>);

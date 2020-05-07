@@ -136,6 +136,7 @@ export default function CadastroEquipamento (props) {
             label="Tipo do Equipamento"
             hasOther={true}
             value={equipamento.tipo}
+            defaultValue={equipamento.tipo}
             items={equipmentTypes.map(item => ({label: item, value: item}))}
           />
         </Grid>
@@ -146,7 +147,8 @@ export default function CadastroEquipamento (props) {
             name={"marca"}
             label={"Marca"}
             hasOther={true}
-            value={manufacturersEquipments[0]}
+            value={equipamento.marca}
+            defaultValue={equipamento.marca}
             items={manufacturersEquipments.map(item => ({label: item, value: item}))}
           />
         </Grid>
@@ -156,7 +158,8 @@ export default function CadastroEquipamento (props) {
             name={"modelo"}
             label={"Modelo"}
             hasOther={true}
-            value={modelsEquipment[0]}
+            value={equipamento.modelo}
+            defaultValue={equipamento.modelo}
             items={modelsEquipment.map(item => ({label: item, value: item}))}
           />
         </Grid>
@@ -194,6 +197,7 @@ export default function CadastroEquipamento (props) {
             required
             id="nome_instituicao_origem"
             onChange={updateEquipment}
+            value={equipamento.nome_instituicao_origem}
             name="nome_instituicao_origem"
             label="Nome da Instituição"
             fullWidth
@@ -243,8 +247,8 @@ export default function CadastroEquipamento (props) {
             fullWidth
             select
             label="Estado de Conservação"
-            value={equipamento.estado_de_conservacao}
-            onChange={updateEquipment}
+            value={serviceOrder.triagem.estado_de_conservacao}
+            onChange={updateScreening}
             name={'estado_de_conservacao'}
           >
             {typeStateEquipment.map((option, index) => (

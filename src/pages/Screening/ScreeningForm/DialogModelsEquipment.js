@@ -6,6 +6,7 @@ import Button from "@material-ui/core/Button";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import RadioControl from "../../_common/forms/RadioControl";
 
+
 const DialogModelsEquipments = (props) => {
   React.useEffect(() => {
     setOpen(props.open);
@@ -60,7 +61,7 @@ const DialogModelsEquipments = (props) => {
           name={name}
           action={changeRadio}
           flexDirection={'column'}
-          formLabel={label}
+          formLabel={''}
           items={items}
           hasOther={hasOther}
         />

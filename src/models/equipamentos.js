@@ -16,8 +16,7 @@ export function Equipamento (equipamento) {
       nome_instituicao_origem: '',
       tipo_instituicao_origem: '',
       nome_responsavel: '',
-      contato_responsavel: '',
-      estado_de_conservacao: ''
+      contato_responsavel: ''
     },
     equipamento
   );

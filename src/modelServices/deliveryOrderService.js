@@ -1,6 +1,7 @@
 import api from "../services/api";
 import {Delivery} from "../models/delivery";
 
+
 function mapModel (delivery) {
   const model = Delivery({})
   for (let field in model) {
@@ -15,6 +16,7 @@ function mapModel (delivery) {
     }
     if (field === 'created_at' || field === 'updated_at') {
       model[field] = new Date(delivery[field]);
+      continue
     }
 
     if (field === 'equipamentos_id') {

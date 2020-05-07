@@ -1,5 +1,6 @@
 import {listaFormAcessorios} from "./acessorio";
 
+
 export const serviceOrderStatus = {
   diagnostico: 'diagnóstico',
   triagem: 'triagem'
@@ -33,6 +34,7 @@ export function ServiceOrder (serviceOrder) {
 export function ServiceOrderScreening ({triagem}) {
   return Object.assign(
     {
+      estado_de_conservacao: '',
       acessorios: [],
       foto_antes_limpeza: '',
       foto_apos_limpeza: ''
