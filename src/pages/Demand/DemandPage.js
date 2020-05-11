@@ -55,6 +55,7 @@ const DemandPage = (props) => {
         }
         return acc;
       }, {});
+    setItemsServiceOrders(_items)
   }
 
   function changeTab (event, newValue) {

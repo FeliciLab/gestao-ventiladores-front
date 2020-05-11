@@ -61,7 +61,7 @@ const DialogModelsEquipments = (props) => {
           name={name}
           action={changeRadio}
           flexDirection={'column'}
-          formLabel={''}
+          formLabel={label}
           items={items}
           hasOther={hasOther}
         />

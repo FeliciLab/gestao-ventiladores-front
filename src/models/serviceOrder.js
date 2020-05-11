@@ -3,8 +3,9 @@ import {listaFormAcessorios} from "./acessorio";
 
 export const serviceOrderStatus = {
   diagnostico: 'diagnóstico',
-  triagem: 'triagem'
-}
+  triagem: 'triagem',
+  calibragem: 'calibragem'
+};
 
 export function ServiceOrder (serviceOrder) {
   return Object.assign({},
@@ -26,10 +27,12 @@ export function ServiceOrder (serviceOrder) {
     },
     {
       diagnostico: ServiceOrderDiagnosis(serviceOrder && serviceOrder.diagnostico ? serviceOrder.diagnostico : {})
+    },
+    {
+      calibragem: ServiceOrderCalibration(serviceOrder && serviceOrder.calibragem ? serviceOrder.calibragem : {})
     }
   );
 }
-
 
 export function ServiceOrderScreening ({triagem}) {
   return Object.assign(
@@ -50,4 +53,10 @@ export function ServiceOrderDiagnosis (diagnostico) {
     "observacoes": "",
     "itens": []
   }, diagnostico || {});
+}
+
+export function ServiceOrderCalibration (calibration) {
+  return Object.assign({
+    status: 'descalibrado'
+  }, calibration);
 }
