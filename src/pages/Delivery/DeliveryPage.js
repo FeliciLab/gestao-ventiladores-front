@@ -7,6 +7,7 @@ import TabPanel from "../_common/components/TabPanel";
 import FormDeliveryOrder from "./FormDeliveryOrder";
 import ListDeliveryOrders from "./ListDeliveryOrders";
 
+
 const IndexDiagnosis = (props) => {
   const classes = useStyles();
 
@@ -15,6 +16,7 @@ const IndexDiagnosis = (props) => {
   const [tabValue, setTabValue] = useState(0);
 
   function changeTab (event, newValue) {
+    console.log('form', newValue)
     setTabValue(newValue);
   }
 
@@ -22,10 +24,10 @@ const IndexDiagnosis = (props) => {
     <React.Fragment>
       <Container>
         <Grid container className={classes.titleList}>
-          <Grid item xs={12}>
+          <Grid item xs={'auto'}>
             <Tabs
               value={tabValue} onChange={changeTab}
-              variant={"fullWidth"} aria-label={'Abas de listagens de ordens de serviços'} centered
+              aria-label={'Abas de listagens de ordens de serviços'} centered
             >
               <Tab label={"Formulário de entrega"} aria-controls={"lista-os-entrega"}/>
               <Tab label={"Lista de entregas"} aria-controls={"lista-equipamentos-entregas"}/>
@@ -42,6 +44,7 @@ const IndexDiagnosis = (props) => {
     </React.Fragment>
   );
 };
+
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(3),

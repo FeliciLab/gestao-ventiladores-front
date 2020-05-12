@@ -1,18 +1,14 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {grey} from "@material-ui/core/colors";
 import {makeStyles, withStyles} from "@material-ui/core/styles";
 import {Paper, Table, TableCell, TableContainer, TableHead, TableRow} from "@material-ui/core";
 import TableBody from "@material-ui/core/TableBody";
 
+
 const TablePrint = (props) => {
   const classes = useStyles();
 
-  const [bodyData, setBodyData] = useState(props.bodyData);
-  const {headerTable} = props;
-
-  useEffect(() => {
-    setBodyData(props.bodyData);
-  }, [props]);
+  const {headerTable, bodyData} = props;
 
   return (
     <div className={classes.quadro}>

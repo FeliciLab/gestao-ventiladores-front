@@ -18,6 +18,8 @@ import Alert from "@material-ui/lab/Alert";
 import {Equipamento} from "../../../models/equipamentos";
 import {saveNewOrderService, updateServiceOrderRequest} from "../../../modelServices/serviceOrderService";
 import {useForm} from "react-hook-form";
+import {Grid} from "@material-ui/core";
+import Typography from "@material-ui/core/Typography";
 
 
 export default function FormScreening (props) {
@@ -185,6 +187,14 @@ export default function FormScreening (props) {
         </Paper>
 
         <Paper className={classes.paper}>
+          <Grid container justify={"space-between"} alignItems={"center"}>
+            <Grid item xs={12} sm={7}>
+              <Typography variant="h6" gutterBottom>
+                2. Relação de Material / Acessórios Entregues
+              </Typography>
+            </Grid>
+          </Grid>
+
           <RelacaoDeMaterial acessorios={acessorios} atualizarAcessorios={atualizarAcessorios}/>
         </Paper>
       </main>

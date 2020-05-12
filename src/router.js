@@ -11,6 +11,7 @@ import Diagnosis from "./pages/Diagnosis";
 import IndexOrderPrint from "./MakeFile/OrderPrint";
 import Delivery from "./pages/Delivery";
 import Calibration from './pages/Calibration';
+import IndexDeliveryPrint from './MakeFile/DeliveryPrint';
 
 
 const Routes = () => (
@@ -26,6 +27,7 @@ const Routes = () => (
     <Route path="/ordem-compra" exact component={IndexOrderPrint} />
     <Route path="/osprint" component={OsPrint} />
     <Route path="/entregas" component={Delivery} />
+    <Route path="/entrega-impressao" component={IndexDeliveryPrint} />
     <Route path="/calibragem" component={Calibration} />
   </Switch>
 );

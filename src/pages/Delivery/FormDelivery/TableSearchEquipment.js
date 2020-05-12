@@ -18,6 +18,7 @@ export default function TableSearchEquipment (props) {
 
   const {serviceOrders, updateForm} = props;
 
+  const [blockEffects, setBlockEffects] = useState(false);
   const [dataTableServiceOrders, setDataTableServiceOrders] = useState([]);
   const [checkedRows, setCheckedRows] = useState({});
   const [search, setSearch] = useState('');
@@ -84,6 +85,10 @@ export default function TableSearchEquipment (props) {
   }
 
   function definedData () {
+    if (blockEffects) {
+      return;
+    }
+
     const dataTable = serviceOrders.map(item => {
       const equipamento = item.equipamento[0] || {};
       return {
@@ -107,8 +112,12 @@ export default function TableSearchEquipment (props) {
       }
       setCheckedRows(Object.assign({}, check));
     }
+
+    setBlockEffects(true);
   }
+
   useEffect(definedData, [definedData, serviceOrders]);
+
   return (<React.Fragment>
     <TextField
       label={"Burcar pelo equipamento"}

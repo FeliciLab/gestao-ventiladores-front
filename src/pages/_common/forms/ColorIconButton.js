@@ -3,9 +3,21 @@ import IconButton from "@material-ui/core/IconButton";
 import withStyles from "@material-ui/core/styles/withStyles";
 import orange from "@material-ui/core/colors/orange";
 
+
 const ColorIconButton = (props) => {
-  const {item, action, name} = props;
-  const {color, bgColor, hoverColor, icon, size} = props.icon;
+  const {
+    item,
+    action,
+    name
+  } = props;
+
+  const {
+    color,
+    bgColor,
+    hoverColor,
+    icon,
+    size
+  } = props.icon;
 
   const ColorIconButton = withStyles((theme) => ({
     root: {

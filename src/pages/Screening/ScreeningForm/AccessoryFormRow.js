@@ -13,6 +13,8 @@ import {accessoryMapOptionsConservationState} from "../../../models/conservation
 
 export default function AccessoryFormRow (props) {
   const {
+    ultimo,
+    penultimo,
     acessorio,
     atualizarAcessorio,
     adicionarAcessorio,
@@ -24,15 +26,7 @@ export default function AccessoryFormRow (props) {
   function atualizarAcessorioParent (event) {
     const doc = {};
     doc[event.target.name] = event.target.value;
-    atualizarAcessorio(props.index, doc);
-
-    if (props.ultimo && event.target.name === 'descricao' && event.target.value.trim() !== '') {
-      adicionarAcessorio();
-    }
-
-    if (props.penultimo && event.target.name === 'descricao' && event.target.value.trim() === '') {
-      removerLinha(props.index + 1);
-    }
+    atualizarAcessorio(index, doc);
   }
 
   return (

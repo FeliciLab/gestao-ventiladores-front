@@ -34,13 +34,7 @@ function mapModel (delivery) {
 
 export async function getAllDeliveryOrders () {
   try {
-    const response = await api.get("/api/movimentacao", {
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    });
+    const response = await api.get("/api/movimentacao");
 
     return response.data || [];
   } catch (error) {
@@ -56,14 +50,7 @@ export async function saveDelivery (entrega) {
       "/api/movimentacao",
       Object.assign(doc, {
         updated_at: new Date()
-      }),
-      {
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      }
+      })
     );
     return response.data || [];
   } catch (error) {
