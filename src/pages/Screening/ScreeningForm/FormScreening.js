@@ -1,34 +1,67 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Paper from "@material-ui/core/Paper";
 import CadastroEquipamento from "./CadastroEquipamento";
 import RelacaoDeMaterial from "./RelacaoDeMaterial";
-import {ServiceOrder, ServiceOrderScreening} from "../../../models/serviceOrder";
-import {listaFormAcessorios} from "../../../models/acessorio";
+import {ServiceOrderScreening} from "../../../models/serviceOrder";
+import {Acessorio, listaFormAcessorios} from "../../../models/acessorio";
 import TitleFormScreening from "./TitleFormScreening";
 import {useHistory} from "react-router-dom";
-import {deleteEquipmentRequest, saveNewEquipment, updateEquipment,} from "../../../modelServices/equipamentoService";
+import {
+  deleteEquipmentRequest,
+  mapEquipmentRequest,
+  saveNewEquipment,
+  updateEquipment,
+} from "../../../modelServices/equipamentoService";
 import Alert from "@material-ui/lab/Alert";
 import {Equipamento} from "../../../models/equipamentos";
-import {saveNewOrderService, updateServiceOrderRequest} from "../../../modelServices/serviceOrderService";
+import {
+  mapModelRequest,
+  saveNewOrderService,
+  updateServiceOrderRequest
+} from "../../../modelServices/serviceOrderService";
 import {useForm} from "react-hook-form";
+import {Grid} from "@material-ui/core";
+import Typography from "@material-ui/core/Typography";
 
 
-export default function FormScreening () {
+export default function FormScreening (props) {
   const history = useHistory();
-
   const {register, errors, triggerValidation} = useForm({mode: 'onBlur', reValidateMode: 'onChange'});
+
+  const {serviceOrder, reloadData, updateServiceOrder, cleanServiceOrder} = props;
 
   const classes = useStyles();
 
-  const [equipamento, setEquipamento] = React.useState(Equipamento({}));
-  const [serviceOrder, setServiceOrder] = React.useState(ServiceOrder({}));
-  const [screening, setScreening] = React.useState(ServiceOrderScreening({screening: equipamento.screening}));
-  const [acessorios, setAcessorios] = React.useState([...listaFormAcessorios(screening.acessorios), '']);
-
+  const [equipamento, setEquipamento] = React.useState({});
+  const [screening, setScreening] = React.useState({});
+  const [acessorios, setAcessorios] = React.useState([]);
   const [formErrors, setFormErrors] = React.useState({});
   const [errorsFound, setErrorsFound] = React.useState(false);
+
+  useEffect(editingServiceOrder, [serviceOrder]);
+
+  if (!equipamento.hasOwnProperty('numero_de_serie')) {
+    setEquipamento(Object.assign(Equipamento({})));
+  }
+  if (!screening.hasOwnProperty('acessorios')) {
+    setScreening(ServiceOrderScreening({triagem: {}}));
+  }
+  if (acessorios.length === 0) {
+    setAcessorios(listaFormAcessorios([]));
+  }
+
+  function editingServiceOrder () {
+    if (!serviceOrder.hasOwnProperty('_id') || serviceOrder._id === '') {
+      return;
+    }
+    if (serviceOrder.equipamento) {
+      setEquipamento(Object.assign({}, Equipamento(serviceOrder.equipamento[0])));
+    }
+    setScreening(Object.assign({}, serviceOrder.triagem));
+    setAcessorios([...serviceOrder.triagem.acessorios.slice(), Acessorio({})]);
+  }
 
   function updateErrors (values) {
     const _formErrors = Object.assign({}, formErrors);
@@ -40,9 +73,8 @@ export default function FormScreening () {
     setFormErrors(errors);
   }
 
-  function updateServiceOrder (value) {
-    const doc = Object.assign({}, serviceOrder);
-    setServiceOrder(Object.assign({}, doc, value));
+  function handleUpdateServiceOrder (value) {
+    updateServiceOrder(value);
   }
 
   function atualizarEquipamento (value) {
@@ -69,19 +101,27 @@ export default function FormScreening () {
     }, 10000);
   }
 
+  function cleanForm () {
+    setEquipamento(Object.assign({}, Equipamento({})));
+    setScreening({});
+    setAcessorios(listaFormAcessorios([]));
+    cleanServiceOrder();
+  }
+
   async function saveDocuments () {
     await triggerValidation();
     if (Object.keys(errors).length > 0) {
-      showErrorBar()
+      showErrorBar();
       return;
     }
 
     let equipamentoId = '';
+    const equipment = Object.assign({}, mapEquipmentRequest(equipamento));
 
     try {
-      if (equipamento._id && equipamento._id !== '') {
-        await updateEquipment(equipamento);
-        equipamentoId = equipamento._id;
+      if (equipment._id && equipment._id !== '') {
+        await updateEquipment(equipment);
+        equipamentoId = equipment._id;
       } else {
         const equip = await saveNewEquipment(equipamento);
         equipamentoId = equip._id;
@@ -93,27 +133,30 @@ export default function FormScreening () {
     }
 
     const screen = Object.assign({}, screening, {acessorios: acessorios.filter(item => item !== '')});
-    const order = Object.assign({},
+    const order = mapModelRequest(Object.assign({},
       serviceOrder,
       {triagem: screen},
       {equipamento_id: equipamentoId}
-    );
+    ));
 
     try {
       if (order._id && order._id !== '') {
-        await updateServiceOrderRequest(Object.assign(order, {status: 'triagem'}));
+        await updateServiceOrderRequest(Object.assign(order, {status: 'triagem'}), order._id);
       } else {
         await saveNewOrderService(Object.assign(order, {status: 'triagem'}));
       }
+
+      reloadData();
     } catch (e) {
-      deleteEquipmentRequest(equipamentoId)
-      showErrorBar()
+      if (equipment._id && equipment._id === '') {
+        deleteEquipmentRequest(equipamentoId);
+      }
+      showErrorBar();
       console.log('falha ao salvar ordem de serviço', e);
       return false;
     }
 
-
-    return history.push({pathname: '/'});
+    return history.push({pathname: '/triagens'});
   }
 
   return (
@@ -121,7 +164,7 @@ export default function FormScreening () {
       <CssBaseline/>
 
       <main className={classes.layout}>
-        <TitleFormScreening saveEquipment={saveDocuments}/>
+        <TitleFormScreening saveEquipment={saveDocuments} cleanForm={cleanForm}/>
 
         {errorsFound ?
           <Alert
@@ -140,7 +183,7 @@ export default function FormScreening () {
             updateErrors={updateErrors}
             atualizarTriagem={atualizarTriagem}
             atualizarEquipamento={atualizarEquipamento}
-            updateServiceOrder={updateServiceOrder}
+            updateServiceOrder={handleUpdateServiceOrder}
             equipamento={equipamento}
             screening={screening}
             serviceOrder={serviceOrder}
@@ -148,6 +191,14 @@ export default function FormScreening () {
         </Paper>
 
         <Paper className={classes.paper}>
+          <Grid container justify={"space-between"} alignItems={"center"}>
+            <Grid item xs={12} sm={7}>
+              <Typography variant="h6" gutterBottom>
+                2. Relação de Material / Acessórios Entregues
+              </Typography>
+            </Grid>
+          </Grid>
+
           <RelacaoDeMaterial acessorios={acessorios} atualizarAcessorios={atualizarAcessorios}/>
         </Paper>
       </main>

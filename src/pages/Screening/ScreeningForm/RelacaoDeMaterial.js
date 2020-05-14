@@ -1,13 +1,18 @@
 import React from "react";
-import Typography from "@material-ui/core/Typography";
-import {Grid} from "@material-ui/core";
 import {Acessorio} from "../../../models/acessorio";
 import PropTypes from 'prop-types';
 import AccessoryFormList from "./AccessoryFormList";
+import Grid from "@material-ui/core/Grid";
+import PlusOneIcon from '@material-ui/icons/PlusOne';
+import {blue} from "@material-ui/core/colors";
+import ThemeButton from "../../_common/forms/ThemeButton";
+import makeStyles from "@material-ui/core/styles/makeStyles";
+
 
 const acessorioModel = Acessorio();
 
-function RelacaoDeMaterial (props) {
+const RelacaoDeMaterial = (props) => {
+  const classes = useStyle()
   const {acessorios, atualizarAcessorios} = props;
 
   function adicionarAcessorio () {
@@ -22,31 +27,39 @@ function RelacaoDeMaterial (props) {
   }
 
   function removerLinha (index) {
-    const docs = [
-      ...acessorios.slice(0, index),
-      ...acessorios.slice(index + 1, acessorios.length - 1),
-      acessorioModel
-    ];
-
-    atualizarAcessorios(docs);
+    atualizarAcessorios(acessorios.slice().filter((i, ind) => index !== ind));
   }
 
   return (
     <React.Fragment>
-      <Grid container justify={"space-between"} alignItems={"center"}>
-        <Grid item xs={12} sm={7}>
-          <Typography variant="h6" gutterBottom>
-            2. Relação de Material / Acessórios Entregues
-          </Typography>
+      <AccessoryFormList
+        accessories={acessorios}
+        atualizarAcessorioParent={atualizarAcessorioParent}
+        adicionarAcessorio={adicionarAcessorio}
+        removerLinha={removerLinha}
+      />
+      <Grid container justify={'flex-end'} className={classes.actionGrid}>
+        <Grid item xs={'auto'}>
+          <ThemeButton
+            onClick={adicionarAcessorio}
+            bgColor={blue[600]}
+            hoverColor={blue[800]}
+            startIcon={<PlusOneIcon/>}
+          >
+            Item
+          </ThemeButton>
         </Grid>
       </Grid>
-      <AccessoryFormList
-        accessories={acessorios} atualizarAcessorioParent={atualizarAcessorioParent}
-        adicionarAcessorio={adicionarAcessorio} removerLinha={removerLinha}
-      />
     </React.Fragment>
   );
 }
+
+const useStyle = makeStyles(theme => ({
+  actionGrid: {
+    marginTop: theme.spacing(3),
+    marginRight: theme.spacing(1)
+  }
+}))
 
 RelacaoDeMaterial.protoType = {
   acessorios: PropTypes.array

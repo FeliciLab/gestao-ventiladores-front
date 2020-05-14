@@ -8,12 +8,12 @@ import PropTypes from 'prop-types';
 
 
 const formatDate = (date) => {
-  return [moment(date).tz('America/Fortaleza').format('L'), moment(date).tz('America/Fortaleza').format('H:m:s')];
+  return [moment(date).tz('America/Fortaleza').format('L'), moment(date).tz('America/Fortaleza').format('H:m')];
 };
 
 const HeaderPrint = (props) => {
   const classes = useStyles();
-  const {number, subTitle, pageNumber, dateTime} = props;
+  const {number, subTitle, pageNumber, dateTime, typeAbbreviation} = props;
   const date = formatDate(new Date(dateTime || new Date()));
   return (
     <div className={classes.planodefundo}>
@@ -29,7 +29,7 @@ const HeaderPrint = (props) => {
           <Typography
             className={classes.osTexto}
             align={"right"}
-          ><strong>OS N º:</strong></Typography>
+          ><strong>{typeAbbreviation || 'OS'} N º:</strong></Typography>
           <Typography
             className={classes.osNumero}
             align={"right"}

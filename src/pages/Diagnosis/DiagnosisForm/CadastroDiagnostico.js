@@ -4,6 +4,7 @@ import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import ErrorAlertText from "../../_common/alerts/ErrorAlertText";
 
+
 export default function CadastroEquipamento (props) {
   const {errors, register, diagnosis, updateDiagnosis} = props;
 
@@ -24,7 +25,7 @@ export default function CadastroEquipamento (props) {
       </Typography>
 
       <Grid container spacing={3}>
-        <Grid item xs={12} sm={12}>
+        <Grid item xs={12}>
           <TextField
             inputRef={register({required: true})}
             InputLabelProps={{
@@ -41,7 +42,7 @@ export default function CadastroEquipamento (props) {
           />
           <ErrorAlertText error={errors.resultado_tecnico}/>
         </Grid>
-        <Grid item xs={12} sm={12}>
+        <Grid item xs={12}>
           <TextField
             InputLabelProps={{
               shrink: true
@@ -55,19 +56,20 @@ export default function CadastroEquipamento (props) {
             label="Demanda por Servicos"
             fullWidth
           />
+
         </Grid>
-        <Grid item xs={12} sm={12}>
+        <Grid item xs={12}>
           <TextField
             InputLabelProps={{
               shrink: true
             }}
+            onChange={updateParent}
+            value={diagnosis.observacoes || ''}
+            name="observacoes"
             multiline
             rows="6"
-            id="demandaPorInsumos"
-            onChange={updateParent}
-            value={diagnosis.demanda_insumos || ''}
-            name="demanda_insumos"
-            label="Demanda por Insumos"
+            id="form-observacoes"
+            label="Observações/Anotações Extras"
             fullWidth
           />
         </Grid>

@@ -3,6 +3,7 @@ import {ServiceOrder, ServiceOrderDiagnosis, ServiceOrderScreening} from "../mod
 import {itemDiagnosisModel} from "../models/itensDiagnosticos";
 import {Acessorio} from "../models/acessorio";
 
+
 /**
  * Seach screnning by status
  *      triagem
@@ -51,7 +52,7 @@ export function getAllServiceOrder () {
 export function mapModelRequest (serviceOrder) {
   const model = ServiceOrder({});
   const modelScreening = ServiceOrderScreening(serviceOrder);
-  const modelDiagnosis = ServiceOrderDiagnosis(serviceOrder.diagnostico || {})
+  const modelDiagnosis = ServiceOrderDiagnosis(serviceOrder.diagnostico || {});
   const modelAccessory = Acessorio({});
   const modelItems = itemDiagnosisModel;
   for (let field in model) {
@@ -138,11 +139,12 @@ export function saveNewOrderService (serviceOrder) {
     });
 }
 
-export function updateServiceOrderRequest (serviceOrder) {
+export function updateServiceOrderRequest (serviceOrder, id) {
   const model = mapModelRequest(serviceOrder);
-  return api.post(
-    '/api/ordem_servicos',
-    Object.assign({}, model, {created_at: new Date(model.created_at), updated_at: new Date()})
+  delete model._id
+  return api.put(
+    '/api/ordem_servico/' + id,
+    Object.assign({}, model, {updated_at: new Date()})
   ).then(result => {
     return result;
   });

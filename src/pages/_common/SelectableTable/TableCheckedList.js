@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import TableContainer from "@material-ui/core/TableContainer";
 import Table from "@material-ui/core/Table";
 import PropTypes from 'prop-types';
@@ -6,39 +6,53 @@ import ActionBarLayout from "./ActionBarLayout";
 import HeaderTableLayout from "./HeaderTableLayout";
 import BodyTableLayout from "./BodyTableLayout";
 
+
 const TableCheckedList = (props) => {
-  const [dataTable, setDataTable] = React.useState(props.dataTable || []);
-  const selectKeyField = props.selectKeyField;
-  const headerTable = props.headerTable;
-  const actionFunction = props.actionFunction;
-  const actionBarTitle = props.actionBarTitle;
-  const actionBarTextButton = props.actionBarTextButton;
+  const [hasActions, setHasActions] = useState(false);
+  const [checkedData, setCheckedData] = useState({});
+  const [ammountChecked, setAmmountChecked] = useState(0);
+  const {
+    actions,
+    dataTable,
+    selectKeyField,
+    headerTable,
+    actionFunction,
+    actionBarTitle,
+    actionBarTextButton
+  } = props;
 
   useEffect(() => {
-    setDataTable(props.dataTable)
-  }, [dataTable, props]);
+    if (actions && actions.length > 0) {
+      setHasActions(true);
+    }
+  }, [actions]);
 
-  const checkSelectedRow = (keyValue) => {
-    setDataTable(dataTable.map(item => {
-        if (item[selectKeyField] === keyValue) {
-          item.checked = !item.checked;
-        }
-        return item;
-      })
-    );
-  };
-  const checkAllSelectedRows = (checked) => {
-    setDataTable(dataTable.map(item => {
-        item.checked = !checked;
-        return item;
-      })
-    );
-  };
+  function updateAmmountChecked () {
+    setAmmountChecked(Object.values(checkedData).filter(item => item === true).length);
+  }
+
+  function checkSelectedRow (keyValue, check) {
+    console.log(keyValue, check)
+    const checking = {};
+    checking[keyValue] = check;
+    setCheckedData(Object.assign(checkedData, checking));
+    updateAmmountChecked();
+  }
+
+  function checkAllSelectedRows (checked) {
+    const checking = {};
+    for (let item of dataTable) {
+      checking[item[selectKeyField]] = !checked;
+    }
+    setCheckedData(checking);
+    updateAmmountChecked();
+  }
 
   return (
     <div style={{marginTop: '15px'}}>
       <ActionBarLayout
-        dataChecked={dataTable.filter(item => item.checked)}
+        dataChecked={checkedData}
+        ammount={ammountChecked}
         action={actionFunction}
         titleBar={actionBarTitle}
         textButton={actionBarTextButton}
@@ -49,12 +63,16 @@ const TableCheckedList = (props) => {
           aria-label="enhanced table"
         >
           <HeaderTableLayout
+            hasActions={hasActions}
             headerData={headerTable}
             checkAllRow={checkAllSelectedRows}
             amount={dataTable.length}
-            amountChecked={dataTable.filter(item => item.checked).length}
+            amountChecked={Object.values(checkedData).filter(item => item).length}
           />
           <BodyTableLayout
+            checkedData={checkedData}
+            hasActions={hasActions}
+            actions={actions}
             data={dataTable}
             selectKeyField={selectKeyField}
             headerKeys={headerTable.map(item => item.id)}
@@ -63,6 +81,8 @@ const TableCheckedList = (props) => {
         </Table>
       </TableContainer>
       <ActionBarLayout
+        dataChecked={checkedData}
+        ammount={ammountChecked}
         action={actionFunction}
         titleBar={actionBarTitle}
         textButton={actionBarTextButton}
@@ -72,7 +92,7 @@ const TableCheckedList = (props) => {
 };
 
 TableCheckedList.protoType = {
-  dataTable: PropTypes.array.isRequired,
+  data: PropTypes.array.isRequired,
   headerTable: PropTypes.array.isRequired,
   actionFunction: PropTypes.func.isRequired,
   actionBarTitle: PropTypes.string.isRequired,
