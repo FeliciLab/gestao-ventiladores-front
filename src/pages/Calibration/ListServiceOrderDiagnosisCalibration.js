@@ -38,7 +38,6 @@ const ListServiceOrderDiagnosisCalibration = (props) => {
             {serviceOrders.map((serviceOrder, indexOrder) => (
               <TableRow key={indexOrder}>
                 {headTable.map((head, indexHead) => {
-                  console.log(head.id, serviceOrder[head.id])
                   let text = serviceOrder[head.id]
                   if (head.id === 'created_at') {
                     text = moment(serviceOrder[head.id]).format('DD/MM/YYYY')

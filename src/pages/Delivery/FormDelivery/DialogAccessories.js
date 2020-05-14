@@ -6,12 +6,12 @@ import SaveIcon from "@material-ui/icons/Save";
 import orange from "@material-ui/core/colors/orange";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import {Container,} from "@material-ui/core";
-import {Acessorio} from "../../../models/acessorio";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
+// import {Acessorio} from "../../../models/acessorio";
 
 
-const acessorioModel = Acessorio();
+// const acessorioModel = Acessorio();
 
 export default function DialogAccessories (props) {
   const classes = useStyle();

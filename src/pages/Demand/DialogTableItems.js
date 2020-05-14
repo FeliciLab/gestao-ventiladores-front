@@ -8,7 +8,7 @@ import FormRegisteredItems from "../Diagnosis/DiagnosisForm/FormRegisteredItems"
 
 const DialogTableItems = (props) => {
   const classes = useStyle();
-  const {headerTable, action} = props;
+  const {action} = props;
   const [dataTable, setDataTable] = useState([]);
 
   if (dataTable.length === 0) {
@@ -38,47 +38,6 @@ const DialogTableItems = (props) => {
         items={dataTable}
         updateItemsFromTable={updateField}
       />
-
-      {/*<TableContainer>*/}
-      {/*  <Table>*/}
-      {/*    <TableHead>*/}
-      {/*      <TableRow>*/}
-      {/*        {headerTable.map((item, index) => (*/}
-      {/*          <TableCell key={index}>{item.name}</TableCell>*/}
-      {/*        ))}*/}
-      {/*      </TableRow>*/}
-      {/*    </TableHead>*/}
-      {/*    <TableBody>*/}
-      {/*      {dataTable.map((item, index) => (*/}
-      {/*        <TableRow key={index}>*/}
-      {/*          {headerTable.map((head, headerIndex) => {*/}
-      {/*            if (head.id === 'tipo') return (*/}
-      {/*              <TableCell key={headerIndex}>{item[head.id] === 'pecas' ? 'Peças' : 'Acessórios'}</TableCell>*/}
-      {/*            );*/}
-      {/*            if (head.id !== 'quantidade') return (*/}
-      {/*              <TableCell key={headerIndex}>{item[head.id]}</TableCell>*/}
-      {/*            );*/}
-
-      {/*            return (*/}
-      {/*              <TableCell key={headerIndex}>*/}
-      {/*                <TextField*/}
-      {/*                  label={""}*/}
-      {/*                  type={"number"}*/}
-      {/*                  fullWidth*/}
-      {/*                  value={item[head.id]}*/}
-      {/*                  onChange={(event) => updateAmmount(event.target.value, index)}*/}
-      {/*                />*/}
-      {/*              </TableCell>*/}
-      {/*            );*/}
-
-      {/*          })*/}
-      {/*          }*/}
-      {/*        </TableRow>*/}
-      {/*      ))}*/}
-      {/*    </TableBody>*/}
-      {/*  </Table>*/}
-
-      {/*</TableContainer>*/}
     </React.Fragment>
   );
 };
