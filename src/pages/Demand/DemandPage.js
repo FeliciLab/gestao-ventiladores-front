@@ -9,55 +9,54 @@ import PurchaseOrderTable from "./PurchaseOrderTable";
 import {makeStyles} from "@material-ui/core/styles";
 import ListItemServiceOrder from "./ListItemsServiceOrder";
 
+
 const DemandPage = (props) => {
-  useEffect(() => {
-    async function getData (props) {
-      const itemsPurchased = props.purchaseOrders.slice().reduce((acc, curr, index) => {
-        if (curr.itens) {
-          for (let item of curr.itens) {
-            const name = item.nome
-            if (!acc.hasOwnProperty(name)) {
-              acc[name] = Object.assign({}, item);
-              acc[name]['quantidade'] = 0;
-            }
-            acc[name]['quantidade'] += item.quantidade;
-          }
-        }
-
-        return acc;
-      }, {});
-
-      await setItemsPurchaseOrder(itemsPurchased);
-
-      const _items = props.serviceOrders.filter((item) => {
-        return item.status === 'diagnostico' && item.diagnostico && item.diagnostico.itens.length > 0;
-      })
-        .map(item => item.diagnostico.itens)
-        .reduce((acc, curr) => {
-          for (let item of curr) {
-            const name = item.nome
-            if (!acc.hasOwnProperty(name)) {
-              acc[name] = Object.assign({}, item);
-              acc[name]['quantidade'] = 0;
-            }
-
-            acc[name]['quantidade'] += item.quantidade || 0;
-          }
-          return acc;
-        }, {});
-
-      await setItemsServiceOrders(_items);
-    }
-
-    getData(props);
-  }, [props]);
-
-  const {purchaseOrders, reloadData} = props;
-
   const classes = useStyles();
+
+  const {purchaseOrders, serviceOrders, reloadData} = props;
+
   const [tabValue, setTabValue] = useState(0);
   const [itemsServiceOrders, setItemsServiceOrders] = useState({});
   const [itemsPurchaseOrder, setItemsPurchaseOrder] = useState([]);
+
+  useEffect(getData, [purchaseOrders, serviceOrders]);
+
+  function getData () {
+    const itemsPurchased = purchaseOrders.slice().reduce((acc, curr, index) => {
+      if (curr.itens) {
+        for (let item of curr.itens) {
+          const name = item.nome
+          if (!acc.hasOwnProperty(name)) {
+            acc[name] = Object.assign({}, item);
+            acc[name]['quantidade'] = 0;
+          }
+          acc[name]['quantidade'] += item.quantidade;
+        }
+      }
+
+      return acc;
+    }, {});
+
+    setItemsPurchaseOrder(itemsPurchased);
+
+    const _items = serviceOrders.filter((item) => {
+      return item.status === 'diagnostico' && item.diagnostico && item.diagnostico.itens.length > 0;
+    })
+      .map(item => item.diagnostico.itens)
+      .reduce((acc, curr) => {
+        for (let item of curr) {
+          const name = item.nome
+          if (!acc.hasOwnProperty(name)) {
+            acc[name] = Object.assign({}, item);
+            acc[name]['quantidade'] = 0;
+          }
+
+          acc[name]['quantidade'] += item.quantidade || 0;
+        }
+        return acc;
+      }, {});
+    setItemsServiceOrders(_items)
+  }
 
   function changeTab (event, newValue) {
     setTabValue(newValue);

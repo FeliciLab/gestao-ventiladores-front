@@ -8,9 +8,11 @@ import AssignmentSharpIcon from '@material-ui/icons/AssignmentSharp';
 import SubtitlesSharpIcon from '@material-ui/icons/SubtitlesSharp';
 import LibraryBooksSharpIcon from '@material-ui/icons/LibraryBooksSharp';
 import LocalMallSharpIcon from '@material-ui/icons/LocalMallSharp';
-// import UnarchiveSharpIcon from '@material-ui/icons/UnarchiveSharp';
+import UnarchiveSharpIcon from '@material-ui/icons/UnarchiveSharp';
+import AssignmentTurnedInSharpIcon from '@material-ui/icons/AssignmentTurnedInSharp';
 import Container from "@material-ui/core/Container";
 import {green} from "@material-ui/core/colors";
+
 
 export default function Header () {
   const classes = useStyles();
@@ -20,7 +22,8 @@ export default function Header () {
     {label: 'TRIAGEM', pathname: '/triagens', icon: <AssignmentSharpIcon font={"small"}/>},
     {label: 'DIAGNÓSTICO', pathname: '/diagnosticos', icon: <SubtitlesSharpIcon font={"small"}/>},
     {label: 'DEMANDA', pathname: '/demandas', icon: <LocalMallSharpIcon font={"small"}/>},
-    // {label: 'ENTREGA', pathname: '/demandas', icon: <UnarchiveSharpIcon font={"small"}/>},
+    {label: 'CALIBRAGEM', pathname: '/calibragem', icon: <AssignmentTurnedInSharpIcon font={"small"}/>},
+    {label: 'ENTREGA', pathname: '/entregas', icon: <UnarchiveSharpIcon font={"small"}/>},
   ];
 
   return (

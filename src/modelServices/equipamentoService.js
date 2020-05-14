@@ -1,6 +1,7 @@
 import api from "../services/api";
 import {Equipamento} from "../models/equipamentos";
 
+
 /**
  * Seach screnning by status
  *      triagem
@@ -8,7 +9,7 @@ import {Equipamento} from "../models/equipamentos";
  *      manutencao
  *      etc
  */
-export function getEquipmentByStatus(status) {
+export function getEquipmentByStatus (status) {
   return api
     .post(
       "/api/equipamentos/find",
@@ -30,16 +31,16 @@ export function getEquipmentByStatus(status) {
     });
 }
 
-export function getAllEquipments() {
+export function getAllEquipments () {
   return api
     .get("/api/equipamentos", {
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-    }
-  )
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+      }
+    )
     .then((response) => {
       return response.data;
     })
@@ -49,17 +50,32 @@ export function getAllEquipments() {
     });
 }
 
-export function mapModelRequest (equipment) {
+export function mapEquipmentRequest (delivery) {
   const model = Equipamento({});
+
   for (let field in model) {
-    model[field] = equipment[field];
+    if (typeof (delivery[field]) === 'object' && delivery[field] !== null && delivery[field]['$oid']) {
+      model[field] = delivery[field]['$oid'];
+      continue;
+    }
+
+    if (typeof (delivery[field]) === 'object' && delivery[field] !== null && delivery[field]['$date']) {
+      model[field] = new Date(delivery[field]['$date']);
+      continue;
+    }
+    if (field === 'created_at' || field === 'updated_at') {
+      model[field] = new Date(delivery[field]);
+      continue;
+    }
+
+    model[field] = delivery[field];
   }
   return model;
 }
 
 export function saveNewEquipment (equipamento) {
   delete (equipamento['_id']);
-  const model = mapModelRequest(equipamento);
+  const model = mapEquipmentRequest(equipamento);
   return api.post(
     '/api/equipamentos',
     Object.assign(
@@ -89,9 +105,9 @@ export function saveNewEquipment (equipamento) {
 }
 
 export function updateEquipment (equipamento) {
-  const id = equipamento['_id'];
-  delete (equipamento['_id']);
-  const model = mapModelRequest(equipamento);
+  const model = mapEquipmentRequest(equipamento);
+  const id = model['_id'];
+  delete (model['_id']);
 
   return api.put(
     '/api/equipamento/' + id,
@@ -105,10 +121,15 @@ export function updateEquipment (equipamento) {
   });
 }
 
-export function deleteEquipmentRequest(_id) {
+export function deleteEquipmentRequest (_id) {
   return api.delete(
     '/api/equipamentos?_id=' + _id
   ).then(res => {
-    return res.data
-  })
+    return res.data;
+  });
+}
+
+export function updateManyEquipmentRequest(equipments) {
+  return api.post('/api/equipamentos/bulk', {equipamentos: equipments.map(item => mapEquipmentRequest(item))})
+    .then(res => res.data)
 }

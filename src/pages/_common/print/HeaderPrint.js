@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 
 
 const formatDate = (date) => {
-  return [moment(date).tz('America/Fortaleza').format('L'), moment(date).tz('America/Fortaleza').format('H:m:s')];
+  return [moment(date).tz('America/Fortaleza').format('L'), moment(date).tz('America/Fortaleza').format('H:m')];
 };
 
 const HeaderPrint = (props) => {

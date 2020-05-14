@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Input from "@material-ui/core/Input";
 import InputLabel from "@material-ui/core/InputLabel";
@@ -6,12 +6,18 @@ import FormControl from "@material-ui/core/FormControl";
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import DialogModelsEquipments from "../../Screening/ScreeningForm/DialogModelsEquipment";
 
+
 const InputRadioDialog = (props) => {
   const {action, name, label, hasOther, defaultValue, items} = props;
 
   const [valueInput, setValueInput] = React.useState('');
   const [open, setOpen] = React.useState(false);
 
+  useEffect(updateInput, [defaultValue]);
+
+  function updateInput () {
+    setValueInput(defaultValue);
+  }
 
   function changeRadio (event) {
     action(event);
@@ -19,8 +25,8 @@ const InputRadioDialog = (props) => {
     setOpen(false);
   }
 
-  function updateOpen(value) {
-    setOpen(value)
+  function updateOpen (value) {
+    setOpen(value);
   }
 
   function openDialog () {
@@ -38,7 +44,7 @@ const InputRadioDialog = (props) => {
       label={label}
       hasOther={hasOther}
       items={items}
-      dialogTitle={"Selecione uma Marca"}
+      dialogTitle={label}
     />
 
     <FormControl

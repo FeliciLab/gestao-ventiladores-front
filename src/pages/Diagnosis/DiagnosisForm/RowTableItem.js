@@ -1,23 +1,29 @@
 import React from 'react';
-import {TableCell, TableRow} from "@material-ui/core";
+import {Grid, TableCell, TableRow} from "@material-ui/core";
 import TooptipInfo from "../../_common/components/TooltipInfo";
 import InfoIcon from "@material-ui/icons/Info";
 import Typography from "@material-ui/core/Typography";
 import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
 import LabelInput from "../../_common/components/LabelInput";
+import ColorIconButton from "../../_common/forms/ColorIconButton";
+import EditIcon from '@material-ui/icons/Edit';
+import orange from "@material-ui/core/colors/orange";
+
 
 export default function RowTableItem (props) {
   const {
     index,
     headTable,
     updateParent,
-    data
+    data,
+    openModelEditDescription
   } = props;
 
   const radioItems = [
     {value: 'pecas', label: 'Peças'},
-    {value: 'acessorio', label: 'Acessórios'}
+    {value: 'acessorio', label: 'Acessórios'},
+    {value: 'insumo', label: 'Insumo'}
   ];
 
   return (<React.Fragment>
@@ -46,13 +52,13 @@ export default function RowTableItem (props) {
             }
 
             return (
-                <LabelInput
-                  key={headIndex}
-                  label={''}
-                  name={head.id}
-                  action={(value) => updateParent(value, index, head.id)}
-                  value={data[head.id]}
-                />
+              <LabelInput
+                key={headIndex}
+                label={''}
+                name={head.id}
+                action={(value) => updateParent(value, index, head.id)}
+                value={data[head.id]}
+              />
             );
           }
         )
@@ -61,11 +67,29 @@ export default function RowTableItem (props) {
         size={"small"}
         align={"right"}
       >
-        <TooptipInfo icon={<InfoIcon/>}>
-          <Typography variant={'subtitle1'}>
-            {data['descricao']}
-          </Typography>
-        </TooptipInfo>
+        <Grid container spacing={1} justify={'flex-end'} alignItems={'center'}>
+          <Grid item>
+            <ColorIconButton
+              action={openModelEditDescription}
+              item={index}
+              icon={{
+                icon: <EditIcon fontSize={'small'}/>,
+                size: 'small',
+                bgColor: 'white',
+                color: orange[500],
+                hoverColor: orange[50]
+              }}
+              name={'Editar Descrição'}
+            />
+          </Grid>
+          <Grid item>
+            <TooptipInfo icon={<InfoIcon/>}>
+              <Typography variant={'subtitle1'}>
+                {data['descricao']}
+              </Typography>
+            </TooptipInfo>
+          </Grid>
+        </Grid>
       </TableCell>
     </TableRow>
   </React.Fragment>);

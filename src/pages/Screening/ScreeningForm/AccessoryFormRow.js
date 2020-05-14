@@ -15,7 +15,6 @@ export default function AccessoryFormRow (props) {
   const {
     acessorio,
     atualizarAcessorio,
-    adicionarAcessorio,
     removerLinha,
     index
   } = props;
@@ -24,15 +23,7 @@ export default function AccessoryFormRow (props) {
   function atualizarAcessorioParent (event) {
     const doc = {};
     doc[event.target.name] = event.target.value;
-    atualizarAcessorio(props.index, doc);
-
-    if (props.ultimo && event.target.name === 'descricao' && event.target.value.trim() !== '') {
-      adicionarAcessorio();
-    }
-
-    if (props.penultimo && event.target.name === 'descricao' && event.target.value.trim() === '') {
-      removerLinha(props.index + 1);
-    }
+    atualizarAcessorio(index, doc);
   }
 
   return (
@@ -117,7 +108,7 @@ export default function AccessoryFormRow (props) {
             <DeleteIcon></DeleteIcon>
           </Button>
         </Tooltip>
-      </Grid>;
+      </Grid>
     </Grid>
   );
 }

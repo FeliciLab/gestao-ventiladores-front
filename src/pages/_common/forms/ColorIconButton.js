@@ -3,11 +3,23 @@ import IconButton from "@material-ui/core/IconButton";
 import withStyles from "@material-ui/core/styles/withStyles";
 import orange from "@material-ui/core/colors/orange";
 
-const ColorIconButton = (props) => {
-  const {item, action, name} = props;
-  const {color, bgColor, hoverColor, icon, size} = props.icon;
 
-  const ColorIconButton = withStyles((theme) => ({
+const ColorIconButton = (props) => {
+  const {
+    item,
+    action,
+    name
+  } = props;
+
+  const {
+    color,
+    bgColor,
+    hoverColor,
+    icon,
+    size
+  } = props.icon;
+
+  const ColoredIconButton = withStyles((theme) => ({
     root: {
       color: color || 'white',
       backgroundColor: bgColor || orange[500],
@@ -18,13 +30,13 @@ const ColorIconButton = (props) => {
   }))(IconButton);
 
   return (<React.Fragment>
-    <ColorIconButton
+    <ColoredIconButton
       title={name}
       onClick={() => action(item)}
       size={size || 'small'}
     >
       {icon}
-    </ColorIconButton>
+    </ColoredIconButton>
   </React.Fragment>);
 };
 

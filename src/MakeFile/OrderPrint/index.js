@@ -4,6 +4,7 @@ import PagePrint from "../../pages/_common/print/PagePrint";
 import TopicPrint from "../../pages/_common/print/TopicPrint";
 import TablePrint from "../../pages/_common/print/TablePrint";
 
+
 const IndexOrderPrint = (props) => {
   const [data] = useState(props.location.state.data);
 
@@ -14,7 +15,7 @@ const IndexOrderPrint = (props) => {
     {id: 'unidade_medida', name: 'Unidade'},
     {id: 'quantidade', name: 'Qtde'},
     {id: 'fabricante', name: 'Frabricante'},
-    {id: 'codigo_item', name: 'Código do Item'},
+    {id: 'codigo', name: 'Código do Item'},
   ];
 
   return (<div className={"landscape-print page-container"}>
@@ -25,7 +26,7 @@ const IndexOrderPrint = (props) => {
         subTitle={"ORDEM DE COMPRA"}
         pageNumber={"01"}
       />
-      <TopicPrint text={"1. Descrição material"}/>yarn 
+      <TopicPrint text={"1. Descrição material"}/>
       <TablePrint
         headerTable={headerTable}
         bodyData={data.itens.map(item => Object.assign(item, {tipo: item.tipo === 'pecas' ? "Peça" : "Acessório"}))}

@@ -2,10 +2,9 @@ import React, {useState} from "react";
 import Layout from "../_layout/Layout";
 import {getAllServiceOrder} from "../../modelServices/serviceOrderService";
 import {getAllPurchaseOrders} from "../../modelServices/purchaseOrderService";
-import LinearProgress from "@material-ui/core/LinearProgress";
 import DemandPage from "./DemandPage";
-import Typography from "@material-ui/core/Typography";
-import Container from "@material-ui/core/Container";
+import LoadingBar from "../_common/components/LoadingBar";
+
 
 const IndexDemand = (props) => {
   const [serviceOrders, setServiceOrder] = useState([]);
@@ -40,14 +39,7 @@ const IndexDemand = (props) => {
   }
 
   if (loadingData) {
-    return (<React.Fragment>
-      <Layout>
-        <Container style={{padding: '5rem'}}>
-          <Typography variant={"h6"}>Carregando dados...</Typography>
-          <LinearProgress variant="determinate" value={progress}/>
-        </Container>
-      </Layout>
-    </React.Fragment>);
+    return <LoadingBar progress={progress}></LoadingBar>
   }
 
   return (
