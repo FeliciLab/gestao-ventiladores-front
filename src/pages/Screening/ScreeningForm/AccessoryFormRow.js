@@ -13,11 +13,8 @@ import {accessoryMapOptionsConservationState} from "../../../models/conservation
 
 export default function AccessoryFormRow (props) {
   const {
-    ultimo,
-    penultimo,
     acessorio,
     atualizarAcessorio,
-    adicionarAcessorio,
     removerLinha,
     index
   } = props;

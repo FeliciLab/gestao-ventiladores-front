@@ -19,14 +19,6 @@ function mapModel (delivery) {
       continue
     }
 
-    if (field === 'equipamentos_id') {
-      for (let i in delivery['equipamentos_id']) {
-        if (typeof (delivery['equipamentos_id'][i]) === 'object' && delivery['equipamentos_id'][i] !== null && delivery['equipamentos_id'][i]['$oid']) {
-          model['equipamentos_id'][i] = delivery['equipamentos_id'][i]['$oid'];
-        }
-      }
-      continue;
-    }
     model[field] = delivery[field];
   }
   return model;

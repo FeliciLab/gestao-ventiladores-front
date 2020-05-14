@@ -13,6 +13,7 @@ import {saveDelivery} from "../../modelServices/deliveryOrderService";
 import DeliveryFormInfo from "./DeliveryFormInfo";
 import moment from "moment-timezone";
 import EquipmentDetailDelivery from "./FormDelivery/EquipmentDetailDelivery";
+import {updateManyEquipmentRequest} from "../../modelServices/equipamentoService";
 
 
 export default function FormDeliveryOrder (props) {
@@ -25,19 +26,44 @@ export default function FormDeliveryOrder (props) {
 
   function updateForm (value) {
     if (Object.keys(value)[0] === 'equipamentos') {
-      setServicesOrdersEquipments(value.equipamentos.map(item => Object.assign({}, item, {equipamento: item.equipamento[0]})));
+      value['equipamentos'] = value.equipamentos.map(item => Object.assign(
+        {},
+        item,
+        {
+          equipamento: item.equipamento[0]
+        }
+        )
+      )
+      setServicesOrdersEquipments(value.equipamentos);
     }
 
     setFormModel(Object.assign(formModel, value));
   }
 
-  function updateEquipment (value, name, index) {
+  function updateEquipment (doc, index) {
+    const docs = servicesOrdersEquipments.map(item => {
+      if (item._id['$oid'] === index) {
+        item.equipamento = Object.assign({}, item.equipamento, doc);
+      }
+      return item;
+    });
+
+    setServicesOrdersEquipments(docs);
+    setFormModel(Object.assign(formModel, {equipamentos: docs}));
   }
 
   function updateAccessories (value, _id) {
-    const doc = {}
-    doc[_id] = value
-    setFormModel(Object.assign(formModel, {acessorios: doc}))
+    const doc = {};
+    doc[_id] = value;
+    setFormModel(
+      Object.assign(
+        {},
+        formModel,
+        {
+          acessorios: Object.assign({}, formModel.acessorios, doc)
+        }
+      )
+    );
   }
 
   function saveNewDeliveryOrder () {
@@ -48,11 +74,14 @@ export default function FormDeliveryOrder (props) {
       updated_at: new Date()
     });
     delete (doc.hora_entrega);
-    doc.equipamentos_id = doc.equipamentos.map(item => (item.equipamento_id));
-    saveDelivery(doc)
+    doc.equipamentos_id = doc.equipamentos.map(item => (item.equipamento_id['$oid']));
+    updateManyEquipmentRequest(formModel.equipamentos.map(item => item.equipamento))
       .then(() => {
-        realodData();
-      });
+        saveDelivery(doc)
+          .then(() => {
+            realodData();
+          });
+      })
   }
 
   return (<React.Fragment>

@@ -20,8 +20,9 @@ import AccessoriesEquipmentText from "./AccessoriesEquipmentText";
 
 
 const useStyle = makeStyles(theme => ({
-  cellLimit: {
-    maxHeight: '84px'
+  cellRow: {
+    maxHeight: '84px',
+    overflow: 'auto'
   }
 }));
 
@@ -42,6 +43,7 @@ export default function EquipmentDetailDelivery (props) {
   const [referenceIndex, setReferenceIndex] = useState({});
 
   const headTable = [
+    {id: 'nome_equipamento', label: 'Nome'},
     {id: 'tipo', label: 'Tipo'},
     {id: 'numero_de_serie', label: 'Nº de série'},
     {id: 'nome_instituicao_origem', label: 'Instituição de Origem'},
@@ -60,14 +62,15 @@ export default function EquipmentDetailDelivery (props) {
     setPage(0);
   };
 
-  function handleOpenDialog (servicesOrdersEquipment) {
+  function handleOpenEquipmentDialog (servicesOrdersEquipment) {
     setEquipment(servicesOrdersEquipment.equipamento);
-    setReferenceIndex(servicesOrdersEquipment._id);
+    setReferenceIndex(servicesOrdersEquipment._id['$oid']);
     setOpenDialogEquipment(true);
   }
 
-  function updateEquipmentDialog (index, value, name) {
-    updateEquipment(value, name, index);
+  function updateEquipmentDialog (doc, index) {
+    updateEquipment(doc, index);
+    handleClose()
   }
 
   function hasAccessorieToEquipment (servicesOrdersEquipment) {
@@ -123,7 +126,7 @@ export default function EquipmentDetailDelivery (props) {
                 {headTable.map((head, headIndex) => {
                   if (head.id === 'acessorios') {
                     return <TableCell key={headIndex}>
-                      <div className={classes.cellLimit}>
+                      <div className={classes.cellRow}>
                         <AccessoriesEquipmentText
                           equipmentId={equipment._id['$oid']}
                           formModel={formModel}
@@ -151,7 +154,7 @@ export default function EquipmentDetailDelivery (props) {
                     <Grid item xs={'auto'}>
                       <ColorIconButton
                         item={servicesOrdersEquipment}
-                        action={handleOpenDialog}
+                        action={handleOpenEquipmentDialog}
                         name={'Editar Equipamento'}
                         icon={{
                           icon: <EditIcon fontSize={'small'}/>

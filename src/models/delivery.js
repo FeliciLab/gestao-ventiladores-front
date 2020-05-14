@@ -5,6 +5,7 @@ export function Delivery (entrega) {
     ...ToPlace(entrega),
     ...PersonTransportation(entrega),
     data_entrega: new Date(),
+    acessorios: [],
     created_at: entrega.created_at || new Date(),
     updated_at: entrega.updated_at || new Date()
   };

@@ -15,6 +15,7 @@
     "axios": "^0.19.2",
     "date-fns": "^2.13.0",
     "moment": "^2.24.0",
+    "moment-locales-webpack-plugin": "^1.2.0",
     "moment-timezone": "^0.5.28",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",

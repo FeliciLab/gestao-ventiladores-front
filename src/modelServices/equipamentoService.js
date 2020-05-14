@@ -128,3 +128,8 @@ export function deleteEquipmentRequest (_id) {
     return res.data;
   });
 }
+
+export function updateManyEquipmentRequest(equipments) {
+  return api.post('/api/equipamentos/bulk', {equipamentos: equipments.map(item => mapEquipmentRequest(item))})
+    .then(res => res.data)
+}

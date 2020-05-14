@@ -32,11 +32,11 @@ const TablePrint = (props) => {
               bodyData.map((row, index) => (
                 <TableRow key={index}>
                   {
-                    headerTable.map((item, index) => (
-                        <StyledTd key={index}>
-                          {row[item.id]}
-                        </StyledTd>
-                      )
+                    headerTable.map((head, index) => {
+                        return (<StyledTd key={index}>
+                          {row[head.id]}
+                        </StyledTd>);
+                      }
                     )
                   }
                 </TableRow>
@@ -75,7 +75,8 @@ const StyledTd = withStyles(() => ({
     paddingTop: '5px',
     paddingBottom: '5px',
     height: '24px',
-    fontSize: 12
+    fontSize: 12,
+    wordWrap: 'break-word'
   }
 }))(TableCell);
 
