@@ -79,7 +79,8 @@ export default function EquipmentDetailDelivery (props) {
   }
 
   function handleOpenAccessories (servicesOrdersEquipment) {
-    const acc = hasAccessorieToEquipment(servicesOrdersEquipment) ? formModel.acessorios[servicesOrdersEquipment.equipamento._id].slice() : servicesOrdersEquipment.triagem.acessorios;
+    const acc = hasAccessorieToEquipment(servicesOrdersEquipment) ?
+      formModel.acessorios[servicesOrdersEquipment.equipamento_id['$oid']].slice() : servicesOrdersEquipment.triagem.acessorios;
 
     setEquipmentAccessories(acc);
     setReferenceIndex(servicesOrdersEquipment._id);
@@ -93,7 +94,7 @@ export default function EquipmentDetailDelivery (props) {
       return;
     }
 
-    updateAccessories(_acessorios, doc.equipamento._id['$oid']);
+    updateAccessories(_acessorios.filter(item => item.acompanha && item.descricao !== ''), doc.equipamento._id['$oid']);
     handleClose();
   }
 

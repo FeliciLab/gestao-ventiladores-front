@@ -33,9 +33,7 @@ const AccessoriesEquipmentText = (props) => {
 
   return <React.Fragment>
     {accessories.map((accessorie, index) => {
-      return (<React.Fragment>
-        <Typography key={index}>{accessorie.descricao}</Typography>
-      </React.Fragment>);
+      return (<Typography key={index}>{accessorie.descricao}</Typography>);
     })}
   </React.Fragment>;
 };
