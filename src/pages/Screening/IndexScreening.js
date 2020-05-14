@@ -9,6 +9,7 @@ import EditIcon from "@material-ui/icons/Edit";
 
 const IndexScreening = (props) => {
   const history = useHistory();
+  const selectKeyField = 'numero_ordem_servico';
 
   const {serviceOrders, editScreening} = props;
 
@@ -26,7 +27,11 @@ const IndexScreening = (props) => {
   ];
 
   const actions = [
-    {name: 'Editar', handleEvent: editScreening, icon: {bgColor: orange[500], hoverColor: orange[700], icon: <EditIcon/>}}
+    {
+      name: 'Editar',
+      handleEvent: editScreening,
+      icon: {bgColor: orange[500], hoverColor: orange[700], icon: <EditIcon/>}
+    }
   ];
 
   function defineData () {
@@ -64,7 +69,7 @@ const IndexScreening = (props) => {
     history.push({
       pathname: "/osprint",
       state: {
-        data: screening.filter(item => data.find(d => d.numero_ordem_servico === item.numero_ordem_servico))
+        data: screening.filter(item => data.find(d => d === item.numero_ordem_servico))
       }
     }, [screening]);
   };
@@ -72,7 +77,7 @@ const IndexScreening = (props) => {
   useEffect(defineData, [defineData, serviceOrders]);
 
   if (load) {
-    return <React.Fragment/>
+    return <React.Fragment/>;
   }
 
   return (
@@ -81,7 +86,7 @@ const IndexScreening = (props) => {
         <TableCheckedList
           actions={actions}
           dataTable={dataTable}
-          selectKeyField="numero_ordem_servico"
+          selectKeyField={selectKeyField}
           headerTable={headerData}
           actionFunction={actionPrint}
           actionBarTitle="Lista de Equipamento (Nenhum item selecionado)"

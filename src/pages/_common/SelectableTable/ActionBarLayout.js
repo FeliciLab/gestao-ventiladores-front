@@ -36,7 +36,7 @@ const ActionBarLayout = (props) => {
         ammount > 0 ? (
           <Tooltip title="Gerar Ordem Serviço">
             <Button
-              onClick={(event) => action(Object.values(dataChecked))}
+              onClick={(event) => action(Object.keys(dataChecked), event)}
               variant="outlined"
             >{textButton}</Button>
           </Tooltip>

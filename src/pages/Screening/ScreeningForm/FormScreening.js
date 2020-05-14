@@ -16,7 +16,11 @@ import {
 } from "../../../modelServices/equipamentoService";
 import Alert from "@material-ui/lab/Alert";
 import {Equipamento} from "../../../models/equipamentos";
-import {saveNewOrderService, updateServiceOrderRequest} from "../../../modelServices/serviceOrderService";
+import {
+  mapModelRequest,
+  saveNewOrderService,
+  updateServiceOrderRequest
+} from "../../../modelServices/serviceOrderService";
 import {useForm} from "react-hook-form";
 import {Grid} from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
@@ -112,7 +116,7 @@ export default function FormScreening (props) {
     }
 
     let equipamentoId = '';
-    const equipment = Object.assign({}, mapEquipmentRequest(equipamento))
+    const equipment = Object.assign({}, mapEquipmentRequest(equipamento));
 
     try {
       if (equipment._id && equipment._id !== '') {
@@ -129,15 +133,15 @@ export default function FormScreening (props) {
     }
 
     const screen = Object.assign({}, screening, {acessorios: acessorios.filter(item => item !== '')});
-    const order = Object.assign({},
+    const order = mapModelRequest(Object.assign({},
       serviceOrder,
       {triagem: screen},
       {equipamento_id: equipamentoId}
-    );
+    ));
 
     try {
       if (order._id && order._id !== '') {
-        await updateServiceOrderRequest(Object.assign(order, {status: 'triagem'}));
+        await updateServiceOrderRequest(Object.assign(order, {status: 'triagem'}), order._id);
       } else {
         await saveNewOrderService(Object.assign(order, {status: 'triagem'}));
       }

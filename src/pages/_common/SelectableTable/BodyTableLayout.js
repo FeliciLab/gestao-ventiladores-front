@@ -9,7 +9,16 @@ import FormControl from "@material-ui/core/FormControl";
 
 
 const BodyTableLayout = (props) => {
-  const {data, headerKeys, checkSelectedRow, selectKeyField, hasActions, actions, checkedData} = props;
+  const {
+    data,
+    headerKeys,
+    checkSelectedRow,
+    selectKeyField,
+    hasActions,
+    actions,
+    checkedData
+  } = props;
+
   return (
     <TableBody>
       {

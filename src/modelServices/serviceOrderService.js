@@ -141,6 +141,7 @@ export function saveNewOrderService (serviceOrder) {
 
 export function updateServiceOrderRequest (serviceOrder, id) {
   const model = mapModelRequest(serviceOrder);
+  delete model._id
   return api.put(
     '/api/ordem_servico/' + id,
     Object.assign({}, model, {updated_at: new Date()})
