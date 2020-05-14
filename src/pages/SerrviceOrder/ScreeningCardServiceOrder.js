@@ -3,6 +3,7 @@ import {Grid, Typography} from "@material-ui/core";
 import AccessoriesTablePagination from "./AccesoriesTablePagination";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 
+
 const ScreeningCardServiceOrder = (props) => {
   const classes = useStyle();
   const {item} = props;

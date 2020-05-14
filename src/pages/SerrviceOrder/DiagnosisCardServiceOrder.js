@@ -3,6 +3,7 @@ import {Grid, Typography} from "@material-ui/core";
 import DiagnosisItemsTablePagination from "./DiagnosisItemsTablePagination";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 
+
 const DiagnosisCardServiceOrder = (props) => {
   const classes = useStyle();
   const {item} = props;

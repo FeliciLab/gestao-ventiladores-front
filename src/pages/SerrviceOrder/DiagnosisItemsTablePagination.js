@@ -3,6 +3,7 @@ import TableContainer from "@material-ui/core/TableContainer";
 import {Table, TableBody, TableCell, TableHead, TablePagination, TableRow} from "@material-ui/core";
 import {getItemDiagnosis} from "../../models/itensDiagnosticos";
 
+
 const DiagnosisItemsTablePagination = (props) => {
   const {items} = props;
   const rowsPerPage = 5;

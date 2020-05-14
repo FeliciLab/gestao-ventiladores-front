@@ -9,6 +9,7 @@ import DialogTableItems from "./DialogTableItems";
 import {PurchaseOrder} from "../../models/purchaseOrder";
 import {savePurchaseOrder} from "../../modelServices/purchaseOrderService";
 
+
 const NewPurchaseOrderDialog = (props) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
@@ -56,7 +57,6 @@ const NewPurchaseOrderDialog = (props) => {
         </StyledToolbar>
       </AppBar>
       <Container>
-        <Typography variante={"h5"} className={classes.titleList}>Lista de itens</Typography>
         <DialogTableItems
           action={saveOrder}
           toogleDialog={toogleDialog}

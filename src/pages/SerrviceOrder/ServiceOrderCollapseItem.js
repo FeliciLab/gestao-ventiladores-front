@@ -8,6 +8,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import DiagnosisCardServiceOrder from "./DiagnosisCardServiceOrder";
 import ScreeningCardServiceOrder from "./ScreeningCardServiceOrder";
 
+
 const ServiceOrderCollapseItem = (props) => {
   const classes = useStyle();
   const statusMap = serviceOrderStatus;

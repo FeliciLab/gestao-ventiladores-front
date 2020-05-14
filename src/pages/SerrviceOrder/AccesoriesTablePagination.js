@@ -8,6 +8,7 @@ import TablePagination from "@material-ui/core/TablePagination";
 import TableBody from "@material-ui/core/TableBody";
 import {Acessorio} from "../../models/acessorio";
 
+
 const AccessoriesTablePagination = (props) => {
   const {items} = props;
   const rowsPerPage = 5;

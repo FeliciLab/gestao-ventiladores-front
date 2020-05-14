@@ -12,6 +12,7 @@ import {updateServiceOrderRequest} from "../../../modelServices/serviceOrderServ
 import Alert from "@material-ui/lab/Alert";
 import {useHistory} from 'react-router-dom';
 import {useForm} from "react-hook-form";
+import Typography from "@material-ui/core/Typography";
 
 
 const FormDiagnosis = (props) => {
@@ -99,6 +100,13 @@ const FormDiagnosis = (props) => {
         </Paper>
 
         <Paper className={classes.paper}>
+          <Typography
+            variant={"h6"}
+            gutterBottom
+            component={"h6"}
+          >
+            2.1 PEÇAS E ACESSÓRIOS CADASTRADOS
+          </Typography>
           <FormRegisteredItems
             items={serviceOrder && serviceOrder.diagnostico && serviceOrder.diagnostico.itens ? serviceOrder.diagnostico.itens : []}
             updateItemsFromTable={updateItemsFromTable}

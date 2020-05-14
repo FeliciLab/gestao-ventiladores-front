@@ -3,6 +3,7 @@ import {Grid} from "@material-ui/core";
 import ServiceOrderCollapseItem from "./ServiceOrderCollapseItem";
 import PropTypes from 'prop-types';
 
+
 const ServiceOrdersCollapseList = (props) => {
   const {data} = props;
 

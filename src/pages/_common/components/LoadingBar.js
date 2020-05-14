@@ -4,6 +4,7 @@ import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
 import LinearProgress from "@material-ui/core/LinearProgress";
 
+
 export default function LoadingBar (props) {
   const {progress} = props;
 
