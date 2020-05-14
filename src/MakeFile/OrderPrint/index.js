@@ -15,7 +15,7 @@ const IndexOrderPrint = (props) => {
     {id: 'unidade_medida', name: 'Unidade'},
     {id: 'quantidade', name: 'Qtde'},
     {id: 'fabricante', name: 'Frabricante'},
-    {id: 'codigo_item', name: 'Código do Item'},
+    {id: 'codigo', name: 'Código do Item'},
   ];
 
   return (<div className={"landscape-print page-container"}>

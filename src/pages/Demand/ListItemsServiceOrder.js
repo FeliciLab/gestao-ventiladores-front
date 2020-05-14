@@ -6,6 +6,7 @@ import TableCheckedList from "../_common/SelectableTable/TableCheckedList";
 import {makeStyles} from "@material-ui/core/styles";
 import NewPurchaseOrderDialog from "./NewPurchaseOrderDialog";
 
+
 const headerData = [
   {id: "tipo", name: "Tipo"},
   {id: "nome", name: "Nome do item"},
@@ -20,7 +21,6 @@ const ListItemServiceOrder = (props) => {
     async function setData () {
       await setDataTable(Object.values(props.itemsServiceOrder).map(item => {
         const purchased = props.itemsPurchaseOrder[item.nome] ? props.itemsPurchaseOrder[item.nome].quantidade : 0;
-        console.log(item.nome, purchased)
         return {
           "tipo": item.tipo || '',
           "nome": item.nome,
@@ -50,7 +50,7 @@ const ListItemServiceOrder = (props) => {
   }
 
   function createNewBuyOrderDialog (dataChecked) {
-    setDataDialog(dataChecked.map(data => itemsServiceOrder[data.nome]));
+    setDataDialog(dataChecked.map(data => itemsServiceOrder[data]));
     setOpenDialog(true);
   }
 

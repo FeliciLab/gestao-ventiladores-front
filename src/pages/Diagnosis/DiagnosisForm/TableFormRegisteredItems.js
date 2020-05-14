@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import PropType from 'prop-types';
 import TableContainer from "@material-ui/core/TableContainer";
 import Table from "@material-ui/core/Table";
@@ -10,10 +10,18 @@ import InfoIcon from '@material-ui/icons/Info';
 import ChipStyled from "../../_common/components/ChipStyled";
 import {grey} from "@material-ui/core/colors";
 import RowTableItem from "./RowTableItem";
+import FormModalDescription from "./FormModalDescription";
+
 
 const TableFormRegisteredItems = (props) => {
-  const {items} = props;
-  const {updateItemsFromTable} = props;
+  const {
+    updateItemsFromTable,
+    items
+  } = props;
+
+  const [open, setOpen] = useState(false);
+  const [itemEdit, setItemEdit] = useState({});
+  const [indexEdit, setIndexEdit] = useState(0);
 
   const headTable = [
     {id: "tipo", name: "Tipo"},
@@ -26,6 +34,21 @@ const TableFormRegisteredItems = (props) => {
 
   function updateParent (value, index, field) {
     updateItemsFromTable(value, index, field);
+  }
+
+  function openModelEditDescription (index) {
+    setItemEdit(items[index]);
+    setIndexEdit(index);
+    setOpen(true);
+  }
+
+  function updateDescription (description) {
+    updateParent(description, indexEdit, 'descricao');
+    setOpen(false);
+  }
+
+  function handleClose () {
+    setOpen(false);
   }
 
   return (<React.Fragment>
@@ -52,6 +75,7 @@ const TableFormRegisteredItems = (props) => {
           {items.map((item, index) => {
             return (
               <RowTableItem
+                openModelEditDescription={openModelEditDescription}
                 key={`${index}_${new Date().toISOString()}`}
                 headTable={headTable}
                 updateParent={updateParent}
@@ -63,6 +87,12 @@ const TableFormRegisteredItems = (props) => {
         </TableBody>
       </Table>
     </TableContainer>
+    <FormModalDescription
+      item={itemEdit}
+      open={open}
+      handleClose={handleClose}
+      updateValue={updateDescription}
+    />
   </React.Fragment>);
 };
 

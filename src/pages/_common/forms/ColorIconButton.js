@@ -19,7 +19,7 @@ const ColorIconButton = (props) => {
     size
   } = props.icon;
 
-  const ColorIconButton = withStyles((theme) => ({
+  const ColoredIconButton = withStyles((theme) => ({
     root: {
       color: color || 'white',
       backgroundColor: bgColor || orange[500],
@@ -30,13 +30,13 @@ const ColorIconButton = (props) => {
   }))(IconButton);
 
   return (<React.Fragment>
-    <ColorIconButton
+    <ColoredIconButton
       title={name}
       onClick={() => action(item)}
       size={size || 'small'}
     >
       {icon}
-    </ColorIconButton>
+    </ColoredIconButton>
   </React.Fragment>);
 };
 
