@@ -9,6 +9,7 @@ import Slide from "@material-ui/core/Slide";
 import {PurchaseOrder} from "../../models/purchaseOrder";
 import {savePurchaseOrder} from "../../modelServices/purchaseOrderService";
 
+
 const EditDialogPurchaseOrder = (props) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
@@ -62,7 +63,6 @@ const EditDialogPurchaseOrder = (props) => {
         </StyledToolbar>
       </AppBar>
       <Container>
-        <Typography variante={"h5"} className={classes.titleList}>Lista de itens</Typography>
         <DialogTableItems
           action={updateData}
           headerTable={headerTable}
