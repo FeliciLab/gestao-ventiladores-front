@@ -7,6 +7,7 @@ import {serviceOrderStatus} from "../../models/serviceOrder";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import DiagnosisCardServiceOrder from "./DiagnosisCardServiceOrder";
 import ScreeningCardServiceOrder from "./ScreeningCardServiceOrder";
+import ScreeningEquipment from "./ScreeningEquipment";
 
 
 const ServiceOrderCollapseItem = (props) => {
@@ -73,8 +74,8 @@ const ServiceOrderCollapseItem = (props) => {
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <Card variant={"outlined"} className={classes.cardCollaps}>
           <CardContent>
+            <ScreeningEquipment equipment={item.equipamento[0]}/>
             <ScreeningCardServiceOrder item={item}/>
-
             {item.diagnostico ? <DiagnosisCardServiceOrder item={item}/> : <></>}
           </CardContent>
         </Card>
