@@ -29,8 +29,8 @@ const ServiceOrdersCollapseList = (props) => {
       <Grid item xs={12} md={3}>
         <ServiceOrderCardNumber
           title={'Registrados'}
-          number={(ammountByStatus['triagem'] || 0) + (ammountByStatus['recebido'] || 0)}
-          percent={Math.floor((ammountByStatus['triagem'] || 0) + (ammountByStatus['recebido'] || 0)/data.length * 100)}
+          number={data.length}
+          percent={Math.floor(data.length/data.length * 100)}
         />
       </Grid>
       <Grid item xs={12} md={3}>
