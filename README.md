@@ -73,3 +73,13 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 ### `yarn build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+
+# Design
+### Design de Interfaces:
+Para consultar o Projeto da Interface, acessar: https://www.figma.com/file/OCBwphdiOoIXCd47xN3HUj/Central-de-Ventiladores?node-id=0%3A1
+
+### Design Job Pipeline:
+Para consultar o Controle das Atividades, acessar: https://airtable.com/shrIaMWhqdW48mz5t/tblmrw7lBHw5NKJVm
+
+### Design Backlog:
+Para consultar o Controle do Backlog do Time de Design, acessar: https://airtable.com/shrRnKAR9Mjaxc9wd/tblmrw7lBHw5NKJVm
