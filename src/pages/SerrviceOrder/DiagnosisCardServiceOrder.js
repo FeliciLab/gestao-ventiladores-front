@@ -21,8 +21,8 @@ const DiagnosisCardServiceOrder = (props) => {
         <Typography variant={"body2"}>{item.diagnostico.demanda_servicos || '---'}</Typography>
       </Grid>
       <Grid item xs={12} className={classes.rowItem}>
-        <Typography variant={"body1"}><strong>Insumos</strong></Typography>
-        <Typography variant={"body2"}>{item.diagnostico.demanda_insumos || '---'}</Typography>
+        <Typography variant={"body1"}><strong>Observações:</strong></Typography>
+        <Typography variant={"body2"}>{item.diagnostico.observacoes || '---'}</Typography>
       </Grid>
       <Grid item xs={12} className={classes.rowItem}>
         <Typography variant={"body1"}><strong>Acessórios:</strong></Typography>
