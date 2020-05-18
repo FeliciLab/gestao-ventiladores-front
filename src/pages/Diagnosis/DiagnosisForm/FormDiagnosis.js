@@ -1,42 +1,39 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Paper from "@material-ui/core/Paper";
 import CadastroDiagnostico from "./CadastroDiagnostico";
 import Container from "@material-ui/core/Container";
 import HeaderFormPage from "./HeaderFormPage";
-import {ServiceOrder} from "../../../models/serviceOrder";
 import CadastroItens from "./CreateNewItem";
 import FormRegisteredItems from "./FormRegisteredItems";
 import {updateServiceOrderRequest} from "../../../modelServices/serviceOrderService";
 import Alert from "@material-ui/lab/Alert";
-import {useHistory} from 'react-router-dom';
 import {useForm} from "react-hook-form";
 import Typography from "@material-ui/core/Typography";
 
 
 const FormDiagnosis = (props) => {
   const {register, errors, triggerValidation} = useForm({mode: 'onBlur', reValidateMode: 'onChange'});
-  const history = useHistory();
+
   const classes = useStyles();
-  const {data} = props;
+
+  const {
+    serviceOrder,
+    updateServiceForm
+  } = props;
 
   const [errorsFound, setErrorsFound] = useState(false);
-  const [serviceOrder, setServiceOrder] = useState({});
-
-  useEffect(defineDataForm, [data]);
-
-  function defineDataForm () {
-    setServiceOrder(Object.assign({}, ServiceOrder({diagnostico: {}}), data));
-  }
 
   function updateServiceOrderDiagnosis (value) {
     const diagnosis = Object.assign({}, serviceOrder.diagnostico, value);
-    setServiceOrder(Object.assign({}, serviceOrder, {diagnostico: diagnosis}));
+    updateServiceForm({diagnostico: diagnosis});
   }
 
   function addNewItem (item) {
-    const items = serviceOrder.diagnostico.itens.slice();
+    const items = serviceOrder.diagnostico && serviceOrder.diagnostico.itens ?
+      serviceOrder.diagnostico.itens.slice() : [];
+
     items.push(item);
     updateServiceOrderDiagnosis({itens: items});
   };
@@ -65,7 +62,6 @@ const FormDiagnosis = (props) => {
         Object.assign({}, {diagnostico: serviceOrder.diagnostico}, {status: 'diagnostico'}),
         serviceOrder._id['$oid']
       );
-      history.push({pathname: '/diagnosticos'});
     } catch (e) {
       console.log('erro ao salvar ordem de serviço', e);
       showErrorsBar();

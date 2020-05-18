@@ -32,7 +32,7 @@ export default function CadastroEquipamento (props) {
               shrink: true
             }}
             onChange={updateParent}
-            value={diagnosis.resultado_tecnico || ''}
+            value={diagnosis.resultado_tecnico}
             name="resultado_tecnico"
             multiline
             rows="6"
@@ -48,7 +48,7 @@ export default function CadastroEquipamento (props) {
               shrink: true
             }}
             onChange={updateParent}
-            value={diagnosis.demanda_servicos || ''}
+            value={diagnosis.demanda_servicos}
             name="demanda_servicos"
             multiline
             rows="6"
@@ -64,7 +64,7 @@ export default function CadastroEquipamento (props) {
               shrink: true
             }}
             onChange={updateParent}
-            value={diagnosis.observacoes || ''}
+            value={diagnosis.observacoes}
             name="observacoes"
             multiline
             rows="6"
