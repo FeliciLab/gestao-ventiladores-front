@@ -14,6 +14,7 @@ const ThemeButton = (props) => {
     color,
     bgColor,
     hoverColor,
+    borderColor,
     type,
     size
   } = props;
@@ -21,13 +22,13 @@ const ThemeButton = (props) => {
   const ColorButton = withStyles((theme) => ({
     root: {
       borderRadius: 20,
-      color: variant === 'outlined' ? bgColor || 'black' : color || "white",
-      backgroundColor: variant === 'outlined' ? 'white' : bgColor || orange[600],
-      border: variant === 'outlined' ? `solid 1 px ${bgColor}` : 'none',
-      borderColor: variant === 'outlined' ? `${bgColor}` : 'none',
+      color: color || "white",
+      backgroundColor: bgColor || orange[600],
+      border: variant === 'outlined' ? `solid 1 px ${borderColor}` : 'none',
+      borderColor: variant === 'outlined' ? `${borderColor}` : 'none',
       '&:hover': {
-        backgroundColor: variant === 'outlined' ? 'white' : hoverColor || orange[800],
-        color: variant === 'outlined' ? bgColor || 'black' : color || "white"
+        backgroundColor:  hoverColor || orange[800],
+        color: color || "white"
       },
     },
   }))(Button);

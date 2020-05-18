@@ -11,14 +11,14 @@ const ServiceOrdersCollapseList = (props) => {
     ammountDelivery
   } = props;
 
-  const ammountByStatus = data.reduce((acc, curr) => {
-    const status = curr.status
-    if (!acc.hasOwnProperty(status)) {
-      acc[status] = 0;
-    }
-    acc[status]++
-    return acc
-  }, {})
+  // const ammountByStatus = data.reduce((acc, curr) => {
+  //   const status = curr.status
+  //   if (!acc.hasOwnProperty(status)) {
+  //     acc[status] = 0;
+  //   }
+  //   acc[status]++
+  //   return acc
+  // }, {})
 
   if (!data) {
     return <></>;
@@ -33,20 +33,20 @@ const ServiceOrdersCollapseList = (props) => {
           percent={Math.floor(data.length/data.length * 100)}
         />
       </Grid>
-      <Grid item xs={12} md={3}>
-        <ServiceOrderCardNumber
-          title={'Diagnosticados'}
-          number={ammountByStatus['diagnostico'] || 0}
-          percent={Math.floor((ammountByStatus['diagnostico'] || 0)/data.length * 100)}
-        />
-      </Grid>
-      <Grid item xs={12} md={3}>
-        <ServiceOrderCardNumber
-          title={'Consertados'}
-          number={ammountByStatus['calibragem'] || 0}
-          percent={Math.floor((ammountByStatus['calibragem'] || 0)/data.length * 100)}
-        />
-      </Grid>
+      {/*<Grid item xs={12} md={3}>*/}
+      {/*  <ServiceOrderCardNumber*/}
+      {/*    title={'Diagnosticados'}*/}
+      {/*    number={ammountByStatus['diagnostico'] || 0}*/}
+      {/*    percent={Math.floor((ammountByStatus['diagnostico'] || 0)/data.length * 100)}*/}
+      {/*  />*/}
+      {/*</Grid>*/}
+      {/*<Grid item xs={12} md={3}>*/}
+      {/*  <ServiceOrderCardNumber*/}
+      {/*    title={'Consertados'}*/}
+      {/*    number={ammountByStatus['calibragem'] || 0}*/}
+      {/*    percent={Math.floor((ammountByStatus['calibragem'] || 0)/data.length * 100)}*/}
+      {/*  />*/}
+      {/*</Grid>*/}
       <Grid item xs={12} md={3}>
         <ServiceOrderCardNumber
           title={'Entregues'}

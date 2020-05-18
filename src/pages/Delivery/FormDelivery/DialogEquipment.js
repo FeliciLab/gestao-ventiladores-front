@@ -48,7 +48,7 @@ export default function DialogEquipment (props) {
     <FullDialog
       open={open}
       handleClose={handleClose}
-      title={'Formulário de edição do equipametno Equipamento'}
+      title={'Formulário de Edição do Equipamento'}
       actionChildren={<ThemeButton
         startIcon={<SaveIcon/>}
         onClick={saveEquipment}

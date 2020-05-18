@@ -55,17 +55,21 @@ export function mapModelRequest (serviceOrder) {
   const modelDiagnosis = ServiceOrderDiagnosis(serviceOrder.diagnostico || {});
   const modelAccessory = Acessorio({});
   const modelItems = itemDiagnosisModel;
+
   for (let field in model) {
     if (typeof (serviceOrder[field]) === 'object' && serviceOrder[field] !== null && serviceOrder[field]['$oid']) {
       model[field] = serviceOrder[field]['$oid'];
       continue;
     }
+
     if (typeof (serviceOrder[field]) === 'object' && serviceOrder[field] !== null && serviceOrder[field]['$date']) {
       model[field] = new Date(serviceOrder[field]['$date']);
       continue;
     }
+
     if (field === 'created_at' || field === 'updated_at') {
       model[field] = new Date(serviceOrder[field]);
+      continue
     }
 
     if (field === 'triagem' && serviceOrder[field]) {
@@ -113,6 +117,7 @@ export function mapModelRequest (serviceOrder) {
 export function saveNewOrderService (serviceOrder) {
   delete (serviceOrder['_id']);
   const model = mapModelRequest(serviceOrder);
+  console.log(serviceOrder, model);
   return api.post(
     '/api/ordem_servicos',
     Object.assign(
@@ -141,7 +146,7 @@ export function saveNewOrderService (serviceOrder) {
 
 export function updateServiceOrderRequest (serviceOrder, id) {
   const model = mapModelRequest(serviceOrder);
-  delete model._id
+  delete model._id;
   return api.put(
     '/api/ordem_servico/' + id,
     Object.assign({}, model, {updated_at: new Date()})

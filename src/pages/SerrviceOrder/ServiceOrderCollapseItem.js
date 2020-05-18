@@ -8,6 +8,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import DiagnosisCardServiceOrder from "./DiagnosisCardServiceOrder";
 import ScreeningCardServiceOrder from "./ScreeningCardServiceOrder";
 import ScreeningEquipment from "./ScreeningEquipment";
+import CalibrationCardService from "./CalibrationCardServiceOrder";
 
 
 const ServiceOrderCollapseItem = (props) => {
@@ -77,6 +78,7 @@ const ServiceOrderCollapseItem = (props) => {
             <ScreeningEquipment equipment={item.equipamento[0]}/>
             <ScreeningCardServiceOrder item={item}/>
             {item.diagnostico ? <DiagnosisCardServiceOrder item={item}/> : <></>}
+            {item.calibragem ? <CalibrationCardService item={item} /> : <></>}
           </CardContent>
         </Card>
       </Collapse>
