@@ -22,29 +22,29 @@ export default function Diagnosis (props) {
   const [tabValue, setTabValue] = useState(0);
   const [requestBlock, setRequestBlock] = useState(false);
   const [serviceOrders, setServiceOrders] = useState([]);
-  const [progressLoad, setProgressLoad] = useState(0)
+  const [progressLoad, setProgressLoad] = useState(0);
 
   useEffect(handleEffect, [requestBlock, serviceOrders]);
 
   function handleEffect () {
     if (!requestBlock) {
-      setProgressLoad(30)
+      setProgressLoad(30);
       getAllServiceOrder()
         .then(result => {
-          setProgressLoad(70)
+          setProgressLoad(70);
           if (!result) return;
           setServiceOrders(result);
+          setRequestBlock(true);
         })
         .catch(error => {
           console.log('consultando triagem', error);
         });
-
-      setRequestBlock(true);
     }
   }
 
   function reloadData () {
     setRequestBlock(false);
+    handleEffect();
   }
 
   function changeTab (event, newValue) {
@@ -54,7 +54,7 @@ export default function Diagnosis (props) {
   if (!requestBlock) {
     return <LoadingBar
       progress={progressLoad}
-    />
+    />;
   }
 
   return (

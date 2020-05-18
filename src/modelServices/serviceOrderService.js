@@ -121,7 +121,6 @@ export function mapModelRequest (serviceOrder) {
 export function saveNewOrderService (serviceOrder) {
   delete (serviceOrder['_id']);
   const model = mapModelRequest(serviceOrder);
-  console.log(serviceOrder, model);
   return api.post(
     '/api/ordem_servicos',
     Object.assign(

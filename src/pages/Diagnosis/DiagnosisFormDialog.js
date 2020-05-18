@@ -33,7 +33,6 @@ export default function DiagnosisFormDialog (props) {
   }
 
   function updateServiceForm (value) {
-    console.log(value);
     setServiceOrderForm(
       Object.assign(
         {},
