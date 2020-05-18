@@ -17,23 +17,25 @@ const useStyle = makeStyles((theme) => ({
 export default function IndexServiceOrder () {
   const classes = useStyle();
   const [serviceOrders, setServiceOrders] = useState([]);
+  const [deliveryOrders, setDeliveryOrders] = useState([]);
   const [ammountDelivery, setAmmountDelivery] = useState([]);
   const [loadingData, setLoadingData] = useState(true);
   const [progressLoad, setProgerssLoad] = useState(0);
 
   function getData () {
     if (loadingData) {
-      setProgerssLoad(80)
+      setProgerssLoad(80);
       Promise.all([
         getAllServiceOrder(),
         getAllDeliveryOrders()
       ])
         .then((result) => {
-          setProgerssLoad(80)
+          setProgerssLoad(80);
           setServiceOrders(result[0]);
+          setDeliveryOrders(result[1]);
           setAmmountDelivery(result[1].map(item => item.equipamentos_id.length).reduce((a, c) => {
-            return a+=c
-          }, 0))
+            return a += c;
+          }, 0));
           setLoadingData(false);
         });
     }
@@ -49,7 +51,11 @@ export default function IndexServiceOrder () {
     <Layout>
       <Container>
         <Typography variant={"h5"} className={classes.titlePage}>Ordens de serviços</Typography>
-        <ServiceOrdersCollapseList data={serviceOrders} ammountDelivery={ammountDelivery}/>
+        <ServiceOrdersCollapseList
+          deliveryOrders={deliveryOrders}
+          data={serviceOrders}
+          ammountDelivery={ammountDelivery}
+        />
       </Container>
     </Layout>
   </React.Fragment>);

@@ -4,7 +4,8 @@ import {listaFormAcessorios} from "./acessorio";
 export const serviceOrderStatus = {
   diagnostico: 'diagnóstico',
   triagem: 'triagem',
-  calibragem: 'calibragem'
+  calibragem: 'calibragem',
+  entrega: 'entrega'
 };
 
 export function ServiceOrder (serviceOrder) {
