@@ -120,11 +120,10 @@ export function mapModelRequest (serviceOrder) {
 
 export function saveNewOrderService (serviceOrder) {
   delete (serviceOrder['_id']);
-  const model = mapModelRequest(serviceOrder);
   return api.post(
     '/api/ordem_servicos',
     Object.assign(
-      model,
+      serviceOrder,
       {
         status: 'triagem',
         created_at: new Date(),
