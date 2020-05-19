@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import moment from 'moment';
 import {makeStyles} from "@material-ui/core/styles";
 import {Card, CardActions, CardContent, Collapse, Grid, IconButton, Typography} from "@material-ui/core";
-import {blue, grey, orange} from "@material-ui/core/colors";
+import {blue, grey, orange, teal} from "@material-ui/core/colors";
 import {serviceOrderStatus} from "../../models/serviceOrder";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import DiagnosisCardServiceOrder from "./DiagnosisCardServiceOrder";
@@ -46,6 +46,17 @@ const ServiceOrderCollapseItem = (props) => {
               </strong>
             </Typography>
           </Grid>
+
+          {item.calibragem ? (
+            <Grid item xs={12} md={"auto"} className={`${classes.chips} ${classes.calibrationStatus}`}>
+              <Typography variant={"body1"}>
+                <strong>CALIBRAGEM: <span className={`${classes.valueItem} ${classes.valueCalibration}`}>{item.calibragem.status}</span>
+                </strong>
+              </Typography>
+            </Grid>
+          ) : ''}
+
+
           {hasOrder ? (
             <Grid item xs={12} md={"auto"} className={`${classes.chips} ${classes.deliveryDate}`}>
               <Typography variant={"body1"}>
@@ -153,6 +164,15 @@ const useStyle = makeStyles(() => ({
     '&:hover': {
       backgroundColor: blue[900],
     }
+  },
+  calibrationStatus: {
+    backgroundColor: teal["A700"],
+    '&:hover': {
+      backgroundColor: teal["A400"],
+    }
+  },
+  valueCalibration: {
+    color: teal["A700"],
   },
   deliveryDate: {
     backgroundColor: green["A700"],
