@@ -33,7 +33,6 @@ const TableCheckedList = (props) => {
   }
 
   function checkSelectedRow (keyValue, check) {
-    console.log(keyValue, check)
     const checking = {};
     checking[keyValue] = check;
     setCheckedData(Object.assign(checkedData, checking));
@@ -42,7 +41,6 @@ const TableCheckedList = (props) => {
 
   function checkAllSelectedRows (checked) {
     const checking = {};
-    console.log(checked, dataTable, selectKeyField)
     for (let item of dataTable) {
       checking[item[selectKeyField]] = !checked;
     }
