@@ -4,7 +4,6 @@ import ActionTableList from "../_common/ActionTable/ActionTableList";
 import {helperPropsColorIconButton} from "../_common/forms/ColorIconButton";
 import {orange} from "@material-ui/core/colors";
 import EditIcon from "@material-ui/icons/Edit";
-import {useHistory} from "react-router-dom";
 import moment from "moment-timezone";
 import DiagnosisFormDialog from "./DiagnosisFormDialog";
 
@@ -19,8 +18,6 @@ const headerData = [
 ];
 
 export default function TableDiagnosisServiceOrder (props) {
-  const history = useHistory();
-
   const {
     serviceOrderDiagnosis,
     reloadData

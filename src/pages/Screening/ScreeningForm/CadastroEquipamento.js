@@ -47,7 +47,8 @@ export default function CadastroEquipamento (props) {
   }
 
   const sendPhoto = (photo, name) => {
-    sendEquipmentPhoto(photo, name, serviceOrder._id)
+    const id = serviceOrder._id['$oid'] || serviceOrder._id
+    sendEquipmentPhoto(photo, name, id)
       .then((result) => {
         if (result) {
           updateServiceOrderParent({

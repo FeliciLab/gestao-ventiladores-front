@@ -63,8 +63,8 @@ export default function IndexDeliveryPrint (props) {
         <Grid item xs={12} className={classes.borderedFrame}>
           <Typography>
             O Governo do Estado do Ceará, através de sua Central de Ventiladores Mecânicos e Equipamentos Respiratórios
-            - CVMER, da Secretaria da Saúde do Ceará - SESA, denominada simplemente CEDENTE, e o HOSPITAL INFANTIL
-            ALBERT SABIN inscrita no CNPJ sob nº 07.954.571/0038-04 com sede à Rua Tertuliano Sales, 544 - Vila União,
+            - CVMER, da Secretaria da Saúde do Ceará - SESA, denominada simplemente CEDENTE, e o <strong>{data.instituicao_destino}</strong>,
+            inscrita no CNPJ sob nº <strong>{data.cnpj_destino}</strong> com sede à <strong>{data.endereco_destino}</strong>,
             denominado simplesmente CESSIONÁRIO, resolvem firmar o presente termo de cessão de uso de bens móveis, a
             título precário, conforme discriminado abaixo:
           </Typography>

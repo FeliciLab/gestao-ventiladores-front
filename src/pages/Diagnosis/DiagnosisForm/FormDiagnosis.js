@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Paper from "@material-ui/core/Paper";
@@ -7,14 +7,12 @@ import Container from "@material-ui/core/Container";
 import HeaderFormPage from "./HeaderFormPage";
 import CadastroItens from "./CreateNewItem";
 import FormRegisteredItems from "./FormRegisteredItems";
-import {updateServiceOrderRequest} from "../../../modelServices/serviceOrderService";
-import Alert from "@material-ui/lab/Alert";
 import {useForm} from "react-hook-form";
 import Typography from "@material-ui/core/Typography";
 
 
 const FormDiagnosis = (props) => {
-  const {register, errors, triggerValidation} = useForm({mode: 'onBlur', reValidateMode: 'onChange'});
+  const {register, errors} = useForm({mode: 'onBlur', reValidateMode: 'onChange'});
 
   const classes = useStyles();
 
@@ -22,8 +20,6 @@ const FormDiagnosis = (props) => {
     serviceOrder,
     updateServiceForm
   } = props;
-
-  const [errorsFound, setErrorsFound] = useState(false);
 
   function updateServiceOrderDiagnosis (value) {
     const diagnosis = Object.assign({}, serviceOrder.diagnostico, value);
@@ -44,43 +40,12 @@ const FormDiagnosis = (props) => {
     updateServiceOrderDiagnosis({itens: items});
   };
 
-  function showErrorsBar () {
-    setErrorsFound(true);
-    setTimeout(() => {
-      setErrorsFound(false);
-    }, 10000);
-  }
-
-  async function saveForm () {
-    await triggerValidation();
-    if (Object.keys(errors).length > 0) {
-      console.log(errors);
-      return showErrorsBar();
-    }
-    try {
-      await updateServiceOrderRequest(
-        Object.assign({}, {diagnostico: serviceOrder.diagnostico}, {status: 'diagnostico'}),
-        serviceOrder._id['$oid']
-      );
-    } catch (e) {
-      console.log('erro ao salvar ordem de serviço', e);
-      showErrorsBar();
-    }
-  };
-
   return (
     <React.Fragment>
       <CssBaseline/>
 
       <Container>
-        <HeaderFormPage
-          serviceOrderNumber={serviceOrder.numero_ordem_servico}
-          saveForm={saveForm}
-        />
-
-        <div style={{display: errorsFound ? 'block' : 'none'}}>
-          <Alert variant="filled" severity={'error'}>Não é possível salvar o formulário. Verifique os campos.</Alert>
-        </div>
+        <HeaderFormPage serviceOrderNumber={serviceOrder.numero_ordem_servico}/>
 
         <Paper className={classes.paper}>
           <CadastroDiagnostico
