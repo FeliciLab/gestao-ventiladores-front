@@ -63,8 +63,8 @@ export default function Diagnosis (props) {
         <Grid container style={{marginBottom: '2rem', marginTop: '2rem'}}>
           <Grid item xs={'auto'}>
             <Tabs value={tabValue} onChange={changeTab} aria-label={'Abas de listagens de equipamentos'} centered>
-              <Tab label={"Ordens de Serviço sem Diagnóstico"} aria-controls={"equipamentos-com-triagem"}/>
-              <Tab label={"Ordens de Serviço com Diagnóstico"} aria-controls={"equipamentos-com-diagnostico"}/>
+              <Tab label={"Ordens de Serviço em Triagem"} aria-controls={"equipamentos-com-triagem"}/>
+              <Tab label={"Ordens de Serviço Diagnósticadas"} aria-controls={"equipamentos-com-diagnostico"}/>
             </Tabs>
           </Grid>
         </Grid>
