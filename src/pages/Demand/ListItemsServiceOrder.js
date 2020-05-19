@@ -30,7 +30,6 @@ const ListItemServiceOrder = (props) => {
   function handleEffect () {
     setDataTable(Object.values(itemsServiceOrder).map(item => {
         const purchased = itemsPurchaseOrder[item.nome] ? itemsPurchaseOrder[item.nome].quantidade : 0;
-        console.log(item, purchased)
         return {
           "tipo": item.tipo || '',
           "nome": item.nome,
