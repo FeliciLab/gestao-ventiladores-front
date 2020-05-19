@@ -17,10 +17,20 @@ const headerData = [
 ];
 
 const ListItemServiceOrder = (props) => {
-  useEffect(() => {
-    async function setData () {
-      await setDataTable(Object.values(props.itemsServiceOrder).map(item => {
-        const purchased = props.itemsPurchaseOrder[item.nome] ? props.itemsPurchaseOrder[item.nome].quantidade : 0;
+
+  const classes = useStyle();
+  const {itemsServiceOrder, reloadData, itemsPurchaseOrder} = props;
+
+  const [dataTable, setDataTable] = useState([]);
+  const [openDialog, setOpenDialog] = useState(false);
+  const [dataDialog, setDataDialog] = useState([]);
+
+  useEffect(handleEffect, [itemsServiceOrder]);
+
+  function handleEffect () {
+    setDataTable(Object.values(itemsServiceOrder).map(item => {
+        const purchased = itemsPurchaseOrder[item.nome] ? itemsPurchaseOrder[item.nome].quantidade : 0;
+        console.log(item, purchased)
         return {
           "tipo": item.tipo || '',
           "nome": item.nome,
@@ -32,18 +42,8 @@ const ListItemServiceOrder = (props) => {
       })
         .filter(item => item.quantidade > 0)
         .sort((a, b) => a.nome.toUpperCase().localeCompare(b.nome.toUpperCase()))
-      );
-    }
-
-    setData();
-  }, [props]);
-
-  const classes = useStyle();
-  const {itemsServiceOrder, reloadData} = props;
-
-  const [dataTable, setDataTable] = useState([]);
-  const [openDialog, setOpenDialog] = useState(false);
-  const [dataDialog, setDataDialog] = useState([]);
+    );
+  }
 
   function toogleDialog (value) {
     setOpenDialog(value);
@@ -84,9 +84,6 @@ const ListItemServiceOrder = (props) => {
     />
   </React.Fragment>);
 };
-
-
-
 
 const useStyle = makeStyles((theme) => ({
   titleList: {
