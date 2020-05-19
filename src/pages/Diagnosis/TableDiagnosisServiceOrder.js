@@ -1,11 +1,12 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Grid, Typography} from "@material-ui/core";
 import ActionTableList from "../_common/ActionTable/ActionTableList";
 import {helperPropsColorIconButton} from "../_common/forms/ColorIconButton";
 import {orange} from "@material-ui/core/colors";
 import EditIcon from "@material-ui/icons/Edit";
-import {useHistory} from "react-router-dom";
 import moment from "moment-timezone";
+import DiagnosisFormDialog from "./DiagnosisFormDialog";
+
 
 const headerData = [
   {id: 'numero_ordem_servico', name: 'Ordem de Serviço'},
@@ -16,11 +17,14 @@ const headerData = [
   {id: 'created_at', name: 'Data de criação'},
 ];
 
-
 export default function TableDiagnosisServiceOrder (props) {
-  const history = useHistory();
+  const {
+    serviceOrderDiagnosis,
+    reloadData
+  } = props;
 
-  const {serviceOrderDiagnosis} = props;
+  const [serviceOrder, setServiceOrder] = useState({});
+  const [openModal, setOpenModal] = useState(false);
 
   const dataTable = serviceOrderDiagnosis ? serviceOrderDiagnosis.map(item => {
     const equip = item.equipamento[0] || {};
@@ -39,12 +43,8 @@ export default function TableDiagnosisServiceOrder (props) {
   }) : [];
 
   function openFormDiagnosis (value) {
-    history.push({
-      pathname: '/novo-diagnostico',
-      state: {
-        data: serviceOrderDiagnosis.find(item => item.numero_ordem_servico === value.numero_ordem_servico)
-      }
-    }, [serviceOrderDiagnosis]);
+    setServiceOrder(serviceOrderDiagnosis.find(item => item.numero_ordem_servico === value.numero_ordem_servico));
+    setOpenModal(true);
   }
 
   const menuOptions = [
@@ -54,36 +54,28 @@ export default function TableDiagnosisServiceOrder (props) {
 
   return (
     <React.Fragment>
-      <div style={{marginTop: "2rem"}}>
-        <Grid
-          container
-          justify={"space-between"}
-        >
-          <Grid
-            item
-            xs={"auto"}
-          >
-            <Typography
-              variant={"h5"}
-              component={"h5"}
-            >
-              Ordens de serviço com diagnóstico cadastrado
-            </Typography>
-          </Grid>
-          <Grid
-            item
-            xs={"auto"}
-          ></Grid>
+      <Grid container justify={"space-between"}>
+        <Grid item xs={"auto"}>
+          <Typography variant={"h5"} component={"h5"}>
+            Ordens de serviço com diagnóstico cadastrado
+          </Typography>
         </Grid>
-      </div>
+        <Grid item xs={12}>
+          <ActionTableList
+            actionIconButton={true}
+            dataTable={dataTable}
+            headerTable={headerData}
+            menuOptions={menuOptions}
+          />
+        </Grid>
+      </Grid>
 
-      <ActionTableList
-        actionIconButton={true}
-        dataTable={dataTable}
-        headerTable={headerData}
-        menuOptions={menuOptions}
-      >
-      </ActionTableList>
+      <DiagnosisFormDialog
+        reloadData={reloadData}
+        serviceOrder={serviceOrder}
+        openModal={openModal}
+        handleClose={() => setOpenModal(false)}
+      />
     </React.Fragment>
   );
 }

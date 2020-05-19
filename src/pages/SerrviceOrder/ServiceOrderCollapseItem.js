@@ -8,12 +8,22 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import DiagnosisCardServiceOrder from "./DiagnosisCardServiceOrder";
 import ScreeningCardServiceOrder from "./ScreeningCardServiceOrder";
 import ScreeningEquipment from "./ScreeningEquipment";
+import CalibrationCardService from "./CalibrationCardServiceOrder";
+import green from "@material-ui/core/colors/green";
 
 
 const ServiceOrderCollapseItem = (props) => {
   const classes = useStyle();
   const statusMap = serviceOrderStatus;
-  const {item} = props;
+  const {
+    item,
+    deliveryOrders
+  } = props;
+
+  const hasOrder = deliveryOrders ? deliveryOrders.find(deliveryOrder => {
+    return deliveryOrder.equipamentos_id.find(e => e['$oid'] === item.equipamento_id['$oid']);
+  }) : false;
+
   const [expanded, setExpanded] = useState(false);
 
   function handleExpandClick () {
@@ -32,10 +42,22 @@ const ServiceOrderCollapseItem = (props) => {
           </Grid>
           <Grid item xs={12} md={"auto"} className={`${classes.chips} ${classes.osStatus}`}>
             <Typography variant={"body1"}>
-              <strong>STATUS: <span className={`${classes.valueItem} ${classes.valueStatus}`}>{statusMap[item.status]}</span>
+              <strong>STATUS: <span className={`${classes.valueItem} ${classes.valueStatus}`}>{hasOrder ? statusMap['entrega'] : statusMap[item.status]}</span>
               </strong>
             </Typography>
           </Grid>
+          {hasOrder ? (
+            <Grid item xs={12} md={"auto"} className={`${classes.chips} ${classes.deliveryDate}`}>
+              <Typography variant={"body1"}>
+                <strong>
+                  ENTREGUE EM:
+                  <span className={`${classes.valueItem} ${classes.valueDeliveryDate}`}>
+                    {moment(hasOrder.data_entrega['$date']).tz('America/Fortaleza').format('DD/MM/YYYY')}
+                  </span>
+                </strong>
+              </Typography>
+            </Grid>
+          ) : ''}
         </Grid>
 
         <Grid container spacing={3} alignItems={"center"} justify={"center"}>
@@ -77,6 +99,7 @@ const ServiceOrderCollapseItem = (props) => {
             <ScreeningEquipment equipment={item.equipamento[0]}/>
             <ScreeningCardServiceOrder item={item}/>
             {item.diagnostico ? <DiagnosisCardServiceOrder item={item}/> : <></>}
+            {item.calibragem ? <CalibrationCardService item={item}/> : <></>}
           </CardContent>
         </Card>
       </Collapse>
@@ -130,7 +153,16 @@ const useStyle = makeStyles(() => ({
     '&:hover': {
       backgroundColor: blue[900],
     }
-  }
+  },
+  deliveryDate: {
+    backgroundColor: green["A700"],
+    '&:hover': {
+      backgroundColor: green["A400"],
+    }
+  },
+  valueDeliveryDate: {
+    color: green["A700"],
+  },
 }));
 
 export default ServiceOrderCollapseItem;

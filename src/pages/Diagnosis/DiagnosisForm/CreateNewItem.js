@@ -29,14 +29,12 @@ export default function CreateNewItem (props) {
     setItem(Object.assign({}, item, doc));
   };
 
-  function registerItem () {
-    triggerValidation()
-    setTimeout(() => {
-      if (Object.keys(errors).length === 0) {
-        addNewItem(item);
-        setItem(Object.assign({}, itemDiagnosisModel));
-      }
-    }, 500)
+  async function registerItem () {
+    await triggerValidation()
+    if (Object.keys(errors).length === 0) {
+      addNewItem(item);
+      setItem(Object.assign({}, itemDiagnosisModel));
+    }
   }
 
   return (

@@ -25,7 +25,7 @@ const DemandPage = (props) => {
     const itemsPurchased = purchaseOrders.slice().reduce((acc, curr, index) => {
       if (curr.itens) {
         for (let item of curr.itens) {
-          const name = item.nome
+          const name = item.nome;
           if (!acc.hasOwnProperty(name)) {
             acc[name] = Object.assign({}, item);
             acc[name]['quantidade'] = 0;
@@ -45,7 +45,7 @@ const DemandPage = (props) => {
       .map(item => item.diagnostico.itens)
       .reduce((acc, curr) => {
         for (let item of curr) {
-          const name = item.nome
+          const name = item.nome;
           if (!acc.hasOwnProperty(name)) {
             acc[name] = Object.assign({}, item);
             acc[name]['quantidade'] = 0;
@@ -55,7 +55,7 @@ const DemandPage = (props) => {
         }
         return acc;
       }, {});
-    setItemsServiceOrders(_items)
+    setItemsServiceOrders(_items);
   }
 
   function changeTab (event, newValue) {
@@ -66,10 +66,12 @@ const DemandPage = (props) => {
     <React.Fragment>
       <Container className={classes.containerBottom}>
         <Grid container className={classes.titleList}>
-          <Grid item xs={12}>
+          <Grid item xs={'auto'}>
             <Tabs
-              value={tabValue} onChange={changeTab}
-              variant={"fullWidth"} aria-label={'Abas de listagens de ordens de serviços'} centered
+              value={tabValue}
+              onChange={changeTab}
+              aria-label={'Abas de listagens de ordens de serviços'}
+              centered
             >
               <Tab label={"Demanda de materiais"} aria-controls={"lista-items-quantidade"}/>
               <Tab label={"Ordens de compra"} aria-controls={"lista-ordens-de-compra"}/>

@@ -1,7 +1,4 @@
 import React from "react";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import TextField from "@material-ui/core/TextField";
 import equipmentTypes from "../../../models/equipmentTypes";
 import getCities from "../../../services/cities";
 import typeInstitute from "../../../models/typeInstitute";
@@ -11,7 +8,7 @@ import {sendEquipmentPhoto} from "../../../modelServices/photoEquipmentService";
 import {manufacturersEquipments, modelsEquipment} from "../../../models/manufacturers";
 import InputRadioDialog from "../../_common/forms/InputRadioDialog";
 import ErrorAlertText from "../../_common/alerts/ErrorAlertText";
-import MenuItem from "@material-ui/core/MenuItem";
+import {Grid, MenuItem, TextField, Typography} from "@material-ui/core";
 
 
 export default function CadastroEquipamento (props) {
@@ -19,36 +16,39 @@ export default function CadastroEquipamento (props) {
   const {
     errors,
     register,
-    equipamento,
     serviceOrder,
-    atualizarEquipamento,
-    atualizarTriagem,
-    updateServiceOrder
+    equipment,
+    screening,
+    updateEquipment,
+    updateScreening,
+    updateServiceOrder,
+    editingForm
   } = props;
 
-  function updateEquipment (event) {
+  function handleUpdateEquipmentParent (event) {
     const doc = {};
     doc[event.target.name] = event.target.value;
-    if (event.target.name === 'marca' && equipamento.fabricante === '') {
+    if (event.target.name === 'marca' && equipment.fabricante === '') {
       doc['fabricante'] = event.target.value;
     }
-    atualizarEquipamento(doc);
+    updateEquipment(doc);
   }
 
-  function updateScreening (event) {
+  function handleUpdateScreeningParent (event) {
     const doc = {};
-    doc[event.target.name] = event.target.value.trim();
-    atualizarTriagem(doc);
+    doc[event.target.name] = event.target.value;
+    updateScreening(doc);
   }
 
   function updateServiceOrderParent (event) {
     const doc = {};
-    doc[event.target.name] = event.target.value.trim();
+    doc[event.target.name] = event.target.value;
     updateServiceOrder(doc);
   }
 
   const sendPhoto = (photo, name) => {
-    sendEquipmentPhoto(photo, name, serviceOrder._id)
+    const id = serviceOrder._id['$oid'] || serviceOrder._id
+    sendEquipmentPhoto(photo, name, id)
       .then((result) => {
         if (result) {
           updateServiceOrderParent({
@@ -57,7 +57,7 @@ export default function CadastroEquipamento (props) {
               value: result
             }
           });
-          updateScreening({
+          handleUpdateScreeningParent({
             target: {
               name,
               value: result + '_' + name + '.jpeg'
@@ -69,11 +69,17 @@ export default function CadastroEquipamento (props) {
 
   return (
     <React.Fragment>
-      <Typography variant="h6" gutterBottom>1. Cadastro de Equipamento</Typography>
+      <Typography variant="h6" gutterBottom>
+        1. Cadastro de Equipamento
+      </Typography>
 
       <Grid container>
         <Grid item xs={6}>
-          <InputFileImage name={"foto_antes_limpeza"} label={"Foto antes da limpeza"} action={sendPhoto}/>
+          <InputFileImage
+            name={"foto_antes_limpeza"}
+            label={"Foto antes da limpeza"}
+            action={sendPhoto}
+          />
         </Grid>
       </Grid>
 
@@ -86,6 +92,9 @@ export default function CadastroEquipamento (props) {
             value={serviceOrder.numero_ordem_servico}
             name="numero_ordem_servico"
             label="Número da Ordem de Serviço"
+            InputProps={{
+              readOnly: editingForm || false,
+            }}
             required
             fullWidth
           />
@@ -94,8 +103,8 @@ export default function CadastroEquipamento (props) {
         <Grid item xs={12} sm={6}>
           <TextField
             inputRef={register({required: true})}
-            onChange={updateEquipment}
-            value={equipamento.numero_de_serie}
+            onChange={handleUpdateEquipmentParent}
+            value={equipment.numero_de_serie}
             id="numeroDeSerie"
             name="numero_de_serie"
             label="Número de Série"
@@ -107,8 +116,8 @@ export default function CadastroEquipamento (props) {
         <Grid item xs={12} sm={6}>
           <TextField
             inputRef={register({required: true})}
-            onChange={updateEquipment}
-            value={equipamento.nome_equipamento}
+            onChange={handleUpdateEquipmentParent}
+            value={equipment.nome_equipamento}
             id="nomeDoEquipamento"
             name="nome_equipamento"
             label="Nome do Equipamento"
@@ -118,8 +127,8 @@ export default function CadastroEquipamento (props) {
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
-            value={equipamento.numero_do_patrimonio}
-            onChange={updateEquipment}
+            value={equipment.numero_do_patrimonio}
+            onChange={handleUpdateEquipmentParent}
             name="numero_do_patrimonio"
             id="numeroDoPatrimonio"
             label="Número do Patrimônio"
@@ -131,35 +140,35 @@ export default function CadastroEquipamento (props) {
 
         <Grid item xs={12} sm={6}>
           <InputRadioDialog
-            action={updateEquipment}
+            action={handleUpdateEquipmentParent}
             name={'tipo'}
             label="Tipo do Equipamento"
             hasOther={true}
-            value={equipamento.tipo}
-            defaultValue={equipamento.tipo}
+            value={equipment.tipo}
+            defaultValue={equipment.tipo}
             items={equipmentTypes.map(item => ({label: item, value: item}))}
           />
         </Grid>
 
         <Grid item xs={12} sm={2}>
           <InputRadioDialog
-            action={updateEquipment}
+            action={handleUpdateEquipmentParent}
             name={"marca"}
             label={"Marca"}
             hasOther={true}
-            value={equipamento.marca}
-            defaultValue={equipamento.marca}
+            value={equipment.marca}
+            defaultValue={equipment.marca}
             items={manufacturersEquipments.map(item => ({label: item, value: item}))}
           />
         </Grid>
         <Grid item xs={12} sm={2}>
           <InputRadioDialog
-            action={updateEquipment}
+            action={handleUpdateEquipmentParent}
             name={"modelo"}
             label={"Modelo"}
             hasOther={true}
-            value={equipamento.modelo}
-            defaultValue={equipamento.modelo}
+            value={equipment.modelo}
+            defaultValue={equipment.modelo}
             items={modelsEquipment.map(item => ({label: item, value: item}))}
           />
         </Grid>
@@ -168,8 +177,8 @@ export default function CadastroEquipamento (props) {
             inputRef={register({required: true})}
             required
             id="fabricante"
-            onChange={updateEquipment}
-            value={equipamento.fabricante}
+            onChange={handleUpdateEquipmentParent}
+            value={equipment.fabricante}
             name="fabricante"
             label="Fabricante"
             fullWidth
@@ -182,8 +191,8 @@ export default function CadastroEquipamento (props) {
             fullWidth
             select
             label="Município de Origem"
-            value={equipamento.municipio_origem}
-            onChange={updateEquipment}
+            value={equipment.municipio_origem}
+            onChange={handleUpdateEquipmentParent}
             name={'municipio_origem'}
           >
             {cities.map((option, index) => (
@@ -196,8 +205,8 @@ export default function CadastroEquipamento (props) {
             inputRef={register({required: true})}
             required
             id="nome_instituicao_origem"
-            onChange={updateEquipment}
-            value={equipamento.nome_instituicao_origem}
+            onChange={handleUpdateEquipmentParent}
+            value={equipment.nome_instituicao_origem}
             name="nome_instituicao_origem"
             label="Nome da Instituição"
             fullWidth
@@ -208,8 +217,8 @@ export default function CadastroEquipamento (props) {
             fullWidth
             select
             label="Tipo da instituição"
-            value={equipamento.tipo_instituicao_origem}
-            onChange={updateEquipment}
+            value={equipment.tipo_instituicao_origem}
+            onChange={handleUpdateEquipmentParent}
             name={'tipo_instituicao_origem'}
           >
             {typeInstitute.map((option, index) => (
@@ -225,8 +234,8 @@ export default function CadastroEquipamento (props) {
             inputRef={register({required: true})}
             required
             id="nomeDoResponsavel"
-            onChange={updateEquipment}
-            value={equipamento.nome_responsavel}
+            onChange={handleUpdateEquipmentParent}
+            value={equipment.nome_responsavel}
             name="nome_responsavel"
             label="Nome do Responsável"
             fullWidth
@@ -235,26 +244,22 @@ export default function CadastroEquipamento (props) {
         <Grid item xs={6} sm={4}>
           <TextField
             id="constatoDoResponsavel"
-            onChange={updateEquipment}
-            value={equipamento.contato_responsavel}
+            onChange={handleUpdateEquipmentParent}
+            value={equipment.contato_responsavel}
             name="contato_responsavel"
             label="Contato do Responsável"
             fullWidth
           />
         </Grid>
         <Grid item xs={6} sm={4}>
-          <TextField
-            fullWidth
-            select
-            label="Estado de Conservação"
-            value={serviceOrder.triagem.estado_de_conservacao}
-            onChange={updateScreening}
+          <InputRadioDialog
+            action={handleUpdateScreeningParent}
             name={'estado_de_conservacao'}
-          >
-            {typeStateEquipment.map((option, index) => (
-              <MenuItem key={index} value={option}>{option}</MenuItem>
-            ))}
-          </TextField>
+            label="Estado de Conservação"
+            value={screening.estado_de_conservacao}
+            defaultValue={screening.estado_de_conservacao}
+            items={typeStateEquipment.map(item => ({label: item, value: item}))}
+          />
         </Grid>
       </Grid>
 

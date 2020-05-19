@@ -8,17 +8,9 @@ import ServiceOrderCardNumber from "./ServiceOrderCardNumber";
 const ServiceOrdersCollapseList = (props) => {
   const {
     data,
+    deliveryOrders,
     ammountDelivery
   } = props;
-
-  const ammountByStatus = data.reduce((acc, curr) => {
-    const status = curr.status
-    if (!acc.hasOwnProperty(status)) {
-      acc[status] = 0;
-    }
-    acc[status]++
-    return acc
-  }, {})
 
   if (!data) {
     return <></>;
@@ -35,20 +27,6 @@ const ServiceOrdersCollapseList = (props) => {
       </Grid>
       <Grid item xs={12} md={3}>
         <ServiceOrderCardNumber
-          title={'Diagnosticados'}
-          number={ammountByStatus['diagnostico'] || 0}
-          percent={Math.floor((ammountByStatus['diagnostico'] || 0)/data.length * 100)}
-        />
-      </Grid>
-      <Grid item xs={12} md={3}>
-        <ServiceOrderCardNumber
-          title={'Consertados'}
-          number={ammountByStatus['calibragem'] || 0}
-          percent={Math.floor((ammountByStatus['calibragem'] || 0)/data.length * 100)}
-        />
-      </Grid>
-      <Grid item xs={12} md={3}>
-        <ServiceOrderCardNumber
           title={'Entregues'}
           number={ammountDelivery}
           percent={Math.floor((ammountDelivery || 0)/data.length * 100)}
@@ -56,7 +34,7 @@ const ServiceOrdersCollapseList = (props) => {
       </Grid>
       {data.map((item, index) => (
         <Grid key={index} item xs={12}>
-          <ServiceOrderCollapseItem item={item}/>
+          <ServiceOrderCollapseItem item={item} deliveryOrders={deliveryOrders}/>
         </Grid>
       ))}
     </Grid>

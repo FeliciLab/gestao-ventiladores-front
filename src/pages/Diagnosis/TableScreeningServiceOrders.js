@@ -1,11 +1,12 @@
-import React from 'react';
+import React, {useState} from 'react';
 import ActionTableList from "../_common/ActionTable/ActionTableList";
 import {Grid, Typography} from "@material-ui/core";
-import {useHistory} from "react-router-dom";
 import {orange} from "@material-ui/core/colors";
 import QueueIcon from '@material-ui/icons/Queue';
 import {helperPropsColorIconButton} from "../_common/forms/ColorIconButton";
 import moment from "moment-timezone";
+import DiagnosisFormDialog from "./DiagnosisFormDialog";
+
 
 const headerData = [
   {id: 'numero_ordem_servico', name: 'Ordem de Serviço'},
@@ -17,15 +18,20 @@ const headerData = [
 ];
 
 const TableScreeningServiceOrders = (props) => {
-  const history = useHistory();
+  const {
+    serviceOrderScreening,
+    reloadData
+  } = props;
 
-  const {serviceOrderScreening} = props;
+  const [serviceOrder, setServiceOrder] = useState({});
+  const [openModal, setOpenModal] = useState(false);
 
   const dataTable = serviceOrderScreening.map(item => {
     const equip = item.equipamento[0] || {};
     if (typeof (item.created_at) === 'object' && item.created_at && item.created_at['$date']) {
       item.created_at = item.created_at['$date'];
     }
+
     return {
       numero_ordem_servico: item.numero_ordem_servico,
       marca: equip.marca || '',
@@ -38,12 +44,8 @@ const TableScreeningServiceOrders = (props) => {
   });
 
   function openFormDiagnosis (value) {
-    history.push({
-      pathname: '/novo-diagnostico',
-      state: {
-        data: serviceOrderScreening.find(item => item.numero_ordem_servico === value.numero_ordem_servico)
-      }
-    }, [serviceOrderScreening]);
+    setServiceOrder(serviceOrderScreening.find(item => item.numero_ordem_servico === value.numero_ordem_servico));
+    setOpenModal(true)
   }
 
   const menuOptions = [
@@ -53,36 +55,27 @@ const TableScreeningServiceOrders = (props) => {
 
   return (
     <React.Fragment>
-      <div style={{marginTop: "2rem"}}>
-        <Grid
-          container
-          justify={"space-between"}
-        >
-          <Grid
-            item
-            xs={"auto"}
-          >
-            <Typography
-              variant={"h5"}
-              component={"h5"}
-            >
-              Ordens de serviço com triagem aguardando diagnóstico
-            </Typography>
-          </Grid>
-          <Grid
-            item
-            xs={"auto"}
-          ></Grid>
+      <Grid container justify={"space-between"}>
+        <Grid item xs={"auto"}>
+          <Typography variant={"h5"} component={"h5"}>
+            Ordens de serviço com triagem aguardando diagnóstico
+          </Typography>
         </Grid>
-      </div>
-
-      <ActionTableList
-        actionIconButton={true}
-        dataTable={dataTable}
-        headerTable={headerData}
-        menuOptions={menuOptions}
-      >
-      </ActionTableList>
+        <Grid item xs={12}>
+          <ActionTableList
+            actionIconButton={true}
+            dataTable={dataTable}
+            headerTable={headerData}
+            menuOptions={menuOptions}
+          />
+        </Grid>
+      </Grid>
+      <DiagnosisFormDialog
+        reloadData={reloadData}
+        serviceOrder={serviceOrder}
+        openModal={openModal}
+        handleClose={() => setOpenModal(false)}
+      />
     </React.Fragment>
 
   );
