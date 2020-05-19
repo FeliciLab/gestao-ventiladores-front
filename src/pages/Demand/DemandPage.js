@@ -40,7 +40,7 @@ const DemandPage = (props) => {
     setItemsPurchaseOrder(itemsPurchased);
 
     const _items = serviceOrders.filter((item) => {
-      return item.status === 'diagnostico' && item.diagnostico && item.diagnostico.itens.length > 0;
+      return item.status === 'diagnostico' && item.diagnostico.itens && item.diagnostico.itens.length > 0;
     })
       .map(item => item.diagnostico.itens)
       .reduce((acc, curr) => {
