@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 
 // const baseUrl = 'https://apicentraldeventiladores.inova.esp.br';
 const baseUrl = 'https://api.centralventiladores.dev.org.br';

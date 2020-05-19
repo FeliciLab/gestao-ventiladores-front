@@ -1,4 +1,4 @@
-import {listaFormAcessorios} from "./acessorio";
+import { listaFormAcessorios } from './acessorio';
 
 
 export const serviceOrderStatus = {

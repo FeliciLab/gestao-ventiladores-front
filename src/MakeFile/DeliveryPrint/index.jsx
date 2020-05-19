@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import moment from 'moment';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import grey from '@material-ui/core/colors/grey';
@@ -176,8 +175,8 @@ const IndexDeliveryPrint = (props) => {
   );
 };
 
-IndexDeliveryPrint.propTypes = {
-  location: PropTypes.objectOf(PropTypes.object()).isRequired,
-};
+// IndexDeliveryPrint.propTypes = {
+//   location: PropTypes.objectOf(PropTypes.object()).isRequired,
+// };
 
 export default IndexDeliveryPrint;

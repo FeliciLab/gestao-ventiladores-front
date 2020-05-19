@@ -1,4 +1,5 @@
-import api from "../services/api";
+import api from '../services/api';
+
 
 export function sendEquipmentPhoto (photo, label, id) {
   const formData = new FormData();

@@ -1,5 +1,5 @@
-import api from "../services/api";
-import {PurchaseOrder} from "../models/purchaseOrder";
+import api from '../services/api';
+import { PurchaseOrder } from '../models/purchaseOrder';
 
 
 function mapModelRequest (purchaseOrder) {
