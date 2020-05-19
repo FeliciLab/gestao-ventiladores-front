@@ -11,7 +11,7 @@ export default function ScreeningEquipment (props) {
   return (<React.Fragment>
     <Grid container spacing={3}>
       <Grid item xs={12}>
-        <Typography variant={'h6'}><strong>Equipamentos:</strong></Typography>
+        <Typography variant={'h6'}><strong>Equipamento:</strong></Typography>
       </Grid>
 
       <Grid item xs={3}>
