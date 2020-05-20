@@ -1,4 +1,4 @@
-function tratarChave(currentValue) {
+function tratarChave (currentValue) {
   return currentValue.replace(/"/g, '')
     .replace(/,\s/g, '')
     .trim()
@@ -10,7 +10,6 @@ function tratarChave(currentValue) {
 export default function (text) {
   const csvMap = text.split('\n')
     .map((row) => row.split(/(?:,|\n|^)("(?:(?:"")*[^"]*)*"|[^",\n]*|(?:\n|$))/));
-
 
   const headerMap = csvMap[0].reduce((accumulator, currentValue, index) => {
     if (currentValue !== '' && currentValue !== '\r' && !accumulator.hasOwnProperty(currentValue)) {

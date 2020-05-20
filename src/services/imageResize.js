@@ -1,6 +1,12 @@
-function imageResize({
-  file, maxWidth, maxHeight, qualityRate, fullImage,
-}) {
+const imageResize = (
+  {
+    file,
+    maxWidth,
+    maxHeight,
+    qualityRate,
+    fullImage,
+  },
+) => {
   const reader = new FileReader();
   reader.readAsDataURL(file);
 
@@ -76,6 +82,6 @@ function imageResize({
     });
   };
   return getBlob();
-}
+};
 
 export default imageResize;

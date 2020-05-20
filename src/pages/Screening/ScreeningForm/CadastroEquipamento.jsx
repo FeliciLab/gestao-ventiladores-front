@@ -22,7 +22,7 @@ export default function CadastroEquipamento (props) {
     updateEquipment,
     updateScreening,
     updateServiceOrder,
-    editingForm
+    editingForm,
   } = props;
 
   function handleUpdateEquipmentParent (event) {
@@ -47,21 +47,21 @@ export default function CadastroEquipamento (props) {
   }
 
   const sendPhoto = (photo, name) => {
-    const id = serviceOrder._id['$oid'] || serviceOrder._id
+    const id = serviceOrder._id['$oid'] || serviceOrder._id;
     sendEquipmentPhoto(photo, name, id)
       .then((result) => {
         if (result) {
           updateServiceOrderParent({
             target: {
               name: '_id',
-              value: result
-            }
+              value: result,
+            },
           });
           handleUpdateScreeningParent({
             target: {
               name,
-              value: result + '_' + name + '.jpeg'
-            }
+              value: result + '_' + name + '.jpeg',
+            },
           });
         }
       });
@@ -76,8 +76,8 @@ export default function CadastroEquipamento (props) {
       <Grid container>
         <Grid item xs={6}>
           <InputFileImage
-            name={"foto_antes_limpeza"}
-            label={"Foto antes da limpeza"}
+            name={'foto_antes_limpeza'}
+            label={'Foto antes da limpeza'}
             action={sendPhoto}
           />
         </Grid>
@@ -87,7 +87,7 @@ export default function CadastroEquipamento (props) {
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
           <TextField
-            inputRef={register({required: true})}
+            inputRef={register({ required: true })}
             onChange={updateServiceOrderParent}
             value={serviceOrder.numero_ordem_servico}
             name="numero_ordem_servico"
@@ -98,11 +98,11 @@ export default function CadastroEquipamento (props) {
             required
             fullWidth
           />
-          <ErrorAlertText error={errors.numero_ordem_servico}/>
+          <ErrorAlertText error={errors.numero_ordem_servico} />
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
-            inputRef={register({required: true})}
+            inputRef={register({ required: true })}
             onChange={handleUpdateEquipmentParent}
             value={equipment.numero_de_serie}
             id="numeroDeSerie"
@@ -111,11 +111,11 @@ export default function CadastroEquipamento (props) {
             required
             fullWidth
           />
-          <ErrorAlertText error={errors.numero_de_serie}/>
+          <ErrorAlertText error={errors.numero_de_serie} />
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
-            inputRef={register({required: true})}
+            inputRef={register({ required: true })}
             onChange={handleUpdateEquipmentParent}
             value={equipment.nome_equipamento}
             id="nomeDoEquipamento"
@@ -123,7 +123,7 @@ export default function CadastroEquipamento (props) {
             label="Nome do Equipamento"
             fullWidth
           />
-          <ErrorAlertText error={errors.nome_equipamento}/>
+          <ErrorAlertText error={errors.nome_equipamento} />
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
@@ -134,7 +134,7 @@ export default function CadastroEquipamento (props) {
             label="Número do Patrimônio"
             fullWidth
           />
-          <ErrorAlertText error={errors.numero_do_patrimonio}/>
+          <ErrorAlertText error={errors.numero_do_patrimonio} />
         </Grid>
 
 
@@ -146,35 +146,35 @@ export default function CadastroEquipamento (props) {
             hasOther={true}
             value={equipment.tipo}
             defaultValue={equipment.tipo}
-            items={equipmentTypes.map(item => ({label: item, value: item}))}
+            items={equipmentTypes.map(item => ({ label: item, value: item }))}
           />
         </Grid>
 
         <Grid item xs={12} sm={2}>
           <InputRadioDialog
             action={handleUpdateEquipmentParent}
-            name={"marca"}
-            label={"Marca"}
+            name={'marca'}
+            label={'Marca'}
             hasOther={true}
             value={equipment.marca}
             defaultValue={equipment.marca}
-            items={manufacturersEquipments.map(item => ({label: item, value: item}))}
+            items={manufacturersEquipments.map(item => ({ label: item, value: item }))}
           />
         </Grid>
         <Grid item xs={12} sm={2}>
           <InputRadioDialog
             action={handleUpdateEquipmentParent}
-            name={"modelo"}
-            label={"Modelo"}
+            name={'modelo'}
+            label={'Modelo'}
             hasOther={true}
             value={equipment.modelo}
             defaultValue={equipment.modelo}
-            items={modelsEquipment.map(item => ({label: item, value: item}))}
+            items={modelsEquipment.map(item => ({ label: item, value: item }))}
           />
         </Grid>
         <Grid item xs={6} sm={2}>
           <TextField
-            inputRef={register({required: true})}
+            inputRef={register({ required: true })}
             required
             id="fabricante"
             onChange={handleUpdateEquipmentParent}
@@ -202,7 +202,7 @@ export default function CadastroEquipamento (props) {
         </Grid>
         <Grid item xs={6} sm={4}>
           <TextField
-            inputRef={register({required: true})}
+            inputRef={register({ required: true })}
             required
             id="nome_instituicao_origem"
             onChange={handleUpdateEquipmentParent}
@@ -231,7 +231,7 @@ export default function CadastroEquipamento (props) {
         {/*ROW*/}
         <Grid item xs={6} sm={4}>
           <TextField
-            inputRef={register({required: true})}
+            inputRef={register({ required: true })}
             required
             id="nomeDoResponsavel"
             onChange={handleUpdateEquipmentParent}
@@ -258,14 +258,18 @@ export default function CadastroEquipamento (props) {
             label="Estado de Conservação"
             value={screening.estado_de_conservacao}
             defaultValue={screening.estado_de_conservacao}
-            items={typeStateEquipment.map(item => ({label: item, value: item}))}
+            items={typeStateEquipment.map(item => ({ label: item, value: item }))}
           />
         </Grid>
       </Grid>
 
       <Grid container>
         <Grid item xs={6}>
-          <InputFileImage name={"foto_apos_limpeza"} label={"Foto após da limpeza"} action={sendPhoto}/>
+          <InputFileImage
+            name={'foto_apos_limpeza'}
+            label={'Foto após da limpeza'}
+            action={sendPhoto}
+          />
         </Grid>
       </Grid>
     </React.Fragment>
