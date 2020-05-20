@@ -11,6 +11,7 @@ const TableCheckedList = (props) => {
   const [hasActions, setHasActions] = useState(false);
   const [checkedData, setCheckedData] = useState({});
   const [ammountChecked, setAmmountChecked] = useState(0);
+
   const {
     actions,
     dataTable,
@@ -32,7 +33,6 @@ const TableCheckedList = (props) => {
   }
 
   function checkSelectedRow (keyValue, check) {
-    console.log(keyValue, check)
     const checking = {};
     checking[keyValue] = check;
     setCheckedData(Object.assign(checkedData, checking));
@@ -44,7 +44,7 @@ const TableCheckedList = (props) => {
     for (let item of dataTable) {
       checking[item[selectKeyField]] = !checked;
     }
-    setCheckedData(checking);
+    setCheckedData(Object.assign(checkedData, checking));
     updateAmmountChecked();
   }
 

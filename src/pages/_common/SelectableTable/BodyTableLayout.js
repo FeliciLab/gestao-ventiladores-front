@@ -7,6 +7,8 @@ import PropTypes from 'prop-types';
 import ColorIconButton from "../forms/ColorIconButton";
 import FormControl from "@material-ui/core/FormControl";
 
+const isChecked = (checkedData, item, selectKeyField) =>
+  checkedData.hasOwnProperty(item[selectKeyField]) && checkedData[item[selectKeyField]]
 
 const BodyTableLayout = (props) => {
   const {
@@ -37,7 +39,7 @@ const BodyTableLayout = (props) => {
                 <FormControl>
                   <Checkbox
                     onClick={(event) => checkSelectedRow(item[selectKeyField], event.target.checked)}
-                    checked={checkedData.hasOwnProperty(item[selectKeyField]) && checkedData[item[selectKeyField]]}
+                    checked={isChecked(checkedData, item, selectKeyField)}
                     inputProps={{'aria-labelledby': labelId}}
                   />
                 </FormControl>
@@ -52,6 +54,7 @@ const BodyTableLayout = (props) => {
                   <ColorIconButton
                     key={index}
                     item={item}
+                    disabled={isChecked(checkedData, item, selectKeyField)}
                     action={() => action.handleEvent(item)}
                     name={action.name}
                     bgColor={action.bgColor}
@@ -64,7 +67,6 @@ const BodyTableLayout = (props) => {
           );
         })
       }
-
 
     </TableBody>
   );
