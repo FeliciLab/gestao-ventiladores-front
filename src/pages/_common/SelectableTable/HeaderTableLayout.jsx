@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { TableHead } from '@material-ui/core';
 import Checkbox from '@material-ui/core/Checkbox';
 import TableCell from '@material-ui/core/TableCell';
@@ -6,19 +7,18 @@ import TableRow from '@material-ui/core/TableRow';
 
 
 const HeaderTableLayout = (props) => {
-  const {headerData, checkAllRow, hasActions} = props;
-  const [amountChecked, setAmountChecked] = useState(0);
-  const [amount, setAmount] = useState(-1);
-
-  useEffect(() => {
-    setAmountChecked(props.amountChecked);
-    setAmount(props.amount);
-  }, [props.amountChecked, props.amount]);
+  const {
+    headerData,
+    checkAllRow,
+    hasActions,
+    amountChecked,
+    amount,
+  } = props;
 
   return (
     <TableHead>
       <TableRow>
-        <TableCell padding="checkbox" align={"center"}>
+        <TableCell padding="checkbox" align="center">
           <Checkbox
             indeterminate={amountChecked > 0 && amountChecked < amount}
             checked={amount > 0 && amountChecked === amount}
@@ -26,7 +26,7 @@ const HeaderTableLayout = (props) => {
           />
         </TableCell>
         {
-          headerData.map(item => (
+          headerData.map((item) => (
             <TableCell
               key={item.id}
               align="left"
@@ -36,10 +36,24 @@ const HeaderTableLayout = (props) => {
             </TableCell>
           ))
         }
-        {hasActions ? <TableCell>Ações</TableCell> : <React.Fragment></React.Fragment>}
+        {hasActions ? <TableCell>Ações</TableCell> : <></>}
       </TableRow>
     </TableHead>
   );
+};
+
+HeaderTableLayout.defaultProps = {
+  amountChecked: 0,
+  amount: 0,
+  hasActions: false,
+};
+
+HeaderTableLayout.propTypes = {
+  headerData: PropTypes.instanceOf(Array).isRequired,
+  checkAllRow: PropTypes.func.isRequired,
+  hasActions: PropTypes.bool,
+  amountChecked: PropTypes.number,
+  amount: PropTypes.number,
 };
 
 export default HeaderTableLayout;

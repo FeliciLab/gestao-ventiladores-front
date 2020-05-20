@@ -8,9 +8,8 @@ import FormControl from '@material-ui/core/FormControl';
 import ColorIconButton from '../forms/ColorIconButton';
 
 
-function isChecked(checkedData, field) {
-  return Object.prototype.hasOwnProperty.call(checkedData, field) && checkedData[field];
-}
+const isChecked = (checkedData, field) => Object.prototype.hasOwnProperty.call(checkedData, field)
+  && checkedData[field];
 
 const BodyTableLayout = (props) => {
   const {
@@ -45,8 +44,8 @@ const BodyTableLayout = (props) => {
                 />
               </FormControl>
             </TableCell>
-            {headerKeys.map((key, index) => (
-              <TableCell key={index}>{item[key].toString() || ''}</TableCell>
+            {headerKeys.map((key) => (
+              <TableCell key={key}>{item[key].toString() || ''}</TableCell>
             ))}
             {hasActions
               ? (
@@ -54,6 +53,7 @@ const BodyTableLayout = (props) => {
                   {actions.map((action) => (
                     <ColorIconButton
                       key={Math.round(Math.random() * 100000)}
+                      disabled={isChecked(checkedData, item[selectKeyField])}
                       item={item}
                       action={() => action.handleEvent(item)}
                       name={action.name}
@@ -67,8 +67,7 @@ const BodyTableLayout = (props) => {
               : (<></>)}
           </TableRow>
         );
-      })
-      }
+      })}
     </TableBody>
   );
 };
@@ -80,8 +79,8 @@ BodyTableLayout.defaultProps = {
 };
 
 BodyTableLayout.propTypes = {
-  data: PropTypes.array.isRequired,
-  headerKeys: PropTypes.array.isRequired,
+  data: PropTypes.instanceOf(Array).isRequired,
+  headerKeys: PropTypes.instanceOf(Array).isRequired,
   checkSelectedRow: PropTypes.func.isRequired,
   selectKeyField: PropTypes.string.isRequired,
   hasActions: PropTypes.bool,

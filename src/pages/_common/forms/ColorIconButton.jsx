@@ -11,6 +11,7 @@ const ColorIconButton = (props) => {
     action,
     name,
     icon,
+    disabled,
   } = props;
 
   const ColoredIconButton = withStyles(() => ({
@@ -26,6 +27,7 @@ const ColorIconButton = (props) => {
   return (
     <>
       <ColoredIconButton
+        disabled={disabled}
         title={name}
         onClick={() => action(item)}
         size={icon.size || 'small'}
@@ -50,11 +52,16 @@ export function helperPropsColorIconButton(name, action, color, bgColor, hoverCo
   };
 }
 
+ColorIconButton.defaultProps = {
+  disabled: false,
+};
+
 ColorIconButton.propTypes = {
   item: PropTypes.instanceOf(Object).isRequired,
   action: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
   icon: PropTypes.instanceOf(Object).isRequired,
+  disabeld: PropTypes.bool,
 };
 
 export default ColorIconButton;

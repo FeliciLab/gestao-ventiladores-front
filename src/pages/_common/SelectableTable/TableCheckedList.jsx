@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import TableContainer from '@material-ui/core/TableContainer';
 import Table from '@material-ui/core/Table';
-import PropTypes from 'prop-types';
 import ActionBarLayout from './ActionBarLayout';
 import HeaderTableLayout from './HeaderTableLayout';
 import BodyTableLayout from './BodyTableLayout';
@@ -19,7 +19,7 @@ const TableCheckedList = (props) => {
     headerTable,
     actionFunction,
     actionBarTitle,
-    actionBarTextButton
+    actionBarTextButton,
   } = props;
 
   useEffect(() => {
@@ -28,28 +28,28 @@ const TableCheckedList = (props) => {
     }
   }, [actions]);
 
-  function updateAmmountChecked () {
-    setAmmountChecked(Object.values(checkedData).filter(item => item === true).length);
+  function updateAmmountChecked() {
+    setAmmountChecked(Object.values(checkedData).filter((item) => item === true).length);
   }
 
-  function checkSelectedRow (keyValue, check) {
+  function checkSelectedRow(keyValue, check) {
     const checking = {};
     checking[keyValue] = check;
     setCheckedData(Object.assign(checkedData, checking));
     updateAmmountChecked();
   }
 
-  function checkAllSelectedRows (checked) {
+  function checkAllSelectedRows(checked) {
     const checking = {};
-    for (let item of dataTable) {
+    dataTable.forEach((item) => {
       checking[item[selectKeyField]] = !checked;
-    }
+    });
     setCheckedData(Object.assign(checkedData, checking));
     updateAmmountChecked();
   }
 
   return (
-    <div style={{marginTop: '15px'}}>
+    <div style={{ marginTop: '15px' }}>
       <ActionBarLayout
         dataChecked={checkedData}
         ammount={ammountChecked}
@@ -67,7 +67,7 @@ const TableCheckedList = (props) => {
             headerData={headerTable}
             checkAllRow={checkAllSelectedRows}
             amount={dataTable.length}
-            amountChecked={Object.values(checkedData).filter(item => item).length}
+            amountChecked={Object.values(checkedData).filter((item) => item).length}
           />
           <BodyTableLayout
             checkedData={checkedData}
@@ -75,7 +75,7 @@ const TableCheckedList = (props) => {
             actions={actions}
             data={dataTable}
             selectKeyField={selectKeyField}
-            headerKeys={headerTable.map(item => item.id)}
+            headerKeys={headerTable.map((item) => item.id)}
             checkSelectedRow={checkSelectedRow}
           />
         </Table>
@@ -91,13 +91,18 @@ const TableCheckedList = (props) => {
   );
 };
 
-TableCheckedList.protoType = {
-  data: PropTypes.array.isRequired,
-  headerTable: PropTypes.array.isRequired,
+TableCheckedList.defaultProps = {
+  actions: [],
+};
+
+TableCheckedList.propTypes = {
+  dataTable: PropTypes.instanceOf(Array).isRequired,
+  headerTable: PropTypes.instanceOf(Array).isRequired,
   actionFunction: PropTypes.func.isRequired,
   actionBarTitle: PropTypes.string.isRequired,
   actionBarTextButton: PropTypes.string.isRequired,
-  selectKeyField: PropTypes.string,
-  classes: PropTypes.object
+  selectKeyField: PropTypes.string.isRequired,
+  actions: PropTypes.instanceOf(Array),
 };
+
 export default TableCheckedList;
