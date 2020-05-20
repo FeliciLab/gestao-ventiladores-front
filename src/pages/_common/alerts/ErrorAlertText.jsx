@@ -35,8 +35,14 @@ const ErrorAlertText = (props) => {
   );
 };
 
+ErrorAlertText.defaultProps = {
+  error: {
+    type: '',
+    message: '',
+  },
+};
 ErrorAlertText.propTypes = {
-  error: PropTypes.instanceOf(Object).isRequired,
+  error: PropTypes.instanceOf(Object),
 };
 
 export default ErrorAlertText;

@@ -1,19 +1,28 @@
 import React from 'react';
-import Layout from '../../_layout/Layout';
+import PropTypes from 'prop-types';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import Layout from '../../_layout/Layout';
 
 
-export default function LoadingBar (props) {
-  const {progress} = props;
+const LoadingBar = (props) => {
+  const { progress } = props;
 
-  return (<React.Fragment>
-    <Layout>
-      <Container style={{padding: '5rem'}}>
-        <Typography variant={"h6"}>Carregando dados...</Typography>
-        <LinearProgress variant="determinate" value={progress}/>
-      </Container>
-    </Layout>
-  </React.Fragment>);
-}
+  return (
+    <>
+      <Layout>
+        <Container style={{ padding: '5rem' }}>
+          <Typography variant="h6">Carregando dados...</Typography>
+          <LinearProgress variant="determinate" value={progress} />
+        </Container>
+      </Layout>
+    </>
+  );
+};
+
+LoadingBar.propTypes = {
+  progress: PropTypes.number.isRequired,
+};
+
+export default LoadingBar;

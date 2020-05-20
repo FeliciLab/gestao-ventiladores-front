@@ -1,53 +1,76 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import CloseIcon from '@material-ui/icons/Close';
 import { AppBar, Dialog, Grid, IconButton, Toolbar, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import orange from '@material-ui/core/colors/orange';
 
 
-export default function DialogAccessories (props) {
-  const classes = useStyle()
+const useStyle = makeStyles(() => ({
+  appBar: {
+    position: 'relative',
+    backgroundColor: orange[600],
+  },
+}));
+
+const FullDialog = (props) => {
+  const classes = useStyle();
   const {
     open,
     title,
     handleClose,
     children,
-    actionChildren
+    actionChildren,
   } = props;
 
-  return <React.Fragment>
-    <Dialog fullScreen open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-      <AppBar className={classes.appBar}>
-        <Toolbar>
-          <Grid container alignItems={'center'} justify={'space-between'}>
-            <Grid item xs={'auto'}>
-              <Grid container alignItems={'center'}>
-                <Grid item xs={'auto'}>
-                  <IconButton edge="start" color="inherit" onClick={handleClose} aria-label="close">
-                    <CloseIcon/>
-                  </IconButton>
-                </Grid>
-                <Grid item xs={'auto'}>
-                  <Typography variant="h6">
-                    {title}
-                  </Typography>
+  return (
+    <>
+      <Dialog fullScreen open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+        <AppBar className={classes.appBar}>
+          <Toolbar>
+            <Grid container alignItems="center" justify="space-between">
+              <Grid item>
+                <Grid container alignItems="center">
+                  <Grid item>
+                    <IconButton
+                      edge="start"
+                      color="inherit"
+                      onClick={handleClose}
+                      aria-label="close"
+                    >
+                      <CloseIcon />
+                    </IconButton>
+                  </Grid>
+                  <Grid item>
+                    <Typography variant="h6">
+                      {title}
+                    </Typography>
+                  </Grid>
                 </Grid>
               </Grid>
+              <Grid item>
+                {actionChildren}
+              </Grid>
             </Grid>
-            <Grid item xs={'auto'}>
-              {actionChildren}
-            </Grid>
-          </Grid>
-        </Toolbar>
-      </AppBar>
-      {children}
-    </Dialog>
-  </React.Fragment>;
-}
+          </Toolbar>
+        </AppBar>
+        {children}
+      </Dialog>
+    </>
+  );
+};
 
-const useStyle = makeStyles(theme => ({
-  appBar: {
-    position: 'relative',
-    backgroundColor: orange[600]
-  }
-}))
+FullDialog.defaultProps = {
+  open: false,
+  actionChildren: (<></>),
+};
+
+FullDialog.propTypes = {
+  open: PropTypes.bool,
+  title: PropTypes.string.isRequired,
+  handleClose: PropTypes.func.isRequired,
+  children: PropTypes.object.isRequired,
+  actionChildren: PropTypes.object,
+};
+
+export default FullDialog;

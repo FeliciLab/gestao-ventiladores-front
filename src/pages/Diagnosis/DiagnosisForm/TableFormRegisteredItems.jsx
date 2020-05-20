@@ -16,7 +16,7 @@ import FormModalDescription from './FormModalDescription';
 const TableFormRegisteredItems = (props) => {
   const {
     updateItemsFromTable,
-    items
+    items,
   } = props;
 
   const [open, setOpen] = useState(false);
@@ -24,48 +24,54 @@ const TableFormRegisteredItems = (props) => {
   const [indexEdit, setIndexEdit] = useState(0);
 
   const headTable = [
-    {id: "tipo", name: "Tipo"},
-    {id: "nome", name: "Nome do item"},
-    {id: "unidade_medida", name: "Unidade"},
-    {id: "quantidade", name: "Quantidade"},
-    {id: "fabricante", name: "Fabricante"},
-    {id: "codigo", name: "Codigo"},
+    { id: 'tipo', name: 'Tipo' },
+    { id: 'nome', name: 'Nome do item' },
+    { id: 'unidade_medida', name: 'Unidade' },
+    { id: 'quantidade', name: 'Quantidade' },
+    { id: 'fabricante', name: 'Fabricante' },
+    { id: 'codigo', name: 'Codigo' },
   ];
 
-  function updateParent (value, index, field) {
+  function updateParent(value, index, field) {
     updateItemsFromTable(value, index, field);
   }
 
-  function openModelEditDescription (index) {
+  function openModelEditDescription(index) {
     setItemEdit(items[index]);
     setIndexEdit(index);
     setOpen(true);
   }
 
-  function updateDescription (description) {
+  function updateDescription(description) {
     updateParent(description, indexEdit, 'descricao');
     setOpen(false);
   }
 
-  function handleClose () {
+  function handleClose() {
     setOpen(false);
   }
 
   return (<React.Fragment>
     <TableContainer component={Paper}>
       <Table
-        size={"small"}
-        aria-label={"Tabela de itens cadastrados"}
+        size={'small'}
+        aria-label={'Tabela de itens cadastrados'}
       >
         <TableHead>
           <TableRow>
             {headTable.map((item, index) => (
               <TableCell key={`${index}_${new Date().toISOString()}`}>{item.name}</TableCell>
             ))}
-            <TableCell align={"right"}>
+            <TableCell align={'right'}>
               <ChipStyled
-                color={"white"} bgColor={grey[500]} deleteIconColor={"white"} deleteIconBgColor={grey[500]}
-                deleteIcon={<InfoIcon/>} size="small" label={"Descrição"} style={{color: "#ddddd"}}
+                color={'white'}
+                bgColor={grey[500]}
+                deleteIconColor={'white'}
+                deleteIconBgColor={grey[500]}
+                deleteIcon={<InfoIcon />}
+                size="small"
+                label={'Descrição'}
+                style={{ color: '#ddddd' }}
                 onDelete={() => false}
               />
             </TableCell>
@@ -97,7 +103,7 @@ const TableFormRegisteredItems = (props) => {
 };
 
 TableFormRegisteredItems.protoType = {
-  items: PropType.array.isRequired
+  items: PropType.array.isRequired,
 };
 
 export default TableFormRegisteredItems;

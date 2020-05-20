@@ -16,7 +16,7 @@ import getCities from '../../../services/cities';
 import Typography from '@material-ui/core/Typography';
 
 
-export default function DialogEquipment (props) {
+export default function DialogEquipment(props) {
   const cities = getCities('CE');
   const classes = useStyle();
   const {
@@ -24,7 +24,7 @@ export default function DialogEquipment (props) {
     handleClose,
     equipment,
     indexEquipment,
-    updateEquipmentForm
+    updateEquipmentForm,
   } = props;
 
   const [formEquipment, setFormEquipment] = useState({});
@@ -34,14 +34,14 @@ export default function DialogEquipment (props) {
     setFormEquipment(Object.assign({}, equipment));
   }, [equipment]);
 
-  function handleUpdateAccessories (event) {
+  function handleUpdateAccessories(event) {
     const doc = {};
     doc[event.target.name] = event.target.value;
     setFormEquipment(Object.assign({}, formEquipment, doc));
   }
 
-  function saveEquipment () {
-    updateEquipmentForm(formEquipment, indexEquipment)
+  function saveEquipment() {
+    updateEquipmentForm(formEquipment, indexEquipment);
   }
 
   return (<React.Fragment>
@@ -50,7 +50,7 @@ export default function DialogEquipment (props) {
       handleClose={handleClose}
       title={'Formulário de Edição do Equipamento'}
       actionChildren={<ThemeButton
-        startIcon={<SaveIcon/>}
+        startIcon={<SaveIcon />}
         onClick={saveEquipment}
         name={'Salvar'}
         color={orange[600]}
@@ -68,8 +68,12 @@ export default function DialogEquipment (props) {
             </Grid>
             <Grid item xs={12}>
               <ul>
-                <li>A dados do equipamento abaixo foram inicialmente baseados nos campos cadastrados no momento da triagem.</li>
-                <li>Qualquer alteração nos campos abaixo <strong>atualizarão o equipamento no sistema</strong> da Central de Ventilados.</li>
+                <li>A dados do equipamento abaixo foram inicialmente baseados nos campos cadastrados
+                  no momento da triagem.
+                </li>
+                <li>Qualquer alteração nos campos abaixo <strong>atualizarão o equipamento no
+                  sistema</strong> da Central de Ventilados.
+                </li>
               </ul>
             </Grid>
           </Grid>
@@ -112,29 +116,29 @@ export default function DialogEquipment (props) {
               hasOther={true}
               value={formEquipment.tipo}
               defaultValue={formEquipment.tipo}
-              items={equipmentTypes.map(item => ({label: item, value: item}))}
+              items={equipmentTypes.map(item => ({ label: item, value: item }))}
             />
           </Grid>
           <Grid item xs={12} md={2}>
             <InputRadioDialog
               action={handleUpdateAccessories}
-              name={"marca"}
-              label={"Marca"}
+              name={'marca'}
+              label={'Marca'}
               hasOther={true}
               value={formEquipment.marca}
               defaultValue={formEquipment.marca}
-              items={manufacturersEquipments.map(item => ({label: item, value: item}))}
+              items={manufacturersEquipments.map(item => ({ label: item, value: item }))}
             />
           </Grid>
           <Grid item xs={12} md={2}>
             <InputRadioDialog
               action={handleUpdateAccessories}
-              name={"modelo"}
-              label={"Modelo"}
+              name={'modelo'}
+              label={'Modelo'}
               hasOther={true}
               value={formEquipment.modelo}
               defaultValue={formEquipment.modelo}
-              items={modelsEquipment.map(item => ({label: item, value: item}))}
+              items={modelsEquipment.map(item => ({ label: item, value: item }))}
             />
           </Grid>
           <Grid item xs={6} md={2}>
@@ -221,6 +225,6 @@ export default function DialogEquipment (props) {
 const useStyle = makeStyles((theme) => ({
   containerContent: {
     paddingTop: theme.spacing(3),
-    paddingBottom: theme.spacing(3)
-  }
+    paddingBottom: theme.spacing(3),
+  },
 }));
