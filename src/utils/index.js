@@ -1,0 +1,1 @@
+export const randomIndex = () => Math.round(Math.random() * 100000)

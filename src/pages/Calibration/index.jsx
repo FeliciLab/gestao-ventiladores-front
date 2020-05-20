@@ -7,31 +7,25 @@ import getAllDiagnosis from '../../modelServices/diagnosisService';
 import { getAllCalibration } from '../../modelServices/calibragemService';
 
 
-export default function IndexCalibration () {
+export default function IndexCalibration() {
   const [serviceOrders, setServiceOrder] = useState([]);
   const [requestBlock, setRequestBlock] = useState(false);
   const [loadingData, setLoadingData] = useState(true);
   const [progress, setProgress] = useState(0);
 
-  if (!requestBlock) {
-    setRequestBlock(true);
-    getData();
-  }
-
-  function getData () {
+  function getData() {
     setLoadingData(true);
     setProgress(40);
 
     getAllDiagnosis()
-      .then((result) => {
-        const diagnosis = result;
+      .then((diagnosis) => {
         setProgress(80);
         getAllCalibration()
-          .then(result => {
+          .then((result) => {
             setServiceOrder([
-              ...diagnosis.map(item => ServiceOrder(item)) || [],
-              ...result.map(item => ServiceOrder(item)) || []
-            ].sort((a, b) => a.created_at['$date'] - b.created_at['$date']));
+              ...diagnosis.map((item) => ServiceOrder(item)) || [],
+              ...result.map((item) => ServiceOrder(item)) || [],
+            ].sort((a, b) => a.created_at.$date - b.created_at.$date));
           });
       })
       .finally(() => {
@@ -40,17 +34,24 @@ export default function IndexCalibration () {
       });
   }
 
-  async function reloadData () {
+  if (!requestBlock) {
+    setRequestBlock(true);
+    getData();
+  }
+
+  async function reloadData() {
     await setRequestBlock(false);
   }
 
   if (loadingData) {
-    return <LoadingBar progress={progress}></LoadingBar>;
+    return <LoadingBar progress={progress} />;
   }
 
-  return (<React.Fragment>
-    <Layout>
-      <CalibrationPage serviceOrders={serviceOrders} reloadData={reloadData}/>
-    </Layout>
-  </React.Fragment>);
+  return (
+    <>
+      <Layout>
+        <CalibrationPage serviceOrders={serviceOrders} reloadData={reloadData} />
+      </Layout>
+    </>
+  );
 }
