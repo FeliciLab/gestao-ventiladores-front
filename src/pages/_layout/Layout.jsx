@@ -1,21 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import grey from '@material-ui/core/colors/grey';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import Header from './Header';
 import Footer from './Footer';
 
-
-export default function Layout(props) {
-  const classes = useStyle();
-  return (
-    <div className={classes.layout}>
-      <Header />
-      {props.children}
-      <Footer />
-    </div>
-
-  );
-}
 
 const useStyle = makeStyles(() => ({
   layout: {
@@ -27,3 +16,22 @@ const useStyle = makeStyles(() => ({
     height: '100%',
   },
 }));
+
+const Layout = (props) => {
+  const classes = useStyle();
+  const { children } = props;
+  return (
+    <div className={classes.layout}>
+      <Header />
+      {children}
+      <Footer />
+    </div>
+
+  );
+};
+
+Layout.propTypes = {
+  children: PropTypes.instanceOf(Object).isRequired,
+};
+
+export default Layout;

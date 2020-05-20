@@ -15,79 +15,6 @@ import { green } from '@material-ui/core/colors';
 import Grid from '@material-ui/core/Grid';
 
 
-export default function Header() {
-  const classes = useStyles();
-
-  const menuRoutes = [
-    { label: 'ORDENS DE SERVIÇO', pathname: '/ordens-servicos', icon: <LibraryBooksSharpIcon font="small" /> },
-    { label: 'TRIAGEM', pathname: '/triagens', icon: <AssignmentSharpIcon font="small" /> },
-    { label: 'DIAGNÓSTICO', pathname: '/diagnosticos', icon: <SubtitlesSharpIcon font="small" /> },
-    { label: 'DEMANDA', pathname: '/demandas', icon: <LocalMallSharpIcon font="small" /> },
-    { label: 'CALIBRAGEM', pathname: '/calibragem', icon: <AssignmentTurnedInSharpIcon font="small" /> },
-    { label: 'ENTREGA', pathname: '/entregas', icon: <UnarchiveSharpIcon font="small" /> },
-  ];
-
-  const currentPathname = window.location.pathname;
-
-  return (
-    <header>
-      <AppBar
-        position="absolute"
-        className={classes.appBar}
-      >
-        <Toolbar className={classes.toolbar}>
-          <div className={classes.divTitle}>
-            <Typography
-              className={classes.text}
-              noWrap
-            >
-              <strong>
-                CENTRAL
-                <br />
-                {' '}
-                DE
-                <br />
-                {' '}
-                VENTILADORES
-              </strong>
-            </Typography>
-          </div>
-          <div className={classes.divUser}>
-            <Typography
-              className={classes.textUser}
-              noWrap
-            >
-              {/* usuario, joe */}
-            </Typography>
-          </div>
-        </Toolbar>
-        <div className={classes.appBarFooter}>
-          <Container>
-            <div className={classes.divTextFooter}>
-              <Grid container alignItems="center" spacing={4}>
-                {menuRoutes.map((item, index) => (
-                  <Grid item key={index} className={currentPathname === item.pathname ? classes.currentLink : ''}>
-                    <Link
-                      to={item.pathname}
-                      className={classes.link}
-                    >
-                      <div style={{ display: 'flex', alignItems: 'center' }}>
-                        {item.icon}
-                        {' '}
-                        <span style={{ marginLeft: '0.5rem' }}>{item.label}</span>
-                      </div>
-                    </Link>
-                  </Grid>
-                ))}
-              </Grid>
-            </div>
-          </Container>
-        </div>
-      </AppBar>
-    </header>
-  );
-}
-
 const useStyles = makeStyles((theme) => ({
   appBar: {
     position: 'relative',
@@ -152,3 +79,88 @@ const useStyles = makeStyles((theme) => ({
     borderBottom: '4px white solid',
   },
 }));
+
+export default function Header() {
+  const classes = useStyles();
+
+  const menuRoutes = [
+    {
+      label: 'ORDENS DE SERVIÇO',
+      pathname: '/ordens-servicos',
+      icon: <LibraryBooksSharpIcon font="small" />,
+    },
+    { label: 'TRIAGEM', pathname: '/triagens', icon: <AssignmentSharpIcon font="small" /> },
+    { label: 'DIAGNÓSTICO', pathname: '/diagnosticos', icon: <SubtitlesSharpIcon font="small" /> },
+    { label: 'DEMANDA', pathname: '/demandas', icon: <LocalMallSharpIcon font="small" /> },
+    {
+      label: 'CALIBRAGEM',
+      pathname: '/calibragem',
+      icon: <AssignmentTurnedInSharpIcon font="small" />,
+    },
+    { label: 'ENTREGA', pathname: '/entregas', icon: <UnarchiveSharpIcon font="small" /> },
+  ];
+
+  const currentPathname = window.location.pathname;
+
+  return (
+    <header>
+      <AppBar
+        position="absolute"
+        className={classes.appBar}
+      >
+        <Toolbar className={classes.toolbar}>
+          <div className={classes.divTitle}>
+            <Typography
+              className={classes.text}
+              noWrap
+            >
+              <strong>
+                CENTRAL
+                <br />
+                {' '}
+                DE
+                <br />
+                {' '}
+                VENTILADORES
+              </strong>
+            </Typography>
+          </div>
+          <div>
+            <Typography
+              className={classes.textUser}
+              noWrap
+            >
+              {/* usuario, joe */}
+            </Typography>
+          </div>
+        </Toolbar>
+        <div className={classes.appBarFooter}>
+          <Container>
+            <div className={classes.divTextFooter}>
+              <Grid container alignItems="center" spacing={4}>
+                {menuRoutes.map((item) => (
+                  <Grid
+                    item
+                    key={item.pathname}
+                    className={currentPathname === item.pathname ? classes.currentLink : ''}
+                  >
+                    <Link
+                      to={item.pathname}
+                      className={classes.link}
+                    >
+                      <div style={{ display: 'flex', alignItems: 'center' }}>
+                        {item.icon}
+                        {' '}
+                        <span style={{ marginLeft: '0.5rem' }}>{item.label}</span>
+                      </div>
+                    </Link>
+                  </Grid>
+                ))}
+              </Grid>
+            </div>
+          </Container>
+        </div>
+      </AppBar>
+    </header>
+  );
+}
