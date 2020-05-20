@@ -16,14 +16,14 @@ const DialogModelsEquipments = (props) => {
   const [inputOther, setInputOther] = React.useState('');
   const [radioValue, setRadioValue] = React.useState('');
 
-  const {items, name, updateOpen, hasOther, action, label, dialogTitle} = props;
+  const { items, name, updateOpen, hasOther, action, label, dialogTitle } = props;
 
-  function handleClose () {
+  function handleClose() {
     updateOpen(false);
     setOpen(false);
   }
 
-  function changeRadio (event, value, other) {
+  function changeRadio(event, value, other) {
     setRadioValue(value);
 
     if (value !== 'other') {
@@ -33,8 +33,8 @@ const DialogModelsEquipments = (props) => {
     setInputOther(other);
   }
 
-  function updateParent () {
-    const doc = {target: {name, value: ''}};
+  function updateParent() {
+    const doc = { target: { name, value: '' } };
     if (radioValue === 'other') {
       doc.target.value = inputOther;
     } else {

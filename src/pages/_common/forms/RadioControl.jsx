@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import RadioGroup from '@material-ui/core/RadioGroup';
@@ -8,15 +9,18 @@ import TextField from '@material-ui/core/TextField';
 
 
 const RadioControl = (props) => {
-  useEffect(() => {
-    setClean(props.clean);
-  }, [props]);
+  const [value, setValue] = useState('');
+  const [other, setOther] = useState('');
 
-  const [clean, setClean] = React.useState(false);
-  const [value, setValue] = React.useState('');
-  const [other, setOther] = React.useState('');
-
-  const {name, action, flexDirection, formLabel, items, hasOther} = props;
+  const {
+    name,
+    action,
+    flexDirection,
+    formLabel,
+    items,
+    hasOther,
+    clean,
+  } = props;
 
   if (clean && value !== '') {
     setValue('');
@@ -35,50 +39,76 @@ const RadioControl = (props) => {
 
     if (event.target.value !== 'other') {
       setOther(event.target.value);
-      return action(event, value, other)
+      return action(event, value, other);
     }
+
+    return false;
   };
 
-
   return (
-    <React.Fragment>
+    <>
       <FormControl component="fieldset">
         <FormLabel component="legend">{formLabel}</FormLabel>
         <RadioGroup
-          style={{flexDirection: flexDirection || 'row'}}
+          style={{ flexDirection: flexDirection || 'row' }}
           aria-label="tipo"
           name={name}
           value={value}
           onChange={updateParent}
         >
-          {items.map((item, index) => (
+          {items.map((item) => (
             <FormControlLabel
-              key={index}
+              key={item.value}
               value={item.value}
-              control={<Radio color={"default"}/>}
+              control={<Radio color="default" />}
               label={item.label}
             />
           ))}
-          {hasOther ? (<FormControlLabel
-            value={'other'}
-            control={<Radio color={"default"}/>}
-            label={'Outros'}
-          />) : (<span></span>)}
+          {hasOther
+            ? (
+              <FormControlLabel
+                value="other"
+                control={<Radio color="default" />}
+                label="Outros"
+              />
+            )
+            : (<></>)}
         </RadioGroup>
-        {hasOther ? (
-          <TextField
-            name={name}
-            value={other}
-            onChange={updateParent}
-          />
-        ) : (<span></span>)}
+        {hasOther
+          ? (
+            <TextField
+              name={name}
+              value={other}
+              onChange={updateParent}
+            />
+          )
+          : (<></>)}
       </FormControl>
-    </React.Fragment>
+    </>
   );
 };
 
-export function helperPropsItemsRadioControl (value, label) {
-  return {value, label};
+export function helperPropsItemsRadioControl(value, label) {
+  return { value, label };
 }
+
+RadioControl.defaultProps = {
+  name: '',
+  flexDirection: 'row',
+  formLabel: '',
+  items: [],
+  hasOther: true,
+  clean: false,
+};
+
+RadioControl.propTypes = {
+  action: PropTypes.func.isRequired,
+  name: PropTypes.string,
+  flexDirection: PropTypes.string,
+  formLabel: PropTypes.string,
+  items: PropTypes.instanceOf(Array),
+  hasOther: PropTypes.bool,
+  clean: PropTypes.bool,
+};
 
 export default RadioControl;

@@ -1,4 +1,5 @@
 import React, { createRef, useState } from 'react';
+import PropTypes from 'prop-types';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
@@ -8,9 +9,14 @@ import imageResize from '../../../services/imageResize';
 
 
 const InputFileImage = (props) => {
+  const {
+    action,
+    label,
+    accept,
+    name,
+  } = props;
 
   const [filename, setFilename] = useState('');
-  const {action, label, accept, name} = props;
   const inputFileRef = createRef();
 
   const activateInputFile = () => {
@@ -20,17 +26,16 @@ const InputFileImage = (props) => {
   const captureFile = (event) => {
     event.preventDefault();
     const file = inputFileRef.current.files[0];
-    imageResize({file, fullImage: true})
-      .then(result => {
-        action(result['blob'], name);
+    imageResize({ file, fullImage: true })
+      .then((result) => {
+        action(result.blob, name);
       });
 
     setFilename(file.name);
-
   };
 
   return (
-    <React.Fragment>
+    <>
       <input
         accept={accept || 'image/*'}
         onChange={captureFile}
@@ -45,12 +50,24 @@ const InputFileImage = (props) => {
         <InputLabel htmlFor="standard-adornment-amount">{label}</InputLabel>
         <Input
           value={filename}
-          endAdornment={<InputAdornment position="end"><AttachFileIcon/></InputAdornment>}
+          endAdornment={<InputAdornment position="end"><AttachFileIcon /></InputAdornment>}
           readOnly
         />
       </FormControl>
-    </React.Fragment>
+    </>
   );
+};
+
+InputFileImage.defaultProps = {
+  accept: 'image/*',
+  name: 'Input file',
+};
+
+InputFileImage.propTypes = {
+  action: PropTypes.func.isRequired,
+  label: PropTypes.string.isRequired,
+  accept: PropTypes.string,
+  name: PropTypes.string,
 };
 
 export default InputFileImage;
