@@ -6,6 +6,4 @@ export const purshaseOrderModel = {
   updated_at: new Date(),
 };
 
-export function PurchaseOrder(purchaseOrder) {
-  return { ...purshaseOrderModel, ...purchaseOrder };
-}
+export const PurchaseOrder = (purchaseOrder) => ({ ...purshaseOrderModel, ...purchaseOrder });

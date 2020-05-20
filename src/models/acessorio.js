@@ -18,16 +18,15 @@ export const listaAcessorios = [
   'Cabo de Força / Fonte',
 ];
 
-export function Acessorio(acessorio) {
-  return {
-    descricao: '',
-    acompanha: false,
-    quantidade: 0,
-    estado_de_conservacao: '',
-    ...acessorio,
-  };
-}
+export const Acessorio = (acessorio) => ({
+  descricao: '',
+  acompanha: false,
+  quantidade: 0,
+  estado_de_conservacao: '',
+  ...acessorio,
+});
 
-export function listaFormAcessorios(acessorios) {
-  return listaAcessorios.sort((a, b) => a.localeCompare(b)).map((item) => Acessorio(acessorios.find((acessorio) => acessorio.descricao === item) || { descricao: item }));
-}
+export const listaFormAcessorios = (acessorios) => listaAcessorios
+  .sort((a, b) => a.localeCompare(b))
+  .map((item) => Acessorio(acessorios
+    .find((acessorio) => acessorio.descricao === item) || { descricao: item }));

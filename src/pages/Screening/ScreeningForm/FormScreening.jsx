@@ -3,7 +3,7 @@ import RelacaoDeMaterial from './RelacaoDeMaterial';
 import { makeStyles } from '@material-ui/core/styles';
 import { listaFormAcessorios } from '../../../models/acessorio';
 import { ServiceOrderScreening } from '../../../models/serviceOrder';
-import { Equipamento } from '../../../models/equipamentos';
+import Equipamento from '../../../models/equipamentos';
 import CadastroEquipamento from './CadastroEquipamento';
 import TitleFormScreening from './TitleFormScreening';
 import { CssBaseline, Grid, Paper, Typography } from '@material-ui/core';

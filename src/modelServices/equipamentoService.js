@@ -1,5 +1,5 @@
 import api from '../services/api';
-import { Equipamento } from '../models/equipamentos';
+import Equipamento from '../models/equipamentos';
 
 
 /**

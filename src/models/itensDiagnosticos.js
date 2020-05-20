@@ -8,6 +8,4 @@ export const itemDiagnosisModel = {
   descricao: '',
 };
 
-export function getItemDiagnosis(item) {
-  return { ...itemDiagnosisModel, ...item };
-}
+export const getItemDiagnosis = (item) => ({ ...itemDiagnosisModel, ...item });
