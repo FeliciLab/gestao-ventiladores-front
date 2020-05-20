@@ -1,24 +1,36 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Grid } from '@material-ui/core';
 
 
-export default function FooterPrint (props) {
+const FooterPrint = (props) => {
   const {
     text,
     number,
-    pageNumber
+    pageNumber,
   } = props;
 
-  return (<React.Fragment>
-    <Grid container justify={'space-between'}>
-      <Grid item xs={'auto'}>
-        <span>{text}: </span>
-        <strong>{number || '---'}</strong>
+  return (
+    <>
+      <Grid container justify="space-between">
+        <Grid item>
+          <span>{text}</span>
+          :
+          <strong>{number || '---'}</strong>
+        </Grid>
+        <Grid item>
+          <span>Página: </span>
+          <strong>{pageNumber || '--'}</strong>
+        </Grid>
       </Grid>
-      <Grid item xs={'auto'}>
-        <span>Página: </span>
-        <strong>{pageNumber || '--'}</strong>
-      </Grid>
-    </Grid>
-  </React.Fragment>);
-}
+    </>
+  );
+};
+
+FooterPrint.propTypes = {
+  text: PropTypes.string.isRequired,
+  number: PropTypes.string.isRequired,
+  pageNumber: PropTypes.string.isRequired,
+};
+
+export default FooterPrint;
