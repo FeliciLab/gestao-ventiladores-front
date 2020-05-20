@@ -60,7 +60,7 @@ ThemeButton.defaultProps = {
 };
 
 ThemeButton.propTypes = {
-  children: PropTypes.instanceOf(Object).isRequired,
+  children: PropTypes.string.isRequired,
   variant: PropTypes.string,
   onClick: PropTypes.func,
   startIcon: PropTypes.instanceOf(Object),

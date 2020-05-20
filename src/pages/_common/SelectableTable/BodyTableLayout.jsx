@@ -1,11 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import TableBody from '@material-ui/core/TableBody';
 import Checkbox from '@material-ui/core/Checkbox';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
-import PropTypes from 'prop-types';
-import ColorIconButton from '../forms/ColorIconButton';
 import FormControl from '@material-ui/core/FormControl';
+import ColorIconButton from '../forms/ColorIconButton';
 
 
 const BodyTableLayout = (props) => {
@@ -16,63 +16,73 @@ const BodyTableLayout = (props) => {
     selectKeyField,
     hasActions,
     actions,
-    checkedData
+    checkedData,
   } = props;
 
   return (
     <TableBody>
-      {
-        data.map((item, index) => {
-          const labelId = `enhanced-table-checkbox-${index}`;
-          return (
-            <TableRow
-              key={index}
-              hover
-              role="checkbox"
-              tabIndex={-1}
-              aria-checked={checkedData[item[selectKeyField]]}
-              selected={checkedData[item[selectKeyField]]}
-            >
-              <TableCell padding="checkbox">
-                <FormControl>
-                  <Checkbox
-                    onClick={(event) => checkSelectedRow(item[selectKeyField], event.target.checked)}
-                    checked={checkedData.hasOwnProperty(item[selectKeyField]) && checkedData[item[selectKeyField]]}
-                    inputProps={{'aria-labelledby': labelId}}
-                  />
-                </FormControl>
-              </TableCell>
-              {
-                headerKeys.map((key, index) => (
-                  <TableCell key={index}>{item[key].toString() || ''}</TableCell>
-                ))
-              }
-              {hasActions ? <TableCell>
-                {actions.map((action, index) => (
-                  <ColorIconButton
-                    key={index}
-                    item={item}
-                    action={() => action.handleEvent(item)}
-                    name={action.name}
-                    bgColor={action.bgColor}
-                    hoverColor={action.hoverColor}
-                    icon={action.icon}
-                  />
-                ))}
-              </TableCell> : <React.Fragment></React.Fragment>}
-            </TableRow>
-          );
-        })
+      {data.map((item, index) => {
+        const labelId = `enhanced-table-checkbox-${index}`;
+        return (
+          <TableRow
+            key={labelId}
+            hover
+            role="checkbox"
+            tabIndex={-1}
+            aria-checked={checkedData[item[selectKeyField]]}
+            selected={checkedData[item[selectKeyField]]}
+          >
+            <TableCell padding="checkbox">
+              <FormControl>
+                <Checkbox
+                  onClick={(event) => checkSelectedRow(item[selectKeyField], event.target.checked)}
+                  checked={Object.prototype.hasOwnProperty.call(checkedData, item[selectKeyField]) && checkedData[item[selectKeyField]]}
+                  inputProps={{ 'aria-labelledby': labelId }}
+                />
+              </FormControl>
+            </TableCell>
+            {headerKeys.map((key, index) => (
+              <TableCell key={index}>{item[key].toString() || ''}</TableCell>
+            ))}
+            {hasActions
+              ? (
+                <TableCell>
+                  {actions.map((action) => (
+                    <ColorIconButton
+                      key={Math.round(Math.random() * 100000)}
+                      item={item}
+                      action={() => action.handleEvent(item)}
+                      name={action.name}
+                      bgColor={action.bgColor}
+                      hoverColor={action.hoverColor}
+                      icon={action.icon}
+                    />
+                  ))}
+                </TableCell>
+              )
+              : (<></>)}
+          </TableRow>
+        );
+      })
       }
-
-
     </TableBody>
   );
 };
 
-BodyTableLayout.protoType = {
+BodyTableLayout.defaultProps = {
+  hasActions: false,
+  actions: [],
+  checkedData: {},
+};
+
+BodyTableLayout.propTypes = {
   data: PropTypes.array.isRequired,
-  headerKeys: PropTypes.array.isRequired
+  headerKeys: PropTypes.array.isRequired,
+  checkSelectedRow: PropTypes.func.isRequired,
+  selectKeyField: PropTypes.string.isRequired,
+  hasActions: PropTypes.bool,
+  actions: PropTypes.instanceOf(Array),
+  checkedData: PropTypes.instanceOf(Object),
 };
 
 export default BodyTableLayout;
