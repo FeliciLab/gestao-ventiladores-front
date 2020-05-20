@@ -9,14 +9,14 @@ import TitleFormScreening from './TitleFormScreening';
 import { CssBaseline, Grid, Paper, Typography } from '@material-ui/core';
 
 
-export default function FormScreening (props) {
+export default function FormScreening(props) {
   const {
     register,
     errors,
     serviceOrder,
     updateFormModel,
     cleanServiceOrder,
-    editingForm
+    editingForm,
   } = props;
 
   const classes = useStyles();
@@ -32,7 +32,7 @@ export default function FormScreening (props) {
 
   useEffect(handleEffect, [serviceOrderForm]);
 
-  function handleEffect () {
+  function handleEffect() {
     if (blockEffect) {
       return;
     }
@@ -44,19 +44,19 @@ export default function FormScreening (props) {
         setEquipamento(
           Object.assign(
             Equipamento({}),
-            serviceOrder.equipamento[0]
-          )
+            serviceOrder.equipamento[0],
+          ),
         );
       } else {
-        setEquipamento(Object.assign({}, Equipamento({})))
+        setEquipamento(Object.assign({}, Equipamento({})));
       }
     }
 
     if (!screening.hasOwnProperty('acessorios')) {
-      if ( serviceOrder.triagem) {
-        setScreening(ServiceOrderScreening({triagem: serviceOrder.triagem}));
+      if (serviceOrder.triagem) {
+        setScreening(ServiceOrderScreening({ triagem: serviceOrder.triagem }));
       } else {
-        setScreening(ServiceOrderScreening({triagem: {}}))
+        setScreening(ServiceOrderScreening({ triagem: {} }));
       }
     }
 
@@ -71,7 +71,7 @@ export default function FormScreening (props) {
     setBlockEffect(true);
   }
 
-  function updateErrors (values) {
+  function updateErrors(values) {
     const _formErrors = Object.assign({}, formErrors);
     for (let indexValue in values) {
       for (let index in _formErrors[indexValue]) {
@@ -83,33 +83,33 @@ export default function FormScreening (props) {
     setFormErrors(errors);
   }
 
-  function handleUpdateServiceOrder (value) {
+  function handleUpdateServiceOrder(value) {
     const doc = Object.assign({}, serviceOrderForm, value);
     setServiceOrderForm(doc);
     updateFormModel(doc);
   }
 
-  function atualizarEquipamento (value) {
+  function atualizarEquipamento(value) {
     const equip = Object.assign({}, equipamento, value);
     setEquipamento(equip);
-    updateFormModel({equipamento: equip});
+    updateFormModel({ equipamento: equip });
   }
 
-  function atualizarTriagem (value) {
+  function atualizarTriagem(value) {
     const _screening = Object.assign(screening, value);
     setScreening(_screening);
-    updateFormModel({triagem: _screening})
+    updateFormModel({ triagem: _screening });
   }
 
-  function atualizarAcessorios (value) {
+  function atualizarAcessorios(value) {
     setAcessorios(value);
-    atualizarTriagem({acessorios: value});
-    const _screening = Object.assign({}, screening)
-    screening.acessorios = value
-    updateFormModel({triagem: _screening})
+    atualizarTriagem({ acessorios: value });
+    const _screening = Object.assign({}, screening);
+    screening.acessorios = value;
+    updateFormModel({ triagem: _screening });
   }
 
-  function cleanForm () {
+  function cleanForm() {
     setEquipamento(Object.assign({}, Equipamento({})));
     setScreening({});
     setAcessorios(listaFormAcessorios([]));
@@ -119,15 +119,15 @@ export default function FormScreening (props) {
   if (!blockEffect) {
     return (<React.Fragment>
       Carregando...
-    </React.Fragment>)
+    </React.Fragment>);
   }
 
   return (
     <React.Fragment>
-      <CssBaseline/>
+      <CssBaseline />
 
       <main className={classes.layout}>
-        <TitleFormScreening cleanForm={cleanForm}/>
+        <TitleFormScreening cleanForm={cleanForm} />
 
         <Paper className={classes.paper}>
           <CadastroEquipamento
@@ -145,7 +145,7 @@ export default function FormScreening (props) {
         </Paper>
 
         <Paper className={classes.paper}>
-          <Grid container justify={"space-between"} alignItems={"center"}>
+          <Grid container justify={'space-between'} alignItems={'center'}>
             <Grid item xs={12} sm={7}>
               <Typography variant="h6" gutterBottom>
                 2. Relação de Material / Acessórios Entregues
@@ -166,26 +166,26 @@ export default function FormScreening (props) {
 const useStyles = makeStyles((theme) => ({
   divTextFooter: {
     height: 60,
-    justifyContent: "space-evenly",
-    display: "flex",
+    justifyContent: 'space-evenly',
+    display: 'flex',
     marginLeft: theme.spacing(2),
     marginRight: theme.spacing(2),
     [theme.breakpoints.up(1200 + theme.spacing(2) * 2)]: {
       width: 1200,
-      marginLeft: "auto",
-      marginRight: "auto",
+      marginLeft: 'auto',
+      marginRight: 'auto',
     },
-    flexDirection: "row",
+    flexDirection: 'row',
   },
 
   layout: {
-    width: "auto",
+    width: 'auto',
     marginLeft: theme.spacing(2),
     marginRight: theme.spacing(2),
     [theme.breakpoints.up(1200 + theme.spacing(2) * 2)]: {
       width: 1200,
-      marginLeft: "auto",
-      marginRight: "auto",
+      marginLeft: 'auto',
+      marginRight: 'auto',
     },
   },
   paper: {
@@ -202,8 +202,8 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(3, 0, 5),
   },
   buttons: {
-    display: "flex",
-    justifyContent: "flex-end",
+    display: 'flex',
+    justifyContent: 'flex-end',
   },
   button: {
     marginTop: theme.spacing(3),

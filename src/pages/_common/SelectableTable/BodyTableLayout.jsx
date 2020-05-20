@@ -8,6 +8,10 @@ import FormControl from '@material-ui/core/FormControl';
 import ColorIconButton from '../forms/ColorIconButton';
 
 
+function isChecked(checkedData, field) {
+  return Object.prototype.hasOwnProperty.call(checkedData, field) && checkedData[field];
+}
+
 const BodyTableLayout = (props) => {
   const {
     data,
@@ -36,7 +40,7 @@ const BodyTableLayout = (props) => {
               <FormControl>
                 <Checkbox
                   onClick={(event) => checkSelectedRow(item[selectKeyField], event.target.checked)}
-                  checked={Object.prototype.hasOwnProperty.call(checkedData, item[selectKeyField]) && checkedData[item[selectKeyField]]}
+                  checked={isChecked(checkedData, item[selectKeyField])}
                   inputProps={{ 'aria-labelledby': labelId }}
                 />
               </FormControl>
