@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { grey } from '@material-ui/core/colors';
 import { makeStyles } from '@material-ui/core/styles';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -13,31 +14,42 @@ const useStyles = makeStyles(() => ({
     borderStyle: 'solid',
     borderColor: grey[900],
     display: 'flex',
-    justifyContent: 'space-around'
-  }
+    justifyContent: 'space-around',
+  },
 }));
-export default function CheckBoxDiagnostic (props) {
-  const {items} = props
+
+const CheckBoxDiagnostic = (props) => {
   const classes = useStyles();
+  const { items } = props;
   return (
-    <React.Fragment>
+    <>
       <div className={classes.quadro}>
         <Grid container>
-          {items.map((item, index) => (
+          {items.map((item) => (
             <Grid
-              key={index}
+              key={item}
               item
               xs={12}
             >
 
               <FormControlLabel
-                control={<Checkbox name="checkedC"/>}
+                control={<Checkbox name="checkedC" />}
                 label={item}
               />
             </Grid>
           ))}
         </Grid>
       </div>
-    </React.Fragment>
+    </>
   );
-}
+};
+
+CheckBoxDiagnostic.defaultProps = {
+  items: [],
+};
+
+CheckBoxDiagnostic.propTypes = {
+  items: PropTypes.instanceOf(Array),
+};
+
+export default CheckBoxDiagnostic;

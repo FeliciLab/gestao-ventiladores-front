@@ -1,36 +1,38 @@
-export function Delivery (entrega) {
+export function Delivery(entrega) {
   return {
-    equipamentos_id: [entrega.equipamentos_id || ""],
+    equipamentos_id: [entrega.equipamentos_id || ''],
     tipo: entrega.tipo,
     ...ToPlace(entrega),
     ...PersonTransportation(entrega),
     data_entrega: new Date(),
     acessorios: [],
     created_at: entrega.created_at || new Date(),
-    updated_at: entrega.updated_at || new Date()
+    updated_at: entrega.updated_at || new Date(),
   };
 }
 
-export function mapStatus () {
+export function mapStatus() {
   return {
-    'entregue': 'Entregue',
-    'realocado': 'Realocado'
-  }
+    entregue: 'Entregue',
+    realocado: 'Realocado',
+  };
 }
-export function ToPlace (destiny) {
-  return Object.assign({
+export function ToPlace(destiny) {
+  return {
     instituicao_destino: '',
     cidade_destino: '',
     cnpj_destino: '',
     endereco_destino: '',
     nome_responsavel_destino: '',
     contato_responsavel_destino: '',
-  }, destiny)
+    ...destiny,
+  };
 }
 
-export function PersonTransportation (person) {
-  return Object.assign({
+export function PersonTransportation(person) {
+  return {
     nome_responsavel_transporte: '',
-    contato_responsavel_transporte: ''
-  }, person)
+    contato_responsavel_transporte: '',
+    ...person,
+  };
 }

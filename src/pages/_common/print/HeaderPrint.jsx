@@ -13,7 +13,7 @@ const formatDate = (date) => {
 
 const HeaderPrint = (props) => {
   const classes = useStyles();
-  const {number, subTitle, pageNumber, dateTime, typeAbbreviation} = props;
+  const { number, subTitle, pageNumber, dateTime, typeAbbreviation } = props;
   const date = formatDate(new Date(dateTime || new Date()));
   return (
     <div className={classes.planodefundo}>
@@ -28,11 +28,11 @@ const HeaderPrint = (props) => {
         >
           <Typography
             className={classes.osTexto}
-            align={"right"}
+            align={'right'}
           ><strong>{typeAbbreviation || 'OS'} N º:</strong></Typography>
           <Typography
             className={classes.osNumero}
-            align={"right"}
+            align={'right'}
           >{number === '' ? '---' : number}</Typography>
         </Grid>
 
@@ -42,11 +42,11 @@ const HeaderPrint = (props) => {
         >
           <div className={classes.caixaCentral}>
             <Typography
-              align={"center"}
+              align={'center'}
               className={`${classes.titleTexto} ${classes.bordarCaixaCental}`}
             ><strong>CENTRAL DE VENTILADORES</strong></Typography>
             <Typography
-              align={"center"}
+              align={'center'}
               className={`${classes.subTitleTexto} ${classes.bordarCaixaCental}`}
             ><strong>{subTitle}</strong></Typography>
           </div>
@@ -58,15 +58,15 @@ const HeaderPrint = (props) => {
         >
           <Typography
             className={classes.texto}
-            align={"left"}
+            align={'left'}
           ><strong>{date[0]}</strong></Typography>
           <Typography
             className={classes.texto}
-            align={"left"}
+            align={'left'}
           ><strong>{date[1]}</strong></Typography>
           <Typography
             className={classes.texto}
-            align={"left"}
+            align={'left'}
           ><strong>Página: {pageNumber}</strong></Typography>
         </Grid>
       </Grid>
@@ -81,29 +81,29 @@ const useStyles = makeStyles((theme) => ({
     color: 'white',
     fontWeight: 'bolder',
     textTransform: 'capitalize',
-    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif'
+    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
   },
   texto: {
-    fontSize: '12pt'
+    fontSize: '12pt',
   },
   osTexto: {
-    fontSize: '14pt'
+    fontSize: '14pt',
   },
   titleTexto: {
     fontSize: '14pt',
     textTransform: 'uppercase',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   subTitleTexto: {
     fontSize: '20pt',
     textTransform: 'uppercase',
     fontWeight: 'bold',
-    lineHeight: '50px'
+    lineHeight: '50px',
   },
   caixaCentral: {
     paddingLeft: '10px',
     paddingRight: '10px',
-    height: '100%'
+    height: '100%',
   },
   bordarCaixaCental: {
     borderTop: 0,
@@ -112,18 +112,18 @@ const useStyles = makeStyles((theme) => ({
     borderRight: 1,
     borderStyle: 'solid',
     borderColor: 'white',
-    height: '100%'
+    height: '100%',
   },
   osNumero: {
     fontSize: '26pt',
-    fontWeight: 'bolder'
-  }
+    fontWeight: 'bolder',
+  },
 }));
 
 HeaderPrint.protoTypes = {
   number: PropTypes.string.isRequired,
   subTitle: PropTypes.string.isRequired,
-  pageNumber: PropTypes.string.isRequired
+  pageNumber: PropTypes.string.isRequired,
 };
 
 export default HeaderPrint;

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { Paper, Table, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core';
 import TableBody from '@material-ui/core/TableBody';
@@ -7,7 +8,7 @@ import { grey } from '@material-ui/core/colors';
 
 const greyColor = grey[300];
 
-const StyledTableCell = withStyles((theme) => ({
+const StyledTableCell = withStyles(() => ({
   head: {
     backgroundColor: greyColor,
     fontWeight: 'bolder',
@@ -17,10 +18,10 @@ const StyledTableCell = withStyles((theme) => ({
     paddingTop: '3px',
     paddingBottom: '3px',
     // height: '10px',
-    textAlign: 'center'
+    textAlign: 'center',
   },
   body: {
-    fontSize: '12pt'
+    fontSize: '12pt',
   },
 }))(TableCell);
 
@@ -32,10 +33,9 @@ const StyledTd = withStyles(() => ({
     paddingTop: '3px',
     paddingBottom: '3px',
     // height: '10px',
-    fontSize: '12pt'
-  }
+    fontSize: '12pt',
+  },
 }))(TableCell);
-
 
 const useStyles = makeStyles({
   table: {
@@ -48,15 +48,21 @@ const useStyles = makeStyles({
     border: 1,
     borderColor: grey[900],
     borderStyle: 'solid',
-  }
+  },
 });
 
-export default function TabelaAcessoriso (props) {
+const TabelaAcessorios = (props) => {
   const classes = useStyles();
 
-  if (!props || !props.equipamento) return (<div></div>);
+  const {
+    equipamento,
+  } = props;
 
-  const acessorios = props.equipamento.triagem.acessorios || [];
+  if (!equipamento) {
+    return (<></>);
+  }
+
+  const acessorios = equipamento.triagem.acessorios || [];
   const rows = [...acessorios];
 
   return (
@@ -77,8 +83,8 @@ export default function TabelaAcessoriso (props) {
           </TableHead>
           <TableBody>
             {
-              rows.map((row, index) => (
-                <TableRow key={index}>
+              rows.map((row) => (
+                <TableRow key={`${row.descricao}_${new Date()}`}>
                   <StyledTd
                     component="th"
                     scope="row"
@@ -96,4 +102,14 @@ export default function TabelaAcessoriso (props) {
       </TableContainer>
     </div>
   );
-}
+};
+
+TabelaAcessorios.propTypes = {
+  equipamento: PropTypes.shape({
+    triagem: PropTypes.shape({
+      acessorios: PropTypes.instanceOf(Array),
+    }),
+  }).isRequired,
+};
+
+export default TabelaAcessorios;

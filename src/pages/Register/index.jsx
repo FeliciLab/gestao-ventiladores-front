@@ -1,7 +1,8 @@
-import React, {useState} from "react";
-import "./styles.css";
-import {Link, useHistory} from "react-router-dom";
-import logoDefault from "../../assets/logoDefault.svg";
+import React, { useState } from 'react';
+import './styles.css';
+import { Link, useHistory } from 'react-router-dom';
+import logoDefault from '../../assets/logoDefault.svg';
+
 
 export default function Register() {
   const [name, setName] = useState("");

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import grey from '@material-ui/core/colors/grey';
@@ -11,12 +12,24 @@ const useClass = makeStyles(() => ({
     fontWeight: 'bold',
     paddingTop: '8px',
     paddingBottom: '8px',
-  }
+  },
 }));
-export default function SubtituloPagina (props) {
-  const classes = useClass();
-  return (
-    <Typography className={classes.texto}><strong>{props.texto}</strong></Typography>
-  )
 
-}
+const SubtituloPagina = (props) => {
+  const classes = useClass();
+  const {
+    texto,
+  } = props;
+
+  return (
+    <Typography className={classes.texto}>
+      <strong>{texto}</strong>
+    </Typography>
+  );
+};
+
+SubtituloPagina.propTypes = {
+  texto: PropTypes.string.isRequired,
+};
+
+export default SubtituloPagina;

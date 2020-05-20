@@ -7,7 +7,6 @@ import TablePrint from '../../pages/_common/print/TablePrint';
 
 
 const IndexOrderPrint = (props) => {
-  PropTypes.checkPropTypes(IndexOrderPrint.propsTypes, props, 'prop', IndexOrderPrint);
   const { location: { state: { data } } = {} } = props;
 
   const headerTable = [
@@ -27,12 +26,12 @@ const IndexOrderPrint = (props) => {
     <div className="landscape-print page-container">
       <PagePrint>
         <HeaderPrint
-          typeAbbreviation={'OC'}
+          typeAbbreviation="OC"
           number={data.numero_ordem_compra}
-          subTitle={'ORDEM DE COMPRA'}
-          pageNumber={'01'}
+          subTitle="ORDEM DE COMPRA"
+          pageNumber="01"
         />
-        <TopicPrint text={'1. Descrição material'} />
+        <TopicPrint text="1. Descrição material" />
         <TablePrint
           headerTable={headerTable}
           bodyData={bodyData}
@@ -43,8 +42,12 @@ const IndexOrderPrint = (props) => {
   );
 };
 
-IndexOrderPrint.propsTypes = {
-  location: PropTypes.object,
+IndexOrderPrint.defaultProps = {
+  location: {},
+};
+
+IndexOrderPrint.propTypes = {
+  location: PropTypes.shape({}),
 };
 
 export default IndexOrderPrint;

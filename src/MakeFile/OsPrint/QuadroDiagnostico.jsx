@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import { grey } from '@material-ui/core/colors';
 import Table from '@material-ui/core/Table';
@@ -13,18 +14,20 @@ const useStyles = makeStyles(() => ({
     padding: '5px',
     border: 1,
     borderStyle: 'solid',
-    borderColor: grey[900]
+    borderColor: grey[900],
   },
   quadroInterno: {
     borderColor: grey[300],
-  }
+  },
 }));
-export default function QuadroDiagnosticos (props) {
+
+const QuadroDiagnosticos = (props) => {
   const classes = useStyles();
 
-  const {numberRows} = props;
+  const { numberRows } = props;
+
   const rows = [];
-  for (let i = 0; i < numberRows; i++) {
+  for (let i = 0; i < numberRows; i += 1) {
     rows.push(i);
   }
 
@@ -34,7 +37,11 @@ export default function QuadroDiagnosticos (props) {
         <TableContainer>
           <Table>
             <TableBody>
-              {rows.map(i => (<TableRow key={i}><TableCell> </TableCell></TableRow>))}
+              {rows.map((i) => (
+                <TableRow key={i}>
+                  <TableCell />
+                </TableRow>
+              ))}
             </TableBody>
           </Table>
         </TableContainer>
@@ -42,4 +49,10 @@ export default function QuadroDiagnosticos (props) {
     </div>
 
   );
-}
+};
+
+QuadroDiagnosticos.propTypes = {
+  numberRows: PropTypes.number.isRequired,
+};
+
+export default QuadroDiagnosticos;

@@ -1,7 +1,7 @@
 import api from '../services/api';
 
 
-export function sendEquipmentPhoto (photo, label, id) {
+export function sendEquipmentPhoto(photo, label, id) {
   const formData = new FormData();
   if (id) {
     formData.append('_id', id);
@@ -10,16 +10,14 @@ export function sendEquipmentPhoto (photo, label, id) {
 
   return api.post('/api/importar/imagem', formData, {
     header: {
-      'Content-Type': 'multipart/form-data'
-    }
+      'Content-Type': 'multipart/form-data',
+    },
   })
-    .then(result => {
+    .then((result) => {
       if (result.data) {
         return result.data;
       }
-      return false
+      return false;
     })
-    .catch(err => {
-      return err;
-    });
+    .catch((err) => err);
 }

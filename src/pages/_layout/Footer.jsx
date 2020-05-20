@@ -82,7 +82,7 @@ export default function Footer() {
           </Typography>
         </div>
       </div>
-      <div style={{alignSelf: "center"}}>
+      <div style={{ alignSelf: 'center' }}>
         <Typography className={classes.text} noWrap>
           © 2017 - 2020 – GOVERNO DO ESTADO DO CEARÁ. TODOS OS DIREITOS
           RESERVADOS - v1.1.2
@@ -94,41 +94,41 @@ export default function Footer() {
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
-    display: "flex",
-    position: "relative",
+    display: 'flex',
+    position: 'relative',
     height: 280,
     background: green[800],
-    flexDirection: "column",
+    flexDirection: 'column',
   },
   info: {
     marginTop: 50,
-    display: "flex",
-    flexDirection: "row",
-    alignSelf: "center",
-    justifyContent: "space-between",
-    width: "auto",
+    display: 'flex',
+    flexDirection: 'row',
+    alignSelf: 'center',
+    justifyContent: 'space-between',
+    width: 'auto',
     height: 200,
     marginLeft: theme.spacing(2),
     marginRight: theme.spacing(2),
     [theme.breakpoints.up(1200 + theme.spacing(2) * 2)]: {
       width: 1200,
-      marginLeft: "auto",
-      marginRight: "auto",
+      marginLeft: 'auto',
+      marginRight: 'auto',
     },
   },
 
   title: {
     fontSize: 18,
-    color: "#fff",
-    fontWeight: "bold",
+    color: '#fff',
+    fontWeight: 'bold',
   },
   text: {
     fontSize: 14,
-    color: "#fff",
+    color: '#fff',
   },
 
   coluna: {
-    display: "flex",
-    flexDirection: "column",
+    display: 'flex',
+    flexDirection: 'column',
   },
 }));

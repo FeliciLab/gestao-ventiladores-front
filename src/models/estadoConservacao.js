@@ -1,5 +1,5 @@
 const estadoConservacao = [
   'Novo',
-  'Usado'
+  'Usado',
 ];
 export default estadoConservacao;

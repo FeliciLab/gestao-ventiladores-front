@@ -11,63 +11,59 @@ import { Acessorio } from '../models/acessorio';
  *      manutencao
  *      etc
  */
-export function getServiceOrderByStatus (status) {
+export function getServiceOrderByStatus(status) {
   return api.post(
     '/api/ordem_servicos/find',
     {
       query: {
-        status
-      }
+        status,
+      },
     },
     {
       headers: {
         'Access-Control-Allow-Origin': '*',
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
       },
-    }
+    },
   )
-    .then((response) => {
-      return response.data;
-    })
-    .catch(error => {
+    .then((response) => response.data)
+    .catch((error) => {
       console.log(error);
       return error;
     });
 }
 
-export function getAllServiceOrder () {
+export function getAllServiceOrder() {
   return api.get(
-    '/api/ordem_servicos'
+    '/api/ordem_servicos',
   )
-    .then((response) => {
-      return response.data;
-    })
-    .catch(error => {
+    .then((response) => response.data)
+    .catch((error) => {
       console.log(error);
       return error;
     });
 }
 
-export function mapModelRequest (serviceOrder) {
+export function mapModelRequest(serviceOrder) {
   const model = ServiceOrder({});
   const modelScreening = ServiceOrderScreening(serviceOrder);
   const modelDiagnosis = ServiceOrderDiagnosis(serviceOrder.diagnostico || {});
   const modelAccessory = Acessorio({});
   const modelItems = itemDiagnosisModel;
 
-  for (let field in model) {
+  for (const field in model) {
     if (!serviceOrder.hasOwnProperty(field)) {
       continue;
     }
 
-    if (typeof (serviceOrder[field]) === 'object' && serviceOrder[field] !== null && serviceOrder[field]['$oid']) {
-      model[field] = serviceOrder[field]['$oid'];
+    if (typeof (serviceOrder[field]) === 'object' && serviceOrder[field] !== null && serviceOrder[field].$oid) {
+      model[field] = serviceOrder[field].$oid;
       continue;
     }
 
-    if (typeof (serviceOrder[field]) === 'object' && serviceOrder[field] !== null && serviceOrder[field]['$date']) {
-      model[field] = new Date(serviceOrder[field]['$date']);
+    if (typeof (serviceOrder[field]) === 'object' && serviceOrder[field] !== null && serviceOrder[field].$date) {
+      model[field] = new Date(serviceOrder[field].$date);
       continue;
     }
 
@@ -77,37 +73,37 @@ export function mapModelRequest (serviceOrder) {
     }
 
     if (field === 'triagem' && serviceOrder[field]) {
-      for (let fieldScreening in modelScreening) {
+      for (const fieldScreening in modelScreening) {
         if (fieldScreening === 'acessorios') {
-          for (let indexAccessory in serviceOrder['triagem']['acessorios']) {
+          for (const indexAccessory in serviceOrder.triagem.acessorios) {
             const item = {};
-            for (let fieldModelAccessory in modelAccessory) {
-              item[fieldModelAccessory] = serviceOrder['triagem']['acessorios'][indexAccessory][fieldModelAccessory];
+            for (const fieldModelAccessory in modelAccessory) {
+              item[fieldModelAccessory] = serviceOrder.triagem.acessorios[indexAccessory][fieldModelAccessory];
             }
-            model['triagem']['acessorios'][indexAccessory] = item;
+            model.triagem.acessorios[indexAccessory] = item;
           }
           continue;
         }
 
-        model['triagem'][fieldScreening] = serviceOrder['triagem'][fieldScreening];
+        model.triagem[fieldScreening] = serviceOrder.triagem[fieldScreening];
       }
       continue;
     }
 
     if (field === 'diagnostico' && serviceOrder[field]) {
-      for (let fieldDiagnosis in modelDiagnosis) {
+      for (const fieldDiagnosis in modelDiagnosis) {
         if (fieldDiagnosis === 'itens') {
-          for (let indexItem in serviceOrder['diagnostico']['itens']) {
+          for (const indexItem in serviceOrder.diagnostico.itens) {
             const item = {};
-            for (let fieldModelItem in modelItems) {
-              item[fieldModelItem] = serviceOrder['diagnostico']['itens'][indexItem][fieldModelItem];
+            for (const fieldModelItem in modelItems) {
+              item[fieldModelItem] = serviceOrder.diagnostico.itens[indexItem][fieldModelItem];
             }
-            model['diagnostico']['itens'][indexItem] = item;
+            model.diagnostico.itens[indexItem] = item;
           }
           continue;
         }
 
-        model['diagnostico'][fieldDiagnosis] = serviceOrder['diagnostico'][fieldDiagnosis];
+        model.diagnostico[fieldDiagnosis] = serviceOrder.diagnostico[fieldDiagnosis];
       }
       continue;
     }
@@ -118,8 +114,8 @@ export function mapModelRequest (serviceOrder) {
   return model;
 }
 
-export function saveNewOrderService (serviceOrder) {
-  delete (serviceOrder['_id']);
+export function saveNewOrderService(serviceOrder) {
+  delete (serviceOrder._id);
   return api.post(
     '/api/ordem_servicos',
     Object.assign(
@@ -127,31 +123,25 @@ export function saveNewOrderService (serviceOrder) {
       {
         status: 'triagem',
         created_at: new Date(),
-        updated_at: new Date()
+        updated_at: new Date(),
       },
     ),
     {
       headers: {
         'Access-Control-Allow-Origin': '*',
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      }
-    }
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    },
   )
-    .then(res => {
-      return res;
-    })
-    .catch(err => {
-      return err;
-    });
+    .then((res) => res)
+    .catch((err) => err);
 }
 
-export function updateServiceOrderRequest (serviceOrder, id) {
+export function updateServiceOrderRequest(serviceOrder, id) {
   delete serviceOrder._id;
   return api.patch(
-    '/api/ordem_servico/' + id,
-    Object.assign(serviceOrder, {updated_at: new Date()})
-  ).then(result => {
-    return result;
-  });
+    `/api/ordem_servico/${id}`,
+    Object.assign(serviceOrder, { updated_at: new Date() }),
+  ).then((result) => result);
 }

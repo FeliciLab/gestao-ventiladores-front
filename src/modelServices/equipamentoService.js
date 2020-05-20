@@ -9,58 +9,53 @@ import { Equipamento } from '../models/equipamentos';
  *      manutencao
  *      etc
  */
-export function getEquipmentByStatus (status) {
+export function getEquipmentByStatus(status) {
   return api
     .post(
-      "/api/equipamentos/find",
-      {status},
+      '/api/equipamentos/find',
+      { status },
       {
         headers: {
-          "Access-Control-Allow-Origin": "*",
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      }
-    )
-    .then((response) => {
-      return response.data;
-    })
-    .catch(error => {
-      console.log(error);
-      return error;
-    });
-}
-
-export function getAllEquipments () {
-  return api
-    .get("/api/equipamentos", {
-        headers: {
           'Access-Control-Allow-Origin': '*',
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
         },
-      }
+      },
     )
-    .then((response) => {
-      return response.data;
-    })
-    .catch(error => {
+    .then((response) => response.data)
+    .catch((error) => {
       console.log(error);
       return error;
     });
 }
 
-export function mapEquipmentRequest (delivery) {
+export function getAllEquipments() {
+  return api
+    .get('/api/equipamentos', {
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+    .then((response) => response.data)
+    .catch((error) => {
+      console.log(error);
+      return error;
+    });
+}
+
+export function mapEquipmentRequest(delivery) {
   const model = Equipamento({});
 
-  for (let field in model) {
-    if (typeof (delivery[field]) === 'object' && delivery[field] !== null && delivery[field]['$oid']) {
-      model[field] = delivery[field]['$oid'];
+  for (const field in model) {
+    if (typeof (delivery[field]) === 'object' && delivery[field] !== null && delivery[field].$oid) {
+      model[field] = delivery[field].$oid;
       continue;
     }
 
-    if (typeof (delivery[field]) === 'object' && delivery[field] !== null && delivery[field]['$date']) {
-      model[field] = new Date(delivery[field]['$date']);
+    if (typeof (delivery[field]) === 'object' && delivery[field] !== null && delivery[field].$date) {
+      model[field] = new Date(delivery[field].$date);
       continue;
     }
     if (field === 'created_at' || field === 'updated_at') {
@@ -73,8 +68,8 @@ export function mapEquipmentRequest (delivery) {
   return model;
 }
 
-export function saveNewEquipment (equipamento) {
-  delete (equipamento['_id']);
+export function saveNewEquipment(equipamento) {
+  delete (equipamento._id);
   const model = mapEquipmentRequest(equipamento);
   return api.post(
     '/api/equipamentos',
@@ -83,53 +78,49 @@ export function saveNewEquipment (equipamento) {
       {
         status: 'triagem',
         created_at: new Date(),
-        updated_at: new Date()
+        updated_at: new Date(),
       },
     ),
     {
       headers: {
         'Access-Control-Allow-Origin': '*',
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      }
-    }
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    },
   )
-    .then(res => {
+    .then((res) => {
       if (res && res.data) return res.data;
 
       return false;
     })
-    .catch(err => {
-      return err;
-    });
+    .catch((err) => err);
 }
 
-export function updateEquipment (equipamento) {
+export function updateEquipment(equipamento) {
   const model = mapEquipmentRequest(equipamento);
-  const id = model['_id'];
-  delete (model['_id']);
+  const id = model._id;
+  delete (model._id);
 
   return api.put(
-    '/api/equipamento/' + id,
-    Object.assign({}, model, {updated_at: new Date()})
-  ).then(result => {
+    `/api/equipamento/${id}`,
+    { ...model, updated_at: new Date() },
+  ).then((result) => {
     console.log(result);
     return result;
-  }).catch(err => {
+  }).catch((err) => {
     console.log(err);
     return err;
   });
 }
 
-export function deleteEquipmentRequest (_id) {
+export function deleteEquipmentRequest(_id) {
   return api.delete(
-    '/api/equipamentos?_id=' + _id
-  ).then(res => {
-    return res.data;
-  });
+    `/api/equipamentos?_id=${_id}`,
+  ).then((res) => res.data);
 }
 
 export function updateManyEquipmentRequest(equipments) {
-  return api.post('/api/equipamentos/bulk', {equipamentos: equipments.map(item => mapEquipmentRequest(item))})
-    .then(res => res.data)
+  return api.post('/api/equipamentos/bulk', { equipamentos: equipments.map((item) => mapEquipmentRequest(item)) })
+    .then((res) => res.data);
 }

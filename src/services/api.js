@@ -5,24 +5,24 @@ const baseUrl = 'https://api.centralventiladores.dev.org.br';
 // const baseUrl = 'http://localhost:5000';
 
 export function getUrlRequest(uri) {
-  return baseUrl + uri
+  return baseUrl + uri;
 }
 
 export function getHeadersRequest() {
   return {
-    "Access-Control-Allow-Origin": "*",
-    Accept: "application/json",
-    "Content-Type": "application/json"
-  }
+    'Access-Control-Allow-Origin': '*',
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+  };
 }
 
 const api = axios.create({
   headers: getHeadersRequest(),
-  baseURL: baseUrl
+  baseURL: baseUrl,
 });
 
-export function getBaseUrl () {
+export function getBaseUrl() {
   return baseUrl;
-};
+}
 
 export default api;

@@ -24,18 +24,22 @@ export default function Screening (props) {
 
   useEffect(getData, [getData]);
 
-  function reloadData() {
-    setLoadingData(true)
-    getData()
+  function reloadData () {
+    setLoadingData(true);
+    getData();
   }
 
   if (loadingData) {
-    return <LoadingBar progress={progressLoad}/>;
+    return <LoadingBar progress={progressLoad} />;
   }
 
   return (
     <Layout>
-      <ScreeningPage serviceOrders={serviceOrders} reloadData={reloadData} loadingData={loadingData}/>
+      <ScreeningPage
+        serviceOrders={serviceOrders}
+        reloadData={reloadData}
+        loadingData={loadingData}
+      />
     </Layout>
   );
 }

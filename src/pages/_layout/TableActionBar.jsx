@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: theme.spacing(2),
     paddingRight: theme.spacing(1),
     display: 'flex',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
   highlight: {
     color: theme.palette.primary.main,
@@ -24,10 +24,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function TableActionBar (props) {
+export default function TableActionBar(props) {
   const [doAction, setDoAction] = React.useState(false);
 
-  function startAction (event) {
+  function startAction(event) {
     event.preventDefault();
     setDoAction(true);
   }
@@ -47,7 +47,12 @@ export default function TableActionBar (props) {
             variant="subtitle1"
             component="div"
           >
-            {props.selecionados.length} Orde{props.selecionados.length > 1 ? 'ns' : 'm'} de Serviços selecionados
+            {props.selecionados.length}
+            {' '}
+            Orde
+            {props.selecionados.length > 1 ? 'ns' : 'm'}
+            {' '}
+            de Serviços selecionados
           </Typography>
         ) : (
           <Typography
@@ -65,11 +70,13 @@ export default function TableActionBar (props) {
             <Button
               onClick={(event) => abrirImpressao(event)}
               variant="outlined"
-            >Gerar arquivo de impressão</Button>
+            >
+              Gerar arquivo de impressão
+            </Button>
           </Tooltip>
         ) : (
           <Tooltip title="nenhuma ordem de serviço selecionada">
-            <IndeterminateCheckBoxIcon></IndeterminateCheckBoxIcon>
+            <IndeterminateCheckBoxIcon />
           </Tooltip>
         )
       }

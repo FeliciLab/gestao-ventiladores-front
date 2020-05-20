@@ -1,15 +1,15 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import IndexServiceOrder from './pages/SerrviceOrder';
-import FormTriagem from './pages/Screening/ScreeningForm';
-import IndexFormDiagnosis from './pages/Diagnosis/DiagnosisForm';
-import Screening from './pages/Screening';
-import IndexDemand from './pages/Demand';
-import Diagnosis from './pages/Diagnosis';
-import Delivery from './pages/Delivery';
-import Calibration from './pages/Calibration';
-import OsPrint from './MakeFile/OsPrint';
+import IndexServiceOrder from './pages/SerrviceOrder/index';
+import FormTriagem from './pages/Screening/ScreeningForm/index';
+import IndexFormDiagnosis from './pages/Diagnosis/DiagnosisForm/index';
+import Screening from './pages/Screening/index';
+import IndexDemand from './pages/Demand/index';
+import Diagnosis from './pages/Diagnosis/index';
+import Delivery from './pages/Delivery/index';
+import Calibration from './pages/Calibration/index';
+import OsPrint from './MakeFile/OsPrint/index';
 import IndexOrderPrint from './MakeFile/OrderPrint/index';
 import IndexDeliveryPrint from './MakeFile/DeliveryPrint/index';
 

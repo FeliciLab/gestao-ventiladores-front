@@ -15,16 +15,16 @@ import { green } from '@material-ui/core/colors';
 import Grid from '@material-ui/core/Grid';
 
 
-export default function Header () {
+export default function Header() {
   const classes = useStyles();
 
   const menuRoutes = [
-    {label: 'ORDENS DE SERVIÇO', pathname: '/ordens-servicos', icon: <LibraryBooksSharpIcon font={"small"}/>},
-    {label: 'TRIAGEM', pathname: '/triagens', icon: <AssignmentSharpIcon font={"small"}/>},
-    {label: 'DIAGNÓSTICO', pathname: '/diagnosticos', icon: <SubtitlesSharpIcon font={"small"}/>},
-    {label: 'DEMANDA', pathname: '/demandas', icon: <LocalMallSharpIcon font={"small"}/>},
-    {label: 'CALIBRAGEM', pathname: '/calibragem', icon: <AssignmentTurnedInSharpIcon font={"small"}/>},
-    {label: 'ENTREGA', pathname: '/entregas', icon: <UnarchiveSharpIcon font={"small"}/>},
+    { label: 'ORDENS DE SERVIÇO', pathname: '/ordens-servicos', icon: <LibraryBooksSharpIcon font="small" /> },
+    { label: 'TRIAGEM', pathname: '/triagens', icon: <AssignmentSharpIcon font="small" /> },
+    { label: 'DIAGNÓSTICO', pathname: '/diagnosticos', icon: <SubtitlesSharpIcon font="small" /> },
+    { label: 'DEMANDA', pathname: '/demandas', icon: <LocalMallSharpIcon font="small" /> },
+    { label: 'CALIBRAGEM', pathname: '/calibragem', icon: <AssignmentTurnedInSharpIcon font="small" /> },
+    { label: 'ENTREGA', pathname: '/entregas', icon: <UnarchiveSharpIcon font="small" /> },
   ];
 
   const currentPathname = window.location.pathname;
@@ -43,8 +43,12 @@ export default function Header () {
             >
               <strong>
                 CENTRAL
-                <br/> DE
-                <br/> VENTILADORES
+                <br />
+                {' '}
+                DE
+                <br />
+                {' '}
+                VENTILADORES
               </strong>
             </Typography>
           </div>
@@ -53,22 +57,24 @@ export default function Header () {
               className={classes.textUser}
               noWrap
             >
-              {/*usuario, joe*/}
+              {/* usuario, joe */}
             </Typography>
           </div>
         </Toolbar>
         <div className={classes.appBarFooter}>
           <Container>
             <div className={classes.divTextFooter}>
-              <Grid container alignItems={'center'} spacing={4}>
+              <Grid container alignItems="center" spacing={4}>
                 {menuRoutes.map((item, index) => (
                   <Grid item key={index} className={currentPathname === item.pathname ? classes.currentLink : ''}>
                     <Link
                       to={item.pathname}
                       className={classes.link}
                     >
-                      <div style={{display: 'flex', alignItems: "center"}}>
-                        {item.icon} <span style={{marginLeft: '0.5rem'}}>{item.label}</span>
+                      <div style={{ display: 'flex', alignItems: 'center' }}>
+                        {item.icon}
+                        {' '}
+                        <span style={{ marginLeft: '0.5rem' }}>{item.label}</span>
                       </div>
                     </Link>
                   </Grid>
@@ -84,43 +90,43 @@ export default function Header () {
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
-    position: "relative",
+    position: 'relative',
     height: 300,
     background: green[500],
   },
   toolbar: {
     marginTop: 20,
-    justifyContent: "space-between",
-    width: "auto",
+    justifyContent: 'space-between',
+    width: 'auto',
     marginLeft: theme.spacing(2),
     marginRight: theme.spacing(2),
     [theme.breakpoints.up(1200 + theme.spacing(2) * 2)]: {
       width: 1200,
-      marginLeft: "auto",
-      marginRight: "auto",
+      marginLeft: 'auto',
+      marginRight: 'auto',
     },
   },
   appBarFooter: {
-    width: "100%",
+    width: '100%',
     background: green['800'],
     height: 60,
-    position: "absolute",
+    position: 'absolute',
     bottom: 0,
   },
   divTextFooter: {
     height: 60,
-    display: "flex",
+    display: 'flex',
     marginLeft: theme.spacing(2),
     marginRight: theme.spacing(2),
     [theme.breakpoints.up(1200 + theme.spacing(2) * 2)]: {
       width: 1200,
-      marginLeft: "auto",
-      marginRight: "auto",
+      marginLeft: 'auto',
+      marginRight: 'auto',
     },
-    flexDirection: "row",
+    flexDirection: 'row',
   },
   divTitle: {
-    flexDirection: "row",
+    flexDirection: 'row',
   },
   textUser: {
     fontSize: 20,
@@ -128,21 +134,21 @@ const useStyles = makeStyles((theme) => ({
   textFooter: {
     fontSize: 20,
     // alignSelf: "center",
-    color: "#fff",
+    color: '#fff',
   },
   text: {
     fontSize: 30,
-    color: "#fff",
-    fontWeight: "bold",
+    color: '#fff',
+    fontWeight: 'bold',
   },
   link: {
     // marginRight: "2rem",
     fontSize: 18,
     // alignSelf: "center",
-    color: "#fff",
-    textDecoration: "none",
+    color: '#fff',
+    textDecoration: 'none',
   },
   currentLink: {
-    borderBottom: '4px white solid'
-  }
+    borderBottom: '4px white solid',
+  },
 }));
