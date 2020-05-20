@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import { Tab, Tabs } from '@material-ui/core';
@@ -7,43 +8,6 @@ import TabPanel from '../_common/components/TabPanel';
 import FormDeliveryOrder from './FormDeliveryOrder';
 import ListDeliveryOrders from './ListDeliveryOrders';
 
-
-const IndexDiagnosis = (props) => {
-  const classes = useStyles();
-
-  const {serviceOrders, deliveryOrders, realodData} = props;
-
-  const [tabValue, setTabValue] = useState(0);
-
-  function changeTab (event, newValue) {
-    console.log('form', newValue)
-    setTabValue(newValue);
-  }
-
-  return (
-    <React.Fragment>
-      <Container>
-        <Grid container className={classes.titleList}>
-          <Grid item xs={'auto'}>
-            <Tabs
-              value={tabValue} onChange={changeTab}
-              aria-label={'Abas de listagens de ordens de serviços'} centered
-            >
-              <Tab label={"Formulário de entrega"} aria-controls={"lista-os-entrega"}/>
-              <Tab label={"Lista de entregas"} aria-controls={"lista-equipamentos-entregas"}/>
-            </Tabs>
-          </Grid>
-        </Grid>
-        <TabPanel value={tabValue} index={0}>
-          <FormDeliveryOrder realodData={realodData} serviceOrders={serviceOrders}/>
-        </TabPanel>
-        <TabPanel value={tabValue} index={1}>
-          <ListDeliveryOrders deliveryOrders={deliveryOrders}/>
-        </TabPanel>
-      </Container>
-    </React.Fragment>
-  );
-};
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -58,10 +22,59 @@ const useStyles = makeStyles((theme) => ({
   },
   titleList: {
     marginTop: theme.spacing(3),
-    marginBottom: theme.spacing(3)
+    marginBottom: theme.spacing(3),
   },
   containerBottom: {
-    paddingBottom: theme.spacing(6)
-  }
+    paddingBottom: theme.spacing(6),
+  },
 }));
+
+const IndexDiagnosis = (props) => {
+  const classes = useStyles();
+
+  const {
+    serviceOrders,
+    deliveryOrders,
+    realodData,
+  } = props;
+
+  const [tabValue, setTabValue] = useState(0);
+
+  function changeTab(event, newValue) {
+    setTabValue(newValue);
+  }
+
+  return (
+    <>
+      <Container>
+        <Grid container className={classes.titleList}>
+          <Grid item xs="auto">
+            <Tabs
+              value={tabValue}
+              onChange={changeTab}
+              aria-label="Abas de listagens de ordens de serviços"
+              centered
+            >
+              <Tab label="Formulário de entrega" aria-controls="lista-os-entrega" />
+              <Tab label="Lista de entregas" aria-controls="lista-equipamentos-entregas" />
+            </Tabs>
+          </Grid>
+        </Grid>
+        <TabPanel value={tabValue} index={0}>
+          <FormDeliveryOrder realodData={realodData} serviceOrders={serviceOrders} />
+        </TabPanel>
+        <TabPanel value={tabValue} index={1}>
+          <ListDeliveryOrders deliveryOrders={deliveryOrders} />
+        </TabPanel>
+      </Container>
+    </>
+  );
+};
+
+IndexDiagnosis.propTypes = {
+  serviceOrders: PropTypes.instanceOf(Array).isRequired,
+  deliveryOrders: PropTypes.instanceOf(Array).isRequired,
+  realodData: PropTypes.func.isRequired,
+};
+
 export default IndexDiagnosis;
