@@ -8,7 +8,8 @@ const ColorIconButton = (props) => {
   const {
     item,
     action,
-    name
+    name,
+    disabled
   } = props;
 
   const {
@@ -25,13 +26,14 @@ const ColorIconButton = (props) => {
       backgroundColor: bgColor || orange[500],
       '&:hover': {
         backgroundColor: hoverColor || orange[700],
-      },
-    },
+      }
+    }
   }))(IconButton);
 
   return (<React.Fragment>
     <ColoredIconButton
       title={name}
+      disabled={disabled}
       onClick={() => action(item)}
       size={size || 'small'}
     >
