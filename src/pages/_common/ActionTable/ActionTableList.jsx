@@ -1,18 +1,24 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import TableContainer from '@material-ui/core/TableContainer';
 import Table from '@material-ui/core/Table';
-import PropTypes from 'prop-types';
 import ActionTableHeaderLayout from './ActionTableHeaderLayout';
 import ActionTableBodyLayout from './ActionTableBodyLayout';
 
 
 const ActionTableList = (props) => {
-  const [dataTable, setDataTable] = React.useState(props.dataTable || []);
-  const { headerTable, menuOptions, actionIconButton } = props;
+  const {
+    dataTable,
+    headerTable,
+    menuOptions,
+    actionIconButton,
+  } = props;
+
+  const [headerTableIds, setHeaderTableIds] = useState([]);
 
   useEffect(() => {
-    setDataTable(props.dataTable);
-  }, [dataTable, props]);
+    setHeaderTableIds(headerTable.map((item) => item.id));
+  }, [headerTable]);
 
   return (
     <div style={{ marginTop: '2rem' }}>
@@ -25,8 +31,8 @@ const ActionTableList = (props) => {
           <ActionTableBodyLayout
             actionIconButton={actionIconButton}
             data={dataTable}
-            headerKeys={headerTable.map(item => item.id)}
-            menuOptions={menuOptions || []}
+            headerKeys={headerTableIds}
+            menuOptions={menuOptions}
           />
         </Table>
       </TableContainer>
@@ -34,9 +40,15 @@ const ActionTableList = (props) => {
   );
 };
 
-ActionTableList.protoType = {
-  dataTable: PropTypes.array.isRequired,
-  headerTable: PropTypes.array.isRequired,
-  classes: PropTypes.object,
+ActionTableList.defaultProps = {
+  actionIconButton: false,
+  menuOptions: [],
+};
+
+ActionTableList.propTypes = {
+  dataTable: PropTypes.instanceOf(Array).isRequired,
+  headerTable: PropTypes.instanceOf(Array).isRequired,
+  menuOptions: PropTypes.instanceOf(Array),
+  actionIconButton: PropTypes.bool,
 };
 export default ActionTableList;
