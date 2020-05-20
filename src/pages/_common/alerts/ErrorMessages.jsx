@@ -1,5 +1,5 @@
 const messageErros = {
-  required: 'Campo obrigatório'
-}
+  required: 'Campo obrigatório',
+};
 
 export default messageErros;

@@ -1,31 +1,42 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 import messageErros from './ErrorMessages';
 
 
-export default function ErrorAlertText (props) {
-  React.useEffect(() => {
-    if (props.error) {
-      setType(props.error.type);
-      setMessage(props.error.message);
+const ErrorAlertText = (props) => {
+  const { error } = props;
+  const [type, setType] = useState('');
+  const [message, setMessage] = useState('');
+
+  useEffect(() => {
+    if (error) {
+      setType(error.type);
+      setMessage(error.message);
     }
-  }, [props]);
-  const [type, setType] = React.useState('');
-  const [message, setMessage] = React.useState('');
+  }, [error]);
 
-  // const messageErros = messageErros;
-
-  if (!props.error) {
-    return (<React.Fragment></React.Fragment>);
+  if (!error) {
+    return (<></>);
   }
 
-  return (<React.Fragment>
-    <Typography
-      variant={'caption'}
-      component={'small'}
-      color={'error'}
-    >
-      {!message || message === '' ? messageErros[type] : message}
-    </Typography>
-  </React.Fragment>);
-}
+  return (
+    <>
+      <Typography
+        variant="caption"
+        component="small"
+        color="error"
+      >
+        {!message || message === ''
+          ? messageErros[type]
+          : message}
+      </Typography>
+    </>
+  );
+};
+
+ErrorAlertText.propTypes = {
+  error: PropTypes.instanceOf(Object).isRequired,
+};
+
+export default ErrorAlertText;
