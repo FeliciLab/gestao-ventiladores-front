@@ -3,7 +3,7 @@ import LoadingBar from '../_common/components/LoadingBar';
 import { ServiceOrder } from '../../models/serviceOrder';
 import CalibrationPage from './CalibrationPage';
 import Layout from '../_layout/Layout';
-import { getAllDiagnosis } from '../../modelServices/diagnosisService';
+import getAllDiagnosis from '../../modelServices/diagnosisService';
 import { getAllCalibration } from '../../modelServices/calibragemService';
 
 

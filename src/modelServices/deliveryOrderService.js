@@ -2,40 +2,42 @@ import api from '../services/api';
 import { Delivery } from '../models/delivery';
 
 
-function mapModel(delivery) {
-  const model = Delivery({});
-  for (const field in model) {
-    if (typeof (delivery[field]) === 'object' && delivery[field] !== null && delivery[field].$oid) {
-      model[field] = delivery[field].$oid;
-      continue;
-    }
-
-    if (typeof (delivery[field]) === 'object' && delivery[field] !== null && delivery[field].$date) {
-      model[field] = new Date(delivery[field].$date);
-      continue;
-    }
-    if (field === 'created_at' || field === 'updated_at') {
-      model[field] = new Date(delivery[field]);
-      continue;
-    }
-
-    model[field] = delivery[field];
+const getFieldValue = (delivery, field) => {
+  if (typeof (delivery[field]) === 'object' && delivery[field] !== null && delivery[field].$oid) {
+    return delivery[field].$oid;
   }
-  return model;
-}
 
-export async function getAllDeliveryOrders() {
+  if (typeof (delivery[field]) === 'object' && delivery[field] !== null && delivery[field].$date) {
+    return new Date(delivery[field].$date);
+  }
+  if (field === 'created_at' || field === 'updated_at') {
+    return new Date(delivery[field]);
+  }
+
+  return delivery[field];
+};
+
+const mapModel = (delivery) => {
+  const model = Delivery({});
+
+  Object.keys(model).forEach((field) => {
+    model[field] = getFieldValue(delivery, field);
+  });
+
+  return model;
+};
+
+export const getAllDeliveryOrders = async () => {
   try {
     const response = await api.get('/api/movimentacao');
 
     return response.data || [];
   } catch (error) {
-    console.log(error);
     return [];
   }
-}
+};
 
-export async function saveDelivery(entrega) {
+export const saveDelivery = async (entrega) => {
   try {
     const doc = mapModel(entrega);
     const response = await api.post(
@@ -46,12 +48,11 @@ export async function saveDelivery(entrega) {
     );
     return response.data || [];
   } catch (error) {
-    console.log(error);
     return [];
   }
-}
+};
 
-export async function updateEntrega(entrega) {
+export const updateEntrega = async (entrega) => {
   try {
     const doc = mapModel(entrega);
     const response = await api.put(
@@ -71,4 +72,4 @@ export async function updateEntrega(entrega) {
   } catch (error) {
     return error;
   }
-}
+};

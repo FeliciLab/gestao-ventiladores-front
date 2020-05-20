@@ -4,122 +4,114 @@ import { itemDiagnosisModel } from '../models/itensDiagnosticos';
 import { Acessorio } from '../models/acessorio';
 
 
-/**
- * Seach screnning by status
- *      triagem
- *      diagnostico
- *      manutencao
- *      etc
- */
-export function getServiceOrderByStatus(status) {
-  return api.post(
-    '/api/ordem_servicos/find',
-    {
-      query: {
-        status,
-      },
+export const getServiceOrderByStatus = (status) => api.post(
+  '/api/ordem_servicos/find',
+  {
+    query: {
+      status,
     },
-    {
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
+  },
+  {
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
     },
-  )
-    .then((response) => response.data)
-    .catch((error) => {
-      console.log(error);
-      return error;
-    });
-}
+  },
+)
+  .then((response) => response.data);
 
-export function getAllServiceOrder() {
-  return api.get(
-    '/api/ordem_servicos',
-  )
-    .then((response) => response.data)
-    .catch((error) => {
-      console.log(error);
-      return error;
-    });
-}
+export const getAllServiceOrder = () => api.get('/api/ordem_servicos')
+  .then((response) => response.data);
 
-export function mapModelRequest(serviceOrder) {
-  const model = ServiceOrder({});
+const getValueFieldScreening = (serviceOrder) => {
   const modelScreening = ServiceOrderScreening(serviceOrder);
-  const modelDiagnosis = ServiceOrderDiagnosis(serviceOrder.diagnostico || {});
   const modelAccessory = Acessorio({});
+
+  const doc = {};
+
+  Object.keys(modelScreening).forEach((fieldScreening) => {
+    if (fieldScreening === 'acessorios') {
+      doc.acessorios = [];
+      serviceOrder.triagem.acessorios.forEach((i, indexAccessory) => {
+        const item = {};
+        Object.keys(modelAccessory).forEach((fieldModelAccessory) => {
+          item[fieldModelAccessory] = serviceOrder.triagem
+            .acessorios[indexAccessory][fieldModelAccessory];
+        });
+        doc.acessorios.push(item);
+      });
+    }
+
+    doc[fieldScreening] = serviceOrder.triagem[fieldScreening];
+  });
+
+  return doc;
+};
+
+const getValueFieldDiagnosis = (serviceOrder) => {
+  const modelDiagnosis = ServiceOrderDiagnosis(serviceOrder.diagnostico || {});
   const modelItems = itemDiagnosisModel;
+  const doc = {};
+  Object.keys(modelDiagnosis).forEach((fieldDiagnosis) => {
+    if (fieldDiagnosis === 'itens') {
+      doc.itens = [];
+      serviceOrder.diagnostico.itens.forEach((v, indexItem) => {
+        const item = {};
+        Object.keys(modelItems).forEach((fieldModelItem) => {
+          item[fieldModelItem] = serviceOrder.diagnostico.itens[indexItem][fieldModelItem];
+        });
 
-  for (const field in model) {
-    if (!serviceOrder.hasOwnProperty(field)) {
-      continue;
+        doc.itens.push(item);
+      });
     }
 
-    if (typeof (serviceOrder[field]) === 'object' && serviceOrder[field] !== null && serviceOrder[field].$oid) {
-      model[field] = serviceOrder[field].$oid;
-      continue;
-    }
+    doc[fieldDiagnosis] = serviceOrder.diagnostico[fieldDiagnosis];
+  });
 
-    if (typeof (serviceOrder[field]) === 'object' && serviceOrder[field] !== null && serviceOrder[field].$date) {
-      model[field] = new Date(serviceOrder[field].$date);
-      continue;
-    }
+  return doc;
+};
 
-    if ((field === 'created_at' || field === 'updated_at') && serviceOrder[field]) {
-      model[field] = new Date(serviceOrder[field]);
-      continue;
-    }
-
-    if (field === 'triagem' && serviceOrder[field]) {
-      for (const fieldScreening in modelScreening) {
-        if (fieldScreening === 'acessorios') {
-          for (const indexAccessory in serviceOrder.triagem.acessorios) {
-            const item = {};
-            for (const fieldModelAccessory in modelAccessory) {
-              item[fieldModelAccessory] = serviceOrder.triagem.acessorios[indexAccessory][fieldModelAccessory];
-            }
-            model.triagem.acessorios[indexAccessory] = item;
-          }
-          continue;
-        }
-
-        model.triagem[fieldScreening] = serviceOrder.triagem[fieldScreening];
-      }
-      continue;
-    }
-
-    if (field === 'diagnostico' && serviceOrder[field]) {
-      for (const fieldDiagnosis in modelDiagnosis) {
-        if (fieldDiagnosis === 'itens') {
-          for (const indexItem in serviceOrder.diagnostico.itens) {
-            const item = {};
-            for (const fieldModelItem in modelItems) {
-              item[fieldModelItem] = serviceOrder.diagnostico.itens[indexItem][fieldModelItem];
-            }
-            model.diagnostico.itens[indexItem] = item;
-          }
-          continue;
-        }
-
-        model.diagnostico[fieldDiagnosis] = serviceOrder.diagnostico[fieldDiagnosis];
-      }
-      continue;
-    }
-
-    model[field] = serviceOrder[field];
+const getValueField = (serviceOrder, field) => {
+  if (typeof (serviceOrder[field]) === 'object' && serviceOrder[field] !== null && serviceOrder[field].$oid) {
+    return serviceOrder[field].$oid;
   }
 
-  return model;
-}
+  if (typeof (serviceOrder[field]) === 'object' && serviceOrder[field] !== null && serviceOrder[field].$date) {
+    return new Date(serviceOrder[field].$date);
+  }
 
-export function saveNewOrderService(serviceOrder) {
-  delete (serviceOrder._id);
+  if ((field === 'created_at' || field === 'updated_at') && serviceOrder[field]) {
+    return new Date(serviceOrder[field]);
+  }
+
+  if (field === 'triagem' && serviceOrder[field]) {
+    return getValueFieldScreening(serviceOrder, field);
+  }
+
+  if (field === 'diagnostico' && serviceOrder[field]) {
+    return getValueFieldDiagnosis(serviceOrder);
+  }
+
+  return serviceOrder[field];
+};
+
+export const mapModelRequestServiceOrder = (serviceOrder) => {
+  const model = ServiceOrder({});
+  Object.keys(model).forEach((field) => {
+    model[field] = getValueField(serviceOrder, field);
+  });
+
+  return model;
+};
+
+export const saveNewOrderService = (serviceOrder) => {
+  const order = serviceOrder;
+  delete (order._id);
   return api.post(
     '/api/ordem_servicos',
     Object.assign(
-      serviceOrder,
+      order,
       {
         status: 'triagem',
         created_at: new Date(),
@@ -136,12 +128,13 @@ export function saveNewOrderService(serviceOrder) {
   )
     .then((res) => res)
     .catch((err) => err);
-}
+};
 
-export function updateServiceOrderRequest(serviceOrder, id) {
-  delete serviceOrder._id;
+export const updateServiceOrderRequest = (serviceOrder, id) => {
+  const order = serviceOrder;
+  delete order._id;
   return api.patch(
     `/api/ordem_servico/${id}`,
-    Object.assign(serviceOrder, { updated_at: new Date() }),
+    Object.assign(order, { updated_at: new Date() }),
   ).then((result) => result);
-}
+};

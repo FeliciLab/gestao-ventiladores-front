@@ -9,68 +9,58 @@ import Equipamento from '../models/equipamentos';
  *      manutencao
  *      etc
  */
-export function getEquipmentByStatus(status) {
-  return api
-    .post(
-      '/api/equipamentos/find',
-      { status },
-      {
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-      },
-    )
-    .then((response) => response.data)
-    .catch((error) => {
-      console.log(error);
-      return error;
-    });
-}
-
-export function getAllEquipments() {
-  return api
-    .get('/api/equipamentos', {
+export const getEquipmentByStatus = (status) => api
+  .post(
+    '/api/equipamentos/find',
+    { status },
+    {
       headers: {
         'Access-Control-Allow-Origin': '*',
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
-    })
-    .then((response) => response.data)
-    .catch((error) => {
-      console.log(error);
-      return error;
-    });
-}
+    },
+  )
+  .then((response) => response.data);
 
-export function mapEquipmentRequest(delivery) {
+export const getAllEquipments = () => api
+  .get('/api/equipamentos', {
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+  })
+  .then((response) => response.data);
+
+const getFieldValue = (obj, field) => {
+  if (typeof (obj[field]) === 'object' && obj[field] !== null && obj[field].$oid) {
+    return obj[field].$oid;
+  }
+
+  if (typeof (obj[field]) === 'object' && obj[field] !== null && obj[field].$date) {
+    return new Date(obj[field].$date);
+  }
+  if (field === 'created_at' || field === 'updated_at') {
+    return new Date(obj[field]);
+  }
+
+  return obj[field];
+};
+
+export const mapEquipmentRequest = (delivery) => {
   const model = Equipamento({});
 
-  for (const field in model) {
-    if (typeof (delivery[field]) === 'object' && delivery[field] !== null && delivery[field].$oid) {
-      model[field] = delivery[field].$oid;
-      continue;
-    }
+  Object.keys(model).forEach((field) => {
+    model[field] = getFieldValue(delivery, field);
+  });
 
-    if (typeof (delivery[field]) === 'object' && delivery[field] !== null && delivery[field].$date) {
-      model[field] = new Date(delivery[field].$date);
-      continue;
-    }
-    if (field === 'created_at' || field === 'updated_at') {
-      model[field] = new Date(delivery[field]);
-      continue;
-    }
-
-    model[field] = delivery[field];
-  }
   return model;
-}
+};
 
-export function saveNewEquipment(equipamento) {
-  delete (equipamento._id);
+export const saveNewEquipment = (equipamento) => {
   const model = mapEquipmentRequest(equipamento);
+  delete model._id;
   return api.post(
     '/api/equipamentos',
     Object.assign(
@@ -95,9 +85,9 @@ export function saveNewEquipment(equipamento) {
       return false;
     })
     .catch((err) => err);
-}
+};
 
-export function updateEquipment(equipamento) {
+export const updateEquipment = (equipamento) => {
   const model = mapEquipmentRequest(equipamento);
   const id = model._id;
   delete (model._id);
@@ -105,22 +95,12 @@ export function updateEquipment(equipamento) {
   return api.put(
     `/api/equipamento/${id}`,
     { ...model, updated_at: new Date() },
-  ).then((result) => {
-    console.log(result);
-    return result;
-  }).catch((err) => {
-    console.log(err);
-    return err;
-  });
-}
+  ).then((result) => result);
+};
 
-export function deleteEquipmentRequest(_id) {
-  return api.delete(
-    `/api/equipamentos?_id=${_id}`,
-  ).then((res) => res.data);
-}
+export const deleteEquipmentRequest = (_id) => api.delete(`/api/equipamentos?_id=${_id}`)
+  .then((res) => res.data);
 
-export function updateManyEquipmentRequest(equipments) {
-  return api.post('/api/equipamentos/bulk', { equipamentos: equipments.map((item) => mapEquipmentRequest(item)) })
-    .then((res) => res.data);
-}
+export const updateManyEquipmentRequest = (equipments) => api
+  .post('/api/equipamentos/bulk', { equipamentos: equipments.map((item) => mapEquipmentRequest(item)) })
+  .then((res) => res.data);

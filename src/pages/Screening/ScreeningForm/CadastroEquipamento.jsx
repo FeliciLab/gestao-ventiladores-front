@@ -4,7 +4,7 @@ import getCities from '../../../services/cities';
 import typeInstitute from '../../../models/typeInstitute';
 import typeStateEquipment from '../../../models/typeStateEquipment';
 import InputFileImage from '../../_common/forms/InputFileImage';
-import { sendEquipmentPhoto } from '../../../modelServices/photoEquipmentService';
+import sendEquipmentPhoto from '../../../modelServices/photoEquipmentService';
 import { manufacturersEquipments, modelsEquipment } from '../../../models/manufacturers';
 import InputRadioDialog from '../../_common/forms/InputRadioDialog';
 import ErrorAlertText from '../../_common/alerts/ErrorAlertText';

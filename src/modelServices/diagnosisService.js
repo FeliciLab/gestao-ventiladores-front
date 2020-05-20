@@ -1,7 +1,7 @@
 import api from '../services/api';
 
 
-export function getAllDiagnosis() {
-  return api.get('api/diagnosticos')
-    .then((result) => result.data);
-}
+const getAllDiagnosis = () => api.get('api/diagnosticos')
+  .then((result) => result.data);
+
+export default getAllDiagnosis();

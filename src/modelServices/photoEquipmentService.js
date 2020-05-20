@@ -1,7 +1,7 @@
 import api from '../services/api';
 
 
-export function sendEquipmentPhoto(photo, label, id) {
+const sendEquipmentPhoto = (photo, label, id) => {
   const formData = new FormData();
   if (id) {
     formData.append('_id', id);
@@ -20,4 +20,7 @@ export function sendEquipmentPhoto(photo, label, id) {
       return false;
     })
     .catch((err) => err);
-}
+};
+
+
+export default sendEquipmentPhoto;

@@ -13,7 +13,7 @@ import {
   updateEquipment,
 } from '../../../modelServices/equipamentoService';
 import {
-  mapModelRequest,
+  mapModelRequestServiceOrder,
   saveNewOrderService,
   updateServiceOrderRequest,
 } from '../../../modelServices/serviceOrderService';
@@ -82,7 +82,7 @@ const ScreeningDialogForm = (props) => {
         )}
     );
 
-    const order = mapModelRequest(Object.assign({},
+    const order = mapModelRequestServiceOrder(Object.assign({},
       serviceOrder,
       screening,
       {triagem: screen.triagem},
