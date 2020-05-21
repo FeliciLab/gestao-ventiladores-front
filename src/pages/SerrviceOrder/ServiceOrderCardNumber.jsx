@@ -14,7 +14,7 @@ const PercentChip = (props) => {
   const {
     percent,
     bgColor,
-    color
+    color,
   } = props;
 
   const ColorChip = withStyles((theme) => ({
@@ -22,16 +22,16 @@ const PercentChip = (props) => {
       color: color || green[800],
       backgroundColor: bgColor || green[100],
       borderRadius: '20px',
-      fontSize: 20
-    }
+      fontSize: 20,
+    },
   }))(Chip);
 
   return <React.Fragment>
-    <ColorChip label={`${percent}%`}/>
+    <ColorChip label={`${percent}%`} />
   </React.Fragment>;
 };
 
-export default function ServiceOrderCardNumber (props) {
+export default function ServiceOrderCardNumber(props) {
   const {
     title,
     number,
@@ -40,7 +40,7 @@ export default function ServiceOrderCardNumber (props) {
     colorIcon,
     bgIcon,
     chipColor,
-    bgChipColor
+    bgChipColor,
   } = props;
   return (<React.Fragment>
     <Card>
@@ -58,7 +58,7 @@ export default function ServiceOrderCardNumber (props) {
                       <strong>{number}</strong>
                     </Typography>
                   </Grid>
-                  <Grid item style={{marginLeft: '5px'}}>
+                  <Grid item style={{ marginLeft: '5px' }}>
                     <PercentChip
                       bgColor={bgChipColor}
                       color={chipColor}
@@ -72,9 +72,13 @@ export default function ServiceOrderCardNumber (props) {
                 item
               >
                 <div
-                  style={{backgroundColor: bgIcon || green[900], color: colorIcon || 'white', padding: '10px'}}
+                  style={ {
+                    backgroundColor: bgIcon || green[900],
+                    color: colorIcon || 'white',
+                    padding: '10px',
+                  } }
                 >
-                  {icon || <AccountBalanceIcon fontSize={'large'}/>}
+                  {icon || <AccountBalanceIcon fontSize={'large'} />}
                 </div>
               </Grid>
             </Grid>
