@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Chip from '@material-ui/core/Chip';
@@ -17,21 +18,25 @@ const PercentChip = (props) => {
     color,
   } = props;
 
-  const ColorChip = withStyles((theme) => ({
+  const ColorChip = withStyles(() => ({
     root: {
-      color: color || green[800],
-      backgroundColor: bgColor || green[100],
+      color,
+      backgroundColor: bgColor,
       borderRadius: '20px',
       fontSize: 20,
     },
   }))(Chip);
 
-  return <React.Fragment>
-    <ColorChip label={`${percent}%`} />
-  </React.Fragment>;
+  return <ColorChip label={`${percent}%`} />;
 };
 
-export default function ServiceOrderCardNumber(props) {
+PercentChip.propTypes = {
+  percent: PropTypes.string.isRequired,
+  bgColor: PropTypes.string.isRequired,
+  color: PropTypes.string.isRequired,
+};
+
+const ServiceOrderCardNumber = (props) => {
   const {
     title,
     number,
@@ -42,49 +47,70 @@ export default function ServiceOrderCardNumber(props) {
     chipColor,
     bgChipColor,
   } = props;
-  return (<React.Fragment>
-    <Card>
-      <CardHeader
-        title={title}
-      />
-      <CardContent>
-        <Grid container spacing={4} alignItems={'center'}>
-          <Grid item xs={12}>
-            <Grid container justify={'space-between'}>
-              <Grid item>
-                <Grid container alignItems={'center'}>
-                  <Grid item>
-                    <Typography variant={'h3'}>
-                      <strong>{number}</strong>
-                    </Typography>
+  return (
+    <>
+      <Card>
+        <CardHeader title={title} />
+        <CardContent>
+          <Grid container spacing={4} alignItems="center">
+            <Grid item xs={12}>
+              <Grid container justify="space-between">
+                <Grid item>
+                  <Grid container alignItems="center">
+                    <Grid item>
+                      <Typography variant="h3">
+                        <strong>{number}</strong>
+                      </Typography>
+                    </Grid>
+                    <Grid item style={{ marginLeft: '5px' }}>
+                      <PercentChip
+                        bgColor={bgChipColor}
+                        color={chipColor}
+                        percent={percent}
+                      />
+                    </Grid>
                   </Grid>
-                  <Grid item style={{ marginLeft: '5px' }}>
-                    <PercentChip
-                      bgColor={bgChipColor}
-                      color={chipColor}
-                      percent={percent}
-                    />
-                  </Grid>
-                </Grid>
 
-              </Grid>
-              <Grid
-                item
-              >
-                <div
-                  style={ {
-                    backgroundColor: bgIcon || green[900],
-                    color: colorIcon || 'white',
-                    padding: '10px',
-                  } }
+                </Grid>
+                <Grid
+                  item
                 >
-                  {icon || <AccountBalanceIcon fontSize={'large'} />}
-                </div>
+                  <div
+                    style={{
+                      backgroundColor: bgIcon || green[900],
+                      color: colorIcon || 'white',
+                      padding: '10px',
+                    }}
+                  >
+                    {icon}
+                  </div>
+                </Grid>
               </Grid>
             </Grid>
           </Grid>
-        </Grid>
-      </CardContent>
-    </Card>
-  </React.Fragment>);
-}
+        </CardContent>
+      </Card>
+    </>
+  );
+};
+
+ServiceOrderCardNumber.defaultProps = {
+  bgIcon: green[900],
+  colorIcon: 'white',
+  bgChipColor: green[100],
+  chipColor: green[800],
+  icon: <AccountBalanceIcon fontSize="large" />,
+};
+
+ServiceOrderCardNumber.propTypes = {
+  title: PropTypes.string.isRequired,
+  number: PropTypes.string.isRequired,
+  percent: PropTypes.string.isRequired,
+  icon: PropTypes.instanceOf(Object),
+  colorIcon: PropTypes.string,
+  bgIcon: PropTypes.string,
+  chipColor: PropTypes.string,
+  bgChipColor: PropTypes.string,
+};
+
+export default ServiceOrderCardNumber;

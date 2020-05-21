@@ -24,7 +24,7 @@ const CalibrationCardService = (props) => {
           <Typography variant="body1"><strong>Status:</strong></Typography>
           <Typography variant="body2">{item.calibragem.status || '---'}</Typography>
         </Grid>
-      </Grid>
+      </Grid> 
     </>
   );
 };
