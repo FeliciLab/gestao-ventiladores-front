@@ -1,16 +1,20 @@
 import React, { useState } from 'react';
 import PropType from 'prop-types';
-import TableContainer from '@material-ui/core/TableContainer';
-import Table from '@material-ui/core/Table';
-import TableHead from '@material-ui/core/TableHead';
-import { TableCell, TableRow } from '@material-ui/core';
-import TableBody from '@material-ui/core/TableBody';
-import Paper from '@material-ui/core/Paper';
+import {
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from '@material-ui/core';
 import InfoIcon from '@material-ui/icons/Info';
-import ChipStyled from '../../_common/components/ChipStyled';
 import { grey } from '@material-ui/core/colors';
+import ChipStyled from '../../_common/components/ChipStyled';
 import RowTableItem from './RowTableItem';
 import FormModalDescription from './FormModalDescription';
+import { randomIndex } from '../../../utils';
 
 
 const TableFormRegisteredItems = (props) => {
@@ -32,78 +36,81 @@ const TableFormRegisteredItems = (props) => {
     { id: 'codigo', name: 'Codigo' },
   ];
 
-  function updateParent(value, index, field) {
+  const updateParent = (value, index, field) => {
     updateItemsFromTable(value, index, field);
-  }
+  };
 
-  function openModelEditDescription(index) {
+  const openModelEditDescription = (index) => {
     setItemEdit(items[index]);
     setIndexEdit(index);
     setOpen(true);
-  }
+  };
 
-  function updateDescription(description) {
+  const updateDescription = (description) => {
     updateParent(description, indexEdit, 'descricao');
     setOpen(false);
-  }
+  };
 
-  function handleClose() {
+  const handleClose = () => {
     setOpen(false);
-  }
+  };
 
-  return (<React.Fragment>
-    <TableContainer component={Paper}>
-      <Table
-        size={'small'}
-        aria-label={'Tabela de itens cadastrados'}
-      >
-        <TableHead>
-          <TableRow>
-            {headTable.map((item, index) => (
-              <TableCell key={`${index}_${new Date().toISOString()}`}>{item.name}</TableCell>
-            ))}
-            <TableCell align={'right'}>
-              <ChipStyled
-                color={'white'}
-                bgColor={grey[500]}
-                deleteIconColor={'white'}
-                deleteIconBgColor={grey[500]}
-                deleteIcon={<InfoIcon />}
-                size="small"
-                label={'Descrição'}
-                style={{ color: '#ddddd' }}
-                onDelete={() => false}
-              />
-            </TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {items.map((item, index) => {
-            return (
+  return (
+    <>
+      <TableContainer component={Paper}>
+        <Table
+          size="small"
+          aria-label="Tabela de itens cadastrados"
+        >
+          <TableHead>
+            <TableRow>
+              {headTable.map((item) => (
+                <TableCell key={randomIndex()}>
+                  {item.name}
+                </TableCell>
+              ))}
+              <TableCell align="right">
+                <ChipStyled
+                  color="white"
+                  bgColor={grey[500]}
+                  deleteIconColor="white"
+                  deleteIconBgColor={grey[500]}
+                  deleteIcon={<InfoIcon />}
+                  size="small"
+                  label="Descrição"
+                  style={{ color: '#ddddd' }}
+                  onDelete={() => false}
+                />
+              </TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {items.map((item, index) => (
               <RowTableItem
                 openModelEditDescription={openModelEditDescription}
-                key={`${index}_${new Date().toISOString()}`}
+                key={randomIndex()}
                 headTable={headTable}
                 updateParent={updateParent}
                 index={index}
                 data={item}
               />
-            );
-          })}
-        </TableBody>
-      </Table>
-    </TableContainer>
-    <FormModalDescription
-      item={itemEdit}
-      open={open}
-      handleClose={handleClose}
-      updateValue={updateDescription}
-    />
-  </React.Fragment>);
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <FormModalDescription
+        item={itemEdit}
+        open={open}
+        handleClose={handleClose}
+        updateValue={updateDescription}
+      />
+    </>
+  );
 };
 
-TableFormRegisteredItems.protoType = {
-  items: PropType.array.isRequired,
+TableFormRegisteredItems.propTypes = {
+  items: PropType.instanceOf(Array).isRequired,
+  updateItemsFromTable: PropType.func.isRequired,
 };
 
 export default TableFormRegisteredItems;

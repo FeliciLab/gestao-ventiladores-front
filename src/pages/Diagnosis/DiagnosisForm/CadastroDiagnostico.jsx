@@ -1,12 +1,18 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import ErrorAlertText from '../../_common/alerts/ErrorAlertText';
 
 
-export default function CadastroEquipamento (props) {
-  const {errors, register, diagnosis, updateDiagnosis} = props;
+const CadastroEquipamento = (props) => {
+  const {
+    errors,
+    register,
+    diagnosis,
+    updateDiagnosis,
+  } = props;
 
   const updateParent = (event) => {
     event.preventDefault();
@@ -16,20 +22,17 @@ export default function CadastroEquipamento (props) {
   };
 
   return (
-    <React.Fragment>
-      <Typography
-        variant="h6"
-        gutterBottom
-      >
+    <>
+      <Typography variant="h6" gutterBottom>
         1. Cadastro De Diagnóstico
       </Typography>
 
       <Grid container spacing={3}>
         <Grid item xs={12}>
           <TextField
-            inputRef={register({required: true})}
+            inputRef={register({ required: true })}
             InputLabelProps={{
-              shrink: true
+              shrink: true,
             }}
             onChange={updateParent}
             value={diagnosis.resultado_tecnico}
@@ -40,12 +43,12 @@ export default function CadastroEquipamento (props) {
             label="Resultado do Diagnostico Técnico"
             fullWidth
           />
-          <ErrorAlertText error={errors.resultado_tecnico}/>
+          <ErrorAlertText error={errors.resultado_tecnico} />
         </Grid>
         <Grid item xs={12}>
           <TextField
             InputLabelProps={{
-              shrink: true
+              shrink: true,
             }}
             onChange={updateParent}
             value={diagnosis.demanda_servicos}
@@ -61,7 +64,7 @@ export default function CadastroEquipamento (props) {
         <Grid item xs={12}>
           <TextField
             InputLabelProps={{
-              shrink: true
+              shrink: true,
             }}
             onChange={updateParent}
             value={diagnosis.observacoes}
@@ -74,6 +77,15 @@ export default function CadastroEquipamento (props) {
           />
         </Grid>
       </Grid>
-    </React.Fragment>
+    </>
   );
-}
+};
+
+CadastroEquipamento.propTypes = {
+  errors: PropTypes.instanceOf(Object).isRequired,
+  register: PropTypes.func.isRequired,
+  diagnosis: PropTypes.instanceOf(Object).isRequired,
+  updateDiagnosis: PropTypes.func.isRequired,
+};
+
+export default CadastroEquipamento;

@@ -1,21 +1,27 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import TableFormRegisteredItems from './TableFormRegisteredItems';
 
 
 const FormRegisteredItems = (props) => {
   const {
     items,
-    updateItemsFromTable
+    updateItemsFromTable,
   } = props;
 
   return (
-    <React.Fragment>
+    <>
       <TableFormRegisteredItems
         items={items}
         updateItemsFromTable={updateItemsFromTable}
       />
-    </React.Fragment>
+    </>
   );
+};
+
+FormRegisteredItems.propTypes = {
+  items: PropTypes.instanceOf(Array).isRequired,
+  updateItemsFromTable: PropTypes.func.isRequired,
 };
 
 export default FormRegisteredItems;

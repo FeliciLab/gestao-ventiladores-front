@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -13,43 +14,52 @@ const FormModalDescription = (props) => {
     open,
     item,
     handleClose,
-    updateValue
-  } = props
+    updateValue,
+  } = props;
 
   const [description, setDescription] = useState('');
 
   useEffect(() => {
     if (item && item.descricao && item.descricao !== '') {
-      setDescription(item)
+      setDescription(item);
     }
-  }, [item])
+  }, [item]);
 
-  return (<React.Fragment>
-    <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-      <DialogTitle id="form-dialog-title">Editar Descrição</DialogTitle>
-      <DialogContent>
-        <DialogContentText>
-          Digite a descrição para o item
-        </DialogContentText>
-        <TextField
-          autoFocus
-          margin="dense"
-          label="Descrição"
-          value={description}
-          onChange={(event) => setDescription(event.target.value)}
-          fullWidth
-        />
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={handleClose} color="primary">
-          Cancelar
-        </Button>
-        <Button onClick={() => updateValue(description)} color="primary">
-          Salvar
-        </Button>
-      </DialogActions>
-    </Dialog>
-  </React.Fragment>)
-}
+  return (
+    <>
+      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+        <DialogTitle id="form-dialog-title">Editar Descrição</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Digite a descrição para o item
+          </DialogContentText>
+          <TextField
+            autoFocus
+            margin="dense"
+            label="Descrição"
+            value={description}
+            onChange={(event) => setDescription(event.target.value)}
+            fullWidth
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Cancelar
+          </Button>
+          <Button onClick={() => updateValue(description)} color="primary">
+            Salvar
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </>
+  );
+};
 
-export default FormModalDescription
+FormModalDescription.propTypes = {
+  open: PropTypes.bool.isRequired,
+  item: PropTypes.string.isRequired,
+  handleClose: PropTypes.func.isRequired,
+  updateValue: PropTypes.func.isRequired,
+};
+
+export default FormModalDescription;
