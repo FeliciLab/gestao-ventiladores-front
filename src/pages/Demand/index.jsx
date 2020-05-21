@@ -6,44 +6,44 @@ import DemandPage from './DemandPage';
 import LoadingBar from '../_common/components/LoadingBar';
 
 
-const IndexDemand = (props) => {
+const IndexDemand = () => {
   const [serviceOrders, setServiceOrder] = useState([]);
   const [purchaseOrder, setPurchaseOrder] = useState([]);
   const [requestBlock, setRequestBlock] = useState(false);
   const [loadingData, setLoadingData] = useState(true);
   const [progress, setProgress] = useState(0);
 
-  if (!requestBlock) {
-    setRequestBlock(true);
-    getData()
-  }
-
-  async function getData () {
+  const getData = async () => {
     await setLoadingData(true);
     await setProgress(10);
 
-    const _purchaseOrder = await getAllPurchaseOrders()
-    await setPurchaseOrder(_purchaseOrder.slice());
+    const newPurchaseOrder = await getAllPurchaseOrders();
+    await setPurchaseOrder(newPurchaseOrder.slice());
     await setProgress(40);
 
-    const _serviceOrder = await getAllServiceOrder()
+    const newServiceOrder = await getAllServiceOrder();
     await setProgress(80);
-    await setServiceOrder(_serviceOrder || []);
+    await setServiceOrder(newServiceOrder || []);
 
     await setProgress(100);
     await setLoadingData(false);
-  }
+  };
 
-  async function reloadData () {
+  const reloadData = async () => {
     await setRequestBlock(false);
+  };
+
+  if (!requestBlock) {
+    setRequestBlock(true);
+    getData();
   }
 
   if (loadingData) {
-    return <LoadingBar progress={progress}></LoadingBar>
+    return <LoadingBar progress={progress} />;
   }
 
   return (
-    <React.Fragment>
+    <>
       <Layout>
         <DemandPage
           serviceOrders={serviceOrders}
@@ -51,7 +51,7 @@ const IndexDemand = (props) => {
           reloadData={reloadData}
         />
       </Layout>
-    </React.Fragment>
+    </>
   );
 };
 

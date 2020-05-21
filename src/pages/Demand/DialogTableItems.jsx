@@ -15,11 +15,11 @@ const useStyle = makeStyles(() => ({
 
 const DialogTableItems = (props) => {
   const classes = useStyle();
-  const { action } = props;
+  const { action, dataDialog } = props;
   const [dataTable, setDataTable] = useState([]);
 
   if (dataTable.length === 0) {
-    setDataTable(dataTable || []);
+    setDataTable(dataDialog || []);
   }
 
   function updateField(value, index, field) {
@@ -37,7 +37,9 @@ const DialogTableItems = (props) => {
           </Typography>
         </Grid>
         <Grid item>
-          <ThemeButton onClick={() => action(dataTable)} startIcon={<SaveSharpIcon />}>Salvar ordem de compra</ThemeButton>
+          <ThemeButton onClick={() => action(dataTable)} startIcon={<SaveSharpIcon />}>
+            Salvar ordem de compra
+          </ThemeButton>
         </Grid>
       </Grid>
 
@@ -51,6 +53,7 @@ const DialogTableItems = (props) => {
 
 DialogTableItems.propTypes = {
   action: PropTypes.func.isRequired,
+  dataDialog: PropTypes.instanceOf(Array).isRequired,
 };
 
 export default DialogTableItems;
