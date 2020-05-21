@@ -6,58 +6,57 @@ import LoadingBar from '../_common/components/LoadingBar';
 import { getAllDeliveryOrders } from '../../modelServices/deliveryOrderService';
 
 
-export default function IndexDelivery (props) {
+const IndexDelivery = () => {
   const [deliveryOrders, setDeliveryOrders] = useState([]);
   const [serviceOrders, setServiceOrders] = useState([]);
   const [loadingData, setLoadingData] = useState(true);
   const [progressLoad, setProgressLoad] = useState(0);
 
-  useEffect(getData, [getData]);
-
-  function getData () {
+  const getData = async () => {
     if (loadingData) {
       setProgressLoad(30);
-      getAllServiceOrder()
-        .then((serviceOrders) => {
-          setProgressLoad(30 + progressLoad);
-          getAllDeliveryOrders()
-            .then(deliveryOrders => {
-              setDeliveryOrders(deliveryOrders.slice());
-              setServiceOrders(serviceOrders.slice().filter(item => {
-                return item.equipamento && item.equipamento.length > 0 && !deliveryOrders.find(
-                  delivery => {
-                    const numSerie = item.equipamento[0].numero_de_serie;
-                    return delivery.equipamentos && delivery.equipamentos.length > 0 && delivery.equipamentos
-                      .find(equip => equip.numero_de_serie === numSerie);
-                  }
-                );
-              }));
-              setProgressLoad(30 + progressLoad);
-            })
-            .finally(() => {
-              setProgressLoad(100);
-              setLoadingData(false);
-            });
-        });
+      const serviceOrdersResult = await getAllServiceOrder();
+      setProgressLoad(30 + progressLoad);
+      const deliveryOrdersResult = await getAllDeliveryOrders();
+      setDeliveryOrders(deliveryOrdersResult.slice());
+      setServiceOrders(
+        serviceOrdersResult.slice()
+          .filter((item) => item.equipamento && item.equipamento.length > 0
+            && !deliveryOrdersResult
+              .find((delivery) => {
+                const numSerie = item.equipamento[0].numero_de_serie;
+                return delivery.equipamentos && delivery.equipamentos.length > 0
+                  && delivery.equipamentos.find((equip) => equip.numero_de_serie === numSerie);
+              })),
+      );
+      setProgressLoad(30 + progressLoad);
+      setProgressLoad(100);
+      setLoadingData(false);
     }
-  }
+  };
 
-  function realodData () {
+  useEffect(getData, [getData]);
+
+  const realodData = () => {
     setLoadingData(true);
     getData();
-  }
+  };
 
   if (loadingData) {
-    return <LoadingBar progress={progressLoad}/>;
+    return <LoadingBar progress={progressLoad} />;
   }
 
-  return (<React.Fragment>
-    <Layout>
-      <DeliveryPage
-        deliveryOrders={deliveryOrders}
-        serviceOrders={serviceOrders}
-        realodData={realodData}
-      />
-    </Layout>
-  </React.Fragment>);
-}
+  return (
+    <>
+      <Layout>
+        <DeliveryPage
+          deliveryOrders={deliveryOrders}
+          serviceOrders={serviceOrders}
+          realodData={realodData}
+        />
+      </Layout>
+    </>
+  );
+};
+
+export default IndexDelivery;
