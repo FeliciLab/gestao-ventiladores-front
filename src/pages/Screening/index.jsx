@@ -4,13 +4,12 @@ import { getAllServiceOrder } from '../../modelServices/serviceOrderService';
 import LoadingBar from '../_common/components/LoadingBar';
 import ScreeningPage from './ScreeningPage';
 
-
-export default function Screening (props) {
+const Screening = () => {
   const [serviceOrders, setServiceOrders] = useState([]);
   const [loadingData, setLoadingData] = useState(true);
   const [progressLoad, setProgerssLoad] = useState(0);
 
-  function getData () {
+  const getData = () => {
     if (loadingData) {
       setProgerssLoad(80);
       getAllServiceOrder()
@@ -20,14 +19,14 @@ export default function Screening (props) {
           setLoadingData(false);
         });
     }
-  }
+  };
 
   useEffect(getData, [getData]);
 
-  function reloadData () {
+  const reloadData = () => {
     setLoadingData(true);
     getData();
-  }
+  };
 
   if (loadingData) {
     return <LoadingBar progress={progressLoad} />;
@@ -42,4 +41,6 @@ export default function Screening (props) {
       />
     </Layout>
   );
-}
+};
+
+export default Screening;
