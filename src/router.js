@@ -1,8 +1,10 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import {
+  Route,
+  Switch,
+} from 'react-router-dom';
 
 import IndexServiceOrder from './pages/SerrviceOrder/index';
-import FormTriagem from './pages/Screening/ScreeningForm/index';
 import IndexFormDiagnosis from './pages/Diagnosis/DiagnosisForm/index';
 import Screening from './pages/Screening/index';
 import IndexDemand from './pages/Demand/index';
@@ -19,8 +21,6 @@ const Routes = () => (
     <Route path="/" exact component={IndexServiceOrder} />
     <Route path="/ordens-servicos" exact component={IndexServiceOrder} />
     <Route path="/triagens" exact component={Screening} />
-    <Route path="/nova-triagem" exact component={FormTriagem} />
-    <Route path="/editar-triagem" exact component={FormTriagem} />
     <Route path="/novo-diagnostico" exact component={IndexFormDiagnosis} />
     <Route path="/diagnosticos" exact component={Diagnosis} />
     <Route path="/demandas" exact component={IndexDemand} />

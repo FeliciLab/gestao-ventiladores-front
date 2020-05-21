@@ -4,7 +4,9 @@ import Layout from '../../_layout/Layout';
 
 
 export default function () {
-  return <Layout>
-    <FormScreening/>
-  </Layout>;
+  return (
+    <Layout>
+      <FormScreening />
+    </Layout>
+  );
 }

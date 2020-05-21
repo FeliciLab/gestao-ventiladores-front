@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -8,22 +9,31 @@ import RadioControl from '../../_common/forms/RadioControl';
 
 
 const DialogModelsEquipments = (props) => {
-  React.useEffect(() => {
-    setOpen(props.open);
-  }, [props]);
-
   const [open, setOpen] = React.useState(false);
   const [inputOther, setInputOther] = React.useState('');
   const [radioValue, setRadioValue] = React.useState('');
 
-  const { items, name, updateOpen, hasOther, action, label, dialogTitle } = props;
+  const {
+    items,
+    name,
+    updateOpen,
+    hasOther,
+    action,
+    label,
+    dialogTitle,
+    openDialog,
+  } = props;
 
-  function handleClose() {
+  React.useEffect(() => {
+    setOpen(openDialog);
+  }, [openDialog]);
+
+  const handleClose = () => {
     updateOpen(false);
     setOpen(false);
-  }
+  };
 
-  function changeRadio(event, value, other) {
+  const changeRadio = (event, value, other) => {
     setRadioValue(value);
 
     if (value !== 'other') {
@@ -31,9 +41,10 @@ const DialogModelsEquipments = (props) => {
     }
 
     setInputOther(other);
-  }
+    return true;
+  };
 
-  function updateParent() {
+  const updateParent = () => {
     const doc = { target: { name, value: '' } };
     if (radioValue === 'other') {
       doc.target.value = inputOther;
@@ -42,7 +53,7 @@ const DialogModelsEquipments = (props) => {
     }
 
     return action(doc);
-  }
+  };
 
   return (
     <Dialog
@@ -60,7 +71,7 @@ const DialogModelsEquipments = (props) => {
         <RadioControl
           name={name}
           action={changeRadio}
-          flexDirection={'column'}
+          flexDirection="column"
           formLabel={label}
           items={items}
           hasOther={hasOther}
@@ -83,6 +94,24 @@ const DialogModelsEquipments = (props) => {
       </DialogActions>
     </Dialog>
   );
+};
+
+DialogModelsEquipments.defaultProps = {
+  hasOther: false,
+  label: '',
+  dialogTitle: '',
+  openDialog: false,
+};
+
+DialogModelsEquipments.propTypes = {
+  items: PropTypes.instanceOf(Array).isRequired,
+  name: PropTypes.string.isRequired,
+  updateOpen: PropTypes.func.isRequired,
+  action: PropTypes.func.isRequired,
+  openDialog: PropTypes.bool,
+  hasOther: PropTypes.bool,
+  label: PropTypes.string,
+  dialogTitle: PropTypes.string,
 };
 
 export default DialogModelsEquipments;

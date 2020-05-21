@@ -45,7 +45,7 @@ const InputRadioDialog = (props) => {
   return (
     <>
       <DialogModelsEquipments
-        open={open}
+        openDialog={open}
         action={changeRadio}
         updateOpen={updateOpen}
         defaultValue={defaultValue}

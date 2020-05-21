@@ -1,39 +1,42 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import AccessoryFormRow from './AccessoryFormRow';
-import ProtoTypes from 'prop-types';
+import { randomIndex } from '../../../utils';
 
 
-function AccessoryFormList (props) {
+const AccessoryFormList = (props) => {
   const {
     atualizarAcessorioParent,
     adicionarAcessorio,
     removerLinha,
-    accessories
+    accessories,
   } = props;
 
   return (
-    <React.Fragment>
+    <>
       {
         accessories.map((accessory, index) => (
-            <AccessoryFormRow
-              ultimo={index === (accessory.length - 1)}
-              penultimo={index === (accessory.length - 2)}
-              acessorio={accessory}
-              atualizarAcessorio={atualizarAcessorioParent}
-              adicionarAcessorio={adicionarAcessorio}
-              removerLinha={removerLinha}
-              index={index}
-              key={index}
-            />
-          )
-        )
+          <AccessoryFormRow
+            ultimo={index === (accessory.length - 1)}
+            penultimo={index === (accessory.length - 2)}
+            acessorio={accessory}
+            atualizarAcessorio={atualizarAcessorioParent}
+            adicionarAcessorio={adicionarAcessorio}
+            removerLinha={removerLinha}
+            index={index}
+            key={randomIndex()}
+          />
+        ))
       }
-    </React.Fragment>
+    </>
   );
-}
+};
 
-AccessoryFormList.protoType = {
-  acessorios: ProtoTypes.array
+AccessoryFormList.propTypes = {
+  atualizarAcessorioParent: PropTypes.func.isRequired,
+  adicionarAcessorio: PropTypes.func.isRequired,
+  removerLinha: PropTypes.func.isRequired,
+  accessories: PropTypes.instanceOf(Array).isRequired,
 };
 
 export default AccessoryFormList;

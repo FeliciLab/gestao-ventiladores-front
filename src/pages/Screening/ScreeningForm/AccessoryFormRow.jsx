@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -9,29 +10,30 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import { accessoryMapOptionsConservationState } from '../../../models/conservationState';
+import { randomIndex } from '../../../utils';
 
 
-export default function AccessoryFormRow (props) {
+const AccessoryFormRow = (props) => {
   const {
     acessorio,
     atualizarAcessorio,
     removerLinha,
-    index
+    index,
   } = props;
-  const conservationOption = accessoryMapOptionsConservationState()
+  const conservationOption = accessoryMapOptionsConservationState();
 
-  function atualizarAcessorioParent (event) {
+  const atualizarAcessorioParent = (event) => {
     const doc = {};
     doc[event.target.name] = event.target.value;
     atualizarAcessorio(index, doc);
-  }
+  };
 
   return (
     <Grid
       container
       spacing={3}
-      justify={"flex-start"}
-      alignItems={"flex-end"}
+      justify="flex-start"
+      alignItems="flex-end"
     >
       <Grid
         item
@@ -55,11 +57,11 @@ export default function AccessoryFormRow (props) {
         <FormControl fullWidth>
           <InputLabel>Acompanha</InputLabel>
           <Select
-            name={"acompanha"}
+            name="acompanha"
             value={acessorio.acompanha || false}
             onChange={atualizarAcessorioParent}
           >
-            <MenuItem value={true}>Sim</MenuItem>
+            <MenuItem value>Sim</MenuItem>
             <MenuItem value={false}>Não</MenuItem>
           </Select>
         </FormControl>
@@ -93,8 +95,10 @@ export default function AccessoryFormRow (props) {
           label="Estado de Conservação"
           fullWidth
         >
-          {conservationOption.map((item, index) => (
-            <MenuItem key={index} value={item.value}> {item.label}</MenuItem>
+          {conservationOption.map((item) => (
+            <MenuItem key={randomIndex()} value={item.value}>
+              {item.label}
+            </MenuItem>
           ))}
         </TextField>
       </Grid>
@@ -105,10 +109,17 @@ export default function AccessoryFormRow (props) {
       >
         <Tooltip title="Remover">
           <Button onClick={() => removerLinha(index)}>
-            <DeleteIcon></DeleteIcon>
+            <DeleteIcon />
           </Button>
         </Tooltip>
       </Grid>
     </Grid>
   );
-}
+};
+AccessoryFormRow.propTypes = {
+  acessorio: PropTypes.instanceOf(Object).isRequired,
+  atualizarAcessorio: PropTypes.func.isRequired,
+  removerLinha: PropTypes.func.isRequired,
+  index: PropTypes.number.isRequired,
+};
+export default AccessoryFormRow;

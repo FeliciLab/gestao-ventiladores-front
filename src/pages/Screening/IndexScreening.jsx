@@ -1,4 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, {
+  useEffect,
+  useState,
+} from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import moment from 'moment-timezone';
@@ -6,6 +9,7 @@ import Paper from '@material-ui/core/Paper';
 import { orange } from '@material-ui/core/colors';
 import EditIcon from '@material-ui/icons/Edit';
 import TableCheckedList from '../_common/SelectableTable/TableCheckedList';
+
 
 const IndexScreening = (props) => {
   const history = useHistory();
@@ -65,7 +69,7 @@ const IndexScreening = (props) => {
           return new Date(orderB) - new Date(orderA);
         })
         .map((item) => {
-          let newItem = item;
+          const newItem = { ...item };
           const equip = item.equipamento[0] || {};
           if (
             typeof item.created_at === 'object'

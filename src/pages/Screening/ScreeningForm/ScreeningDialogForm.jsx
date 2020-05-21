@@ -1,9 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, {
+  useEffect,
+  useState,
+} from 'react';
+import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
-import ThemeButton from '../../_common/forms/ThemeButton';
 import CloseIcon from '@material-ui/icons/Close';
 import SaveIcon from '@material-ui/icons/Save';
 import orange from '@material-ui/core/colors/orange';
+import { useForm } from 'react-hook-form';
+import makeStyles from '@material-ui/core/styles/makeStyles';
+import Alert from '@material-ui/lab/Alert';
+import ThemeButton from '../../_common/forms/ThemeButton';
 import FormScreening from './FormScreening';
 import FullDialog from '../../_common/components/FullDialog';
 import {
@@ -17,14 +24,20 @@ import {
   saveNewOrderService,
   updateServiceOrderRequest,
 } from '../../../modelServices/serviceOrderService';
-import { useForm } from 'react-hook-form';
-import makeStyles from '@material-ui/core/styles/makeStyles';
-import Alert from '@material-ui/lab/Alert';
 
+
+const useStyle = makeStyles(theme => ({
+  containerForm: {
+    marginTop: theme.spacing(5),
+  },
+}));
 
 const ScreeningDialogForm = (props) => {
   const classes = useStyle();
-  const {register, errors, triggerValidation} = useForm({mode: 'onBlur', reValidateMode: 'onChange'});
+  const { register, errors, triggerValidation } = useForm({
+    mode: 'onBlur',
+    reValidateMode: 'onChange',
+  });
 
   const {
     serviceOrder,
@@ -35,30 +48,30 @@ const ScreeningDialogForm = (props) => {
     setOpenFormDialog,
     reloadData,
     setAlertSuccess,
-    setShowAlert
+    setShowAlert,
   } = props;
 
   const [serviceOrderForm, setServiceOrderForm] = useState({});
   const [errorsFound, setErrorsFound] = useState(false);
 
+  const handleEffect = () => {
+    setServiceOrderForm({ ...serviceOrder });
+  };
+
   useEffect(handleEffect, [serviceOrder]);
 
-  function handleEffect () {
-    setServiceOrderForm(Object.assign({}, serviceOrder));
-  }
-
-  function updateFormModel (value) {
+  const updateFormModel = (value) => {
     setServiceOrderForm(Object.assign(serviceOrderForm, value));
-  }
+  };
 
-  function showErrorBar () {
+  const showErrorBar = () => {
     setErrorsFound(true);
     setTimeout(() => {
       setErrorsFound(false);
     }, 5000);
-  }
+  };
 
-  async function saveEquipment (equipment) {
+  const saveEquipment = async (equipment) => {
     try {
       if (equipment._id && equipment._id !== '') {
         await updateEquipment(equipment);
@@ -71,32 +84,34 @@ const ScreeningDialogForm = (props) => {
       console.log('falha ao salvar equipamento', e);
       return false;
     }
-  }
+  };
 
-  async function saveScreening (screening, equipmentId) {
+  const saveScreening = async (screening, equipmentId) => {
     const screen = Object.assign(
       {},
       screening,
-      {acessorios: screening.triagem.acessorios.filter(
-        item => item !== '' && item.acompanha && item.quantidade > 0
-        )}
+      {
+        acessorios: screening.triagem.acessorios.filter(
+          item => item !== '' && item.acompanha && item.quantidade > 0,
+        ),
+      },
     );
 
     const order = mapModelRequestServiceOrder(Object.assign({},
       serviceOrder,
       screening,
-      {triagem: screen.triagem},
-      {equipamento_id: equipmentId}
+      { triagem: screen.triagem },
+      { equipamento_id: equipmentId },
     ));
 
-    delete order.calibragem
-    delete order.diagnostico
+    delete order.calibragem;
+    delete order.diagnostico;
 
     try {
       if (order._id && order._id !== '') {
-        await updateServiceOrderRequest(Object.assign(order, {status: 'triagem'}), order._id);
+        await updateServiceOrderRequest(Object.assign(order, { status: 'triagem' }), order._id);
       } else {
-        await saveNewOrderService(Object.assign(order, {status: 'triagem'}));
+        await saveNewOrderService(Object.assign(order, { status: 'triagem' }));
       }
 
       return true;
@@ -108,17 +123,19 @@ const ScreeningDialogForm = (props) => {
       console.log('falha ao salvar ordem de serviço', e);
       return false;
     }
-  }
+  };
 
-  async function saveForm () {
+  const saveForm = async () => {
     await triggerValidation();
     if (Object.keys(errors).length > 0) {
       showErrorBar();
       return;
     }
 
-    const equipment = Object.assign({}, mapEquipmentRequest(Array.isArray(serviceOrderForm.equipamento) ? serviceOrderForm.equipamento[0] : serviceOrderForm.equipamento));
-    console.log(equipment, serviceOrderForm.equipamento)
+    const equipment = Object.assign({}, mapEquipmentRequest(Array.isArray(serviceOrderForm.equipamento)
+      ? serviceOrderForm.equipamento[0]
+      : serviceOrderForm.equipamento));
+    console.log(equipment, serviceOrderForm.equipamento);
     const equipmentId = await saveEquipment(equipment);
     if (!equipmentId) {
       return false;
@@ -139,75 +156,88 @@ const ScreeningDialogForm = (props) => {
     setTimeout(() => {
       setShowAlert(false);
     }, 5000);
-  }
+  };
 
-  function closeDialog () {
+  const closeDialog = () => {
     handleClose();
-  }
+  };
 
-  return (<React.Fragment>
-    <FullDialog
-      open={openFormDialog}
-      handleClose={closeDialog}
-      title={titleFormModal}
-      actionChildren={<React.Fragment>
-        <Grid container spacing={2}>
-          <Grid item>
-            <ThemeButton
-              onClick={closeDialog}
-              startIcon={<CloseIcon/>}
-              variant={'outlined'}
-              borderColor={'white'}
-            >
-              Cancelar
-            </ThemeButton>
+  return (
+    <>
+      <FullDialog
+        open={openFormDialog}
+        handleClose={closeDialog}
+        title={titleFormModal}
+        actionChildren={<React.Fragment>
+          <Grid container spacing={2}>
+            <Grid item>
+              <ThemeButton
+                onClick={closeDialog}
+                startIcon={<CloseIcon />}
+                variant={'outlined'}
+                borderColor={'white'}
+              >
+                Cancelar
+              </ThemeButton>
+            </Grid>
+            <Grid item>
+              <ThemeButton
+                startIcon={<SaveIcon />}
+                onClick={saveForm}
+                name={'Salvar'}
+                color={orange[600]}
+                bgColor={'#FFF'}
+                hoverColor={orange[50]}
+              >
+                Salvar
+              </ThemeButton>
+            </Grid>
           </Grid>
-          <Grid item>
-            <ThemeButton
-              startIcon={<SaveIcon/>}
-              onClick={saveForm}
-              name={'Salvar'}
-              color={orange[600]}
-              bgColor={'#FFF'}
-              hoverColor={orange[50]}
-            >
-              Salvar
-            </ThemeButton>
+        </React.Fragment>}
+      >
+        <Grid container spacing={4} className={classes.containerForm}>
+          <Grid item xs={12}>
+            {errorsFound
+              ?
+              <Alert
+                color={'error'}
+                onClose={() => setErrorsFound(false)}
+              >
+                Não é possível salvar. Verifique o formulário e preencha os campos
+                corretamente.
+              </Alert>
+              : ''}
+          </Grid>
+          <Grid item xs={12}>
+            <FormScreening
+              register={register}
+              errors={errors}
+              editingForm={editingForm}
+              serviceOrder={serviceOrderForm}
+              updateFormModel={updateFormModel}
+              saveForm={saveForm}
+            />
           </Grid>
         </Grid>
-      </React.Fragment>}
-    >
-      <Grid container spacing={4} className={classes.containerForm}>
-        <Grid item xs={12}>
-          {errorsFound ?
-            <Alert
-              color={"error"}
-              onClose={() => setErrorsFound(false)}
-            >
-              Não é possível salvar. Verifique o formulário e preencha os campos
-              corretamente.
-            </Alert>
-            : ''}
-        </Grid>
-        <Grid item xs={12}>
-          <FormScreening
-            register={register}
-            errors={errors}
-            editingForm={editingForm}
-            serviceOrder={serviceOrderForm}
-            updateFormModel={updateFormModel}
-            saveForm={saveForm}
-          />
-        </Grid>
-      </Grid>
-    </FullDialog>
-  </React.Fragment>);
+      </FullDialog>
+    </>
+  );
 };
 
-const useStyle = makeStyles(theme => ({
-  containerForm: {
-    marginTop: theme.spacing(5)
-  }
-}));
+ScreeningDialogForm.defaultProps = {
+  editingForm: false,
+};
+
+ScreeningDialogForm.propTypes = {
+  serviceOrder: PropTypes.instanceOf(Object).isRequired,
+  editingForm: PropTypes.bool,
+  openFormDialog: PropTypes.bool.isRequired,
+  handleClose: PropTypes.func.isRequired,
+  titleFormModal: PropTypes.string.isRequired,
+  setOpenFormDialog: PropTypes.func.isRequired,
+  reloadData: PropTypes.func.isRequired,
+  setAlertSuccess: PropTypes.func.isRequired,
+  setShowAlert: PropTypes.func.isRequired,
+};
 
 export default ScreeningDialogForm;
