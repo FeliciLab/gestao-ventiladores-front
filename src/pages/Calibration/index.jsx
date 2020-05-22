@@ -16,15 +16,21 @@ export default function IndexCalibration() {
   function getData() {
     setLoadingData(true);
     setProgress(40);
-
-    getAllDiagnosis()
-      .then((diagnosis) => {
+    getAllDiagnosis
+      .then((orderDiagnosis) => {
         setProgress(80);
         getAllCalibration()
-          .then((result) => {
+          .then((orderCalibrated) => {
             setServiceOrder([
-              ...diagnosis.map((item) => ServiceOrder(item)) || [],
-              ...result.map((item) => ServiceOrder(item)) || [],
+              ...orderDiagnosis.map((item) => ({
+                ...ServiceOrder(item),
+                ...item,
+                equipamento: item.equipamento,
+              })) || [],
+              ...orderCalibrated.map((item) => ({
+                ...ServiceOrder(item),
+                equipamento: item.equipamento,
+              })) || [],
             ].sort((a, b) => a.created_at.$date - b.created_at.$date));
           });
       })

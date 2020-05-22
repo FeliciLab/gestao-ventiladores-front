@@ -11,7 +11,7 @@ const FormStatusCalibration = (props) => {
   function saveCalibration(value, name) {
     const doc = {};
     doc[name] = value;
-    updateCalibration(serviceOrder._id.$oid, doc);
+    updateCalibration(serviceOrder._id.$oid || serviceOrder._id, doc);
     return true;
   }
 
@@ -24,7 +24,7 @@ const FormStatusCalibration = (props) => {
         select
         fullWidth
       >
-        <MenuItem value="decalibrado">Descalibrado</MenuItem>
+        <MenuItem value="descalibrado">Descalibrado</MenuItem>
         <MenuItem value="calibrado">Calibrado</MenuItem>
       </TextField>
     </>

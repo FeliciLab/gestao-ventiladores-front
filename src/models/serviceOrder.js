@@ -35,6 +35,7 @@ export const ServiceOrder = (serviceOrder) => ({
   equipamento_id: '',
   created_at: new Date(),
   updated_at: new Date(),
+  ...serviceOrder,
   triagem: ServiceOrderScreening(
     serviceOrder && serviceOrder.triagem
       ? { triagem: serviceOrder.triagem }

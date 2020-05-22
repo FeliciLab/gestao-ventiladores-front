@@ -1,4 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, {
+  useEffect,
+  useState,
+} from 'react';
 import Layout from '../_layout/Layout';
 import DeliveryPage from './DeliveryPage';
 import { getAllServiceOrder } from '../../modelServices/serviceOrderService';
@@ -35,7 +38,11 @@ const IndexDelivery = () => {
     }
   };
 
-  useEffect(getData, [getData]);
+  const handleEffects = () => {
+    getData();
+  };
+
+  useEffect(handleEffects, []);
 
   const realodData = () => {
     setLoadingData(true);

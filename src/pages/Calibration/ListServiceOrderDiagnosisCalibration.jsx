@@ -49,7 +49,9 @@ const ListServiceOrderDiagnosisCalibration = (props) => {
                     }
 
                     if (['numero_de_serie', 'marca', 'modelo', 'nome_instituicao_origem'].indexOf(head.id) >= 0) {
-                      text = serviceOrder.equipamento[0][head.id];
+                      text = serviceOrder.equipamento
+                        ? serviceOrder.equipamento[0][head.id]
+                        : '';
                     }
 
                     if (head.id === 'calibragem') {
