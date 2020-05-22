@@ -135,7 +135,7 @@ const ScreeningPage = (props) => {
 
         <ScreeningDialogForm
           serviceOrder={serviceOrder}
-          editForm={editForm}
+          editingForm={editForm}
           openFormDialog={openFormDialog}
           handleClose={handleClose}
           titleFormModal={titleFormModal}

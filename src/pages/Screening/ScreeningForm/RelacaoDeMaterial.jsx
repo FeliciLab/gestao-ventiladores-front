@@ -29,7 +29,7 @@ const RelacaoDeMaterial = (props) => {
 
   const atualizarAcessorioParent = (index, value) => {
     const acess = acessorios.slice(0);
-    acess[index] = { ...acess[index], value };
+    acess[index] = { ...acess[index], ...value };
     atualizarAcessorios(acess);
   };
 

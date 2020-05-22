@@ -37,7 +37,7 @@ const RadioControl = (props) => {
       return action(event, value, other);
     }
 
-    if (event.target.value !== 'other') {
+    if (value === 'other' ) {
       setOther(event.target.value);
       return action(event, value, other);
     }

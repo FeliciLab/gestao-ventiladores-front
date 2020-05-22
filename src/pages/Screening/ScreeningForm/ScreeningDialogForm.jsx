@@ -20,7 +20,6 @@ import {
   updateEquipment,
 } from '../../../modelServices/equipamentoService';
 import {
-  mapModelRequestServiceOrder,
   saveNewOrderService,
   updateServiceOrderRequest,
 } from '../../../modelServices/serviceOrderService';
@@ -93,15 +92,19 @@ const ScreeningDialogForm = (props) => {
       ),
     };
 
-    const order = mapModelRequestServiceOrder({
+    const order = {
       ...serviceOrder,
-      screening,
+      ...serviceOrderForm,
+      ...screening,
       triagem: screen.triagem,
-      equipamento_id: equipmentId,
-    });
+      equipamento_id: equipmentId.$oid || equipmentId,
+      _id: serviceOrder._id.$oid || serviceOrder._id,
+      created_at: new Date(serviceOrder.created_at.$date || serviceOrder.created_at),
+    };
 
     delete order.calibragem;
     delete order.diagnostico;
+    delete order.equipamento;
 
     try {
       if (order._id && order._id !== '') {
