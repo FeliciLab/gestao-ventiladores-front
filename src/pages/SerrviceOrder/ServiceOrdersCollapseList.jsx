@@ -24,14 +24,14 @@ const ServiceOrdersCollapseList = (props) => {
           <ServiceOrderCardNumber
             title="Registrados"
             number={data.length}
-            percent={Math.floor((data.length / data.length) * 100)}
+            percent={parseInt(`${Math.floor((data.length / data.length) * 100)}`, 10)}
           />
         </Grid>
         <Grid item xs={12} md={3}>
           <ServiceOrderCardNumber
             title="Entregues"
             number={ammountDelivery}
-            percent={Math.floor(((ammountDelivery) / data.length) * 100)}
+            percent={parseInt(`${Math.floor(((ammountDelivery) / data.length) * 100)}`, 10)}
           />
         </Grid>
         {data.map((item) => (

@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Grid, Typography } from '@material-ui/core';
+import {
+  Grid,
+  Typography,
+} from '@material-ui/core';
 import moment from 'moment-timezone';
 import 'moment/locale/pt-br';
 
@@ -84,8 +87,8 @@ const ScreeningEquipment = (props) => {
 
 ScreeningEquipment.propTypes = {
   equipment: PropTypes.shape({
-    created_at: PropTypes.string,
-    updated_at: PropTypes.string,
+    created_at: PropTypes.instanceOf(Object),
+    updated_at: PropTypes.instanceOf(Object),
     numero_de_serie: PropTypes.string,
     numero_do_patrimonio: PropTypes.string,
     tipo: PropTypes.string,

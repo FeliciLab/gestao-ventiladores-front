@@ -2,39 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import Chip from '@material-ui/core/Chip';
-import { withStyles } from '@material-ui/core';
 import green from '@material-ui/core/colors/green';
 import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
+import PercentChip from './PercentChip';
 
-
-const PercentChip = (props) => {
-  const {
-    percent,
-    bgColor,
-    color,
-  } = props;
-
-  const ColorChip = withStyles(() => ({
-    root: {
-      color,
-      backgroundColor: bgColor,
-      borderRadius: '20px',
-      fontSize: 20,
-    },
-  }))(Chip);
-
-  return <ColorChip label={`${percent}%`} />;
-};
-
-PercentChip.propTypes = {
-  percent: PropTypes.string.isRequired,
-  bgColor: PropTypes.string.isRequired,
-  color: PropTypes.string.isRequired,
-};
 
 const ServiceOrderCardNumber = (props) => {
   const {
@@ -104,8 +78,8 @@ ServiceOrderCardNumber.defaultProps = {
 
 ServiceOrderCardNumber.propTypes = {
   title: PropTypes.string.isRequired,
-  number: PropTypes.string.isRequired,
-  percent: PropTypes.string.isRequired,
+  number: PropTypes.number.isRequired,
+  percent: PropTypes.number.isRequired,
   icon: PropTypes.instanceOf(Object),
   colorIcon: PropTypes.string,
   bgIcon: PropTypes.string,

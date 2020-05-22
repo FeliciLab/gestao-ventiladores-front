@@ -6,4 +6,5 @@
 //     return false;
 //   }
 // };
-export const isAutenticated = () => true;
+const isAutenticated = () => true;
+export default isAutenticated;

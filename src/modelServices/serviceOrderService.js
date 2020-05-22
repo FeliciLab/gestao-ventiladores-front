@@ -1,5 +1,9 @@
 import api from '../services/api';
-import { ServiceOrder, ServiceOrderDiagnosis, ServiceOrderScreening } from '../models/serviceOrder';
+import {
+  ServiceOrder,
+  ServiceOrderDiagnosis,
+  ServiceOrderScreening,
+} from '../models/serviceOrder';
 import { itemDiagnosisModel } from '../models/itensDiagnosticos';
 import { Acessorio } from '../models/acessorio';
 
