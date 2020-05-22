@@ -26,7 +26,7 @@ import {
 } from '../../../modelServices/serviceOrderService';
 
 
-const useStyle = makeStyles(theme => ({
+const useStyle = makeStyles((theme) => ({
   containerForm: {
     marginTop: theme.spacing(5),
   },
@@ -81,28 +81,24 @@ const ScreeningDialogForm = (props) => {
       const equip = await saveNewEquipment(equipment);
       return equip._id;
     } catch (e) {
-      console.log('falha ao salvar equipamento', e);
       return false;
     }
   };
 
   const saveScreening = async (screening, equipmentId) => {
-    const screen = Object.assign(
-      {},
-      screening,
-      {
-        acessorios: screening.triagem.acessorios.filter(
-          item => item !== '' && item.acompanha && item.quantidade > 0,
-        ),
-      },
-    );
+    const screen = {
+      ...screening,
+      acessorios: screening.triagem.acessorios.filter(
+        (item) => item !== '' && item.acompanha && item.quantidade > 0,
+      ),
+    };
 
-    const order = mapModelRequestServiceOrder(Object.assign({},
-      serviceOrder,
+    const order = mapModelRequestServiceOrder({
+      ...serviceOrder,
       screening,
-      { triagem: screen.triagem },
-      { equipamento_id: equipmentId },
-    ));
+      triagem: screen.triagem,
+      equipamento_id: equipmentId,
+    });
 
     delete order.calibragem;
     delete order.diagnostico;
@@ -117,10 +113,9 @@ const ScreeningDialogForm = (props) => {
       return true;
     } catch (e) {
       if (!editingForm) {
-        deleteEquipmentRequest(equipmentId);
+        await deleteEquipmentRequest(equipmentId);
       }
 
-      console.log('falha ao salvar ordem de serviço', e);
       return false;
     }
   };
@@ -132,13 +127,17 @@ const ScreeningDialogForm = (props) => {
       return;
     }
 
-    const equipment = Object.assign({}, mapEquipmentRequest(Array.isArray(serviceOrderForm.equipamento)
-      ? serviceOrderForm.equipamento[0]
-      : serviceOrderForm.equipamento));
-    console.log(equipment, serviceOrderForm.equipamento);
+    const equipment = {
+      ...mapEquipmentRequest(
+        Array.isArray(serviceOrderForm.equipamento)
+          ? serviceOrderForm.equipamento[0]
+          : serviceOrderForm.equipamento,
+      ),
+    };
+
     const equipmentId = await saveEquipment(equipment);
     if (!equipmentId) {
-      return false;
+      return;
     }
 
     const saved = saveScreening(serviceOrderForm, equipmentId);
@@ -168,44 +167,47 @@ const ScreeningDialogForm = (props) => {
         open={openFormDialog}
         handleClose={closeDialog}
         title={titleFormModal}
-        actionChildren={<React.Fragment>
-          <Grid container spacing={2}>
-            <Grid item>
-              <ThemeButton
-                onClick={closeDialog}
-                startIcon={<CloseIcon />}
-                variant={'outlined'}
-                borderColor={'white'}
-              >
-                Cancelar
-              </ThemeButton>
+        actionChildren={(
+          <>
+            <Grid container spacing={2}>
+              <Grid item>
+                <ThemeButton
+                  onClick={closeDialog}
+                  startIcon={<CloseIcon />}
+                  variant="outlined"
+                  borderColor="white"
+                >
+                  Cancelar
+                </ThemeButton>
+              </Grid>
+              <Grid item>
+                <ThemeButton
+                  startIcon={<SaveIcon />}
+                  onClick={saveForm}
+                  name="Salvar"
+                  color={orange[600]}
+                  bgColor="#FFF"
+                  hoverColor={orange[50]}
+                >
+                  Salvar
+                </ThemeButton>
+              </Grid>
             </Grid>
-            <Grid item>
-              <ThemeButton
-                startIcon={<SaveIcon />}
-                onClick={saveForm}
-                name={'Salvar'}
-                color={orange[600]}
-                bgColor={'#FFF'}
-                hoverColor={orange[50]}
-              >
-                Salvar
-              </ThemeButton>
-            </Grid>
-          </Grid>
-        </React.Fragment>}
+          </>
+        )}
       >
         <Grid container spacing={4} className={classes.containerForm}>
           <Grid item xs={12}>
             {errorsFound
-              ?
-              <Alert
-                color={'error'}
-                onClose={() => setErrorsFound(false)}
-              >
-                Não é possível salvar. Verifique o formulário e preencha os campos
-                corretamente.
-              </Alert>
+              ? (
+                <Alert
+                  color="error"
+                  onClose={() => setErrorsFound(false)}
+                >
+                  Não é possível salvar. Verifique o formulário e preencha os campos
+                  corretamente.
+                </Alert>
+              )
               : ''}
           </Grid>
           <Grid item xs={12}>

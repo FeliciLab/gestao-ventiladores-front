@@ -140,19 +140,19 @@ const FormScreening = (props) => {
   };
 
   const handleUpdateServiceOrder = (value) => {
-    const doc = { ...serviceOrderForm, value };
+    const doc = { ...serviceOrderForm, ...value };
     setServiceOrderForm(doc);
     updateFormModel(doc);
   };
 
   const atualizarEquipamento = (value) => {
-    const equip = { ...equipamento, value };
+    const equip = { ...equipamento, ...value };
     setEquipamento(equip);
     updateFormModel({ equipamento: equip });
   };
 
   const atualizarTriagem = (value) => {
-    const dataScreening = { ...screening, value };
+    const dataScreening = { ...screening, ...value };
     setScreening(dataScreening);
     updateFormModel({ triagem: dataScreening });
   };
