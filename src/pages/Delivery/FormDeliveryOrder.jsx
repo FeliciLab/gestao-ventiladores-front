@@ -16,6 +16,7 @@ import DeliveryFormInfo from './DeliveryFormInfo';
 import EquipmentDetailDelivery from './FormDelivery/EquipmentDetailDelivery';
 import { updateManyEquipmentRequest } from '../../modelServices/equipamentoService';
 
+
 const useStyle = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(3),
@@ -56,8 +57,8 @@ const FormDeliveryOrder = (props) => {
   const updateEquipment = (doc, index) => {
     const docs = servicesOrdersEquipments.map((item) => {
       const order = item;
-      if (item._id.$oid === index) {
-        order.equipamento = { ...item.equipamento, doc };
+      if ((item._id.$oid || item._id) === index) {
+        order.equipamento = { ...item.equipamento, ...doc };
       }
       return order;
     });
@@ -71,7 +72,7 @@ const FormDeliveryOrder = (props) => {
     doc[_id] = value;
     setFormModel({
       ...formModel,
-      acessorios: { ...formModel.acessorios, doc },
+      acessorios: { ...formModel.acessorios, ...doc },
     });
   };
 
@@ -85,7 +86,8 @@ const FormDeliveryOrder = (props) => {
       updated_at: new Date(),
     };
     delete (doc.hora_entrega);
-    doc.equipamentos_id = doc.equipamentos.map((item) => (item.equipamento_id.$oid));
+    doc.equipamentos_id = doc.equipamentos
+      .map((item) => (item.equipamento_id.$oid || item.equipamento_id));
     updateManyEquipmentRequest(formModel.equipamentos.map((item) => item.equipamento))
       .then(() => {
         saveDelivery(doc)
@@ -100,7 +102,11 @@ const FormDeliveryOrder = (props) => {
       <CssBaseline />
       <Grid container justify="space-between" alignItems="center">
         <Grid item xs="auto">
-          <Typography variant="h5"><strong> CADASTRO DE ORDEM DE ENTREGA DE EQUIPAMENTO</strong></Typography>
+          <Typography variant="h5">
+            <strong>
+              CADASTRO DE ORDEM DE ENTREGA DE EQUIPAMENTO
+            </strong>
+          </Typography>
         </Grid>
         <Grid item xs="auto">
           <ThemeButton onClick={saveNewDeliveryOrder} startIcon={<SaveIcon />}>SALVAR</ThemeButton>
@@ -114,11 +120,15 @@ const FormDeliveryOrder = (props) => {
             <DeliveryFormInfo updateForm={updateForm} formModel={formModel} />
           </Paper>
           <Paper className={classes.paper}>
-            <Typography variant="h6" className={classes.titlePaper}>2. Busca do Equipamento</Typography>
+            <Typography variant="h6" className={classes.titlePaper}>
+              2. Busca do Equipamento
+            </Typography>
             <TableSearchEquipment updateForm={updateForm} serviceOrders={serviceOrders} />
           </Paper>
           <Paper className={classes.paper}>
-            <Typography variant="h6" className={classes.titlePaper}>2.1 Detalhes dos Equipamentos</Typography>
+            <Typography variant="h6" className={classes.titlePaper}>
+              2.1 Detalhes dos Equipamentos
+            </Typography>
             <EquipmentDetailDelivery
               servicesOrdersEquipments={servicesOrdersEquipments}
               formModel={formModel}
@@ -127,11 +137,15 @@ const FormDeliveryOrder = (props) => {
             />
           </Paper>
           <Paper className={classes.paper}>
-            <Typography variant="h6" className={classes.titlePaper}>3. Dados do Destinatário</Typography>
+            <Typography variant="h6" className={classes.titlePaper}>
+              3. Dados do Destinatário
+            </Typography>
             <ToInstituteFrom updateForm={updateForm} formModel={formModel} />
           </Paper>
           <Paper className={classes.paper}>
-            <Typography variant="h6" className={classes.titlePaper}>4. Dados do responsável pelo transporte</Typography>
+            <Typography variant="h6" className={classes.titlePaper}>
+              4. Dados do responsável pelo transporte
+            </Typography>
             <PersonTransportationForm updateForm={updateForm} formModel={formModel} />
           </Paper>
         </Grid>

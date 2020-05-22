@@ -42,7 +42,7 @@ const EquipmentDetailDelivery = (props) => {
 
   const [equipmentAccessories, setEquipmentAccessories] = useState([]);
   const [equipment, setEquipment] = useState({});
-  const [referenceIndex, setReferenceIndex] = useState({});
+  const [referenceIndex, setReferenceIndex] = useState('');
 
   const headTable = [
     { id: 'nome_equipamento', label: 'Nome' },
@@ -55,51 +55,51 @@ const EquipmentDetailDelivery = (props) => {
   const [openDialogEquipment, setOpenDialogEquipment] = useState(false);
   const [openDialogAccessories, setOpenDialogAccessories] = useState(false);
 
-  function handleClose() {
+  const handleClose = () => {
     setOpenDialogEquipment(false);
     setOpenDialogAccessories(false);
-  }
+  };
 
-  function handleChangePage(event, newPage) {
+  const handleChangePage = (event, newPage) => {
     setPage(newPage);
-  }
+  };
 
-  function handleChangeRowsPerPage(event) {
+  const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
-  }
+  };
 
-  function handleOpenEquipmentDialog(servicesOrdersEquipment) {
+  const handleOpenEquipmentDialog = (servicesOrdersEquipment) => {
     setEquipment(servicesOrdersEquipment.equipamento);
-    setReferenceIndex(servicesOrdersEquipment._id.$oid);
+    setReferenceIndex(servicesOrdersEquipment._id.$oid || servicesOrdersEquipment._id);
     setOpenDialogEquipment(true);
-  }
+  };
 
-  function updateEquipmentDialog(doc, index) {
+  const updateEquipmentDialog = (doc, index) => {
     updateEquipment(doc, index);
     handleClose();
-  }
+  };
 
-  function hasAccessorieToEquipment(servicesOrdersEquipment) {
+  const hasAccessorieToEquipment = (servicesOrdersEquipment) => {
     const hasAccessorieInForm = formModel && formModel.acessorios;
     return hasAccessorieInForm
       && Object.prototype.hasOwnProperty.call(
         formModel.acessorios, servicesOrdersEquipment.equipamento._id.$oid,
       );
-  }
+  };
 
-  function handleOpenAccessories(servicesOrdersEquipment) {
+  const handleOpenAccessories = (servicesOrdersEquipment) => {
     const acc = hasAccessorieToEquipment(servicesOrdersEquipment)
       ? formModel.acessorios[servicesOrdersEquipment.equipamento_id.$oid].slice()
       : servicesOrdersEquipment.triagem.acessorios;
 
     setEquipmentAccessories(acc);
-    setReferenceIndex(servicesOrdersEquipment._id);
+    setReferenceIndex(servicesOrdersEquipment._id.$oid || servicesOrdersEquipment._id);
     setOpenDialogAccessories(true);
-  }
+  };
 
-  function handlUpdateAccessories(index, _acessorios) {
-    const doc = servicesOrdersEquipments.find((item) => item._id === index);
+  const handlUpdateAccessories = (index, _acessorios) => {
+    const doc = servicesOrdersEquipments.find((item) => item._id.$oid === index);
     if (!doc) {
       return;
     }
@@ -109,7 +109,7 @@ const EquipmentDetailDelivery = (props) => {
       doc.equipamento._id.$oid,
     );
     handleClose();
-  }
+  };
 
   if (!servicesOrdersEquipments) {
     return <></>;
@@ -122,7 +122,7 @@ const EquipmentDetailDelivery = (props) => {
           <TableHead>
             <TableRow>
               {headTable.map((head) => (
-                <TableCell key={head.labem}>
+                <TableCell key={randomIndex()}>
                   {head.label}
                 </TableCell>
               ))}
@@ -137,10 +137,9 @@ const EquipmentDetailDelivery = (props) => {
                 return (
                   <TableRow key={randomIndex()}>
                     {headTable.map((head) => {
-                      const randIndx = randomIndex();
                       if (head.id === 'acessorios') {
                         return (
-                          <TableCell key={randIndx}>
+                          <TableCell key={randomIndex()}>
                             <div className={classes.cellRow}>
                               <AccessoriesEquipmentText
                                 equipmentId={equipmentData._id.$oid}
@@ -152,7 +151,7 @@ const EquipmentDetailDelivery = (props) => {
                       }
 
                       return (
-                        <TableCell key={randIndx}>{equipmentData[head.id]}</TableCell>
+                        <TableCell key={randomIndex()}>{equipmentData[head.id]}</TableCell>
                       );
                     })}
 

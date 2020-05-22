@@ -1,4 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, {
+  useEffect,
+  useState,
+} from 'react';
 import PropTypes from 'prop-types';
 import SaveIcon from '@material-ui/icons/Save';
 import orange from '@material-ui/core/colors/orange';
@@ -11,7 +14,10 @@ import Typography from '@material-ui/core/Typography';
 import ThemeButton from '../../_common/forms/ThemeButton';
 import equipmentTypes from '../../../models/equipmentTypes';
 import InputRadioDialog from '../../_common/forms/InputRadioDialog';
-import { manufacturersEquipments, modelsEquipment } from '../../../models/manufacturers';
+import {
+  manufacturersEquipments,
+  modelsEquipment,
+} from '../../../models/manufacturers';
 import typeInstitute from '../../../models/typeInstitute';
 import FullDialog from '../../_common/components/FullDialog';
 import getCities from '../../../services/cities';
@@ -173,7 +179,7 @@ const DialogEquipment = (props) => {
               <TextField
                 fullWidth
                 select
-                label="Município de Origem"
+                label="Município de Destino"
                 value={formEquipment.municipio_origem}
                 helperText={`Valor atual: ${formEquipment.municipio_origem}`}
                 onChange={handleUpdateAccessories}

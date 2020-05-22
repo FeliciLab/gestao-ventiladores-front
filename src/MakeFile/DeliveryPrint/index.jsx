@@ -1,5 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import moment from 'moment';
+import 'moment/locale/pt-br';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import grey from '@material-ui/core/colors/grey';
 import Typography from '@material-ui/core/Typography';
@@ -8,7 +10,6 @@ import PagePrint from '../../pages/_common/print/PagePrint';
 import HeaderPrint from '../../pages/_common/print/HeaderPrint';
 import TopicPrint from '../../pages/_common/print/TopicPrint';
 import TablePrint from '../../pages/_common/print/TablePrint';
-import 'moment/locale/pt-br';
 import FooterPrint from '../../pages/_common/print/FooterPrint';
 
 
@@ -31,7 +32,10 @@ const useStyle = makeStyles((theme) => ({
 
 const IndexDeliveryPrint = (props) => {
   moment.locale('pt-br');
-  const { location: { state: { data } } = {} } = props;
+  const { location } = props;
+  const { state } = location;
+  const { data } = state;
+
   const classes = useStyle();
   const headerTable = [
     { id: 'tipo', name: 'Equipamento' },
@@ -42,9 +46,11 @@ const IndexDeliveryPrint = (props) => {
 
   ];
   const bodyData = data.equipamentos.map((item) => {
-    const content = Object.assign(item);
-    content.acessorios = data.acessorios[item._id.$oid]
-      .map((acc) => `${acc.quantidade} - ${acc.descricao}`).join(', ');
+    const content = { ...item };
+    content.acessorios = data.acessorios && data.acessorios[item._id.$oid]
+      ? data.acessorios[item._id.$oid]
+        .map((acc) => `${acc.quantidade} - ${acc.descricao}`).join(', ')
+      : [];
 
     return content;
   });
@@ -55,7 +61,7 @@ const IndexDeliveryPrint = (props) => {
         <HeaderPrint
           typeAbbreviation="OE"
           number={data.codigo}
-          dateTime={data.data_entrega.$date}
+          dateTime={new Date(data.data_entrega.$date)}
           subTitle="FORMULÁRIO PARA ENTREGA"
           pageNumber="01"
         />
@@ -175,8 +181,8 @@ const IndexDeliveryPrint = (props) => {
   );
 };
 
-// IndexDeliveryPrint.propTypes = {
-//   location: PropTypes.objectOf(PropTypes.object()).isRequired,
-// };
+IndexDeliveryPrint.propTypes = {
+  location: PropTypes.instanceOf(Object).isRequired,
+};
 
 export default IndexDeliveryPrint;
