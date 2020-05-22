@@ -45,7 +45,7 @@ const FormDiagnosis = (props) => {
   } = props;
 
   const updateServiceOrderDiagnosis = (value) => {
-    const diagnosis = { ...serviceOrder.diagnostico, value };
+    const diagnosis = { ...serviceOrder.diagnostico, ...value };
     updateServiceForm({ diagnostico: diagnosis });
   };
 

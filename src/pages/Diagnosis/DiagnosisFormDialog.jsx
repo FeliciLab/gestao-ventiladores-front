@@ -1,4 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, {
+  useEffect,
+  useState,
+} from 'react';
 import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 import CloseIcon from '@material-ui/icons/Close';
@@ -23,7 +26,7 @@ const DiagnosisFormDialog = (props) => {
 
   const handleEffect = () => {
     setServiceOrderForm(
-      { ...ServiceOrderDiagnosis({ dignostico: {} }), serviceOrder },
+      { ...ServiceOrderDiagnosis({ dignostico: {} }), ...serviceOrder },
     );
   };
 
@@ -31,7 +34,7 @@ const DiagnosisFormDialog = (props) => {
 
   const updateServiceForm = (value) => {
     setServiceOrderForm(
-      { ...serviceOrder, diagnostico: serviceOrderForm.diagnostico, value },
+      { ...serviceOrder, diagnostico: serviceOrderForm.diagnostico, ...value },
     );
   };
 

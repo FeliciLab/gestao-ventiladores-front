@@ -28,7 +28,7 @@ const CreateNewItem = (props) => {
   const updateItem = (event) => {
     const doc = {};
     doc[event.target.name] = event.target.value;
-    setItem({ ...item, doc });
+    setItem({ ...item, ...doc });
   };
 
   const registerItem = async () => {

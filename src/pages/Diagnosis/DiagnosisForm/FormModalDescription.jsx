@@ -1,4 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, {
+  useEffect,
+  useState,
+} from 'react';
 import PropTypes from 'prop-types';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -57,7 +60,7 @@ const FormModalDescription = (props) => {
 
 FormModalDescription.propTypes = {
   open: PropTypes.bool.isRequired,
-  item: PropTypes.string.isRequired,
+  item: PropTypes.instanceOf(Object).isRequired,
   handleClose: PropTypes.func.isRequired,
   updateValue: PropTypes.func.isRequired,
 };
