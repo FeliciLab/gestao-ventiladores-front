@@ -37,7 +37,7 @@ const ToInstituteFrom = (props) => {
         <Grid item xs={6}>
           <TextField
             select
-            label="Município de Origem"
+            label="Município de Destino"
             value={formModel.cidade_destino}
             name="cidade_destino"
             onChange={updateToForm}
