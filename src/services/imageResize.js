@@ -41,19 +41,19 @@ const imageResize = (
       return new Blob(byteArrays, { type: contentType });
     };
 
-    imagem.onload = function () {
-      if (this.width === 0 || this.height === 0) {
+    imagem.onload = () => {
+      if (imagem.width === 0 || imagem.height === 0) {
         console.log('Image is empty');
       } else {
-        const scale = (MAX_WIDTH / this.width);
+        const scale = (MAX_WIDTH / imagem.width);
 
         const can = document.createElement('canvas');
         can.width = fullImage
-          ? this.width
+          ? imagem.width
           : MAX_WIDTH;
         can.height = fullImage
-          ? this.height
-          : this.height * scale;
+          ? imagem.height
+          : imagem.height * scale;
 
         can.style.visibility = 'hidden';
 
@@ -61,9 +61,9 @@ const imageResize = (
 
         ctx.clearRect(0, 0, MAX_WIDTH, MAX_HEIGHT);
         if (fullImage) {
-          ctx.drawImage(imagem, 0, 0, this.width, this.height);
+          ctx.drawImage(imagem, 0, 0, imagem.width, imagem.height);
         } else {
-          ctx.drawImage(imagem, 0, 0, MAX_WIDTH, this.height * scale);
+          ctx.drawImage(imagem, 0, 0, MAX_WIDTH, imagem.height * scale);
         }
 
         const canvasUrl = can.toDataURL('image/jpeg', QUALITY_IMG);
