@@ -85,26 +85,22 @@ const CreateNewItem = (props) => {
 
           <Grid item xs={12} md={6}>
             <TextField
-              inputRef={register({ required: true })}
               fullWidth
               value={item.fabricante}
               name="fabricante"
               label="Fabricante"
               onChange={updateItem}
-              required
             />
             <ErrorAlertText error={errors.fabricante} />
           </Grid>
 
           <Grid item xs={12} md={3}>
             <TextField
-              inputRef={register({ required: true })}
               fullWidth
               value={item.codigo}
               label="Código do item"
               onChange={updateItem}
               name="codigo"
-              required
             />
             <ErrorAlertText error={errors.codigo} />
           </Grid>
