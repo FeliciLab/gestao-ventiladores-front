@@ -8,7 +8,10 @@ export const updateCalibration = (_id, calibration) => api.post(
   'api/calibragem',
   {
     _id,
-    status: 'calibragem',
+    status: calibration.status === 'descalibrado'
+      ? 'diagnostico'
+      : 'calibragem',
     calibragem: calibration,
+    updated_at: new Date(),
   },
 );
