@@ -5,6 +5,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import ActionMenuLayout from './ActionMenuLayout';
 import ActionButtonLayout from './ActionButtonLayout';
+import { randomIndex } from '../../../utils';
 
 
 const ActionTableBodyLayout = (props) => {
@@ -19,7 +20,7 @@ const ActionTableBodyLayout = (props) => {
     <TableBody>
       {data
         .map((item) => (
-          <TableRow hover key={Math.round(Math.random() * 100000)}>
+          <TableRow hover key={randomIndex()}>
             {
               headerKeys.map((header) => (
                 <TableCell key={header}>{item[header]}</TableCell>
