@@ -41,7 +41,7 @@ const imageResize = (
       return new Blob(byteArrays, { type: contentType });
     };
 
-    imagem.onload = () => {
+    imagem.onload = function () {
       if (this.width === 0 || this.height === 0) {
         console.log('Image is empty');
       } else {
