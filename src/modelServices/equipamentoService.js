@@ -89,11 +89,9 @@ export const saveNewEquipment = (equipamento) => {
 
 export const updateEquipment = (equipamento) => {
   const model = mapEquipmentRequest(equipamento);
-  const id = model._id;
-  delete (model._id);
 
-  return api.put(
-    `/api/equipamento/${id}`,
+  return api.post(
+    '/api/equipamentos',
     { ...model, updated_at: new Date() },
   ).then((result) => result);
 };
