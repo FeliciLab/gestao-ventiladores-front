@@ -32,21 +32,20 @@ const IndexDelivery = () => {
                   && delivery.equipamentos.find((equip) => equip.numero_de_serie === numSerie);
               })),
       );
-      setProgressLoad(30 + progressLoad);
       setProgressLoad(100);
       setLoadingData(false);
     }
   };
 
   const handleEffects = () => {
+    setLoadingData(true);
     getData();
   };
 
   useEffect(handleEffects, []);
 
   const realodData = () => {
-    setLoadingData(true);
-    getData();
+    window.location.reload();
   };
 
   if (loadingData) {
