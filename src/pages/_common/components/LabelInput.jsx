@@ -2,7 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import DoneIcon from '@material-ui/icons/Done';
 import { green } from '@material-ui/core/colors';
-import { Grid, TableCell, TextField, Typography } from '@material-ui/core';
+import {
+  Grid,
+  TableCell,
+  TextField,
+  Typography,
+} from '@material-ui/core';
 import ColorIconButton from '../forms/ColorIconButton';
 
 
@@ -57,7 +62,7 @@ const LabelInput = (props) => {
                     action={updateParent}
                     name="Aceitar"
                     icon={icons.done}
-                    item={value}
+                    item={{ value }}
                   />
                 </Grid>
               </Grid>
@@ -67,7 +72,9 @@ const LabelInput = (props) => {
           : (
             <>
               <Typography variant="subtitle2">
-                {currentValue !== '' ? currentValue : value}
+                {currentValue !== ''
+                  ? currentValue
+                  : value}
               </Typography>
             </>
           )}

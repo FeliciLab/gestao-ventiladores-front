@@ -61,7 +61,7 @@ ColorIconButton.propTypes = {
   action: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
   icon: PropTypes.instanceOf(Object).isRequired,
-  disabeld: PropTypes.bool,
+  disabled: PropTypes.bool,
 };
 
 export default ColorIconButton;

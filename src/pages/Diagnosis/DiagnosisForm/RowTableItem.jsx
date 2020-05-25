@@ -1,6 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Grid, TableCell, TableRow } from '@material-ui/core';
+import {
+  Grid,
+  TableCell,
+  TableRow,
+} from '@material-ui/core';
 import InfoIcon from '@material-ui/icons/Info';
 import Typography from '@material-ui/core/Typography';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -60,7 +64,7 @@ const RowTableItem = (props) => {
                   label=""
                   name={head.id}
                   action={(value) => updateParent(value, index, head.id)}
-                  value={data[head.id]}
+                  value={`${data[head.id]}`}
                 />
               );
             },
@@ -71,7 +75,7 @@ const RowTableItem = (props) => {
             <Grid item>
               <ColorIconButton
                 action={openModelEditDescription}
-                item={index}
+                item={{ index }}
                 icon={{
                   icon: <EditIcon fontSize="small" />,
                   size: 'small',

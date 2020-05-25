@@ -1,4 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, {
+  useEffect,
+  useState,
+} from 'react';
 import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
@@ -6,6 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import NewPurchaseOrderDialog from './NewPurchaseOrderDialog';
 import TableCheckedList from '../_common/SelectableTable/TableCheckedList';
+
 
 const headerData = [
   { id: 'tipo', name: 'Tipo' },
@@ -28,7 +32,6 @@ const ListItemServiceOrder = (props) => {
   const {
     itemsServiceOrder,
     reloadData,
-    itemsPurchaseOrder
   } = props;
 
   const [dataTable, setDataTable] = useState([]);
@@ -38,23 +41,15 @@ const ListItemServiceOrder = (props) => {
   const handleEffect = () => {
     setDataTable(
       Object.values(itemsServiceOrder)
-        .map((item) => {
-          const purchased = itemsPurchaseOrder[item.nome]
-            ? itemsPurchaseOrder[item.nome].quantidade
-            : 0;
-          return {
-            tipo: item.tipo || '',
-            nome: item.nome,
-            unidade_medida: item.unidade_medida || '',
-            quantidade: item.quantidade - purchased || 0,
-            fabricante: item.fabricante || '',
-            codigo: item.codigo || '',
-          };
-        })
-        .filter((item) => item.quantidade > 0)
-        .sort((a, b) =>
-          a.nome.toUpperCase().localeCompare(b.nome.toUpperCase()),
-        ),
+        .map((item) => ({
+          tipo: item.tipo || '',
+          nome: item.nome,
+          unidade_medida: item.unidade_medida || '',
+          quantidade: item.quantidade || 0,
+          fabricante: item.fabricante || '',
+          codigo: item.codigo || '',
+        }))
+        .sort((a, b) => a.nome.toUpperCase().localeCompare(b.nome.toUpperCase())),
     );
   };
 
@@ -102,9 +97,8 @@ const ListItemServiceOrder = (props) => {
 };
 
 ListItemServiceOrder.propTypes = {
-  itemsServiceOrder: PropTypes.instanceOf(Array).isRequired,
+  itemsServiceOrder: PropTypes.instanceOf(Object).isRequired,
   reloadData: PropTypes.func.isRequired,
-  itemsPurchaseOrder: PropTypes.instanceOf(Array).isRequired,
 };
 
 export default ListItemServiceOrder;

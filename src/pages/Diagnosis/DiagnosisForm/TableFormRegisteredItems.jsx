@@ -40,7 +40,8 @@ const TableFormRegisteredItems = (props) => {
     updateItemsFromTable(value, index, field);
   };
 
-  const openModelEditDescription = (index) => {
+  const openModelEditDescription = (event) => {
+    const { index } = event;
     setItemEdit(items[index]);
     setIndexEdit(index);
     setOpen(true);
