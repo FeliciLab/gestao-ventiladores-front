@@ -1,4 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, {
+  useEffect,
+  useState,
+} from 'react';
 import PropTypes from 'prop-types';
 import Table from '@material-ui/core/Table';
 import TableHead from '@material-ui/core/TableHead';
@@ -167,7 +170,7 @@ const TableSearchEquipment = (props) => {
   return (
     <>
       <TextField
-        label="Burcar pelo equipamento"
+        label="Buscar pelo equipamento"
         onChange={(event) => searchValue(event.target.value)}
         value={search}
         fullWidth
