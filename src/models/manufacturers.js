@@ -6,7 +6,7 @@ export const manufacturersEquipments = [
   'Maquet',
   'Ge',
   'Bird',
-  'Takaoka (KTK)'
+  'Takaoka (KTK)',
 ];
 
 export const modelsEquipment = [
@@ -34,5 +34,5 @@ export const modelsEquipment = [
   'Mark 7',
   '8400',
   'Monterey',
-  'Microtak'
+  'Microtak',
 ];

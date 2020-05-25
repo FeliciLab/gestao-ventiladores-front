@@ -1,6 +1,6 @@
 const typeInstitute = [
   'Privado',
-  'Público'
-]
+  'Público',
+];
 
 export default typeInstitute;

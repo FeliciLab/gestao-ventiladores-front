@@ -1,59 +1,60 @@
-import api from "../services/api";
-import {Delivery} from "../models/delivery";
+import api from '../services/api';
+import { Delivery } from '../models/delivery';
 
 
-function mapModel (delivery) {
-  const model = Delivery({})
-  for (let field in model) {
-    if (typeof (delivery[field]) === 'object' && delivery[field] !== null && delivery[field]['$oid']) {
-      model[field] = delivery[field]['$oid'];
-      continue;
-    }
-
-    if (typeof (delivery[field]) === 'object' && delivery[field] !== null && delivery[field]['$date']) {
-      model[field] = new Date(delivery[field]['$date']);
-      continue;
-    }
-    if (field === 'created_at' || field === 'updated_at') {
-      model[field] = new Date(delivery[field]);
-      continue
-    }
-
-    model[field] = delivery[field];
+const getFieldValue = (delivery, field) => {
+  if (typeof (delivery[field]) === 'object' && delivery[field] !== null && delivery[field].$oid) {
+    return delivery[field].$oid;
   }
-  return model;
-}
 
-export async function getAllDeliveryOrders () {
+  if (typeof (delivery[field]) === 'object' && delivery[field] !== null && delivery[field].$date) {
+    return new Date(delivery[field].$date);
+  }
+  if (field === 'created_at' || field === 'updated_at') {
+    return new Date(delivery[field]);
+  }
+
+  return delivery[field];
+};
+
+const mapModel = (delivery) => {
+  const model = Delivery({});
+
+  Object.keys(model).forEach((field) => {
+    model[field] = getFieldValue(delivery, field);
+  });
+
+  return model;
+};
+
+export const getAllDeliveryOrders = async () => {
   try {
-    const response = await api.get("/api/movimentacao");
+    const response = await api.get('/api/movimentacao');
 
     return response.data || [];
   } catch (error) {
-    console.log(error);
-    return []
+    return [];
   }
-}
+};
 
-export async function saveDelivery (entrega) {
+export const saveDelivery = async (entrega) => {
   try {
-    const doc = mapModel(entrega)
+    const doc = mapModel(entrega);
     const response = await api.post(
-      "/api/movimentacao",
+      '/api/movimentacao',
       Object.assign(doc, {
-        updated_at: new Date()
-      })
+        updated_at: new Date(),
+      }),
     );
     return response.data || [];
   } catch (error) {
-    console.log(error);
-    return []
+    return [];
   }
-}
+};
 
-export async function updateEntrega (entrega) {
+export const updateEntrega = async (entrega) => {
   try {
-    const doc = mapModel(entrega)
+    const doc = mapModel(entrega);
     const response = await api.put(
       `/api/movimentacao/${entrega.id}`,
       Object.assign(doc, {
@@ -61,14 +62,14 @@ export async function updateEntrega (entrega) {
       }),
       {
         headers: {
-          "Access-Control-Allow-Origin": "*",
-          Accept: "application/json",
-          "Content-Type": "application/json",
+          'Access-Control-Allow-Origin': '*',
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
         },
-      }
+      },
     );
     return response.data;
   } catch (error) {
     return error;
   }
-}
+};

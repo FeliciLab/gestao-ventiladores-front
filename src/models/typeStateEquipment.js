@@ -1,6 +1,6 @@
 const typeStateEquipment = [
   'Usado',
-  'Novo'
+  'Novo',
 ];
 
 export default typeStateEquipment;
