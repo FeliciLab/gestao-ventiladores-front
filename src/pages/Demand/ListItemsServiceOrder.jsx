@@ -58,7 +58,9 @@ const ListItemServiceOrder = (props) => {
   };
 
   const createNewBuyOrderDialog = (dataChecked) => {
-    setDataDialog(dataChecked.map((data) => itemsServiceOrder[data]));
+    setDataDialog(dataChecked.map((data) => itemsServiceOrder[data.trim()
+      .toLowerCase()
+      .replace(/\b/g, '_')]));
     setOpenDialog(true);
   };
 
