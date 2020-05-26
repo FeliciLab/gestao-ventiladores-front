@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 import client from '../../services/client';
 
-describe('', () => {
+describe('Client', () => {
   it('Should Access-Control-Allow-Origin is present in client header', () => {
     const header = {
       'Access-Control-Allow-Origin': '*',
