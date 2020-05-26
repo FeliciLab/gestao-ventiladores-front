@@ -1,14 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React, {
+  useEffect,
+  useState,
+} from 'react';
 import PropTypes from 'prop-types';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
-import { Tab, Tabs } from '@material-ui/core';
+import {
+  Tab,
+  Tabs,
+} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import PurchaseOrderTable from './PurchaseOrderTable';
 import ListItemServiceOrder from './ListItemsServiceOrder';
 import TabPanel from '../_common/components/TabPanel';
+
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -61,15 +68,16 @@ const DemandPage = (props) => {
       .filter((item) => item.status === 'diagnostico' && item.diagnostico.itens && item.diagnostico.itens.length > 0)
       .map((item) => item.diagnostico.itens)
       .reduce((acc, curr) => {
+        const newAcc = { ...acc };
         curr.forEach((item) => {
-          const name = item.nome;
-          if (!acc[name]) {
-            acc[name] = { ...item };
-            acc[name].quantidade = 0;
+          const name = item.nome.trim().toLowerCase().replace(/\b/g, '_');
+          if (!newAcc[name]) {
+            newAcc[name] = { ...item };
+            newAcc[name].quantidade = 0;
           }
-          acc[name].quantidade += item.quantidade || 0;
+          newAcc[name].quantidade += item.quantidade || 0;
         });
-        return acc;
+        return newAcc;
       }, {}));
   };
 
