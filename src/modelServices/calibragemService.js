@@ -1,10 +1,10 @@
-import api from '../services/api';
+import client from '../services/client';
 
 
-export const getAllCalibration = () => api.get('api/calibragem')
+export const getAllCalibration = () => client.get('api/calibragem')
   .then((result) => result.data);
 
-export const updateCalibration = (_id, calibration) => api.post(
+export const updateCalibration = (_id, calibration) => client.post(
   'api/calibragem',
   {
     _id,

@@ -1,7 +1,7 @@
-import api from '../services/api';
+import client from '../services/client';
 
 
-const getAllDiagnosis = () => api.get('api/diagnosticos')
+const getAllDiagnosis = () => client.get('api/diagnosticos')
   .then((result) => result.data);
 
 export default getAllDiagnosis();
