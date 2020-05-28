@@ -4,24 +4,20 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme) => ({
   footer: {
     display: 'flex',
-    justifyContent: 'center',
     background: '#00692C',
     flexDirection: 'column',
     alignItems: 'center',
   },
   container: {
     display: 'flex',
-    listStyleType: 'none',
     margin: 20,
     textTransform: 'uppercase',
     color: '#FFF',
-    fontStyle: 'normal',
   },
   menu: {
     marginLeft: 30,
     marginRight: 30,
     listStyle: 'none',
-    fontSize: 14,
     fontWeight: 'bold',
     lineHeight: 1.5,
     letterSpacing: 0.75,

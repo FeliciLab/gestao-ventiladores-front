@@ -64,7 +64,8 @@
     "husky": "4.2.5",
     "jest-transform-stub": "2.0.0",
     "lint-staged": "^10.1.7",
-    "prettier": "^2.0.5"
+    "prettier": "2.0.5",
+    "pretty-quick": "2.0.1"
   },
   "lint-staged": {
     "./src/*.{js,jsx,ts,tsx}": [
@@ -86,7 +87,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm test",
+      "pre-commit": "npm test && pretty-quick --staged",
       "pre-push": "npm test"
     }
   }
