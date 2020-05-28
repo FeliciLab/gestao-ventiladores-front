@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UsersControl component should render UsersControl component without errors 1`] = `
+<p>
+  User Control
+</p>
+`;

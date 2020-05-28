@@ -1,13 +1,14 @@
-import IndexServiceOrder from './pages/SerrviceOrder/index';
-import IndexFormDiagnosis from './pages/Diagnosis/DiagnosisForm/index';
-import Screening from './pages/Screening/index';
-import IndexDemand from './pages/Demand/index';
-import Diagnosis from './pages/Diagnosis/index';
-import Delivery from './pages/Delivery/index';
-import Calibration from './pages/Calibration/index';
-import OsPrint from './MakeFile/OsPrint/index';
-import IndexOrderPrint from './MakeFile/OrderPrint/index';
-import IndexDeliveryPrint from './MakeFile/DeliveryPrint/index';
+import IndexServiceOrder from './pages/SerrviceOrder';
+import IndexFormDiagnosis from './pages/Diagnosis/DiagnosisForm';
+import Screening from './pages/Screening';
+import IndexDemand from './pages/Demand';
+import Diagnosis from './pages/Diagnosis';
+import Delivery from './pages/Delivery';
+import Calibration from './pages/Calibration';
+import UsersControl from './pages/UsersControl';
+import OsPrint from './MakeFile/OsPrint';
+import IndexOrderPrint from './MakeFile/OrderPrint';
+import IndexDeliveryPrint from './MakeFile/DeliveryPrint';
 
 const getRoutes = () => [
   { path: '/', component: IndexServiceOrder },
@@ -21,6 +22,8 @@ const getRoutes = () => [
   { path: '/entregas', component: Delivery },
   { path: '/entrega-impressao', component: IndexDeliveryPrint },
   { path: '/calibragem', component: Calibration },
+  { path: '/controle-usuarios', component: UsersControl },
+  { path: '*', component: IndexServiceOrder },
 ];
 
 export default getRoutes;
