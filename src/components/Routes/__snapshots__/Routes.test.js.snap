@@ -1,0 +1,953 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Routes component should display component without errors when no routes props 1`] = `
+<div
+  className="makeStyles-layout-2"
+>
+  <header>
+    <header
+      className="MuiPaper-root MuiAppBar-root MuiAppBar-positionAbsolute MuiAppBar-colorPrimary makeStyles-appBar-3 MuiPaper-elevation4"
+    >
+      <div
+        className="MuiToolbar-root MuiToolbar-regular makeStyles-toolbar-4 MuiToolbar-gutters"
+      >
+        <div
+          className="makeStyles-divTitle-7"
+        >
+          <p
+            className="MuiTypography-root makeStyles-text-10 MuiTypography-body1 MuiTypography-noWrap"
+          >
+            <strong>
+              CENTRAL
+              <br />
+               
+              DE
+              <br />
+               
+              VENTILADORES
+            </strong>
+          </p>
+        </div>
+        <div>
+          <p
+            className="MuiTypography-root makeStyles-textUser-8 MuiTypography-body1 MuiTypography-noWrap"
+          />
+        </div>
+      </div>
+      <div
+        className="makeStyles-appBarFooter-5"
+      >
+        <div
+          className="MuiContainer-root MuiContainer-maxWidthLg"
+        >
+          <div
+            className="makeStyles-divTextFooter-6"
+          >
+            <div
+              className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-4 MuiGrid-align-items-xs-center"
+            >
+              <div
+                className="MuiGrid-root MuiGrid-item"
+              >
+                <a
+                  className="makeStyles-link-11"
+                  href="/ordens-servicos"
+                  onClick={[Function]}
+                >
+                  <div
+                    style={
+                      Object {
+                        "alignItems": "center",
+                        "display": "flex",
+                      }
+                    }
+                  >
+                    <svg
+                      aria-hidden={true}
+                      className="MuiSvgIcon-root"
+                      focusable="false"
+                      font="small"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M4 6H2v16h16v-2H4V6zm18-4H6v16h16V2zm-3 9H9V9h10v2zm-4 4H9v-2h6v2zm4-8H9V5h10v2z"
+                      />
+                    </svg>
+                     
+                    <span
+                      style={
+                        Object {
+                          "marginLeft": "0.5rem",
+                        }
+                      }
+                    >
+                      ORDENS DE SERVIÇO
+                    </span>
+                  </div>
+                </a>
+              </div>
+              <div
+                className="MuiGrid-root MuiGrid-item"
+              >
+                <a
+                  className="makeStyles-link-11"
+                  href="/triagens"
+                  onClick={[Function]}
+                >
+                  <div
+                    style={
+                      Object {
+                        "alignItems": "center",
+                        "display": "flex",
+                      }
+                    }
+                  >
+                    <svg
+                      aria-hidden={true}
+                      className="MuiSvgIcon-root"
+                      focusable="false"
+                      font="small"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M21 3h-6.18C14.4 1.84 13.3 1 12 1s-2.4.84-2.82 2H3v18h18V3zm-9 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm2 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"
+                      />
+                    </svg>
+                     
+                    <span
+                      style={
+                        Object {
+                          "marginLeft": "0.5rem",
+                        }
+                      }
+                    >
+                      TRIAGEM
+                    </span>
+                  </div>
+                </a>
+              </div>
+              <div
+                className="MuiGrid-root MuiGrid-item"
+              >
+                <a
+                  className="makeStyles-link-11"
+                  href="/diagnosticos"
+                  onClick={[Function]}
+                >
+                  <div
+                    style={
+                      Object {
+                        "alignItems": "center",
+                        "display": "flex",
+                      }
+                    }
+                  >
+                    <svg
+                      aria-hidden={true}
+                      className="MuiSvgIcon-root"
+                      focusable="false"
+                      font="small"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M22 4H2v16h20V4zM4 12h4v2H4v-2zm10 6H4v-2h10v2zm6 0h-4v-2h4v2zm0-4H10v-2h10v2z"
+                      />
+                    </svg>
+                     
+                    <span
+                      style={
+                        Object {
+                          "marginLeft": "0.5rem",
+                        }
+                      }
+                    >
+                      DIAGNÓSTICO
+                    </span>
+                  </div>
+                </a>
+              </div>
+              <div
+                className="MuiGrid-root MuiGrid-item"
+              >
+                <a
+                  className="makeStyles-link-11"
+                  href="/demandas"
+                  onClick={[Function]}
+                >
+                  <div
+                    style={
+                      Object {
+                        "alignItems": "center",
+                        "display": "flex",
+                      }
+                    }
+                  >
+                    <svg
+                      aria-hidden={true}
+                      className="MuiSvgIcon-root"
+                      focusable="false"
+                      font="small"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M21 6h-4c0-2.76-2.24-5-5-5S7 3.24 7 6H3v16h18V6zm-9-3c1.66 0 3 1.34 3 3H9c0-1.66 1.34-3 3-3zm0 10c-2.76 0-5-2.24-5-5h2c0 1.66 1.34 3 3 3s3-1.34 3-3h2c0 2.76-2.24 5-5 5z"
+                      />
+                    </svg>
+                     
+                    <span
+                      style={
+                        Object {
+                          "marginLeft": "0.5rem",
+                        }
+                      }
+                    >
+                      DEMANDA
+                    </span>
+                  </div>
+                </a>
+              </div>
+              <div
+                className="MuiGrid-root MuiGrid-item"
+              >
+                <a
+                  className="makeStyles-link-11"
+                  href="/calibragem"
+                  onClick={[Function]}
+                >
+                  <div
+                    style={
+                      Object {
+                        "alignItems": "center",
+                        "display": "flex",
+                      }
+                    }
+                  >
+                    <svg
+                      aria-hidden={true}
+                      className="MuiSvgIcon-root"
+                      focusable="false"
+                      font="small"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M21 3h-6.18C14.4 1.84 13.3 1 12 1s-2.4.84-2.82 2H3v18h18V3zm-9 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm-2 14l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"
+                      />
+                    </svg>
+                     
+                    <span
+                      style={
+                        Object {
+                          "marginLeft": "0.5rem",
+                        }
+                      }
+                    >
+                      CALIBRAGEM
+                    </span>
+                  </div>
+                </a>
+              </div>
+              <div
+                className="MuiGrid-root MuiGrid-item"
+              >
+                <a
+                  className="makeStyles-link-11"
+                  href="/entregas"
+                  onClick={[Function]}
+                >
+                  <div
+                    style={
+                      Object {
+                        "alignItems": "center",
+                        "display": "flex",
+                      }
+                    }
+                  >
+                    <svg
+                      aria-hidden={true}
+                      className="MuiSvgIcon-root"
+                      focusable="false"
+                      font="small"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M18.71 3H5.29L3 5.79V21h18V5.79L18.71 3zM14 15v2h-4v-2H6.5L12 9.5l5.5 5.5H14zM5.12 5l.81-1h12l.94 1H5.12z"
+                      />
+                    </svg>
+                     
+                    <span
+                      style={
+                        Object {
+                          "marginLeft": "0.5rem",
+                        }
+                      }
+                    >
+                      ENTREGA
+                    </span>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+  </header>
+  <div
+    className="MuiContainer-root MuiContainer-maxWidthLg"
+    style={
+      Object {
+        "padding": "5rem",
+      }
+    }
+  >
+    <h6
+      className="MuiTypography-root MuiTypography-h6"
+    >
+      Carregando dados...
+    </h6>
+    <div
+      aria-valuenow={0}
+      className="MuiLinearProgress-root MuiLinearProgress-colorPrimary MuiLinearProgress-determinate"
+      role="progressbar"
+    >
+      <div
+        className="MuiLinearProgress-bar MuiLinearProgress-barColorPrimary MuiLinearProgress-bar1Determinate"
+        style={
+          Object {
+            "transform": "translateX(-100%)",
+          }
+        }
+      />
+    </div>
+  </div>
+  <footer
+    className="makeStyles-footer-13"
+  >
+    <ul
+      className="makeStyles-container-14"
+    >
+      <li
+        className="makeStyles-menu-15"
+      >
+        <p
+          data-testid="title"
+        >
+          Recebimento
+        </p>
+        <ul
+          className="makeStyles-submenu-16"
+        >
+          <li
+            data-testid="option"
+          >
+            Cadastro
+          </li>
+          <li
+            data-testid="option"
+          >
+            Material
+          </li>
+        </ul>
+      </li>
+      <li
+        className="makeStyles-menu-15"
+      >
+        <p
+          data-testid="title"
+        >
+          Triagem
+        </p>
+        <ul
+          className="makeStyles-submenu-16"
+        >
+          <li
+            data-testid="option"
+          >
+            Origem
+          </li>
+          <li
+            data-testid="option"
+          >
+            Modelo
+          </li>
+          <li
+            data-testid="option"
+          >
+            Situação
+          </li>
+          <li
+            data-testid="option"
+          >
+            Acessórios
+          </li>
+        </ul>
+      </li>
+      <li
+        className="makeStyles-menu-15"
+      >
+        <p
+          data-testid="title"
+        >
+          Diagnóstico
+        </p>
+        <ul
+          className="makeStyles-submenu-16"
+        >
+          <li
+            data-testid="option"
+          >
+            Checklist
+          </li>
+          <li
+            data-testid="option"
+          >
+            Equipamentos
+          </li>
+          <li
+            data-testid="option"
+          >
+            Observações
+          </li>
+        </ul>
+      </li>
+      <li
+        className="makeStyles-menu-15"
+      >
+        <p
+          data-testid="title"
+        >
+          Avaliação
+        </p>
+        <ul
+          className="makeStyles-submenu-16"
+        >
+          <li
+            data-testid="option"
+          >
+            Peças
+          </li>
+          <li
+            data-testid="option"
+          >
+            Acessórios
+          </li>
+        </ul>
+      </li>
+      <li
+        className="makeStyles-menu-15"
+      >
+        <p
+          data-testid="title"
+        >
+          Manutenção
+        </p>
+        <ul
+          className="makeStyles-submenu-16"
+        >
+          <li
+            data-testid="option"
+          >
+            Checklist
+          </li>
+          <li
+            data-testid="option"
+          >
+            Equipamento
+          </li>
+          <li
+            data-testid="option"
+          >
+            Observações
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <div
+      className="makeStyles-copyright-17"
+    >
+      <small>
+        © 2017 - 2020 – GOVERNO DO ESTADO DO CEARÁ. TODOS OS DIREITOS RESERVADOS - v1.1.5
+      </small>
+    </div>
+  </footer>
+</div>
+`;
+
+exports[`Routes component should display component without errors when path redirect to valid route 1`] = `
+<p>
+  To do
+</p>
+`;
+
+exports[`Routes component should display component without errors when routes is empty array 1`] = `
+<div
+  className="makeStyles-layout-2"
+>
+  <header>
+    <header
+      className="MuiPaper-root MuiAppBar-root MuiAppBar-positionAbsolute MuiAppBar-colorPrimary makeStyles-appBar-3 MuiPaper-elevation4"
+    >
+      <div
+        className="MuiToolbar-root MuiToolbar-regular makeStyles-toolbar-4 MuiToolbar-gutters"
+      >
+        <div
+          className="makeStyles-divTitle-7"
+        >
+          <p
+            className="MuiTypography-root makeStyles-text-10 MuiTypography-body1 MuiTypography-noWrap"
+          >
+            <strong>
+              CENTRAL
+              <br />
+               
+              DE
+              <br />
+               
+              VENTILADORES
+            </strong>
+          </p>
+        </div>
+        <div>
+          <p
+            className="MuiTypography-root makeStyles-textUser-8 MuiTypography-body1 MuiTypography-noWrap"
+          />
+        </div>
+      </div>
+      <div
+        className="makeStyles-appBarFooter-5"
+      >
+        <div
+          className="MuiContainer-root MuiContainer-maxWidthLg"
+        >
+          <div
+            className="makeStyles-divTextFooter-6"
+          >
+            <div
+              className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-4 MuiGrid-align-items-xs-center"
+            >
+              <div
+                className="MuiGrid-root MuiGrid-item"
+              >
+                <a
+                  className="makeStyles-link-11"
+                  href="/ordens-servicos"
+                  onClick={[Function]}
+                >
+                  <div
+                    style={
+                      Object {
+                        "alignItems": "center",
+                        "display": "flex",
+                      }
+                    }
+                  >
+                    <svg
+                      aria-hidden={true}
+                      className="MuiSvgIcon-root"
+                      focusable="false"
+                      font="small"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M4 6H2v16h16v-2H4V6zm18-4H6v16h16V2zm-3 9H9V9h10v2zm-4 4H9v-2h6v2zm4-8H9V5h10v2z"
+                      />
+                    </svg>
+                     
+                    <span
+                      style={
+                        Object {
+                          "marginLeft": "0.5rem",
+                        }
+                      }
+                    >
+                      ORDENS DE SERVIÇO
+                    </span>
+                  </div>
+                </a>
+              </div>
+              <div
+                className="MuiGrid-root MuiGrid-item"
+              >
+                <a
+                  className="makeStyles-link-11"
+                  href="/triagens"
+                  onClick={[Function]}
+                >
+                  <div
+                    style={
+                      Object {
+                        "alignItems": "center",
+                        "display": "flex",
+                      }
+                    }
+                  >
+                    <svg
+                      aria-hidden={true}
+                      className="MuiSvgIcon-root"
+                      focusable="false"
+                      font="small"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M21 3h-6.18C14.4 1.84 13.3 1 12 1s-2.4.84-2.82 2H3v18h18V3zm-9 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm2 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"
+                      />
+                    </svg>
+                     
+                    <span
+                      style={
+                        Object {
+                          "marginLeft": "0.5rem",
+                        }
+                      }
+                    >
+                      TRIAGEM
+                    </span>
+                  </div>
+                </a>
+              </div>
+              <div
+                className="MuiGrid-root MuiGrid-item"
+              >
+                <a
+                  className="makeStyles-link-11"
+                  href="/diagnosticos"
+                  onClick={[Function]}
+                >
+                  <div
+                    style={
+                      Object {
+                        "alignItems": "center",
+                        "display": "flex",
+                      }
+                    }
+                  >
+                    <svg
+                      aria-hidden={true}
+                      className="MuiSvgIcon-root"
+                      focusable="false"
+                      font="small"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M22 4H2v16h20V4zM4 12h4v2H4v-2zm10 6H4v-2h10v2zm6 0h-4v-2h4v2zm0-4H10v-2h10v2z"
+                      />
+                    </svg>
+                     
+                    <span
+                      style={
+                        Object {
+                          "marginLeft": "0.5rem",
+                        }
+                      }
+                    >
+                      DIAGNÓSTICO
+                    </span>
+                  </div>
+                </a>
+              </div>
+              <div
+                className="MuiGrid-root MuiGrid-item"
+              >
+                <a
+                  className="makeStyles-link-11"
+                  href="/demandas"
+                  onClick={[Function]}
+                >
+                  <div
+                    style={
+                      Object {
+                        "alignItems": "center",
+                        "display": "flex",
+                      }
+                    }
+                  >
+                    <svg
+                      aria-hidden={true}
+                      className="MuiSvgIcon-root"
+                      focusable="false"
+                      font="small"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M21 6h-4c0-2.76-2.24-5-5-5S7 3.24 7 6H3v16h18V6zm-9-3c1.66 0 3 1.34 3 3H9c0-1.66 1.34-3 3-3zm0 10c-2.76 0-5-2.24-5-5h2c0 1.66 1.34 3 3 3s3-1.34 3-3h2c0 2.76-2.24 5-5 5z"
+                      />
+                    </svg>
+                     
+                    <span
+                      style={
+                        Object {
+                          "marginLeft": "0.5rem",
+                        }
+                      }
+                    >
+                      DEMANDA
+                    </span>
+                  </div>
+                </a>
+              </div>
+              <div
+                className="MuiGrid-root MuiGrid-item"
+              >
+                <a
+                  className="makeStyles-link-11"
+                  href="/calibragem"
+                  onClick={[Function]}
+                >
+                  <div
+                    style={
+                      Object {
+                        "alignItems": "center",
+                        "display": "flex",
+                      }
+                    }
+                  >
+                    <svg
+                      aria-hidden={true}
+                      className="MuiSvgIcon-root"
+                      focusable="false"
+                      font="small"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M21 3h-6.18C14.4 1.84 13.3 1 12 1s-2.4.84-2.82 2H3v18h18V3zm-9 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm-2 14l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"
+                      />
+                    </svg>
+                     
+                    <span
+                      style={
+                        Object {
+                          "marginLeft": "0.5rem",
+                        }
+                      }
+                    >
+                      CALIBRAGEM
+                    </span>
+                  </div>
+                </a>
+              </div>
+              <div
+                className="MuiGrid-root MuiGrid-item"
+              >
+                <a
+                  className="makeStyles-link-11"
+                  href="/entregas"
+                  onClick={[Function]}
+                >
+                  <div
+                    style={
+                      Object {
+                        "alignItems": "center",
+                        "display": "flex",
+                      }
+                    }
+                  >
+                    <svg
+                      aria-hidden={true}
+                      className="MuiSvgIcon-root"
+                      focusable="false"
+                      font="small"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M18.71 3H5.29L3 5.79V21h18V5.79L18.71 3zM14 15v2h-4v-2H6.5L12 9.5l5.5 5.5H14zM5.12 5l.81-1h12l.94 1H5.12z"
+                      />
+                    </svg>
+                     
+                    <span
+                      style={
+                        Object {
+                          "marginLeft": "0.5rem",
+                        }
+                      }
+                    >
+                      ENTREGA
+                    </span>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+  </header>
+  <div
+    className="MuiContainer-root MuiContainer-maxWidthLg"
+    style={
+      Object {
+        "padding": "5rem",
+      }
+    }
+  >
+    <h6
+      className="MuiTypography-root MuiTypography-h6"
+    >
+      Carregando dados...
+    </h6>
+    <div
+      aria-valuenow={80}
+      className="MuiLinearProgress-root MuiLinearProgress-colorPrimary MuiLinearProgress-determinate"
+      role="progressbar"
+    >
+      <div
+        className="MuiLinearProgress-bar MuiLinearProgress-barColorPrimary MuiLinearProgress-bar1Determinate"
+        style={
+          Object {
+            "transform": "translateX(-20%)",
+          }
+        }
+      />
+    </div>
+  </div>
+  <footer
+    className="makeStyles-footer-13"
+  >
+    <ul
+      className="makeStyles-container-14"
+    >
+      <li
+        className="makeStyles-menu-15"
+      >
+        <p
+          data-testid="title"
+        >
+          Recebimento
+        </p>
+        <ul
+          className="makeStyles-submenu-16"
+        >
+          <li
+            data-testid="option"
+          >
+            Cadastro
+          </li>
+          <li
+            data-testid="option"
+          >
+            Material
+          </li>
+        </ul>
+      </li>
+      <li
+        className="makeStyles-menu-15"
+      >
+        <p
+          data-testid="title"
+        >
+          Triagem
+        </p>
+        <ul
+          className="makeStyles-submenu-16"
+        >
+          <li
+            data-testid="option"
+          >
+            Origem
+          </li>
+          <li
+            data-testid="option"
+          >
+            Modelo
+          </li>
+          <li
+            data-testid="option"
+          >
+            Situação
+          </li>
+          <li
+            data-testid="option"
+          >
+            Acessórios
+          </li>
+        </ul>
+      </li>
+      <li
+        className="makeStyles-menu-15"
+      >
+        <p
+          data-testid="title"
+        >
+          Diagnóstico
+        </p>
+        <ul
+          className="makeStyles-submenu-16"
+        >
+          <li
+            data-testid="option"
+          >
+            Checklist
+          </li>
+          <li
+            data-testid="option"
+          >
+            Equipamentos
+          </li>
+          <li
+            data-testid="option"
+          >
+            Observações
+          </li>
+        </ul>
+      </li>
+      <li
+        className="makeStyles-menu-15"
+      >
+        <p
+          data-testid="title"
+        >
+          Avaliação
+        </p>
+        <ul
+          className="makeStyles-submenu-16"
+        >
+          <li
+            data-testid="option"
+          >
+            Peças
+          </li>
+          <li
+            data-testid="option"
+          >
+            Acessórios
+          </li>
+        </ul>
+      </li>
+      <li
+        className="makeStyles-menu-15"
+      >
+        <p
+          data-testid="title"
+        >
+          Manutenção
+        </p>
+        <ul
+          className="makeStyles-submenu-16"
+        >
+          <li
+            data-testid="option"
+          >
+            Checklist
+          </li>
+          <li
+            data-testid="option"
+          >
+            Equipamento
+          </li>
+          <li
+            data-testid="option"
+          >
+            Observações
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <div
+      className="makeStyles-copyright-17"
+    >
+      <small>
+        © 2017 - 2020 – GOVERNO DO ESTADO DO CEARÁ. TODOS OS DIREITOS RESERVADOS - v1.1.5
+      </small>
+    </div>
+  </footer>
+</div>
+`;

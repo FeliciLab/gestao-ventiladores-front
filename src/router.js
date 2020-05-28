@@ -1,9 +1,3 @@
-import React from 'react';
-import {
-  Route,
-  Switch,
-} from 'react-router-dom';
-
 import IndexServiceOrder from './pages/SerrviceOrder/index';
 import IndexFormDiagnosis from './pages/Diagnosis/DiagnosisForm/index';
 import Screening from './pages/Screening/index';
@@ -15,21 +9,18 @@ import OsPrint from './MakeFile/OsPrint/index';
 import IndexOrderPrint from './MakeFile/OrderPrint/index';
 import IndexDeliveryPrint from './MakeFile/DeliveryPrint/index';
 
+const getRoutes = () => [
+  { path: '/', component: IndexServiceOrder },
+  { path: '/ordens-servicos', component: IndexServiceOrder },
+  { path: '/triagens', component: Screening },
+  { path: '/novo-diagnostico', component: IndexFormDiagnosis },
+  { path: '/diagnosticos', component: Diagnosis },
+  { path: '/demandas', component: IndexDemand },
+  { path: '/ordem-compra', component: IndexOrderPrint },
+  { path: '/osprint', component: OsPrint },
+  { path: '/entregas', component: Delivery },
+  { path: '/entrega-impressao', component: IndexDeliveryPrint },
+  { path: '/calibragem', component: Calibration },
+];
 
-const Routes = () => (
-  <Switch>
-    <Route path="/" exact component={IndexServiceOrder} />
-    <Route path="/ordens-servicos" exact component={IndexServiceOrder} />
-    <Route path="/triagens" exact component={Screening} />
-    <Route path="/novo-diagnostico" exact component={IndexFormDiagnosis} />
-    <Route path="/diagnosticos" exact component={Diagnosis} />
-    <Route path="/demandas" exact component={IndexDemand} />
-    <Route path="/ordem-compra" exact component={IndexOrderPrint} />
-    <Route path="/osprint" component={OsPrint} />
-    <Route path="/entregas" component={Delivery} />
-    <Route path="/entrega-impressao" component={IndexDeliveryPrint} />
-    <Route path="/calibragem" component={Calibration} />
-  </Switch>
-);
-
-export default Routes;
+export default getRoutes;
