@@ -4,29 +4,30 @@ import {
   ServiceOrderDiagnosis,
   ServiceOrderScreening,
 } from '../models/serviceOrder';
-import { itemDiagnosisModel } from '../models/itensDiagnosticos';
+import { itemDiagnosisModel } from '../models/item';
 import { Acessorio } from '../models/acessorio';
 
+export const getServiceOrderByStatus = (status) =>
+  client
+    .post(
+      '/api/ordem_servicos/find',
+      {
+        query: {
+          status,
+        },
+      },
+      {
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      }
+    )
+    .then((response) => response.data);
 
-export const getServiceOrderByStatus = (status) => client.post(
-  '/api/ordem_servicos/find',
-  {
-    query: {
-      status,
-    },
-  },
-  {
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-  },
-)
-  .then((response) => response.data);
-
-export const getAllServiceOrder = () => client.get('/api/ordem_servicos')
-  .then((response) => response.data);
+export const getAllServiceOrder = () =>
+  client.get('/api/ordem_servicos').then((response) => response.data);
 
 const getValueFieldScreening = (serviceOrder) => {
   const modelScreening = ServiceOrderScreening(serviceOrder);
@@ -40,8 +41,10 @@ const getValueFieldScreening = (serviceOrder) => {
       serviceOrder.triagem.acessorios.forEach((i, indexAccessory) => {
         const item = {};
         Object.keys(modelAccessory).forEach((fieldModelAccessory) => {
-          item[fieldModelAccessory] = serviceOrder.triagem
-            .acessorios[indexAccessory][fieldModelAccessory];
+          item[fieldModelAccessory] =
+            serviceOrder.triagem.acessorios[indexAccessory][
+              fieldModelAccessory
+            ];
         });
         doc.acessorios.push(item);
       });
@@ -63,7 +66,8 @@ const getValueFieldDiagnosis = (serviceOrder) => {
       serviceOrder.diagnostico.itens.forEach((v, indexItem) => {
         const item = {};
         Object.keys(modelItems).forEach((fieldModelItem) => {
-          item[fieldModelItem] = serviceOrder.diagnostico.itens[indexItem][fieldModelItem];
+          item[fieldModelItem] =
+            serviceOrder.diagnostico.itens[indexItem][fieldModelItem];
         });
 
         doc.itens.push(item);
@@ -77,15 +81,26 @@ const getValueFieldDiagnosis = (serviceOrder) => {
 };
 
 const getValueField = (serviceOrder, field) => {
-  if (typeof (serviceOrder[field]) === 'object' && serviceOrder[field] !== null && serviceOrder[field].$oid) {
+  if (
+    typeof serviceOrder[field] === 'object' &&
+    serviceOrder[field] !== null &&
+    serviceOrder[field].$oid
+  ) {
     return serviceOrder[field].$oid;
   }
 
-  if (typeof (serviceOrder[field]) === 'object' && serviceOrder[field] !== null && serviceOrder[field].$date) {
+  if (
+    typeof serviceOrder[field] === 'object' &&
+    serviceOrder[field] !== null &&
+    serviceOrder[field].$date
+  ) {
     return new Date(serviceOrder[field].$date);
   }
 
-  if ((field === 'created_at' || field === 'updated_at') && serviceOrder[field]) {
+  if (
+    (field === 'created_at' || field === 'updated_at') &&
+    serviceOrder[field]
+  ) {
     return new Date(serviceOrder[field]);
   }
 
@@ -111,25 +126,23 @@ export const mapModelRequestServiceOrder = (serviceOrder) => {
 
 export const saveNewOrderService = (serviceOrder) => {
   const order = serviceOrder;
-  delete (order._id);
-  return client.post(
-    '/api/ordem_servicos',
-    Object.assign(
-      order,
-      {
+  delete order._id;
+  return client
+    .post(
+      '/api/ordem_servicos',
+      Object.assign(order, {
         status: 'triagem',
         created_at: new Date(),
         updated_at: new Date(),
-      },
-    ),
-    {
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-    },
-  )
+      }),
+      {
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      }
+    )
     .then((res) => res)
     .catch((err) => err);
 };
@@ -137,8 +150,10 @@ export const saveNewOrderService = (serviceOrder) => {
 export const updateServiceOrderRequest = (serviceOrder, id) => {
   const order = serviceOrder;
   delete order._id;
-  return client.patch(
-    `/api/ordem_servico/${id}`,
-    Object.assign(order, { updated_at: new Date() }),
-  ).then((result) => result);
+  return client
+    .patch(
+      `/api/ordem_servico/${id}`,
+      Object.assign(order, { updated_at: new Date() })
+    )
+    .then((result) => result);
 };

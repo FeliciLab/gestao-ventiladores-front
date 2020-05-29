@@ -8,4 +8,9 @@ export const itemDiagnosisModel = {
   descricao: '',
 };
 
+export const Item = (item) => ({
+  ...itemDiagnosisModel,
+  ...item,
+});
+
 export const getItemDiagnosis = (item) => ({ ...itemDiagnosisModel, ...item });
