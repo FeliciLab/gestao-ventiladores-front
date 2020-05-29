@@ -5,7 +5,6 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import Header from './Header';
 import Footer from './Footer';
 
-
 const useStyle = makeStyles(() => ({
   layout: {
     background: grey[100],

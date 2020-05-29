@@ -14,69 +14,52 @@ import Container from '@material-ui/core/Container';
 import { green } from '@material-ui/core/colors';
 import Grid from '@material-ui/core/Grid';
 
-
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   appBar: {
-    position: 'relative',
-    height: 300,
     background: green[500],
   },
   toolbar: {
-    marginTop: 20,
-    justifyContent: 'space-between',
-    width: 'auto',
-    marginLeft: theme.spacing(2),
-    marginRight: theme.spacing(2),
-    [theme.breakpoints.up(1200 + theme.spacing(2) * 2)]: {
-      width: 1200,
-      marginLeft: 'auto',
-      marginRight: 'auto',
-    },
-  },
-  appBarFooter: {
+    height: 240,
+    maxWidth: 1200,
     width: '100%',
-    background: green['800'],
-    height: 60,
-    position: 'absolute',
-    bottom: 0,
-  },
-  divTextFooter: {
-    height: 60,
+    margin: '0 auto',
     display: 'flex',
-    marginLeft: theme.spacing(2),
-    marginRight: theme.spacing(2),
-    [theme.breakpoints.up(1200 + theme.spacing(2) * 2)]: {
-      width: 1200,
-      marginLeft: 'auto',
-      marginRight: 'auto',
-    },
-    flexDirection: 'row',
-  },
-  divTitle: {
-    flexDirection: 'row',
-  },
-  textUser: {
-    fontSize: 20,
-  },
-  textFooter: {
-    fontSize: 20,
-    // alignSelf: "center",
-    color: '#fff',
+    alignItems: 'start',
   },
   text: {
+    paddingTop: 20,
+    color: 'white',
     fontSize: 30,
-    color: '#fff',
     fontWeight: 'bold',
   },
-  link: {
-    // marginRight: "2rem",
-    fontSize: 18,
-    // alignSelf: "center",
-    color: '#fff',
-    textDecoration: 'none',
+  appBarFooter: {
+    background: '#2e7d32',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    maxWidth: '100%',
+    '& > div': {
+      width: 1232,
+      margin: 'auto',
+      '& a': {
+        color: 'white',
+        textDecoration: 'none',
+        fontSize: 18,
+      },
+    },
   },
   currentLink: {
-    borderBottom: '4px white solid',
+    borderBottom: '4px solid white',
+  },
+  label: {
+    display: 'flex',
+    '& span': {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      paddingRight: 5,
+      textTransform: 'uppercase',
+    },
   },
 }));
 
@@ -89,78 +72,59 @@ export default function Header() {
       pathname: '/ordens-servicos',
       icon: <LibraryBooksSharpIcon font="small" />,
     },
-    { label: 'TRIAGEM', pathname: '/triagens', icon: <AssignmentSharpIcon font="small" /> },
-    { label: 'DIAGNÓSTICO', pathname: '/diagnosticos', icon: <SubtitlesSharpIcon font="small" /> },
-    { label: 'DEMANDA', pathname: '/demandas', icon: <LocalMallSharpIcon font="small" /> },
+    {
+      label: 'TRIAGEM',
+      pathname: '/triagens',
+      icon: <AssignmentSharpIcon font="small" />,
+    },
+    {
+      label: 'DIAGNÓSTICO',
+      pathname: '/diagnosticos',
+      icon: <SubtitlesSharpIcon font="small" />,
+    },
+    {
+      label: 'DEMANDA',
+      pathname: '/demandas',
+      icon: <LocalMallSharpIcon font="small" />,
+    },
     {
       label: 'CALIBRAGEM',
       pathname: '/calibragem',
       icon: <AssignmentTurnedInSharpIcon font="small" />,
     },
-    { label: 'ENTREGA', pathname: '/entregas', icon: <UnarchiveSharpIcon font="small" /> },
+    {
+      label: 'ENTREGA',
+      pathname: '/entregas',
+      icon: <UnarchiveSharpIcon font="small" />,
+    },
   ];
 
-  const currentPathname = window.location.pathname;
+  const isCurrentItem = (item) => (window.location.pathname === item.pathname ? classes.currentLink : '');
 
   return (
-    <header>
-      <AppBar
-        position="absolute"
-        className={classes.appBar}
-      >
+    <>
+      <AppBar position="static" className={classes.appBar}>
         <Toolbar className={classes.toolbar}>
-          <div className={classes.divTitle}>
-            <Typography
-              className={classes.text}
-              noWrap
-            >
-              <strong>
-                CENTRAL
-                <br />
-                {' '}
-                DE
-                <br />
-                {' '}
-                VENTILADORES
-              </strong>
-            </Typography>
-          </div>
-          <div>
-            <Typography
-              className={classes.textUser}
-              noWrap
-            >
-              {/* usuario, joe */}
-            </Typography>
-          </div>
+          <Typography className={classes.text} noWrap>
+            <p>CENTRAL</p>
+            <p>DE</p>
+            <p>VENTILADORES</p>
+          </Typography>
         </Toolbar>
-        <div className={classes.appBarFooter}>
-          <Container>
-            <div className={classes.divTextFooter}>
-              <Grid container alignItems="center" spacing={4}>
-                {menuRoutes.map((item) => (
-                  <Grid
-                    item
-                    key={item.pathname}
-                    className={currentPathname === item.pathname ? classes.currentLink : ''}
-                  >
-                    <Link
-                      to={item.pathname}
-                      className={classes.link}
-                    >
-                      <div style={{ display: 'flex', alignItems: 'center' }}>
-                        {item.icon}
-                        {' '}
-                        <span style={{ marginLeft: '0.5rem' }}>{item.label}</span>
-                      </div>
-                    </Link>
-                  </Grid>
-                ))}
+
+        <Container className={classes.appBarFooter}>
+          <Grid container spacing={4}>
+            {menuRoutes.map((item) => (
+              <Grid item key={item.pathname} className={isCurrentItem(item)}>
+                <Link to={item.pathname} className={classes.label}>
+                  <span>{item.icon}</span>
+                  <span>{item.label}</span>
+                </Link>
               </Grid>
-            </div>
-          </Container>
-        </div>
+            ))}
+          </Grid>
+        </Container>
       </AppBar>
-    </header>
+    </>
   );
 }
