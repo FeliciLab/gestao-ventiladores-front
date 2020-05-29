@@ -21,7 +21,6 @@ const Layout = (props) => {
   const { children } = props;
   return (
     <div className={classes.layout}>
-      <Header />
       {children}
       <Footer />
     </div>
