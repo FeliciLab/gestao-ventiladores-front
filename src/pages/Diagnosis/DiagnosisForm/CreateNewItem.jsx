@@ -10,10 +10,9 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
 import TextField from '@material-ui/core/TextField';
-import { itemDiagnosisModel } from '../../../models/itensDiagnosticos';
+import { itemDiagnosisModel } from '../../../models/item';
 import ThemeButton from '../../_common/forms/ThemeButton';
 import ErrorAlertText from '../../_common/alerts/ErrorAlertText';
-
 
 const CreateNewItem = (props) => {
   const { addNewItem } = props;
@@ -46,10 +45,7 @@ const CreateNewItem = (props) => {
       </Typography>
 
       <form>
-        <Grid
-          container
-          spacing={3}
-        >
+        <Grid container spacing={3}>
           <Grid item xs={12} md={6}>
             <FormControl component="fieldset">
               <FormLabel component="legend">Tipo do item</FormLabel>
@@ -59,8 +55,7 @@ const CreateNewItem = (props) => {
                 value={item.tipo}
                 onChange={updateItem}
                 style={{ flexDirection: 'row' }}
-                required
-              >
+                required>
                 <FormControlLabel
                   value="pecas"
                   name="tipo"
@@ -154,7 +149,6 @@ const CreateNewItem = (props) => {
             />
           </Grid>
         </Grid>
-
 
         <Grid container justify="flex-end" style={{ marginTop: '2rem' }}>
           <Grid item xs="auto">

@@ -1,8 +1,5 @@
 import React from 'react';
-import {
-  Route,
-  Switch,
-} from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
 import IndexServiceOrder from './pages/SerrviceOrder/index';
 import IndexFormDiagnosis from './pages/Diagnosis/DiagnosisForm/index';
@@ -14,7 +11,7 @@ import Calibration from './pages/Calibration/index';
 import OsPrint from './MakeFile/OsPrint/index';
 import IndexOrderPrint from './MakeFile/OrderPrint/index';
 import IndexDeliveryPrint from './MakeFile/DeliveryPrint/index';
-
+import IndexItems from './pages/Items';
 
 const Routes = () => (
   <Switch>
@@ -29,6 +26,7 @@ const Routes = () => (
     <Route path="/entregas" component={Delivery} />
     <Route path="/entrega-impressao" component={IndexDeliveryPrint} />
     <Route path="/calibragem" component={Calibration} />
+    <Route path="/items" component={IndexItems} />
   </Switch>
 );
 

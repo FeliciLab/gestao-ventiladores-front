@@ -10,10 +10,10 @@ import LibraryBooksSharpIcon from '@material-ui/icons/LibraryBooksSharp';
 import LocalMallSharpIcon from '@material-ui/icons/LocalMallSharp';
 import UnarchiveSharpIcon from '@material-ui/icons/UnarchiveSharp';
 import AssignmentTurnedInSharpIcon from '@material-ui/icons/AssignmentTurnedInSharp';
+import AllInboxSharpIcon from '@material-ui/icons/AllInboxSharp';
 import Container from '@material-ui/core/Container';
 import { green } from '@material-ui/core/colors';
 import Grid from '@material-ui/core/Grid';
-
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -89,47 +89,55 @@ export default function Header() {
       pathname: '/ordens-servicos',
       icon: <LibraryBooksSharpIcon font="small" />,
     },
-    { label: 'TRIAGEM', pathname: '/triagens', icon: <AssignmentSharpIcon font="small" /> },
-    { label: 'DIAGNÓSTICO', pathname: '/diagnosticos', icon: <SubtitlesSharpIcon font="small" /> },
-    { label: 'DEMANDA', pathname: '/demandas', icon: <LocalMallSharpIcon font="small" /> },
+    {
+      label: 'TRIAGEM',
+      pathname: '/triagens',
+      icon: <AssignmentSharpIcon font="small" />,
+    },
+    {
+      label: 'DIAGNÓSTICO',
+      pathname: '/diagnosticos',
+      icon: <SubtitlesSharpIcon font="small" />,
+    },
+    {
+      label: 'DEMANDA',
+      pathname: '/demandas',
+      icon: <LocalMallSharpIcon font="small" />,
+    },
     {
       label: 'CALIBRAGEM',
       pathname: '/calibragem',
       icon: <AssignmentTurnedInSharpIcon font="small" />,
     },
-    { label: 'ENTREGA', pathname: '/entregas', icon: <UnarchiveSharpIcon font="small" /> },
+    {
+      label: 'ENTREGA',
+      pathname: '/entregas',
+      icon: <UnarchiveSharpIcon font="small" />,
+    },
+    {
+      label: 'ITEMS',
+      pathname: '/items',
+      icon: <AllInboxSharpIcon font="small" />,
+    },
   ];
 
   const currentPathname = window.location.pathname;
 
   return (
     <header>
-      <AppBar
-        position="absolute"
-        className={classes.appBar}
-      >
+      <AppBar position="absolute" className={classes.appBar}>
         <Toolbar className={classes.toolbar}>
           <div className={classes.divTitle}>
-            <Typography
-              className={classes.text}
-              noWrap
-            >
+            <Typography className={classes.text} noWrap>
               <strong>
                 CENTRAL
-                <br />
-                {' '}
-                DE
-                <br />
-                {' '}
-                VENTILADORES
+                <br /> DE
+                <br /> VENTILADORES
               </strong>
             </Typography>
           </div>
           <div>
-            <Typography
-              className={classes.textUser}
-              noWrap
-            >
+            <Typography className={classes.textUser} noWrap>
               {/* usuario, joe */}
             </Typography>
           </div>
@@ -142,16 +150,17 @@ export default function Header() {
                   <Grid
                     item
                     key={item.pathname}
-                    className={currentPathname === item.pathname ? classes.currentLink : ''}
-                  >
-                    <Link
-                      to={item.pathname}
-                      className={classes.link}
-                    >
+                    className={
+                      currentPathname === item.pathname
+                        ? classes.currentLink
+                        : ''
+                    }>
+                    <Link to={item.pathname} className={classes.link}>
                       <div style={{ display: 'flex', alignItems: 'center' }}>
-                        {item.icon}
-                        {' '}
-                        <span style={{ marginLeft: '0.5rem' }}>{item.label}</span>
+                        {item.icon}{' '}
+                        <span style={{ marginLeft: '0.5rem' }}>
+                          {item.label}
+                        </span>
                       </div>
                     </Link>
                   </Grid>
