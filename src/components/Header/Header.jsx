@@ -65,7 +65,8 @@ const useStyles = makeStyles(() => ({
 const Header = ({ menuRoutes }) => {
   const classes = useStyles();
 
-  const isCurrentLink = (item) => (window.location.pathname === item.path ? classes.currentLink : '');
+  const isCurrentLink = (item) =>
+    window.location.pathname === item.path ? classes.currentLink : '';
 
   return (
     <>
