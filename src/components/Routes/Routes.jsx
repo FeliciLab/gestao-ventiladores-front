@@ -11,8 +11,9 @@ export const hasRoutes = (routes) => {
   return false;
 };
 
-const Routes = ({ routes }) => (
+const Routes = ({ routes, children }) => (
   <BrowserRouter>
+    {children}
     <Switch>
       {hasRoutes(routes) ? routes.map((route) => (
         <Route key={randomIndex()} path={route.path} exact component={route.component} />
@@ -22,6 +23,7 @@ const Routes = ({ routes }) => (
 );
 
 Routes.propTypes = {
+  children: PropTypes.instanceOf(Object).isRequired,
   routes: PropTypes.instanceOf(Array).isRequired,
 };
 

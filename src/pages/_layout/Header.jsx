@@ -1,15 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import AppBar from '@material-ui/core/AppBar';
 import { makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
-import AssignmentSharpIcon from '@material-ui/icons/AssignmentSharp';
-import SubtitlesSharpIcon from '@material-ui/icons/SubtitlesSharp';
-import LibraryBooksSharpIcon from '@material-ui/icons/LibraryBooksSharp';
-import LocalMallSharpIcon from '@material-ui/icons/LocalMallSharp';
-import UnarchiveSharpIcon from '@material-ui/icons/UnarchiveSharp';
-import AssignmentTurnedInSharpIcon from '@material-ui/icons/AssignmentTurnedInSharp';
 import Container from '@material-ui/core/Container';
 import { green } from '@material-ui/core/colors';
 import Grid from '@material-ui/core/Grid';
@@ -50,9 +45,13 @@ const useStyles = makeStyles(() => ({
   },
   currentLink: {
     borderBottom: '4px solid white',
+    '& a': {
+      opacity: 1,
+    },
   },
   label: {
     display: 'flex',
+    opacity: '0.5',
     '& span': {
       display: 'flex',
       justifyContent: 'center',
@@ -63,43 +62,10 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default function Header() {
+const Header = ({ menuRoutes }) => {
   const classes = useStyles();
 
-  const menuRoutes = [
-    {
-      label: 'ORDENS DE SERVIÇO',
-      pathname: '/ordens-servicos',
-      icon: <LibraryBooksSharpIcon font="small" />,
-    },
-    {
-      label: 'TRIAGEM',
-      pathname: '/triagens',
-      icon: <AssignmentSharpIcon font="small" />,
-    },
-    {
-      label: 'DIAGNÓSTICO',
-      pathname: '/diagnosticos',
-      icon: <SubtitlesSharpIcon font="small" />,
-    },
-    {
-      label: 'DEMANDA',
-      pathname: '/demandas',
-      icon: <LocalMallSharpIcon font="small" />,
-    },
-    {
-      label: 'CALIBRAGEM',
-      pathname: '/calibragem',
-      icon: <AssignmentTurnedInSharpIcon font="small" />,
-    },
-    {
-      label: 'ENTREGA',
-      pathname: '/entregas',
-      icon: <UnarchiveSharpIcon font="small" />,
-    },
-  ];
-
-  const isCurrentItem = (item) => (window.location.pathname === item.pathname ? classes.currentLink : '');
+  const isCurrentLink = (item) => (window.location.pathname === item.path ? classes.currentLink : '');
 
   return (
     <>
@@ -115,8 +81,8 @@ export default function Header() {
         <Container className={classes.appBarFooter}>
           <Grid container spacing={4}>
             {menuRoutes.map((item) => (
-              <Grid item key={item.pathname} className={isCurrentItem(item)}>
-                <Link to={item.pathname} className={classes.label}>
+              <Grid item key={item.path} className={isCurrentLink(item)}>
+                <Link to={item.path} className={classes.label}>
                   <span>{item.icon}</span>
                   <span>{item.label}</span>
                 </Link>
@@ -127,4 +93,10 @@ export default function Header() {
       </AppBar>
     </>
   );
-}
+};
+
+Header.propTypes = {
+  menuRoutes: PropTypes.instanceOf(Array).isRequired,
+};
+
+export default Header;
