@@ -1,13 +1,13 @@
-import IndexServiceOrder from './pages/SerrviceOrder/index';
-import IndexFormDiagnosis from './pages/Diagnosis/DiagnosisForm/index';
-import Screening from './pages/Screening/index';
-import IndexDemand from './pages/Demand/index';
-import Diagnosis from './pages/Diagnosis/index';
-import Delivery from './pages/Delivery/index';
-import Calibration from './pages/Calibration/index';
-import OsPrint from './MakeFile/OsPrint/index';
-import IndexOrderPrint from './MakeFile/OrderPrint/index';
-import IndexDeliveryPrint from './MakeFile/DeliveryPrint/index';
+import IndexServiceOrder from '../pages/SerrviceOrder/index';
+import IndexFormDiagnosis from '../pages/Diagnosis/DiagnosisForm/index';
+import Screening from '../pages/Screening/index';
+import IndexDemand from '../pages/Demand/index';
+import Diagnosis from '../pages/Diagnosis/index';
+import Delivery from '../pages/Delivery/index';
+import Calibration from '../pages/Calibration/index';
+import OsPrint from '../MakeFile/OsPrint/index';
+import IndexOrderPrint from '../MakeFile/OrderPrint/index';
+import IndexDeliveryPrint from '../MakeFile/DeliveryPrint/index';
 
 const getRoutes = () => [
   { path: '/', component: IndexServiceOrder },

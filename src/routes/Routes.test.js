@@ -1,5 +1,3 @@
-/* eslint-disable react/jsx-filename-extension */
-/* eslint-disable no-undef */
 import React from 'react';
 import { create } from 'react-test-renderer';
 import '@testing-library/jest-dom/extend-expect';

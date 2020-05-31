@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { randomIndex } from '../../utils';
-import IndexServiceOrder from '../../pages/SerrviceOrder';
+import { randomIndex } from '../utils';
+import IndexServiceOrder from '../pages/SerrviceOrder';
 
 export const hasRoutes = (routes) => {
   if (routes && routes.length > 0) {
