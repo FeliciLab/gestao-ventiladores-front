@@ -10,7 +10,7 @@ Pequena_descrição_do_PR
 
 # Checklist
 
-Marque se os itens abaixo estão contemplados:
+Marque se os itens que estão contemplados:
 
 - [ ] Testes foram implementados (novos ou não)
 - [ ] Issue foi definida no PR (Linked Issue)
