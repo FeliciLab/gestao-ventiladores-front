@@ -4,9 +4,9 @@ Tipo: Bug,Feature,Refactory
 issue: #numeroDaIssue
 ---
 
-# Resumo
+# Descrição
 
-Pequena_descrição_do_PR
+Descrever_o_que_é_o_PR
 
 # Checklist
 
@@ -14,6 +14,6 @@ Pequena_descrição_do_PR
 - [ ] Issue foi definida no PR (Linked Issue)
 - [ ] Pessoas contribuidoras foram definidas no PR (Assigners)
 
-# Descrição
+# Observações
 
-Descrição_mais_completa_do_PR_se_possível_descrevendo_cada_commit_ou_alterações_importantes.
+OPCIONAL_remover_se_desnecessário
