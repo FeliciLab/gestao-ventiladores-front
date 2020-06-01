@@ -1,4 +1,4 @@
-import api from '../services/api';
+import client from '../services/client';
 import { PurchaseOrder } from '../models/purchaseOrder';
 
 
@@ -25,11 +25,11 @@ const mapModelRequest = (purchaseOrder) => {
   return model;
 };
 
-export const getAllPurchaseOrders = () => api.get('/api/ordem_compra')
+export const getAllPurchaseOrders = () => client.get('/api/ordem_compra')
   .then((res) => res.data || []);
 
 export const savePurchaseOrder = (purchaseOrder) => {
   const doc = mapModelRequest(purchaseOrder);
-  return api.post('/api/ordem_compra', doc)
+  return client.post('/api/ordem_compra', doc)
     .then((res) => res.data || false);
 };
