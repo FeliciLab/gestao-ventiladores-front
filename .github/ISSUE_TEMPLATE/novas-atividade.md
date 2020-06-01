@@ -10,9 +10,9 @@ assignees: ''
 
 # Objetivo
 
-**Eu como** _
-**Quero** _
-**Para que** _
+**Eu como** _  
+**Quero** _  
+**Para que** _  
 
 # Contexto
 
