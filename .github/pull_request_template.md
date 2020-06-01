@@ -8,7 +8,7 @@ issue: #numeroDaIssue
 
 Pequena_descrição_do_PR
 
-# Checklist do PR
+# Checklist
 
 Marque se os itens abaixo estão contemplados:
 
