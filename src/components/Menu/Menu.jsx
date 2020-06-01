@@ -47,32 +47,32 @@ export default function Header() {
 
   const menuRoutes = [
     {
-      label: 'ORDENS DE SERVIÇO',
+      label: 'ordens de serviço',
       path: '/ordens-servicos',
       icon: <LibraryBooksSharpIcon font="small" />,
     },
     {
-      label: 'TRIAGEM',
+      label: 'triagem',
       path: '/triagens',
       icon: <AssignmentSharpIcon font="small" />,
     },
     {
-      label: 'DIAGNÓSTICO',
+      label: 'diagnóstico',
       path: '/diagnosticos',
       icon: <SubtitlesSharpIcon font="small" />,
     },
     {
-      label: 'DEMANDA',
+      label: 'demanda',
       path: '/demandas',
       icon: <LocalMallSharpIcon font="small" />,
     },
     {
-      label: 'CALIBRAGEM',
+      label: 'calibragem',
       path: '/calibragem',
       icon: <AssignmentTurnedInSharpIcon font="small" />,
     },
     {
-      label: 'ENTREGA',
+      label: 'entrega',
       path: '/entregas',
       icon: <UnarchiveSharpIcon font="small" />,
     },
