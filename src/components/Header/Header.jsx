@@ -4,7 +4,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import AppBar from '@material-ui/core/AppBar';
 import { makeStyles } from '@material-ui/core/styles';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import Container from '@material-ui/core/Container';
 import { green } from '@material-ui/core/colors';
 import Grid from '@material-ui/core/Grid';
@@ -43,15 +43,11 @@ const useStyles = makeStyles(() => ({
       },
     },
   },
-  currentLink: {
-    borderBottom: '4px solid white',
-    '& a': {
-      opacity: 1,
-    },
-  },
   label: {
     display: 'flex',
+    padding: 16,
     opacity: '0.5',
+    boxSizing: 'border-box',
     '& span': {
       display: 'flex',
       justifyContent: 'center',
@@ -60,13 +56,15 @@ const useStyles = makeStyles(() => ({
       textTransform: 'uppercase',
     },
   },
+  activeLabel: {
+    borderBottom: '4px solid white',
+    opacity: 1,
+    paddingBottom: 12,
+  },
 }));
 
 const Header = ({ menuRoutes }) => {
   const classes = useStyles();
-
-  const isCurrentLink = (item) =>
-    window.location.pathname === item.path ? classes.currentLink : '';
 
   return (
     <>
@@ -82,12 +80,13 @@ const Header = ({ menuRoutes }) => {
         <Container className={classes.appBarFooter}>
           <Grid container spacing={4}>
             {menuRoutes.map((item) => (
-              <Grid item key={item.path} className={isCurrentLink(item)}>
-                <Link to={item.path} className={classes.label}>
-                  <span>{item.icon}</span>
-                  <span>{item.label}</span>
-                </Link>
-              </Grid>
+              <NavLink
+                to={item.path}
+                activeClassName={classes.activeLabel}
+                className={classes.label}>
+                <span>{item.icon}</span>
+                <span>{item.label}</span>
+              </NavLink>
             ))}
           </Grid>
         </Container>
