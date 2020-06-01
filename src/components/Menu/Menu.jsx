@@ -17,7 +17,8 @@ const useStyles = makeStyles(() => ({
   container: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
+    flexWrap: 'wrap',
   },
   label: {
     display: 'flex',
@@ -81,17 +82,15 @@ export default function Header() {
   return (
     <nav className={classes.mainMenu}>
       <Container className={classes.container}>
-        <Grid container>
-          {menuRoutes.map((item) => (
-            <NavLink
-              to={item.path}
-              activeClassName={classes.activeLabel}
-              className={classes.label}>
-              <span>{item.icon}</span>
-              <span>{item.label}</span>
-            </NavLink>
-          ))}
-        </Grid>
+        {menuRoutes.map((item) => (
+          <NavLink
+            to={item.path}
+            activeClassName={classes.activeLabel}
+            className={classes.label}>
+            <span>{item.icon}</span>
+            <span>{item.label}</span>
+          </NavLink>
+        ))}
       </Container>
     </nav>
   );
