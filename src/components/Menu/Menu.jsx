@@ -8,6 +8,7 @@ import LocalMallSharpIcon from '@material-ui/icons/LocalMallSharp';
 import UnarchiveSharpIcon from '@material-ui/icons/UnarchiveSharp';
 import AssignmentTurnedInSharpIcon from '@material-ui/icons/AssignmentTurnedInSharp';
 import Container from '@material-ui/core/Container';
+import { randomIndex } from '../../utils/index';
 
 const useStyles = makeStyles(() => ({
   mainMenu: {
@@ -84,6 +85,7 @@ export default function Header() {
         {menuRoutes.map((item) => (
           <NavLink
             to={item.path}
+            key={randomIndex()}
             activeClassName={classes.activeLabel}
             // eslint-disable-next-line react/jsx-closing-bracket-location
             className={classes.label}>
