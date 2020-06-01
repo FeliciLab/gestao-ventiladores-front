@@ -2,7 +2,8 @@ import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { randomIndex } from '../utils';
-import IndexServiceOrder from '../pages/SerrviceOrder';
+
+const RequireRotes = () => <h1>Routes component require rotes as props</h1>;
 
 export const hasRoutes = (routes) => {
   if (routes && routes.length > 0) {
@@ -11,27 +12,23 @@ export const hasRoutes = (routes) => {
   return false;
 };
 
+const getRoutes = (routes) => {
+  if (hasRoutes(routes)) {
+    return routes.map((route) => (
+      <Route
+        key={randomIndex()}
+        path={route.path}
+        exact={route.exact}
+        component={route.component}
+      />
+    ));
+  }
+  return <Route key={randomIndex()} path="/" exact component={RequireRotes} />;
+};
+
 const Routes = ({ routes }) => (
   <BrowserRouter>
-    <Switch>
-      {hasRoutes(routes) ? (
-        routes.map((route) => (
-          <Route
-            key={randomIndex()}
-            path={route.path}
-            exact
-            component={route.component}
-          />
-        ))
-      ) : (
-        <Route
-          key={randomIndex()}
-          path="/"
-          exact
-          component={IndexServiceOrder}
-        />
-      )}
-    </Switch>
+    <Switch>{getRoutes(routes)}</Switch>
   </BrowserRouter>
 );
 

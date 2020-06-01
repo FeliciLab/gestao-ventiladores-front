@@ -9,18 +9,18 @@ import OsPrint from '../MakeFile/OsPrint/index';
 import IndexOrderPrint from '../MakeFile/OrderPrint/index';
 import IndexDeliveryPrint from '../MakeFile/DeliveryPrint/index';
 
-const getRoutes = () => [
-  { path: '/', component: IndexServiceOrder },
-  { path: '/ordens-servicos', component: IndexServiceOrder },
-  { path: '/triagens', component: Screening },
-  { path: '/novo-diagnostico', component: IndexFormDiagnosis },
-  { path: '/diagnosticos', component: Diagnosis },
-  { path: '/demandas', component: IndexDemand },
-  { path: '/ordem-compra', component: IndexOrderPrint },
-  { path: '/osprint', component: OsPrint },
-  { path: '/entregas', component: Delivery },
-  { path: '/entrega-impressao', component: IndexDeliveryPrint },
-  { path: '/calibragem', component: Calibration },
+// eslint-disable-next-line import/prefer-default-export
+export const ROUTES_CONFIG = [
+  { path: '/', exact: true, component: IndexServiceOrder },
+  { path: '/ordens-servicos', exact: true, component: IndexServiceOrder },
+  { path: '/triagens', exact: true, component: Screening },
+  { path: '/novo-diagnostico', exact: true, component: IndexFormDiagnosis },
+  { path: '/diagnosticos', exact: true, component: Diagnosis },
+  { path: '/demandas', exact: true, component: IndexDemand },
+  { path: '/ordem-compra', exact: true, component: IndexOrderPrint },
+  { path: '/osprint', exact: true, component: OsPrint },
+  { path: '/entregas', exact: true, component: Delivery },
+  { path: '/entrega-impressao', exact: true, component: IndexDeliveryPrint },
+  { path: '/calibragem', exact: true, component: Calibration },
+  { path: '/*', exact: false, component: IndexServiceOrder },
 ];
-
-export default getRoutes;
