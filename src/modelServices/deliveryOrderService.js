@@ -1,4 +1,4 @@
-import client from '../services/client';
+import api from '../services/api';
 import { Delivery } from '../models/delivery';
 
 
@@ -29,7 +29,7 @@ const mapModel = (delivery) => {
 
 export const getAllDeliveryOrders = async () => {
   try {
-    const response = await client.get('/api/movimentacao');
+    const response = await api.get('/api/movimentacao');
 
     return response.data || [];
   } catch (error) {
@@ -40,7 +40,7 @@ export const getAllDeliveryOrders = async () => {
 export const saveDelivery = async (entrega) => {
   try {
     const doc = mapModel(entrega);
-    const response = await client.post(
+    const response = await api.post(
       '/api/movimentacao',
       Object.assign(doc, {
         updated_at: new Date(),
@@ -55,7 +55,7 @@ export const saveDelivery = async (entrega) => {
 export const updateEntrega = async (entrega) => {
   try {
     const doc = mapModel(entrega);
-    const response = await client.put(
+    const response = await api.put(
       `/api/movimentacao/${entrega.id}`,
       Object.assign(doc, {
         updated_at: new Date(),

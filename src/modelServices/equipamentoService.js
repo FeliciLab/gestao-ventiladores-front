@@ -1,4 +1,4 @@
-import client from '../services/client';
+import api from '../services/api';
 import Equipamento from '../models/equipamentos';
 
 
@@ -9,7 +9,7 @@ import Equipamento from '../models/equipamentos';
  *      manutencao
  *      etc
  */
-export const getEquipmentByStatus = (status) => client
+export const getEquipmentByStatus = (status) => api
   .post(
     '/api/equipamentos/find',
     { status },
@@ -23,7 +23,7 @@ export const getEquipmentByStatus = (status) => client
   )
   .then((response) => response.data);
 
-export const getAllEquipments = () => client
+export const getAllEquipments = () => api
   .get('/api/equipamentos', {
     headers: {
       'Access-Control-Allow-Origin': '*',
@@ -61,7 +61,7 @@ export const mapEquipmentRequest = (delivery) => {
 export const saveNewEquipment = (equipamento) => {
   const model = mapEquipmentRequest(equipamento);
   delete model._id;
-  return client.post(
+  return api.post(
     '/api/equipamentos',
     Object.assign(
       model,
@@ -90,15 +90,15 @@ export const saveNewEquipment = (equipamento) => {
 export const updateEquipment = (equipamento) => {
   const model = mapEquipmentRequest(equipamento);
 
-  return client.post(
+  return api.post(
     '/api/equipamentos',
     { ...model, updated_at: new Date() },
   ).then((result) => result);
 };
 
-export const deleteEquipmentRequest = (_id) => client.delete(`/api/equipamentos?_id=${_id}`)
+export const deleteEquipmentRequest = (_id) => api.delete(`/api/equipamentos?_id=${_id}`)
   .then((res) => res.data);
 
-export const updateManyEquipmentRequest = (equipments) => client
+export const updateManyEquipmentRequest = (equipments) => api
   .post('/api/equipamentos/bulk', { equipamentos: equipments.map((item) => mapEquipmentRequest(item)) })
   .then((res) => res.data);

@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import grey from '@material-ui/core/colors/grey';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import Header from './Header';
-import Footer from '../../components/Footer/Footer';
+import Footer from './Footer';
+
 
 const useStyle = makeStyles(() => ({
   layout: {
@@ -25,6 +26,7 @@ const Layout = (props) => {
       {children}
       <Footer />
     </div>
+
   );
 };
 

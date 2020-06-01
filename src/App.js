@@ -3,13 +3,16 @@ import './global.css';
 import './pages/_common/print/print.css';
 import './pages/_common/print/portraitCss.css';
 import './pages/_common/print/landscapeCss.css';
-import { ROUTES_CONFIG } from './routes/routesConfig';
-import Routes from './routes/Routes';
+import { BrowserRouter } from 'react-router-dom';
+import Routes from './router';
+
 
 function App() {
   return (
     <>
-      <Routes routes={ROUTES_CONFIG} />
+      <BrowserRouter>
+        <Routes />
+      </BrowserRouter>
     </>
   );
 }

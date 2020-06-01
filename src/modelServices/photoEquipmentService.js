@@ -1,4 +1,4 @@
-import client from '../services/client';
+import api from '../services/api';
 
 
 const sendEquipmentPhoto = (photo, label, id) => {
@@ -8,7 +8,7 @@ const sendEquipmentPhoto = (photo, label, id) => {
   }
   formData.append(label, photo, `${label}.jpeg`);
 
-  return client.post('/api/importar/imagem', formData, {
+  return api.post('/api/importar/imagem', formData, {
     header: {
       'Content-Type': 'multipart/form-data',
     },

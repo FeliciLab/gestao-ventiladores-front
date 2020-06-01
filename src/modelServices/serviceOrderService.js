@@ -1,4 +1,4 @@
-import client from '../services/client';
+import api from '../services/api';
 import {
   ServiceOrder,
   ServiceOrderDiagnosis,
@@ -8,7 +8,7 @@ import { itemDiagnosisModel } from '../models/itensDiagnosticos';
 import { Acessorio } from '../models/acessorio';
 
 
-export const getServiceOrderByStatus = (status) => client.post(
+export const getServiceOrderByStatus = (status) => api.post(
   '/api/ordem_servicos/find',
   {
     query: {
@@ -25,7 +25,7 @@ export const getServiceOrderByStatus = (status) => client.post(
 )
   .then((response) => response.data);
 
-export const getAllServiceOrder = () => client.get('/api/ordem_servicos')
+export const getAllServiceOrder = () => api.get('/api/ordem_servicos')
   .then((response) => response.data);
 
 const getValueFieldScreening = (serviceOrder) => {
@@ -112,7 +112,7 @@ export const mapModelRequestServiceOrder = (serviceOrder) => {
 export const saveNewOrderService = (serviceOrder) => {
   const order = serviceOrder;
   delete (order._id);
-  return client.post(
+  return api.post(
     '/api/ordem_servicos',
     Object.assign(
       order,
@@ -137,7 +137,7 @@ export const saveNewOrderService = (serviceOrder) => {
 export const updateServiceOrderRequest = (serviceOrder, id) => {
   const order = serviceOrder;
   delete order._id;
-  return client.patch(
+  return api.patch(
     `/api/ordem_servico/${id}`,
     Object.assign(order, { updated_at: new Date() }),
   ).then((result) => result);
