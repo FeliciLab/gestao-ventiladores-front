@@ -8,7 +8,6 @@ import LocalMallSharpIcon from '@material-ui/icons/LocalMallSharp';
 import UnarchiveSharpIcon from '@material-ui/icons/UnarchiveSharp';
 import AssignmentTurnedInSharpIcon from '@material-ui/icons/AssignmentTurnedInSharp';
 import Container from '@material-ui/core/Container';
-import Grid from '@material-ui/core/Grid';
 
 const useStyles = makeStyles(() => ({
   mainMenu: {
@@ -86,6 +85,7 @@ export default function Header() {
           <NavLink
             to={item.path}
             activeClassName={classes.activeLabel}
+            // eslint-disable-next-line react/jsx-closing-bracket-location
             className={classes.label}>
             <span>{item.icon}</span>
             <span>{item.label}</span>
