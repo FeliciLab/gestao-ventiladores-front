@@ -76,7 +76,6 @@ const Header = ({ menuRoutes }) => {
             <p>VENTILADORES</p>
           </Typography>
         </Toolbar>
-
         <Container className={classes.appBarFooter}>
           <Grid container spacing={4}>
             {menuRoutes.map((item) => (
