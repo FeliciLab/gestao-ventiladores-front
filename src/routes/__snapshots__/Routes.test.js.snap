@@ -1,19 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Routes component should display component without errors when no routes props 1`] = `
-<h1>
-  Routes component require rotes as props
-</h1>
-`;
-
 exports[`Routes component should display component without errors when path redirect to valid route 1`] = `
 <p>
   To do
 </p>
-`;
-
-exports[`Routes component should display component without errors when routes is empty array 1`] = `
-<h1>
-  Routes component require rotes as props
-</h1>
 `;

@@ -3,8 +3,6 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { randomIndex } from '../utils';
 
-const RequireRotes = () => <h1>Routes component require rotes as props</h1>;
-
 export const hasRoutes = (routes) => {
   if (routes && routes.length > 0) {
     return true;
@@ -23,7 +21,7 @@ const getRoutes = (routes) => {
       />
     ));
   }
-  return <Route key={randomIndex()} path="/" exact component={RequireRotes} />;
+  throw new Error('Routes component require routes as props');
 };
 
 const Routes = ({ routes }) => (
