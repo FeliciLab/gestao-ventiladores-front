@@ -1,5 +1,5 @@
 ---
-Reponsáveis: @PessoaA @PessoaB
+Responsáveis: @PessoaA @PessoaB
 Tipo: Bug,Feature,Refactory
 issue: #numeroDaIssue
 ---
