@@ -18,6 +18,10 @@ assignees: ''
 
 _
 
+# Fora de Contexto
+
+_
+
 # Critérios de aceitação
 
 - [ ] **Dado que** __não_esquecer_os_2_espaços_ao_fim_da_linha  
