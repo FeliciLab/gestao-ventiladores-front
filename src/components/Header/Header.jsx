@@ -1,6 +1,8 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Container } from '@material-ui/core';
+import Menu from '../Menu/Menu';
+import MENU_ROUTES from '../Menu/MenuConfig';
 
 const useStyles = makeStyles(() => ({
   header: {
@@ -20,7 +22,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default function Header() {
+const Header = () => {
   const classes = useStyles();
 
   return (
@@ -34,6 +36,9 @@ export default function Header() {
           {'ventiladores '}
         </h1>
       </Container>
+      <Menu menuRoutes={MENU_ROUTES} />
     </header>
   );
-}
+};
+
+export default Header;
