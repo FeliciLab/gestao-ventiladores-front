@@ -4,7 +4,6 @@ import grey from '@material-ui/core/colors/grey';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
-import Menu from '../../components/Menu/Menu';
 
 const useStyle = makeStyles(() => ({
   layout: {
@@ -23,7 +22,6 @@ const Layout = (props) => {
   return (
     <div className={classes.layout}>
       <Header />
-      <Menu />
       {children}
       <Footer />
     </div>
