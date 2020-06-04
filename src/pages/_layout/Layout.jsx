@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import grey from '@material-ui/core/colors/grey';
 import makeStyles from '@material-ui/core/styles/makeStyles';
-import Header from './Header';
+import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 
 const useStyle = makeStyles(() => ({
