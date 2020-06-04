@@ -5,6 +5,7 @@ import IndexDemand from '../pages/Demand/index';
 import Diagnosis from '../pages/Diagnosis/index';
 import Delivery from '../pages/Delivery/index';
 import Calibration from '../pages/Calibration/index';
+import UsersControl from '../pages/UsersControl/UsersControl';
 import OsPrint from '../MakeFile/OsPrint/index';
 import IndexOrderPrint from '../MakeFile/OrderPrint/index';
 import IndexDeliveryPrint from '../MakeFile/DeliveryPrint/index';
@@ -22,5 +23,6 @@ export const ROUTES_CONFIG = [
   { path: '/entregas', exact: true, component: Delivery },
   { path: '/entrega-impressao', exact: true, component: IndexDeliveryPrint },
   { path: '/calibragem', exact: true, component: Calibration },
+  { path: '/acessos', exact: false, component: UsersControl },
   { path: '/*', exact: false, component: IndexServiceOrder },
 ];
