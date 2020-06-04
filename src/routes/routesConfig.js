@@ -8,6 +8,7 @@ import Calibration from '../pages/Calibration/index';
 import OsPrint from '../MakeFile/OsPrint/index';
 import IndexOrderPrint from '../MakeFile/OrderPrint/index';
 import IndexDeliveryPrint from '../MakeFile/DeliveryPrint/index';
+import IndexItems from '../pages/Items/IndexItems';
 
 // eslint-disable-next-line import/prefer-default-export
 export const ROUTES_CONFIG = [
@@ -22,5 +23,6 @@ export const ROUTES_CONFIG = [
   { path: '/entregas', exact: true, component: Delivery },
   { path: '/entrega-impressao', exact: true, component: IndexDeliveryPrint },
   { path: '/calibragem', exact: true, component: Calibration },
+  { path: '/itens', exact: true, component: IndexItems },
   { path: '/*', exact: false, component: IndexServiceOrder },
 ];

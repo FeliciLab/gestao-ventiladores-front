@@ -5,6 +5,7 @@ import LibraryBooksSharpIcon from '@material-ui/icons/LibraryBooksSharp';
 import LocalMallSharpIcon from '@material-ui/icons/LocalMallSharp';
 import UnarchiveSharpIcon from '@material-ui/icons/UnarchiveSharp';
 import AssignmentTurnedInSharpIcon from '@material-ui/icons/AssignmentTurnedInSharp';
+import AllInbox from '@material-ui/icons/AllInbox';
 
 const MENU_ROUTES = [
   {
@@ -36,6 +37,11 @@ const MENU_ROUTES = [
     label: 'entrega',
     path: '/entregas',
     icon: <UnarchiveSharpIcon font="small" />,
+  },
+  {
+    label: 'itens',
+    path: '/itens',
+    icon: <AllInbox font="small" />,
   },
 ];
 

@@ -1,14 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { Grid, Paper, Tab, Tabs } from '@material-ui/core';
 import { orange } from '@material-ui/core/colors';
+import { makeStyles } from '@material-ui/core/styles';
 import EditIcon from '@material-ui/icons/Edit';
-import Paper from '@material-ui/core/Paper';
+import AddIcon from '@material-ui/icons/Add';
 import TableCheckedList from '../_common/SelectableTable/TableCheckedList';
+import ThemeButton from '../_common/forms/ThemeButton';
+import { Item } from '../../models/item';
+import DialogFormItem from './DialogFormItem';
+import ItemContext from './ItemContext';
+
+const useStyle = makeStyles((theme) => ({
+  gridContainer: {
+    marginTop: theme.spacing(1),
+  },
+}));
 
 const ItemsPage = (props) => {
   const { items } = props;
-  const selectKeyField = 'nome';
 
+  const [item, setItem] = useState({});
+  const [tabValue, setTabValue] = useState(0);
+  const [openDialog, setOpenDialog] = useState(false);
+
+  const classes = useStyle();
+  const selectKeyField = 'nome';
   const headerData = [
     { id: 'tipo', name: 'Tipo' },
     { id: 'fabricante', name: 'Fabricante' },
@@ -19,14 +36,32 @@ const ItemsPage = (props) => {
     { id: 'descricao', name: 'Descrição' },
   ];
 
-  const editItem = () => {};
+  const changeTab = (event, newValue) => {
+    setTabValue(newValue);
+  };
+
+  const openEditDialog = (data) => {
+    setItem({
+      ...items.find((row) => row[selectKeyField] === data[selectKeyField]),
+    });
+    setOpenDialog(true);
+  };
+
+  const openNewDialog = () => {
+    setItem({ ...Item({}) });
+    setOpenDialog(true);
+  };
+
+  const closeDialog = () => {
+    setOpenDialog(false);
+  };
 
   const mergeItems = () => {};
 
   const actions = [
     {
       name: 'Editar',
-      handleEvent: editItem,
+      handleEvent: openEditDialog,
       icon: {
         bgColor: orange[500],
         hoverColor: orange[700],
@@ -37,17 +72,53 @@ const ItemsPage = (props) => {
 
   return (
     <>
-      <Paper>
-        <TableCheckedList
-          actions={actions}
-          dataTable={items}
-          selectKeyField={selectKeyField}
-          headerTable={headerData}
-          actionFunction={mergeItems}
-          actionBarTitle="Lista de Items (Nenhum item selecionado)"
-          actionBarTextButton="Mesclar itens"
+      <Grid container spacing={3} className={classes.gridContainer}>
+        <Grid item xs={12}>
+          <Grid container>
+            <Grid item>
+              <Tabs
+                value={tabValue}
+                onChange={changeTab}
+                aria-label="abas-triagem"
+                centered>
+                <Tab label="Gestão de Itens" aria-controls="gestao-de-itens" />
+              </Tabs>
+            </Grid>
+          </Grid>
+        </Grid>
+
+        <Grid item xs={12}>
+          <Grid container justify="flex-end">
+            <Grid item>
+              <ThemeButton onClick={openNewDialog} startIcon={<AddIcon />}>
+                Cadastrar Novo Item
+              </ThemeButton>
+            </Grid>
+          </Grid>
+        </Grid>
+
+        <Grid item xs={12}>
+          <Paper>
+            <TableCheckedList
+              actions={actions}
+              dataTable={items}
+              selectKeyField={selectKeyField}
+              headerTable={headerData}
+              actionFunction={mergeItems}
+              actionBarTitle="Lista de Items (Nenhum item selecionado)"
+              actionBarTextButton="Mesclar itens"
+            />
+          </Paper>
+        </Grid>
+      </Grid>
+
+      <ItemContext.Provider value={{ item, setItem }}>
+        <DialogFormItem
+          model={item}
+          open={openDialog}
+          closeDialog={closeDialog}
         />
-      </Paper>
+      </ItemContext.Provider>
     </>
   );
 };

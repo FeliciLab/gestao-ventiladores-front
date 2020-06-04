@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
 import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
+// import Typography from '@material-ui/core/Typography';
 import SaveIcon from '@material-ui/icons/Save';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
@@ -10,19 +10,20 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
 import TextField from '@material-ui/core/TextField';
-import { itemDiagnosisModel } from '../../../models/item';
-import ThemeButton from '../../_common/forms/ThemeButton';
-import ErrorAlertText from '../../_common/alerts/ErrorAlertText';
+import ItemContext from './ItemContext';
+import { itemDiagnosisModel } from '../../models/item';
+import ThemeButton from '../_common/forms/ThemeButton';
+import ErrorAlertText from '../_common/alerts/ErrorAlertText';
 
 const CreateNewItem = (props) => {
   const { addNewItem } = props;
+
+  const { item, setItem } = useContext(ItemContext);
 
   const { register, errors, triggerValidation } = useForm({
     mode: 'onBlur',
     reValidateMode: 'onChange',
   });
-
-  const [item, setItem] = useState(itemDiagnosisModel);
 
   const updateItem = (event) => {
     const doc = {};
@@ -40,10 +41,6 @@ const CreateNewItem = (props) => {
 
   return (
     <>
-      <Typography variant="h6" gutterBottom>
-        2. Cadastro de Itens
-      </Typography>
-
       <form>
         <Grid container spacing={3}>
           <Grid item xs={12} md={6}>
