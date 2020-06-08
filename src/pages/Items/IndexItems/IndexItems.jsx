@@ -14,12 +14,16 @@ const IndexItems = (props) => {
   } = props;
 
   if (loading) {
-    return <LoadingBar progress={progress} />;
+    return (
+      <>
+        <LoadingBar progress={progress} />
+      </>
+    );
   }
 
   return (
     <>
-      <Layout>
+      <Layout data-testid="itemPage">
         <Container>
           <ItemsPage items={items} />
         </Container>
@@ -29,7 +33,7 @@ const IndexItems = (props) => {
 };
 
 IndexItems.defaultProps = {
-  loading: false,
+  loading: true,
   items: [],
   progress: 0,
 };

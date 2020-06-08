@@ -5,6 +5,7 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 
+
 const useStyle = makeStyles(() => ({
   layout: {
     background: grey[100],
@@ -18,9 +19,9 @@ const useStyle = makeStyles(() => ({
 
 const Layout = (props) => {
   const classes = useStyle();
-  const { children } = props;
+  const { children, ...opt } = props;
   return (
-    <div className={classes.layout}>
+    <div className={classes.layout} {...opt}>
       <Header />
       {children}
       <Footer />
