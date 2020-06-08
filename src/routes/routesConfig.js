@@ -8,7 +8,7 @@ import Calibration from '../pages/Calibration/index';
 import OsPrint from '../MakeFile/OsPrint/index';
 import IndexOrderPrint from '../MakeFile/OrderPrint/index';
 import IndexDeliveryPrint from '../MakeFile/DeliveryPrint/index';
-import IndexItems from '../pages/Items/IndexItems';
+import IndexItems from '../pages/Items';
 
 // eslint-disable-next-line import/prefer-default-export
 export const ROUTES_CONFIG = [
