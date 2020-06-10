@@ -7,6 +7,19 @@ Relacionados a este repositório, destaca-se o seguinte objetivo específico:
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Getting started
+
+### Prerequisites 
+
+* Yarn 
+
+### Install the dependencies
+
+In the project directory, run:
+
+` yarn `
+
+
 ## Available Scripts
 
 In the project directory, you can run:
