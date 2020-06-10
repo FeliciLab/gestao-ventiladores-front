@@ -26,25 +26,27 @@ const useStyle = makeStyles(() => ({
   },
 }));
 
-const getHeader = (list) => list.shift();
-const getBody = (list) => {
-  list.shift();
-  return list;
-};
+// const getHeader = (list) => list.shift();
+// const getBody = (list) => {
+//   list.shift();
+//   return list;
+// };
 
 const TableList = ({ list }) => {
   const classes = useStyle();
   return (
     <TableContainer>
       <Table className={classes.table}>
-        <TableHead header={getHeader(list)}>
+        <TableHead header={list.labels}>
           <Checkbox
+            // eslint-disable-next-line no-console
             onChange={() => console.log('')}
-            inputProps={{ 'aria-label': 'select all desserts' }}
+            inputProps={{ 'aria-label': 'select all' }}
           />
         </TableHead>
-        <TableBody list={getBody(list)}>
+        <TableBody list={list.data}>
           <Checkbox
+            // eslint-disable-next-line no-console
             onChange={() => console.log('')}
             inputProps={{ 'aria-label': 'select all desserts' }}
           />

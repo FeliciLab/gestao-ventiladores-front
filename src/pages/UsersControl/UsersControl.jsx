@@ -9,6 +9,7 @@ import DoneIcon from '@material-ui/icons/Done';
 import ThemeButton from '../_common/forms/ThemeButton';
 import Layout from '../_layout/Layout';
 import TableList from '../../components/TableList/TableList';
+import ApiService from './ApiServiceFake';
 
 const useStyle = makeStyles(() => ({
   page: {
@@ -47,30 +48,7 @@ const useStyle = makeStyles(() => ({
   },
 }));
 
-const acessos = [
-  ['Ordem', 'Nome', 'Unidade', 'ID Saúde', 'Data de Solicitação'],
-  {
-    ordem: '001',
-    nome: 'José Francisco Lima',
-    unidade: 'HGF',
-    idSaude: '021458',
-    dataSolicitacao: '08/10/2020',
-  },
-  {
-    ordem: '002',
-    nome: 'Fulana da Silva',
-    unidade: 'HGF',
-    idSaude: '034458',
-    dataSolicitacao: '10/11/2020',
-  },
-  {
-    ordem: '002',
-    nome: 'Cicrana da Silva',
-    unidade: 'HGF',
-    idSaude: '034477',
-    dataSolicitacao: '11/09/2020',
-  },
-];
+const acessos = ApiService.getAccessRequests();
 
 const UsersControl = () => {
   const classes = useStyle();
