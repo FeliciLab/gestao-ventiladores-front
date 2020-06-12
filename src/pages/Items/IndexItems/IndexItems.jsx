@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Container } from '@material-ui/core';
 import LoadingBar from '../../_common/components/LoadingBar';
 import Layout from '../../_layout/Layout';
-import ItemsPage from '../ItemsPage';
+import ItemsPage from '../ItemPage/ItemsPage';
 
 
 const IndexItems = (props) => {

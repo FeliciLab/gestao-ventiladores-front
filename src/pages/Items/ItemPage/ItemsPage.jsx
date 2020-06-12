@@ -1,15 +1,21 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Grid, Paper, Tab, Tabs } from '@material-ui/core';
+import {
+  Grid,
+  Paper,
+  Tab,
+  Tabs,
+} from '@material-ui/core';
 import { orange } from '@material-ui/core/colors';
 import { makeStyles } from '@material-ui/core/styles';
 import EditIcon from '@material-ui/icons/Edit';
 import AddIcon from '@material-ui/icons/Add';
-import TableCheckedList from '../_common/SelectableTable/TableCheckedList';
-import ThemeButton from '../_common/forms/ThemeButton';
-import { Item } from '../../models/item';
-import DialogFormItem from './DialogFormItem';
-import ItemContext from './ItemContext';
+import TableCheckedList from '../../_common/SelectableTable/TableCheckedList';
+import ThemeButton from '../../_common/forms/ThemeButton';
+import { Item } from '../../../models/item';
+import DialogFormItem from '../DialogFormItem/DialogFormItem';
+import ItemContext from '../ItemContext';
+
 
 const useStyle = makeStyles((theme) => ({
   gridContainer: {
@@ -56,7 +62,8 @@ const ItemsPage = (props) => {
     setOpenDialog(false);
   };
 
-  const mergeItems = () => {};
+  const mergeItemsDialog = () => {
+  };
 
   const actions = [
     {
@@ -80,7 +87,8 @@ const ItemsPage = (props) => {
                 value={tabValue}
                 onChange={changeTab}
                 aria-label="abas-triagem"
-                centered>
+                centered
+              >
                 <Tab label="Gestão de Itens" aria-controls="gestao-de-itens" />
               </Tabs>
             </Grid>
@@ -104,7 +112,7 @@ const ItemsPage = (props) => {
               dataTable={items}
               selectKeyField={selectKeyField}
               headerTable={headerData}
-              actionFunction={mergeItems}
+              actionFunction={mergeItemsDialog}
               actionBarTitle="Lista de Items (Nenhum item selecionado)"
               actionBarTextButton="Mesclar itens"
             />
