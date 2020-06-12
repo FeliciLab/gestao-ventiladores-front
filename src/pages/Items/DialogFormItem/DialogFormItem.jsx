@@ -24,31 +24,36 @@ const DialogFormItem = (props) => {
         handleClose={closeDialog}
         title="Formulário de Itens"
         actionChildren={
-          <>
-            <Grid container spacing={2}>
-              <Grid item>
-                <ThemeButton
-                  onClick={closeDialog}
-                  startIcon={<CloseIcon />}
-                  variant="outlined"
-                  borderColor="white">
-                  Cancelar
-                </ThemeButton>
+          (
+            <>
+              <Grid container spacing={2}>
+                <Grid item>
+                  <ThemeButton
+                    onClick={closeDialog}
+                    startIcon={<CloseIcon />}
+                    variant="outlined"
+                    borderColor="white"
+                  >
+                    Cancelar
+                  </ThemeButton>
+                </Grid>
+                <Grid item>
+                  <ThemeButton
+                    startIcon={<SaveIcon />}
+                    onClick={() => saveItem(item)}
+                    name="Salvar"
+                    color={orange[600]}
+                    bgColor="#FFF"
+                    hoverColor={orange[50]}
+                  >
+                    Salvar
+                  </ThemeButton>
+                </Grid>
               </Grid>
-              <Grid item>
-                <ThemeButton
-                  startIcon={<SaveIcon />}
-                  onClick={() => saveItem(item)}
-                  name="Salvar"
-                  color={orange[600]}
-                  bgColor="#FFF"
-                  hoverColor={orange[50]}>
-                  Salvar
-                </ThemeButton>
-              </Grid>
-            </Grid>
-          </>
-        }>
+            </>
+          )
+        }
+      >
         <Container>
           <CreateNewItem addNewItem={() => ({})} />
         </Container>
@@ -62,6 +67,7 @@ DialogFormItem.defaultProps = {
 };
 
 DialogFormItem.propTypes = {
+
   closeDialog: PropTypes.func.isRequired,
   open: PropTypes.bool,
 };

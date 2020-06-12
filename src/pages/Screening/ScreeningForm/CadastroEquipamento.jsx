@@ -16,7 +16,7 @@ import {
   manufacturersEquipments,
   modelsEquipment,
 } from '../../../models/manufacturers';
-import InputRadioDialog from '../../_common/forms/InputRadioDialog';
+import InputRadioDialog from '../../../components/InputRadioDialog/InputRadioDialog';
 import ErrorAlertText from '../../_common/alerts/ErrorAlertText';
 import { randomIndex } from '../../../utils';
 
