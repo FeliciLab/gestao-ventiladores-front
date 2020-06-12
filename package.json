@@ -27,6 +27,7 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "axios": "^0.19.2",
+    "babel-preset-react": "^6.24.1",
     "date-fns": "^2.13.0",
     "history": "^4.10.1",
     "moment": "^2.24.0",
