@@ -1,6 +1,5 @@
 import client from '../../services/client';
 
-
 export const getAllItemsRequest = () => client.get('/v2/items');
 
 export const saveNewItemRequest = ({ _id, ...item }) => client.post('/v2/items', item);

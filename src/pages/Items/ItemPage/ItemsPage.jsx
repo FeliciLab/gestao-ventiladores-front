@@ -15,6 +15,7 @@ import ThemeButton from '../../_common/forms/ThemeButton';
 import { Item } from '../../../models/item';
 import DialogFormItem from '../DialogFormItem/DialogFormItem';
 import ItemContext from '../ItemContext';
+import ItemMergeDialog from '../ItemMergeDialog';
 
 
 const useStyle = makeStyles((theme) => ({
@@ -27,8 +28,10 @@ const ItemsPage = (props) => {
   const { items } = props;
 
   const [item, setItem] = useState({});
+  const [mergeItems, setMergeItems] = useState([]);
   const [tabValue, setTabValue] = useState(0);
   const [openDialog, setOpenDialog] = useState(false);
+  const [opemMergeDialog, setOpemMergeDialog] = useState(false);
 
   const classes = useStyle();
   const selectKeyField = 'nome';
@@ -62,7 +65,16 @@ const ItemsPage = (props) => {
     setOpenDialog(false);
   };
 
-  const mergeItemsDialog = () => {
+  const mergeItemsDialog = (data) => {
+    setMergeItems(
+      items.filter(
+        (filtering) => data.find((d) => filtering[selectKeyField] === d[selectKeyField]),
+      ).reduce((acc, curr, index) => {
+        acc[index] = curr;
+        return acc;
+      }, {}),
+    );
+    setOpemMergeDialog(true);
   };
 
   const actions = [
@@ -122,8 +134,14 @@ const ItemsPage = (props) => {
 
       <ItemContext.Provider value={{ item, setItem }}>
         <DialogFormItem
-          model={item}
           open={openDialog}
+          closeDialog={closeDialog}
+        />
+      </ItemContext.Provider>
+
+      <ItemContext.Provider value={{ mergeItems, setMergeItems }}>
+        <ItemMergeDialog
+          open={opemMergeDialog}
           closeDialog={closeDialog}
         />
       </ItemContext.Provider>

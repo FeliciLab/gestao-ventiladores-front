@@ -1,7 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import CloseIcon from '@material-ui/icons/Close';
-import { AppBar, Dialog, Grid, IconButton, Toolbar, Typography } from '@material-ui/core';
+import {
+  AppBar,
+  Dialog,
+  Grid,
+  IconButton,
+  Toolbar,
+  Typography,
+} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import orange from '@material-ui/core/colors/orange';
 
@@ -69,8 +76,8 @@ FullDialog.propTypes = {
   open: PropTypes.bool,
   title: PropTypes.string.isRequired,
   handleClose: PropTypes.func.isRequired,
-  children: PropTypes.object.isRequired,
-  actionChildren: PropTypes.object,
+  children: PropTypes.instanceOf(Object).isRequired,
+  actionChildren: PropTypes.instanceOf(Object),
 };
 
 export default FullDialog;
