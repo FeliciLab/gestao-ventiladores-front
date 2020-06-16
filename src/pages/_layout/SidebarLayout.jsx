@@ -2,30 +2,35 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import grey from '@material-ui/core/colors/grey';
 import makeStyles from '@material-ui/core/styles/makeStyles';
+import { Grid, Container } from '@material-ui/core';
 import Sidebar from './Sidebar';
 
 const useStyle = makeStyles(() => ({
   layout: {
     background: grey[100],
-    display: 'flex',
-    justifyContent: 'space-between',
-    minHeight: '100vh',
-    height: '100%',
   },
   content: {
-    width: '100%',
-    display: 'flex',
-    alignItems: 'center',
+    width: 'calc(100% - 520px)',
   },
 }));
 
 const SidebarLayout = ({ children }) => {
-  const classes = useStyle();
+  const { layout, content } = useStyle();
   return (
-    <div className={classes.layout}>
-      <Sidebar />
-      <main className={classes.content}>{children}</main>
-    </div>
+    <Grid
+      container
+      direction="row"
+      justify="flex-start"
+      alignItems="center"
+      className={layout}
+    >
+      <Grid item>
+        <Sidebar />
+      </Grid>
+      <Grid item className={content}>
+        <Container>{children}</Container>
+      </Grid>
+    </Grid>
   );
 };
 

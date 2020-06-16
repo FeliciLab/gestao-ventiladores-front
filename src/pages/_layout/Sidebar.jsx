@@ -9,6 +9,8 @@ const useStyle = makeStyles(() => ({
     color: 'white',
     paddingRight: '48px',
     paddingBottom: '16px',
+    minHeight: '100vh',
+    height: '100%',
   },
   image: {
     width: '472px',

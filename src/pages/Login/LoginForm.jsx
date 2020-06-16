@@ -1,16 +1,12 @@
-import React, { useState } from 'react';
-import { useHistory } from 'react-router';
-import { Input, makeStyles } from '@material-ui/core';
+import React, { useState, useContext } from 'react';
+import { Input, makeStyles, Grid } from '@material-ui/core';
 import SendIcon from '@material-ui/icons/Send';
 import ThemeButton from '../_common/forms/ThemeButton';
+import AuthContext from '../../contexts/auth';
 
 const useStyles = makeStyles(() => ({
   container: {
     height: '145px',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
   },
   placeholder: {
     fontSize: '1rem',
@@ -24,35 +20,40 @@ const useStyles = makeStyles(() => ({
 const LoginForm = () => {
   const { container, placeholder, loginTitle } = useStyles();
   const [userInfo, setUserInfo] = useState({ password: '' });
-  const history = useHistory();
+  const { signIn } = useContext(AuthContext);
 
   const submitPassword = (event) => {
     event.preventDefault();
-    if (userInfo.password === 'centralsalvavidas') {
-      sessionStorage.setItem('isUserLogged', true);
-      history.push('/');
-    }
+    signIn(userInfo.password);
     setUserInfo({ password: '' });
+    console.log(sessionStorage);
   };
 
   return (
-    <form onSubmit={(e) => submitPassword(e)} className={container}>
-      <h2 className={loginTitle}>Fazer login</h2>
-      <Input
-        autoFocus
-        required
-        type="password"
-        placeholder="Código de acesso"
-        className={placeholder}
-        value={userInfo.password}
-        onChange={(e) => {
-          setUserInfo({ password: e.target.value });
-        }}
-        fullWidth
-      />
-      <ThemeButton type="submit" startIcon={<SendIcon />}>
-        Entrar
-      </ThemeButton>
+    <form onSubmit={(e) => submitPassword(e)}>
+      <Grid
+        container
+        direction="column"
+        justify="space-between"
+        alignItems="flex-start"
+        className={container}>
+        <h2 className={loginTitle}>Fazer login</h2>
+        <Input
+          autoFocus
+          required
+          type="password"
+          placeholder="Código de acesso"
+          className={placeholder}
+          value={userInfo.password}
+          onChange={(e) => {
+            setUserInfo({ password: e.target.value });
+          }}
+          fullWidth
+        />
+        <ThemeButton type="submit" onClick={() => {}} startIcon={<SendIcon />}>
+          Entrar
+        </ThemeButton>
+      </Grid>
     </form>
   );
 };

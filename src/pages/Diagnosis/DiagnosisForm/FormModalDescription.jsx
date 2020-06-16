@@ -21,45 +21,6 @@ const FormModalDescription = (props) => {
   } = props;
 
   const [description, setDescription] = useState('');
-
-  useEffect(() => {
-    if (item && item.descricao && item.descricao !== '') {
-      setDescription(item);
-    }
-  }, [item]);
-
-  return (
-    <>
-      <Dialog fullWidth={true} maxWidth={"lg"} 
-      open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Editar Descrição</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            Digite a descrição para o item
-          </DialogContentText>
-          <TextField
-            multiline
-            rows={3}
-            rowsMax={5}
-            autoFocus
-            margin="dense"
-            label="Descrição"
-            value={description}
-            onChange={(event) => setDescription(event.target.value)}
-            fullWidth
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Cancelar
-          </Button>
-          <Button onClick={() => updateValue(description)} color="primary">
-            Salvar
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </>
-  );
 };
 
 FormModalDescription.propTypes = {
