@@ -13,7 +13,6 @@ import Login from '../pages/Login/index';
 // eslint-disable-next-line import/prefer-default-export
 export const PRIVATE_ROUTES_CONFIG = [
   { path: '/', exact: true, component: IndexServiceOrder },
-  { path: '/login', exact: true, component: Login },
   { path: '/ordens-servicos', exact: true, component: IndexServiceOrder },
   { path: '/triagens', exact: true, component: Screening },
   { path: '/novo-diagnostico', exact: true, component: IndexFormDiagnosis },
