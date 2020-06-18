@@ -15,7 +15,9 @@ assignees: ''
 **Para que** _  
 
 # Contexto
-
+## O que originou
+_
+## Qual solução proposta
 _
 
 # Fora de Contexto
