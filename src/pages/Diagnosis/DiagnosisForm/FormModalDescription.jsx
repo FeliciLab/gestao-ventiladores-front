@@ -30,13 +30,17 @@ const FormModalDescription = (props) => {
 
   return (
     <>
-      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+      <Dialog fullWidth={true} maxWidth={"lg"} 
+      open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Editar Descrição</DialogTitle>
         <DialogContent>
           <DialogContentText>
             Digite a descrição para o item
           </DialogContentText>
           <TextField
+            multiline
+            rows={3}
+            rowsMax={5}
             autoFocus
             margin="dense"
             label="Descrição"
