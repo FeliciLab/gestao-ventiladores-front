@@ -121,8 +121,14 @@ const ScreeningEquipment = (props) => {
 
 ScreeningEquipment.propTypes = {
   equipment: PropTypes.shape({
-    created_at: PropTypes.string,
-    updated_at: PropTypes.string,
+    created_at: PropTypes.oneOfType([
+      PropTypes.instanceOf(Object),
+      PropTypes.string,
+    ]),
+    updated_at: PropTypes.oneOfType([
+      PropTypes.instanceOf(Object),
+      PropTypes.string,
+    ]),
     numero_de_serie: PropTypes.string,
     numero_do_patrimonio: PropTypes.string,
     tipo: PropTypes.string,

@@ -99,7 +99,7 @@ const ServiceOrderCollapseItem = (props) => {
       )
     : false;
 
-  const [expanded, setExpanded] = useState(true);
+  const [expanded, setExpanded] = useState(false);
 
   function handleExpandClick() {
     setExpanded(!expanded);
