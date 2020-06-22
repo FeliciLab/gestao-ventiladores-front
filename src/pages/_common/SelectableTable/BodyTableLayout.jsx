@@ -7,9 +7,9 @@ import TableRow from '@material-ui/core/TableRow';
 import FormControl from '@material-ui/core/FormControl';
 import ColorIconButton from '../forms/ColorIconButton';
 
-
-const isChecked = (checkedData, field) => Object.prototype.hasOwnProperty.call(checkedData, field)
-  && checkedData[field];
+const isChecked = (checkedData, field) =>
+  Object.prototype.hasOwnProperty.call(checkedData, field) &&
+  checkedData[field];
 
 const BodyTableLayout = (props) => {
   const {
@@ -33,12 +33,13 @@ const BodyTableLayout = (props) => {
             role="checkbox"
             tabIndex={-1}
             aria-checked={checkedData[item[selectKeyField]]}
-            selected={checkedData[item[selectKeyField]]}
-          >
+            selected={checkedData[item[selectKeyField]]}>
             <TableCell padding="checkbox">
               <FormControl>
                 <Checkbox
-                  onClick={(event) => checkSelectedRow(item[selectKeyField], event.target.checked)}
+                  onClick={(event) =>
+                    checkSelectedRow(item[selectKeyField], event.target.checked)
+                  }
                   checked={isChecked(checkedData, item[selectKeyField])}
                   inputProps={{ 'aria-labelledby': labelId }}
                 />
@@ -47,10 +48,15 @@ const BodyTableLayout = (props) => {
             {headerKeys.map((key) => (
               <TableCell key={key}>{item[key].toString() || ''}</TableCell>
             ))}
-            {hasActions
-              ? (
-                <TableCell>
-                  {actions.map((action) => (
+            {hasActions ? (
+              <TableCell align="right">
+                {actions
+                  .filter(
+                    (actionFilter) =>
+                      actionFilter.showAction === undefined ||
+                      actionFilter.showAction(item),
+                  )
+                  .map((action) => (
                     <ColorIconButton
                       key={Math.round(Math.random() * 100000)}
                       disabled={isChecked(checkedData, item[selectKeyField])}
@@ -62,9 +68,10 @@ const BodyTableLayout = (props) => {
                       icon={action.icon}
                     />
                   ))}
-                </TableCell>
-              )
-              : (<></>)}
+              </TableCell>
+            ) : (
+              <></>
+            )}
           </TableRow>
         );
       })}

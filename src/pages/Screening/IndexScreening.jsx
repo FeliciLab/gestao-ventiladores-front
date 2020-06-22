@@ -1,15 +1,14 @@
-import React, {
-  useEffect,
-  useState,
-} from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import moment from 'moment-timezone';
 import Paper from '@material-ui/core/Paper';
-import { orange } from '@material-ui/core/colors';
+import { blueGrey, orange } from '@material-ui/core/colors';
 import EditIcon from '@material-ui/icons/Edit';
+import ImageIcon from '@material-ui/icons/Image';
 import TableCheckedList from '../_common/SelectableTable/TableCheckedList';
-
+import { hasPhoto } from '../../utils/serviceOrderUtils';
+import CarouselImageScreening from '../../components/CarouselImageScreening/CarouselImageScreening';
 
 const IndexScreening = (props) => {
   const history = useHistory();
@@ -21,6 +20,9 @@ const IndexScreening = (props) => {
   const [dataTable, setDataTable] = useState([]);
   const [load, setLoad] = useState(true);
 
+  const [modalItem, setModalItem] = useState({});
+  const [openModal, setOpenModal] = useState(false);
+
   const headerData = [
     { id: 'numero_ordem_servico', name: 'Ordem de Serviço' },
     { id: 'numero_de_serie', name: 'Número de Série' },
@@ -30,7 +32,22 @@ const IndexScreening = (props) => {
     { id: 'created_at', name: 'Data de criação' },
   ];
 
+  const showModalImage = (item) => {
+    setModalItem({ ...item });
+    setOpenModal(true);
+  };
+
   const actions = [
+    {
+      name: 'Visualizar Imagens',
+      handleEvent: showModalImage,
+      showAction: (item) => hasPhoto(item),
+      icon: {
+        bgColor: blueGrey[300],
+        hoverColor: blueGrey[500],
+        icon: <ImageIcon />,
+      },
+    },
     {
       name: 'Editar',
       handleEvent: editScreening,
@@ -53,16 +70,16 @@ const IndexScreening = (props) => {
           let orderA = a;
           let orderB = b;
           if (
-            typeof a.created_at === 'object'
-            && a.created_at
-            && a.created_at.$date
+            typeof a.created_at === 'object' &&
+            a.created_at &&
+            a.created_at.$date
           ) {
             orderA = a.created_at.$date;
           }
           if (
-            typeof b.created_at === 'object'
-            && b.created_at
-            && b.created_at.$date
+            typeof b.created_at === 'object' &&
+            b.created_at &&
+            b.created_at.$date
           ) {
             orderB = b.created_at.$date;
           }
@@ -72,13 +89,18 @@ const IndexScreening = (props) => {
           const newItem = { ...item };
           const equip = item.equipamento[0] || {};
           if (
-            typeof item.created_at === 'object'
-            && item.created_at
-            && item.created_at.$date
+            typeof item.created_at === 'object' &&
+            item.created_at &&
+            item.created_at.$date
           ) {
             newItem.created_at = item.created_at.$date;
           }
           return {
+            _id: item._id,
+            triagem: {
+              foto_antes_limpeza: item.triagem.foto_antes_limpeza,
+              foto_apos_limpeza: item.triagem.foto_apos_limpeza,
+            },
             numero_ordem_servico: item.numero_ordem_servico,
             marca: equip.marca || '',
             modelo: equip.modelo || '',
@@ -99,11 +121,12 @@ const IndexScreening = (props) => {
       {
         pathname: '/osprint',
         state: {
-          data: screening
-            .filter((item) => data
-              .find((d) => d === item.numero_ordem_servico)),
+          data: screening.filter((item) =>
+            data.find((d) => d === item.numero_ordem_servico),
+          ),
         },
-      }, [screening],
+      },
+      [screening],
     );
   };
 
@@ -126,6 +149,11 @@ const IndexScreening = (props) => {
           actionBarTextButton="Visualizar Ordem de Serviços"
         />
       </Paper>
+      <CarouselImageScreening
+        item={modalItem}
+        open={openModal}
+        close={() => setOpenModal(false)}
+      />
     </>
   );
 };
