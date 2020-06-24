@@ -5,6 +5,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import FormControl from '@material-ui/core/FormControl';
+import Grid from '@material-ui/core/Grid';
 import ColorIconButton from '../forms/ColorIconButton';
 
 const isChecked = (checkedData, field) =>
@@ -50,24 +51,31 @@ const BodyTableLayout = (props) => {
             ))}
             {hasActions ? (
               <TableCell align="right">
-                {actions
-                  .filter(
-                    (actionFilter) =>
-                      actionFilter.showAction === undefined ||
-                      actionFilter.showAction(item),
-                  )
-                  .map((action) => (
-                    <ColorIconButton
-                      key={Math.round(Math.random() * 100000)}
-                      disabled={isChecked(checkedData, item[selectKeyField])}
-                      item={item}
-                      action={() => action.handleEvent(item)}
-                      name={action.name}
-                      bgColor={action.bgColor}
-                      hoverColor={action.hoverColor}
-                      icon={action.icon}
-                    />
-                  ))}
+                <Grid container spacing={1} justify="flex-end">
+                  {actions
+                    .filter(
+                      (actionFilter) =>
+                        actionFilter.showAction === undefined ||
+                        actionFilter.showAction(item),
+                    )
+                    .map((action) => (
+                      <Grid item>
+                        <ColorIconButton
+                          key={Math.round(Math.random() * 100000)}
+                          disabled={isChecked(
+                            checkedData,
+                            item[selectKeyField],
+                          )}
+                          item={item}
+                          action={() => action.handleEvent(item)}
+                          name={action.name}
+                          bgColor={action.bgColor}
+                          hoverColor={action.hoverColor}
+                          icon={action.icon}
+                        />
+                      </Grid>
+                    ))}
+                </Grid>
               </TableCell>
             ) : (
               <></>

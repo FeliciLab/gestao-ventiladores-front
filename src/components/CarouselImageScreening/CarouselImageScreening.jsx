@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { useTheme } from '@material-ui/core';
+import axios from 'axios';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import makeStyles from '@material-ui/core/styles/makeStyles';
@@ -12,6 +12,100 @@ import CloseIcon from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
 import Grid from '@material-ui/core/Grid';
 import { baseImageURI } from '../../utils/serviceOrderUtils';
+import placeholderImg from '../../assets/placeholderImg.jpg';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
+const PaperHeader = ({ photosSteps, activeStep, classes, close }) => (
+  <Paper square elevation={0} className={classes.header}>
+    <Grid container justify="space-between" alignItems="center">
+      <Grid item>
+        <Typography>{photosSteps[activeStep].label}</Typography>
+      </Grid>
+      <Grid item>
+        <IconButton onClick={close}>
+          <CloseIcon />
+        </IconButton>
+      </Grid>
+    </Grid>
+  </Paper>
+);
+PaperHeader.propTypes = {
+  photosSteps: PropTypes.instanceOf(Array).isRequired,
+  activeStep: PropTypes.number.isRequired,
+  classes: PropTypes.instanceOf(Object).isRequired,
+  close: PropTypes.func.isRequired,
+};
+
+const PhotoContent = ({ photosSteps, activeStep, classes }) => {
+  const [srcImg, setSrcImg] = useState(false);
+  useEffect(() => {
+    axios
+      .get(photosSteps[activeStep].imgPath)
+      .then(() => setSrcImg(photosSteps[activeStep].imgPath))
+      .catch(() => setSrcImg(placeholderImg));
+  }, [activeStep]);
+
+  return (
+    <Grid container justify="center" className={classes.content}>
+      <Grid item>
+        {!srcImg ? (
+          <CircularProgress />
+        ) : (
+          <a
+            href={photosSteps[activeStep].imgPath}
+            rel="noopener noreferrer"
+            target="_blank">
+            <img
+              className={classes.img}
+              src={srcImg}
+              alt={photosSteps[activeStep].label}
+            />
+          </a>
+        )}
+      </Grid>
+    </Grid>
+  );
+};
+PhotoContent.propTypes = {
+  photosSteps: PropTypes.instanceOf(Array).isRequired,
+  activeStep: PropTypes.number.isRequired,
+  classes: PropTypes.instanceOf(Object).isRequired,
+};
+
+const PhotoStepper = ({ maxSteps, activeStep, setNextStep, setPrevStep }) => (
+  <MobileStepper
+    steps={maxSteps}
+    position="static"
+    variant="text"
+    activeStep={activeStep}
+    nextButton={
+      <Button
+        size="small"
+        onClick={setNextStep}
+        disabled={activeStep === maxSteps - 1}
+        aria-label="próxima-imagem">
+        Próxima
+        <KeyboardArrowRight />
+      </Button>
+    }
+    backButton={
+      <Button
+        size="small"
+        onClick={setPrevStep}
+        disabled={activeStep === 0}
+        aria-label="imagem-anterior">
+        <KeyboardArrowLeft />
+        Anterior
+      </Button>
+    }
+  />
+);
+PhotoStepper.propTypes = {
+  maxSteps: PropTypes.number.isRequired,
+  activeStep: PropTypes.number.isRequired,
+  setNextStep: PropTypes.func.isRequired,
+  setPrevStep: PropTypes.func.isRequired,
+};
 
 const useStyles = makeStyles((theme) => ({
   header: {
@@ -27,7 +121,7 @@ const useStyles = makeStyles((theme) => ({
   },
   img: {
     display: 'block',
-    height: '75vh',
+    height: '70vh',
   },
 }));
 
@@ -35,10 +129,10 @@ const CarouselImageScreening = (props) => {
   const { item, open, close } = props;
 
   const classes = useStyles();
-  const theme = useTheme();
 
   const [activeStep, setActiveStep] = React.useState(0);
-  const tutorialSteps =
+
+  const photosSteps =
     item && item._id
       ? [
           {
@@ -52,16 +146,6 @@ const CarouselImageScreening = (props) => {
         ]
       : [];
 
-  const maxSteps = tutorialSteps.length;
-
-  const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-  };
-
-  const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
-
   return (
     <Dialog
       open={open}
@@ -70,67 +154,29 @@ const CarouselImageScreening = (props) => {
       aria-describedby="imagem-do-equipamento"
       fullWidth
       maxWidth="xl">
-      {tutorialSteps.length === 0 ? (
-        <></>
-      ) : (
-        <div>
-          <Paper square elevation={0} className={classes.header}>
-            <Grid container justify="space-between" alignItems="center">
-              <Grid item>
-                <Typography>{tutorialSteps[activeStep].label}</Typography>
-              </Grid>
-              <Grid item>
-                <IconButton onClick={close}>
-                  <CloseIcon />
-                </IconButton>
-              </Grid>
-            </Grid>
-          </Paper>
-          <Grid container justify="center" className={classes.content}>
-            <Grid item>
-              <a
-                href={tutorialSteps[activeStep].imgPath}
-                rel="noopener noreferrer"
-                target="_blank">
-                <img
-                  className={classes.img}
-                  src={tutorialSteps[activeStep].imgPath}
-                  alt={tutorialSteps[activeStep].label}
-                />
-              </a>
-            </Grid>
-          </Grid>
-
-          <MobileStepper
-            steps={maxSteps}
-            position="static"
-            variant="text"
+      {photosSteps.length && (
+        <div data-testid="photo-dialog-stepper">
+          <PaperHeader
             activeStep={activeStep}
-            nextButton={
-              <Button
-                size="small"
-                onClick={handleNext}
-                disabled={activeStep === maxSteps - 1}>
-                Next
-                {theme.direction === 'rtl' ? (
-                  <KeyboardArrowLeft />
-                ) : (
-                  <KeyboardArrowRight />
-                )}
-              </Button>
+            close={close}
+            photosSteps={photosSteps}
+            classes={classes}
+          />
+
+          <PhotoContent
+            activeStep={activeStep}
+            photosSteps={photosSteps}
+            classes={classes}
+          />
+
+          <PhotoStepper
+            activeStep={activeStep}
+            maxSteps={photosSteps.length}
+            setNextStep={() =>
+              setActiveStep((prevActiveStep) => prevActiveStep + 1)
             }
-            backButton={
-              <Button
-                size="small"
-                onClick={handleBack}
-                disabled={activeStep === 0}>
-                {theme.direction === 'rtl' ? (
-                  <KeyboardArrowRight />
-                ) : (
-                  <KeyboardArrowLeft />
-                )}
-                Back
-              </Button>
+            setPrevStep={() =>
+              setActiveStep((prevActiveStep) => prevActiveStep - 1)
             }
           />
         </div>

@@ -145,8 +145,8 @@ const IndexScreening = (props) => {
           selectKeyField={selectKeyField}
           headerTable={headerData}
           actionFunction={actionPrint}
-          actionBarTitle="Lista de Equipamento (Nenhum item selecionado)"
-          actionBarTextButton="Visualizar Ordem de Serviços"
+          actionBarTitle="Lista de Equipamentos (Nenhum item selecionado)"
+          actionBarTextButton="Visualizar Ordens de Serviço"
         />
       </Paper>
       <CarouselImageScreening
