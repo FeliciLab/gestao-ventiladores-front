@@ -26,8 +26,8 @@ const Photo = ({ src, alt }) => {
   };
 
   return (
-    <div style={styleImg}>
-      <div style={styleLabel}>
+    <div data-testid="photo-bg-img" style={styleImg}>
+      <div data-testid="photo-label" style={styleLabel}>
         <p>{alt}</p>
       </div>
     </div>
@@ -39,29 +39,27 @@ Photo.propTypes = {
   alt: PropTypes.string.isRequired,
 };
 
-const DialogPhoto = ({ open, close, src, alt }) => {
-  return (
-    <Dialog
-      open={open}
-      onClose={close}
-      aria-labelledby="imagem-do-equipamento"
-      aria-describedby="imagem-do-equipamento"
-      fullWidth
-      maxWidth="lg">
-      <DialogTitle id="alert-dialog-title">
-        <Grid container justify="space-between" alignItems="center">
-          <Grid item>{alt}</Grid>
-          <Grid item>
-            <IconButton onClick={close}>
-              <CloseIcon />
-            </IconButton>
-          </Grid>
+const DialogPhoto = ({ open, close, src, alt }) => (
+  <Dialog
+    open={open}
+    onClose={close}
+    aria-labelledby="imagem-do-equipamento"
+    aria-describedby="imagem-do-equipamento"
+    fullWidth
+    maxWidth="lg">
+    <DialogTitle id="alert-dialog-title">
+      <Grid container justify="space-between" alignItems="center">
+        <Grid item>{alt}</Grid>
+        <Grid item>
+          <IconButton onClick={close}>
+            <CloseIcon />
+          </IconButton>
         </Grid>
-      </DialogTitle>
-      <img src={src} alt={alt} width="100%" />
-    </Dialog>
-  );
-};
+      </Grid>
+    </DialogTitle>
+    <img data-testid="dialog-photo-img" src={src} alt={alt} width="100%" />
+  </Dialog>
+);
 
 DialogPhoto.propTypes = {
   open: PropTypes.bool.isRequired,
@@ -72,10 +70,14 @@ DialogPhoto.propTypes = {
 
 const PhotoModal = ({ src, alt }) => {
   const [open, setOpen] = useState(false);
+  if (!src || !alt) {
+    throw new Error('props {src|alt} undefined');
+  }
 
   return (
     <>
       <div
+        data-testid="photo-modal"
         role="button"
         style={{ height: '100%', width: '100%' }}
         onClick={() => setOpen(true)}
