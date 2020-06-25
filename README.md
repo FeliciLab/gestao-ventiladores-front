@@ -1,11 +1,24 @@
-Este repositório implementa parte do projeto "SMART Health: suporte à tomada de decisão inteligente de profissionais da saúde e gestores no combate à transmissão da COVID-19 no Ceará", desenvolvido pela Escola de Saúde Pública do Ceará (ESP-CE) em parceria com o Grupo de Engenharia de Software Adaptativo e Distribuído (GESAD) da UECE. 
+Este repositório implementa parte do projeto "SMART Health: suporte à tomada de decisão inteligente de profissionais da saúde e gestores no combate à transmissão da COVID-19 no Ceará", desenvolvido pela Escola de Saúde Pública do Ceará (ESP-CE) em parceria com o Grupo de Engenharia de Software Adaptativo e Distribuído (GESAD) da UECE.
 
 O projeto tem como objetivo principal o desenvolvimento de soluções tecnológicas que auxiliem profissionais de saúde no combate à transmissão do COVID-19 e promovam a tomada de decisão por gestores, facilitando assim o trabalho desses profissionais.
 
 Relacionados a este repositório, destaca-se o seguinte objetivo específico:
+
 - Implementar um sistema de gerenciamento e alocação dos ventiladores mecânicos.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+## Getting started
+
+### Prerequisites
+
+- Yarn
+
+### Install the dependencies
+
+In the project directory, run:
+
+`yarn`
 
 ## Available Scripts
 
@@ -75,11 +88,15 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
 
 # Design
+
 ### Design de Interfaces:
+
 Para consultar o Projeto da Interface, acessar: https://www.figma.com/file/OCBwphdiOoIXCd47xN3HUj/Central-de-Ventiladores?node-id=0%3A1
 
 ### Design Job Pipeline:
+
 Para consultar o Controle das Atividades, acessar: https://airtable.com/shrIaMWhqdW48mz5t/tblmrw7lBHw5NKJVm
 
 ### Design Backlog:
+
 Para consultar o Controle do Backlog do Time de Design, acessar: https://airtable.com/shrRnKAR9Mjaxc9wd/tblmrw7lBHw5NKJVm

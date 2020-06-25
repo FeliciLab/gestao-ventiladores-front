@@ -6,10 +6,11 @@ import SaveIcon from '@material-ui/icons/Save';
 import orange from '@material-ui/core/colors/orange';
 import ThemeButton from '../../pages/_common/forms/ThemeButton';
 
-
 const ModalActionSaveCancel = ({ handleSave, handleCancel }) => {
   if (!handleSave || !handleCancel) {
-    throw new Error('handleSave or handleCancel props are undefined or not a function');
+    throw new Error(
+      'handleSave or handleCancel props are undefined or not a function'
+    );
   }
 
   return (
@@ -20,8 +21,7 @@ const ModalActionSaveCancel = ({ handleSave, handleCancel }) => {
             onClick={handleCancel}
             startIcon={<CloseIcon />}
             variant="outlined"
-            borderColor="white"
-          >
+            borderColor="white">
             Cancelar
           </ThemeButton>
         </Grid>
@@ -32,8 +32,7 @@ const ModalActionSaveCancel = ({ handleSave, handleCancel }) => {
             name="Salvar"
             color={orange[600]}
             bgColor="#FFF"
-            hoverColor={orange[50]}
-          >
+            hoverColor={orange[50]}>
             Salvar
           </ThemeButton>
         </Grid>
