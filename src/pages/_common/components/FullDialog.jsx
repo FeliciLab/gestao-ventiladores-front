@@ -6,11 +6,14 @@ import { makeStyles } from '@material-ui/core/styles';
 import orange from '@material-ui/core/colors/orange';
 
 
-const useStyle = makeStyles(() => ({
+const useStyle = makeStyles((theme) => ({
   appBar: {
-    position: 'relative',
+    position: 'fixed',
     backgroundColor: orange[600],
   },
+  fullDialogBody: {
+    paddingTop: theme.spacing(10)
+  }
 }));
 
 const FullDialog = (props) => {
@@ -54,7 +57,9 @@ const FullDialog = (props) => {
             </Grid>
           </Toolbar>
         </AppBar>
-        {children}
+        <div className={classes.fullDialogBody}>
+          {children}
+        </div>
       </Dialog>
     </>
   );
