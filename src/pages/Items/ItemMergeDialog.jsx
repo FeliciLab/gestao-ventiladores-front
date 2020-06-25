@@ -5,6 +5,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import FormMergeItems from './FormMergeItems/FormMergeItems';
 import FullDialog from '../_common/components/FullDialog';
 import ModalActionSaveCancel from '../../components/ModalActionSaveCancel/ModalActionSaveCancel';
+import ItemContext from './ItemContext';
+import { useContext } from 'react';
+import { mergeItemRequest } from '../../modelServices/itemService/itemService';
 
 export const MergeItemContext = createContext({});
 
@@ -16,6 +19,8 @@ const useStyle = makeStyles((theme) => ({
 }));
 
 const ItemMergeDialog = (props) => {
+  const { mergeItems } = useContext(ItemContext);
+
   const classes = useStyle();
   const { open, closeDialog } = props;
 
@@ -27,7 +32,14 @@ const ItemMergeDialog = (props) => {
     setModel({ ...model, ...doc });
   };
 
-  const handleSave = () => {};
+  const handleSave = () => {
+    mergeItemRequest({ toUpdate: model, toRemove: mergeItems })
+      .then(() => window.location.reload())
+      .catch((e) => {
+        // TODO: criar componente de erro
+        console.log(e);
+      });
+  };
 
   return (
     <FullDialog

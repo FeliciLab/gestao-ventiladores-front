@@ -25,7 +25,7 @@ const ItemsPage = (props) => {
   const [mergeItems, setMergeItems] = useState([]);
   const [tabValue, setTabValue] = useState(0);
   const [openDialog, setOpenDialog] = useState(false);
-  const [opemMergeDialog, setOpenMergeDialog] = useState(false);
+  const [openMergeDialog, setOpenMergeDialog] = useState(false);
 
   const classes = useStyle();
   const selectKeyField = 'nome';
@@ -133,7 +133,7 @@ const ItemsPage = (props) => {
       </ItemContext.Provider>
 
       <ItemContext.Provider value={{ mergeItems, setMergeItems }}>
-        <ItemMergeDialog open={opemMergeDialog} closeDialog={closeDialog} />
+        <ItemMergeDialog open={openMergeDialog} closeDialog={closeDialog} />
       </ItemContext.Provider>
     </>
   );
