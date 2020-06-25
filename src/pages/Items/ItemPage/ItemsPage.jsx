@@ -1,11 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import {
-  Grid,
-  Paper,
-  Tab,
-  Tabs,
-} from '@material-ui/core';
+import { Grid, Paper, Tab, Tabs } from '@material-ui/core';
 import { orange } from '@material-ui/core/colors';
 import { makeStyles } from '@material-ui/core/styles';
 import EditIcon from '@material-ui/icons/Edit';
@@ -16,7 +11,6 @@ import { Item } from '../../../models/item';
 import DialogFormItem from '../DialogFormItem/DialogFormItem';
 import ItemContext from '../ItemContext';
 import ItemMergeDialog from '../ItemMergeDialog';
-
 
 const useStyle = makeStyles((theme) => ({
   gridContainer: {
@@ -63,16 +57,19 @@ const ItemsPage = (props) => {
 
   const closeDialog = () => {
     setOpenDialog(false);
+    setOpemMergeDialog(false);
   };
 
   const mergeItemsDialog = (data) => {
     setMergeItems(
-      items.filter(
-        (filtering) => data.find((d) => filtering[selectKeyField] === d[selectKeyField]),
-      ).reduce((acc, curr, index) => {
-        acc[index] = curr;
-        return acc;
-      }, {}),
+      items
+        .filter((filtering) =>
+          data.find((d) => filtering[selectKeyField] === d)
+        )
+        .reduce((acc, curr, index) => {
+          acc[index] = curr;
+          return acc;
+        }, {})
     );
     setOpemMergeDialog(true);
   };
@@ -99,8 +96,7 @@ const ItemsPage = (props) => {
                 value={tabValue}
                 onChange={changeTab}
                 aria-label="abas-triagem"
-                centered
-              >
+                centered>
                 <Tab label="Gestão de Itens" aria-controls="gestao-de-itens" />
               </Tabs>
             </Grid>
@@ -133,17 +129,11 @@ const ItemsPage = (props) => {
       </Grid>
 
       <ItemContext.Provider value={{ item, setItem }}>
-        <DialogFormItem
-          open={openDialog}
-          closeDialog={closeDialog}
-        />
+        <DialogFormItem open={openDialog} closeDialog={closeDialog} />
       </ItemContext.Provider>
 
       <ItemContext.Provider value={{ mergeItems, setMergeItems }}>
-        <ItemMergeDialog
-          open={opemMergeDialog}
-          closeDialog={closeDialog}
-        />
+        <ItemMergeDialog open={opemMergeDialog} closeDialog={closeDialog} />
       </ItemContext.Provider>
     </>
   );
