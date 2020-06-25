@@ -11,7 +11,7 @@ const useStyle = makeStyles((theme) => ({
     position: 'fixed',
     backgroundColor: orange[600],
   },
-  appBarChildren: {
+  fullDialogBody: {
     paddingTop: theme.spacing(10)
   }
 }));
@@ -57,7 +57,7 @@ const FullDialog = (props) => {
             </Grid>
           </Toolbar>
         </AppBar>
-        <div className={classes.appBarChildren}>
+        <div className={classes.fullDialogBody}>
           {children}
         </div>
       </Dialog>
