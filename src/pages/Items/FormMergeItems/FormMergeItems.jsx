@@ -14,6 +14,7 @@ const FormMergeItems = () => {
   const [manufacturers, setManufacturers] = useState([]);
   const [unity, setUnity] = useState([]);
   const [description, setDescription] = useState([]);
+  const [amount, setAmount] = useState(0);
 
   const handleData = () => {
     const itemsNames = [];
@@ -22,7 +23,7 @@ const FormMergeItems = () => {
     const itemsManufacturers = [];
     const itemsUnity = [];
     const itemsDescription = [];
-    let itemsAmmount = 0;
+    let itemsAmount = 0;
 
     const repeatedItem = (list, value) => list.find((i) => i.label === value);
 
@@ -66,7 +67,7 @@ const FormMergeItems = () => {
         itemsDescription.push({ label: item.descricao, value: item.descricao });
       }
 
-      itemsAmmount += item.quantidade;
+      itemsAmount += item.quantidade;
     });
 
     setNames(itemsNames);
@@ -75,10 +76,16 @@ const FormMergeItems = () => {
     setManufacturers(itemsManufacturers);
     setUnity(itemsUnity);
     setDescription(itemsDescription);
-    handleSetModel({ target: { name: 'quantidade', value: itemsAmmount } });
+    setAmount(itemsAmount);
+    handleSetModel({ target: { name: 'quantidade', value: itemsAmount } });
   };
 
   useEffect(handleData, [mergeItems]);
+
+  const changeAmount = (event) => {
+    event.target.value = event.target.value < amount ? amount : event.target.value; 
+    handleSetModel(event);
+  }
 
   return (
     <Grid container spacing={4}>
@@ -137,7 +144,8 @@ const FormMergeItems = () => {
           label="Quantidade"
           name="quantidade"
           value={model.quantidade || 0}
-          onChange={handleSetModel}
+          onChange={changeAmount}
+          type="number"
           fullWidth
         />
       </Grid>

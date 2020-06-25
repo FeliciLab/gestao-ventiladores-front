@@ -25,7 +25,7 @@ const ItemsPage = (props) => {
   const [mergeItems, setMergeItems] = useState([]);
   const [tabValue, setTabValue] = useState(0);
   const [openDialog, setOpenDialog] = useState(false);
-  const [opemMergeDialog, setOpemMergeDialog] = useState(false);
+  const [opemMergeDialog, setOpenMergeDialog] = useState(false);
 
   const classes = useStyle();
   const selectKeyField = 'nome';
@@ -57,7 +57,7 @@ const ItemsPage = (props) => {
 
   const closeDialog = () => {
     setOpenDialog(false);
-    setOpemMergeDialog(false);
+    setOpenMergeDialog(false);
   };
 
   const mergeItemsDialog = (data) => {
@@ -71,7 +71,7 @@ const ItemsPage = (props) => {
           return acc;
         }, {})
     );
-    setOpemMergeDialog(true);
+    setOpenMergeDialog(true);
   };
 
   const actions = [

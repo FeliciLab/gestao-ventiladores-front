@@ -17,7 +17,7 @@ export default function () {
     getAllItemsRequest().then((result) => {
       console.log(result.status, result.data);
     });
-    setItems(listaAcessorios.map((item) => Item({ nome: item })));
+    setItems(listaAcessorios.map((item) => Item({ nome: item, quantidade: Math.floor(Math.random() * 10) })));
     setProgress(100);
     setLoading(false);
   };
