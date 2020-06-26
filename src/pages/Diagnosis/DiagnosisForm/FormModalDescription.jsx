@@ -1,4 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, {
+  useEffect,
+  useState,
+} from 'react';
 import PropTypes from 'prop-types';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -8,8 +11,14 @@ import TextField from '@material-ui/core/TextField';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 
+
 const FormModalDescription = (props) => {
-  const { open, item, handleClose, updateValue } = props;
+  const {
+    open,
+    item,
+    handleClose,
+    updateValue,
+  } = props;
 
   const [description, setDescription] = useState('');
 
@@ -21,13 +30,12 @@ const FormModalDescription = (props) => {
 
   return (
     <>
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="form-dialog-title">
+      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Editar Descrição</DialogTitle>
         <DialogContent>
-          <DialogContentText>Digite a descrição para o item</DialogContentText>
+          <DialogContentText>
+            Digite a descrição para o item
+          </DialogContentText>
           <TextField
             autoFocus
             margin="dense"
