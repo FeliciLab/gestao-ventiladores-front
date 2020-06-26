@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Grid, Paper, Tab, Tabs } from '@material-ui/core';
+import {
+  Grid,
+  Paper,
+  Tab,
+  Tabs,
+} from '@material-ui/core';
 import { orange } from '@material-ui/core/colors';
 import { makeStyles } from '@material-ui/core/styles';
 import EditIcon from '@material-ui/icons/Edit';
@@ -11,6 +16,7 @@ import { Item } from '../../../models/item';
 import DialogFormItem from '../DialogFormItem/DialogFormItem';
 import ItemContext from '../ItemContext';
 import ItemMergeDialog from '../ItemMergeDialog';
+
 
 const useStyle = makeStyles((theme) => ({
   gridContainer: {

@@ -5,6 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import MenuItem from '@material-ui/core/MenuItem';
 import { randomIndex } from '../../../utils';
 
+
 const { useState } = require('react');
 
 const FormFieldMerge = (props) => {
@@ -48,14 +49,6 @@ const FormFieldMerge = (props) => {
         />
       </Grid>
     </Grid>
-    // <InputRadioDialog
-    //   action={(event) => handleSetModel(event, index)}
-    //   items={choices}
-    //   name={name}
-    //   label={label}
-    //   defaultValue={value}
-    //   hasOther
-    // />
   );
 };
 

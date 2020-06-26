@@ -1,4 +1,8 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, {
+  createContext,
+  useContext,
+  useState,
+} from 'react';
 import PropTypes from 'prop-types';
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
@@ -9,6 +13,7 @@ import ItemContext from './ItemContext';
 import { mergeItemRequest } from '../../modelServices/itemService/itemService';
 import AlertFormErrorSubmit from '../../components/AlertFormErrorSubmit/AlertFormErrorSubmit';
 import { useForm } from 'react-hook-form';
+
 
 export const MergeItemContext = createContext({});
 
@@ -59,9 +64,7 @@ const ItemMergeDialog = (props) => {
       }>
       <Container className={classes.container}>
         <AlertFormErrorSubmit show={showError} setShow={setShowError} timeout />
-        <MergeItemContext.Provider value={{ model, handleSetModel }}>
-          <FormMergeItems />
-        </MergeItemContext.Provider>
+        <FormMergeItems model={model} handleSetModel={handleSetModel} />
       </Container>
     </FullDialog>
   );

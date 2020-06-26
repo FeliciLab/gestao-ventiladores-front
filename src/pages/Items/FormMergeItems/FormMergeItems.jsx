@@ -1,81 +1,42 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { Grid, TextField } from '@material-ui/core';
+import React, {
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
+import PropTypes from 'prop-types';
+import {
+  Grid,
+  Radio,
+  TextField,
+} from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableRow from '@material-ui/core/TableRow';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
 import ItemContext from '../ItemContext';
-import FormFieldMerge from './FormFieldMerge';
-import { MergeItemContext } from '../ItemMergeDialog';
+import { randomIndex } from '../../../utils';
 
-const FormMergeItems = () => {
+
+const FormMergeItems = ({ model, handleSetModel }) => {
   const { mergeItems } = useContext(ItemContext);
-  const { model, handleSetModel } = useContext(MergeItemContext);
-
-  const [names, setNames] = useState([]);
-  const [types, setTypes] = useState([]);
-  const [codes, setCodes] = useState([]);
-  const [manufacturers, setManufacturers] = useState([]);
-  const [unity, setUnity] = useState([]);
-  const [description, setDescription] = useState([]);
   const [amount, setAmount] = useState(0);
+  const [rowChosen, setRowChosen] = useState(0);
+
+  const headTable = [
+    { id: 'tipo', label: 'Tipo' },
+    { id: 'fabricante', label: 'Fabricante' },
+    { id: 'codigo', label: 'Código' },
+    { id: 'nome', label: 'Nome' },
+    { id: 'unidade_medida', label: 'Unidade de Medida' },
+    { id: 'quantidade', label: 'Quantidade' },
+    { id: 'descricao', label: 'Descrição' },
+  ];
 
   const handleData = () => {
-    const itemsNames = [];
-    const itemsTypes = [];
-    const itemsCodes = [];
-    const itemsManufacturers = [];
-    const itemsUnity = [];
-    const itemsDescription = [];
-    let itemsAmount = 0;
-
-    const repeatedItem = (list, value) => list.find((i) => i.label === value);
-
-    Object.values(mergeItems).forEach((item) => {
-      if (!repeatedItem(itemsNames, item.nome) && item.nome !== '') {
-        itemsNames.push({ label: item.nome, value: item.nome });
-      }
-
-      if (!repeatedItem(itemsTypes, item.tipo) && item.tipo !== '') {
-        itemsTypes.push({ label: item.tipo, value: item.tipo });
-      }
-
-      if (!repeatedItem(itemsCodes, item.codigo) && item.codigo !== '') {
-        itemsCodes.push({ label: item.codigo, value: item.codigo });
-      }
-
-      if (
-        !repeatedItem(itemsManufacturers, item.fabricante) &&
-        item.fabricante !== ''
-      ) {
-        itemsManufacturers.push({
-          label: item.fabricante,
-          value: item.fabricante,
-        });
-      }
-
-      if (
-        !repeatedItem(itemsUnity, item.unidade_medida) &&
-        item.unidade_medida !== ''
-      ) {
-        itemsUnity.push({
-          label: item.unidade_medida,
-          value: item.unidade_medida,
-        });
-      }
-
-      if (
-        !repeatedItem(itemsDescription, item.descricao) &&
-        item.descricao !== ''
-      ) {
-        itemsDescription.push({ label: item.descricao, value: item.descricao });
-      }
-
-      itemsAmount += item.quantidade;
-    });
-
-    setNames(itemsNames);
-    setTypes(itemsTypes);
-    setCodes(itemsCodes);
-    setManufacturers(itemsManufacturers);
-    setUnity(itemsUnity);
-    setDescription(itemsDescription);
+    const itemsAmount = Object.values(mergeItems).reduce((a, c) => a + c.quantidade, 0);
     setAmount(itemsAmount);
     handleSetModel({ target: { name: 'quantidade', value: itemsAmount } });
   };
@@ -83,91 +44,90 @@ const FormMergeItems = () => {
   useEffect(handleData, [mergeItems]);
 
   const changeAmount = (event) => {
-    event.target.value =
-      event.target.value < amount ? amount : event.target.value;
-    handleSetModel(event);
+    const doc = {
+      target: {
+        name: event.target.name,
+        value: event.target.value < amount
+          ? amount
+          : event.target.value,
+      },
+    };
+    handleSetModel(doc);
   };
 
   return (
-    <Grid container spacing={4}>
-      <Grid item xs={6}>
-        Item(ns) antigo(s)
+    <>
+      <Grid container spacing={4}>
+        <Grid item xs={12}>
+          <Typography variant="h5">Itens selecionados</Typography>
+          <Typography variant="caption">Selecione uma linha de referência</Typography>
+          <TableContainer>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell />
+                  {headTable.map((head) => (
+                    <TableCell key={randomIndex()}>{head.label}</TableCell>
+                  ))}
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {Object.values(mergeItems).map((doc, index) => (
+                  <TableRow
+                    hover
+                    key={randomIndex()}
+                    onClick={() => setRowChosen(index)}
+                  >
+                    <TableCell>
+                      <Radio value={index} checked={index === rowChosen} />
+                    </TableCell>
+
+                    {headTable.map((headItem) => (
+                      <TableCell key={randomIndex()}>{doc[headItem.id]}</TableCell>
+                    ))}
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Grid>
+
+
+        <Grid item xs={12}>
+          <Typography variant="h5">Novo Item</Typography>
+          <TableContainer>
+            <Table>
+              <TableBody>
+                <TableRow>
+                  {headTable.map((headField) => (
+                    <TableCell key={randomIndex()}>
+                      <TextField
+                        label={headField.label}
+                        name={headField.id}
+                        value={model[headField.id]}
+                        type={headField.id === 'quantidade'
+                          ? 'number'
+                          : 'text'}
+                        onChange={headField.id === 'quantidade'
+                          ? changeAmount
+                          : handleSetModel}
+                        fullWidth
+                      />
+                    </TableCell>
+                  ))}
+                </TableRow>
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Grid>
       </Grid>
-      <Grid item xs={6}>
-        Item novo
-      </Grid>
-      <Grid item xs={12}>
-        <FormFieldMerge
-          name="Nome"
-          label="Nome"
-          index={0}
-          choices={names}
-          value={model.nome || ''}
-          handleSetModel={handleSetModel}
-        />
-      </Grid>
-      <Grid item xs={12}>
-        <FormFieldMerge
-          label="Tipo"
-          name="tipo"
-          index={0}
-          choices={types}
-          value={model.tipo || ''}
-          handleSetModel={handleSetModel}
-        />
-      </Grid>
-      <Grid item xs={12}>
-        <FormFieldMerge
-          label="Fabricante"
-          name="fabricante"
-          index={0}
-          choices={manufacturers}
-          value={model.fabricante || ''}
-          handleSetModel={handleSetModel}
-        />
-      </Grid>
-      <Grid item xs={12}>
-        <FormFieldMerge
-          label="Unidade de Medida"
-          name="unidade_medida"
-          index={0}
-          choices={unity}
-          value={model.unidade_medida || ''}
-          handleSetModel={handleSetModel}
-        />
-      </Grid>
-      <Grid item xs={12}>
-        <FormFieldMerge
-          label="Código"
-          name="codigo"
-          index={0}
-          choices={codes}
-          value={model.codigo || ''}
-          handleSetModel={handleSetModel}
-        />
-      </Grid>
-      <Grid item xs={12}>
-        <FormFieldMerge
-          label="Descrição"
-          name="descricao"
-          index={0}
-          choices={description}
-          value={model.descricao || ''}
-          handleSetModel={handleSetModel}
-        />
-      </Grid>
-      <Grid item xs={12}>
-        <TextField
-          label="Quantidade"
-          name="quantidade"
-          value={model.quantidade || 0}
-          onChange={changeAmount}
-          type="number"
-          fullWidth
-        />
-      </Grid>
-    </Grid>
+    </>
   );
+};
+
+FormMergeItems.propTypes = {
+  model: PropTypes.instanceOf(Object).isRequired,
+  handleSetModel: PropTypes.func.isRequired,
 };
 
 export default FormMergeItems;
