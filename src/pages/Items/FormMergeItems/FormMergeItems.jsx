@@ -83,13 +83,20 @@ const FormMergeItems = () => {
   useEffect(handleData, [mergeItems]);
 
   const changeAmount = (event) => {
-    event.target.value = event.target.value < amount ? amount : event.target.value; 
+    event.target.value =
+      event.target.value < amount ? amount : event.target.value;
     handleSetModel(event);
-  }
+  };
 
   return (
     <Grid container spacing={4}>
       <Grid item xs={6}>
+        Item(ns) antigo(s)
+      </Grid>
+      <Grid item xs={6}>
+        Item novo
+      </Grid>
+      <Grid item xs={12}>
         <FormFieldMerge
           name="Nome"
           label="Nome"
@@ -99,7 +106,7 @@ const FormMergeItems = () => {
           handleSetModel={handleSetModel}
         />
       </Grid>
-      <Grid item xs={6}>
+      <Grid item xs={12}>
         <FormFieldMerge
           label="Tipo"
           name="tipo"
@@ -109,7 +116,7 @@ const FormMergeItems = () => {
           handleSetModel={handleSetModel}
         />
       </Grid>
-      <Grid item xs={6}>
+      <Grid item xs={12}>
         <FormFieldMerge
           label="Fabricante"
           name="fabricante"
@@ -119,7 +126,7 @@ const FormMergeItems = () => {
           handleSetModel={handleSetModel}
         />
       </Grid>
-      <Grid item xs={6}>
+      <Grid item xs={12}>
         <FormFieldMerge
           label="Unidade de Medida"
           name="unidade_medida"
@@ -129,7 +136,7 @@ const FormMergeItems = () => {
           handleSetModel={handleSetModel}
         />
       </Grid>
-      <Grid item xs={6}>
+      <Grid item xs={12}>
         <FormFieldMerge
           label="Código"
           name="codigo"
@@ -137,16 +144,6 @@ const FormMergeItems = () => {
           choices={codes}
           value={model.codigo || ''}
           handleSetModel={handleSetModel}
-        />
-      </Grid>
-      <Grid item xs={6}>
-        <TextField
-          label="Quantidade"
-          name="quantidade"
-          value={model.quantidade || 0}
-          onChange={changeAmount}
-          type="number"
-          fullWidth
         />
       </Grid>
       <Grid item xs={12}>
@@ -157,6 +154,16 @@ const FormMergeItems = () => {
           choices={description}
           value={model.descricao || ''}
           handleSetModel={handleSetModel}
+        />
+      </Grid>
+      <Grid item xs={12}>
+        <TextField
+          label="Quantidade"
+          name="quantidade"
+          value={model.quantidade || 0}
+          onChange={changeAmount}
+          type="number"
+          fullWidth
         />
       </Grid>
     </Grid>

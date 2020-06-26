@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
@@ -6,8 +6,9 @@ import FormMergeItems from './FormMergeItems/FormMergeItems';
 import FullDialog from '../_common/components/FullDialog';
 import ModalActionSaveCancel from '../../components/ModalActionSaveCancel/ModalActionSaveCancel';
 import ItemContext from './ItemContext';
-import { useContext } from 'react';
 import { mergeItemRequest } from '../../modelServices/itemService/itemService';
+import AlertFormErrorSubmit from '../../components/AlertFormErrorSubmit/AlertFormErrorSubmit';
+import { useForm } from 'react-hook-form';
 
 export const MergeItemContext = createContext({});
 
@@ -20,11 +21,16 @@ const useStyle = makeStyles((theme) => ({
 
 const ItemMergeDialog = (props) => {
   const { mergeItems } = useContext(ItemContext);
+  const { register, errors, triggerValidation } = useForm({
+    mode: 'onBlur',
+    reValidateMode: 'onChange',
+  });
 
   const classes = useStyle();
   const { open, closeDialog } = props;
 
   const [model, setModel] = useState({});
+  const [showError, setShowError] = useState(false);
 
   const handleSetModel = (event) => {
     const doc = {};
@@ -35,9 +41,8 @@ const ItemMergeDialog = (props) => {
   const handleSave = () => {
     mergeItemRequest({ toUpdate: model, toRemove: mergeItems })
       .then(() => window.location.reload())
-      .catch((e) => {
-        // TODO: criar componente de erro
-        console.log(e);
+      .catch(() => {
+        setShowError(true);
       });
   };
 
@@ -53,6 +58,7 @@ const ItemMergeDialog = (props) => {
         />
       }>
       <Container className={classes.container}>
+        <AlertFormErrorSubmit show={showError} setShow={setShowError} timeout />
         <MergeItemContext.Provider value={{ model, handleSetModel }}>
           <FormMergeItems />
         </MergeItemContext.Provider>
