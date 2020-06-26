@@ -26,7 +26,6 @@ const LoginForm = () => {
     event.preventDefault();
     signIn(userInfo.password);
     setUserInfo({ password: '' });
-    console.log(sessionStorage);
   };
 
   return (
@@ -36,7 +35,8 @@ const LoginForm = () => {
         direction="column"
         justify="space-between"
         alignItems="flex-start"
-        className={container}>
+        className={container}
+      >
         <h2 className={loginTitle}>Fazer login</h2>
         <Input
           autoFocus
