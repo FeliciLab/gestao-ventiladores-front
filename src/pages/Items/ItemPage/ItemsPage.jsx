@@ -12,10 +12,13 @@ import EditIcon from '@material-ui/icons/Edit';
 import AddIcon from '@material-ui/icons/Add';
 import TableCheckedList from '../../_common/SelectableTable/TableCheckedList';
 import ThemeButton from '../../_common/forms/ThemeButton';
-import { Item } from '../../../models/item';
+import {
+  Item,
+  itemDiagnosisModel,
+} from '../../../models/item';
 import DialogFormItem from '../DialogFormItem/DialogFormItem';
 import ItemContext from '../ItemContext';
-import ItemMergeDialog from '../ItemMergeDialog';
+import DialogItemMerge from '../DialogItemMerge';
 
 
 const useStyle = makeStyles((theme) => ({
@@ -27,7 +30,7 @@ const useStyle = makeStyles((theme) => ({
 const ItemsPage = (props) => {
   const { items } = props;
 
-  const [item, setItem] = useState({});
+  const [item, setItem] = useState({ ...itemDiagnosisModel });
   const [mergeItems, setMergeItems] = useState([]);
   const [tabValue, setTabValue] = useState(0);
   const [openDialog, setOpenDialog] = useState(false);
@@ -68,14 +71,16 @@ const ItemsPage = (props) => {
 
   const mergeItemsDialog = (data) => {
     setMergeItems(
-      items
-        .filter((filtering) =>
-          data.find((d) => filtering[selectKeyField] === d)
-        )
-        .reduce((acc, curr, index) => {
-          acc[index] = curr;
-          return acc;
-        }, {})
+      {
+        ...items
+          .filter((filtering) =>
+            data.find((d) => filtering[selectKeyField] === d),
+          )
+          .reduce((acc, curr, index) => {
+            acc[index] = curr;
+            return acc;
+          }, {}),
+      },
     );
     setOpenMergeDialog(true);
   };
@@ -102,7 +107,8 @@ const ItemsPage = (props) => {
                 value={tabValue}
                 onChange={changeTab}
                 aria-label="abas-triagem"
-                centered>
+                centered
+              >
                 <Tab label="Gestão de Itens" aria-controls="gestao-de-itens" />
               </Tabs>
             </Grid>
@@ -138,8 +144,15 @@ const ItemsPage = (props) => {
         <DialogFormItem open={openDialog} closeDialog={closeDialog} />
       </ItemContext.Provider>
 
-      <ItemContext.Provider value={{ mergeItems, setMergeItems }}>
-        <ItemMergeDialog open={openMergeDialog} closeDialog={closeDialog} />
+      <ItemContext.Provider
+        value={{
+          mergeItems,
+          setMergeItems,
+          modelMerge: item,
+          setModelMerge: setItem,
+        }}
+      >
+        <DialogItemMerge open={openMergeDialog} closeDialog={closeDialog} />
       </ItemContext.Provider>
     </>
   );

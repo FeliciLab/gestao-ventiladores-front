@@ -3,7 +3,6 @@ import React, {
   useEffect,
   useState,
 } from 'react';
-import PropTypes from 'prop-types';
 import {
   Grid,
   Radio,
@@ -20,11 +19,17 @@ import ItemContext from '../ItemContext';
 import { randomIndex } from '../../../utils';
 
 
-const FormMergeItems = ({ model, handleSetModel }) => {
-  const { mergeItems } = useContext(ItemContext);
+const FormMergeItems = () => {
+  const { mergeItems, modelMerge, setModelMerge } = useContext(ItemContext);
   const [amount, setAmount] = useState(0);
   const [rowChosen, setRowChosen] = useState(0);
-
+  const handleSetModel = (event) => {
+    const doc = {};
+    doc[event.target.name] = event.target.name === 'quantidade' && event.target.value < amount
+      ? amount
+      : event.target.value;
+    setModelMerge({ ...modelMerge, ...doc });
+  };
   const headTable = [
     { id: 'tipo', label: 'Tipo' },
     { id: 'fabricante', label: 'Fabricante' },
@@ -38,22 +43,9 @@ const FormMergeItems = ({ model, handleSetModel }) => {
   const handleData = () => {
     const itemsAmount = Object.values(mergeItems).reduce((a, c) => a + c.quantidade, 0);
     setAmount(itemsAmount);
-    handleSetModel({ target: { name: 'quantidade', value: itemsAmount } });
   };
 
   useEffect(handleData, [mergeItems]);
-
-  const changeAmount = (event) => {
-    const doc = {
-      target: {
-        name: event.target.name,
-        value: event.target.value < amount
-          ? amount
-          : event.target.value,
-      },
-    };
-    handleSetModel(doc);
-  };
 
   return (
     <>
@@ -92,29 +84,75 @@ const FormMergeItems = ({ model, handleSetModel }) => {
           </TableContainer>
         </Grid>
 
-
         <Grid item xs={12}>
           <Typography variant="h5">Novo Item</Typography>
           <TableContainer>
             <Table>
               <TableBody>
                 <TableRow>
-                  {headTable.map((headField) => (
-                    <TableCell key={randomIndex()}>
-                      <TextField
-                        label={headField.label}
-                        name={headField.id}
-                        value={model[headField.id]}
-                        type={headField.id === 'quantidade'
-                          ? 'number'
-                          : 'text'}
-                        onChange={headField.id === 'quantidade'
-                          ? changeAmount
-                          : handleSetModel}
-                        fullWidth
-                      />
-                    </TableCell>
-                  ))}
+                  <TableCell>
+                    <TextField
+                      label="Tipo"
+                      name="tipo"
+                      value={modelMerge.tipo}
+                      onChange={handleSetModel}
+                      fullWidth
+                    />
+                  </TableCell>
+                  <TableCell>
+                    <TextField
+                      label="Nome"
+                      name="nome"
+                      value={modelMerge.nome}
+                      onChange={handleSetModel}
+                      fullWidth
+                    />
+                  </TableCell>
+                  <TableCell>
+                    <TextField
+                      label="Código"
+                      name="codigo"
+                      value={modelMerge.codigo}
+                      onChange={handleSetModel}
+                      fullWidth
+                    />
+                  </TableCell>
+                  <TableCell>
+                    <TextField
+                      label="Fabricante"
+                      name="fabricante"
+                      value={modelMerge.fabricante}
+                      onChange={handleSetModel}
+                      fullWidth
+                    />
+                  </TableCell>
+                  <TableCell>
+                    <TextField
+                      label="Unidade de Medida"
+                      name="unidade_medida"
+                      value={modelMerge.unidade_medida}
+                      onChange={handleSetModel}
+                      fullWidth
+                    />
+                  </TableCell>
+                  <TableCell>
+                    <TextField
+                      label="Quantidade"
+                      name="quantidade"
+                      value={modelMerge.quantidade}
+                      onChange={handleSetModel}
+                      fullWidth
+                    />
+                  </TableCell>
+                  <TableCell>
+                    <TextField
+                      label="Descrição"
+                      name="descricao"
+                      value={modelMerge.descricao}
+                      onChange={handleSetModel}
+                      fullWidth
+                    />
+                  </TableCell>
                 </TableRow>
               </TableBody>
             </Table>
@@ -124,10 +162,4 @@ const FormMergeItems = ({ model, handleSetModel }) => {
     </>
   );
 };
-
-FormMergeItems.propTypes = {
-  model: PropTypes.instanceOf(Object).isRequired,
-  handleSetModel: PropTypes.func.isRequired,
-};
-
 export default FormMergeItems;

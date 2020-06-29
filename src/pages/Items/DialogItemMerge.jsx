@@ -4,15 +4,14 @@ import React, {
   useState,
 } from 'react';
 import PropTypes from 'prop-types';
+import { useForm } from 'react-hook-form';
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
-import FormMergeItems from './FormMergeItems/FormMergeItems';
-import FullDialog from '../_common/components/FullDialog';
-import ModalActionSaveCancel from '../../components/ModalActionSaveCancel/ModalActionSaveCancel';
 import ItemContext from './ItemContext';
 import { mergeItemRequest } from '../../modelServices/itemService/itemService';
 import AlertFormErrorSubmit from '../../components/AlertFormErrorSubmit/AlertFormErrorSubmit';
-import { useForm } from 'react-hook-form';
+import FormMergeItems from './FormMergeItems/FormMergeItems';
+import FormDialog from '../../components/FormDialog/FormDialog';
 
 
 export const MergeItemContext = createContext({});
@@ -24,8 +23,9 @@ const useStyle = makeStyles((theme) => ({
   },
 }));
 
-const ItemMergeDialog = (props) => {
-  const { mergeItems } = useContext(ItemContext);
+const DialogItemMerge = (props) => {
+  const { mergeItems, modelMerge } = useContext(ItemContext);
+
   const { register, errors, triggerValidation } = useForm({
     mode: 'onBlur',
     reValidateMode: 'onChange',
@@ -34,17 +34,10 @@ const ItemMergeDialog = (props) => {
   const classes = useStyle();
   const { open, closeDialog } = props;
 
-  const [model, setModel] = useState({});
   const [showError, setShowError] = useState(false);
 
-  const handleSetModel = (event) => {
-    const doc = {};
-    doc[event.target.name] = event.target.value;
-    setModel({ ...model, ...doc });
-  };
-
   const handleSave = () => {
-    mergeItemRequest({ toUpdate: model, toRemove: mergeItems })
+    mergeItemRequest({ toUpdate: modelMerge, toRemove: mergeItems })
       .then(() => window.location.reload())
       .catch(() => {
         setShowError(true);
@@ -52,31 +45,27 @@ const ItemMergeDialog = (props) => {
   };
 
   return (
-    <FullDialog
+    <FormDialog
       open={open}
       title="Mesclar Itens"
-      handleClose={closeDialog}
-      actionChildren={
-        <ModalActionSaveCancel
-          handleCancel={closeDialog}
-          handleSave={handleSave}
-        />
-      }>
+      handleCancel={closeDialog}
+      handleSave={handleSave}
+    >
       <Container className={classes.container}>
         <AlertFormErrorSubmit show={showError} setShow={setShowError} timeout />
-        <FormMergeItems model={model} handleSetModel={handleSetModel} />
+        <FormMergeItems />
       </Container>
-    </FullDialog>
+    </FormDialog>
   );
 };
 
-ItemMergeDialog.defaultProps = {
+DialogItemMerge.defaultProps = {
   open: false,
 };
 
-ItemMergeDialog.propTypes = {
+DialogItemMerge.propTypes = {
   closeDialog: PropTypes.func.isRequired,
   open: PropTypes.bool,
 };
 
-export default ItemMergeDialog;
+export default DialogItemMerge;
