@@ -2,8 +2,6 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
 import Grid from '@material-ui/core/Grid';
-// import Typography from '@material-ui/core/Typography';
-import SaveIcon from '@material-ui/icons/Save';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import RadioGroup from '@material-ui/core/RadioGroup';
@@ -11,14 +9,9 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
 import TextField from '@material-ui/core/TextField';
 import ItemContext from './ItemContext';
-import { itemDiagnosisModel } from '../../models/item';
-import ThemeButton from '../_common/forms/ThemeButton';
 import ErrorAlertText from '../_common/alerts/ErrorAlertText';
 
-
-const CreateNewItem = (props) => {
-  const { addNewItem } = props;
-
+const CreateNewItem = ({ minAmount }) => {
   const { item, setItem } = useContext(ItemContext);
 
   const { register, errors, triggerValidation } = useForm({
@@ -28,16 +21,11 @@ const CreateNewItem = (props) => {
 
   const updateItem = (event) => {
     const doc = {};
-    doc[event.target.name] = event.target.value;
+    doc[event.target.name] =
+      event.target.name === 'quantidade' && event.target.value < minAmount
+        ? minAmount
+        : event.target.value;
     setItem({ ...item, ...doc });
-  };
-
-  const registerItem = async () => {
-    await triggerValidation();
-    if (Object.keys(errors).length === 0) {
-      addNewItem(item);
-      setItem({ ...itemDiagnosisModel });
-    }
   };
 
   return (
@@ -147,21 +135,17 @@ const CreateNewItem = (props) => {
             />
           </Grid>
         </Grid>
-
-        <Grid container justify="flex-end" style={{ marginTop: '2rem' }}>
-          <Grid item xs="auto">
-            <ThemeButton onClick={registerItem} startIcon={<SaveIcon />}>
-              ADICIONAR NOVO ITEM
-            </ThemeButton>
-          </Grid>
-        </Grid>
       </form>
     </>
   );
 };
 
+CreateNewItem.defaultProps = {
+  minAmount: 0,
+};
+
 CreateNewItem.propTypes = {
-  addNewItem: PropTypes.func.isRequired,
+  minAmount: PropTypes.number,
 };
 
 export default CreateNewItem;

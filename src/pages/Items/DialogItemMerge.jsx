@@ -1,8 +1,4 @@
-import React, {
-  createContext,
-  useContext,
-  useState,
-} from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
 import Container from '@material-ui/core/Container';
@@ -12,7 +8,6 @@ import { mergeItemRequest } from '../../modelServices/itemService/itemService';
 import AlertFormErrorSubmit from '../../components/AlertFormErrorSubmit/AlertFormErrorSubmit';
 import FormMergeItems from './FormMergeItems/FormMergeItems';
 import FormDialog from '../../components/FormDialog/FormDialog';
-
 
 export const MergeItemContext = createContext({});
 
@@ -24,7 +19,7 @@ const useStyle = makeStyles((theme) => ({
 }));
 
 const DialogItemMerge = (props) => {
-  const { mergeItems, modelMerge } = useContext(ItemContext);
+  const { mergeItems, item } = useContext(ItemContext);
 
   const { register, errors, triggerValidation } = useForm({
     mode: 'onBlur',
@@ -37,8 +32,8 @@ const DialogItemMerge = (props) => {
   const [showError, setShowError] = useState(false);
 
   const handleSave = () => {
-    mergeItemRequest({ toUpdate: modelMerge, toRemove: mergeItems })
-      .then(() => window.location.reload())
+    mergeItemRequest({ toUpdate: item, toRemove: Object.values(mergeItems) })
+      // .then(() => window.location.reload())
       .catch(() => {
         setShowError(true);
       });
@@ -49,8 +44,7 @@ const DialogItemMerge = (props) => {
       open={open}
       title="Mesclar Itens"
       handleCancel={closeDialog}
-      handleSave={handleSave}
-    >
+      handleSave={handleSave}>
       <Container className={classes.container}>
         <AlertFormErrorSubmit show={showError} setShow={setShowError} timeout />
         <FormMergeItems />

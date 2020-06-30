@@ -1,11 +1,17 @@
 export const itemDiagnosisModel = {
-  tipo: 'pecas',
+  tipo: 'acessorio',
   fabricante: '',
   codigo: '',
   nome: '',
   unidade_medida: '',
   quantidade: 0,
   descricao: '',
+};
+
+export const mapTypeItems = {
+  pecas: 'Peça',
+  acessorio: 'Acessório',
+  insumo: 'Insumo',
 };
 
 export const Item = (item) => ({
