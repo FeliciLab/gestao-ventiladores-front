@@ -1,13 +1,5 @@
-import React, {
-  useContext,
-  useEffect,
-  useState,
-} from 'react';
-import {
-  Grid,
-  Radio,
-  TextField,
-} from '@material-ui/core';
+import React, { useContext, useEffect, useState } from 'react';
+import { Grid, Radio, TextField } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -18,18 +10,20 @@ import TableHead from '@material-ui/core/TableHead';
 import ItemContext from '../ItemContext';
 import { randomIndex } from '../../../utils';
 
-
 const FormMergeItems = () => {
   const { mergeItems, modelMerge, setModelMerge } = useContext(ItemContext);
   const [amount, setAmount] = useState(0);
   const [rowChosen, setRowChosen] = useState(0);
+
   const handleSetModel = (event) => {
     const doc = {};
-    doc[event.target.name] = event.target.name === 'quantidade' && event.target.value < amount
-      ? amount
-      : event.target.value;
+    doc[event.target.name] =
+      event.target.name === 'quantidade' && event.target.value < amount
+        ? amount
+        : event.target.value;
     setModelMerge({ ...modelMerge, ...doc });
   };
+
   const headTable = [
     { id: 'tipo', label: 'Tipo' },
     { id: 'fabricante', label: 'Fabricante' },
@@ -41,8 +35,22 @@ const FormMergeItems = () => {
   ];
 
   const handleData = () => {
-    const itemsAmount = Object.values(mergeItems).reduce((a, c) => a + c.quantidade, 0);
+    const itemsAmount = Object.values(mergeItems).reduce(
+      (a, c) => a + c.quantidade,
+      0
+    );
     setAmount(itemsAmount);
+    setModelMerge({
+      ...modelMerge,
+      ...Object.values(mergeItems)[0],
+      quantidade: itemsAmount,
+    });
+  };
+
+  const handleSelectItem = (key, index) => {
+    const { quantidade } = modelMerge;
+    setModelMerge({ ...modelMerge, ...mergeItems[key], quantidade });
+    setRowChosen(index);
   };
 
   useEffect(handleData, [mergeItems]);
@@ -52,7 +60,9 @@ const FormMergeItems = () => {
       <Grid container spacing={4}>
         <Grid item xs={12}>
           <Typography variant="h5">Itens selecionados</Typography>
-          <Typography variant="caption">Selecione uma linha de referência</Typography>
+          <Typography variant="caption">
+            Selecione uma linha de referência
+          </Typography>
           <TableContainer>
             <Table>
               <TableHead>
@@ -64,18 +74,19 @@ const FormMergeItems = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {Object.values(mergeItems).map((doc, index) => (
+                {Object.keys(mergeItems).map((key, index) => (
                   <TableRow
                     hover
                     key={randomIndex()}
-                    onClick={() => setRowChosen(index)}
-                  >
+                    onClick={() => handleSelectItem(key, index)}>
                     <TableCell>
                       <Radio value={index} checked={index === rowChosen} />
                     </TableCell>
 
                     {headTable.map((headItem) => (
-                      <TableCell key={randomIndex()}>{doc[headItem.id]}</TableCell>
+                      <TableCell key={randomIndex()}>
+                        {mergeItems[key][headItem.id]}
+                      </TableCell>
                     ))}
                   </TableRow>
                 ))}
@@ -141,6 +152,7 @@ const FormMergeItems = () => {
                       name="quantidade"
                       value={modelMerge.quantidade}
                       onChange={handleSetModel}
+                      type="number"
                       fullWidth
                     />
                   </TableCell>
