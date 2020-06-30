@@ -11,6 +11,7 @@ import { Item, itemDiagnosisModel } from '../../../models/item';
 import DialogFormItem from '../DialogFormItem/DialogFormItem';
 import ItemContext from '../ItemContext';
 import DialogItemMerge from '../DialogItemMerge';
+import { useForm } from 'react-hook-form';
 
 const useStyle = makeStyles((theme) => ({
   gridContainer: {
@@ -20,6 +21,10 @@ const useStyle = makeStyles((theme) => ({
 
 const ItemsPage = (props) => {
   const { items } = props;
+  const { register, errors, triggerValidation, handleSubmit } = useForm({
+    mode: 'onBlur',
+    reValidateMode: 'onChange',
+  });
 
   const [item, setItem] = useState({ ...itemDiagnosisModel });
   const [mergeItems, setMergeItems] = useState([]);
@@ -71,6 +76,7 @@ const ItemsPage = (props) => {
           return acc;
         }, {}),
     });
+
     setOpenMergeDialog(true);
   };
 
@@ -138,6 +144,10 @@ const ItemsPage = (props) => {
           setMergeItems,
           item,
           setItem,
+          register,
+          errors,
+          triggerValidation,
+          handleSubmit,
         }}>
         <DialogItemMerge open={openMergeDialog} closeDialog={closeDialog} />
       </ItemContext.Provider>

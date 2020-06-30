@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useState } from 'react';
 import PropTypes from 'prop-types';
-import { useForm } from 'react-hook-form';
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
 import ItemContext from './ItemContext';
@@ -19,12 +18,13 @@ const useStyle = makeStyles((theme) => ({
 }));
 
 const DialogItemMerge = (props) => {
-  const { mergeItems, item } = useContext(ItemContext);
-
-  const { register, errors, triggerValidation } = useForm({
-    mode: 'onBlur',
-    reValidateMode: 'onChange',
-  });
+  const {
+    mergeItems,
+    item,
+    errors,
+    triggerValidation,
+    handleSubmit,
+  } = useContext(ItemContext);
 
   const classes = useStyle();
   const { open, closeDialog } = props;
@@ -44,7 +44,7 @@ const DialogItemMerge = (props) => {
       open={open}
       title="Mesclar Itens"
       handleCancel={closeDialog}
-      handleSave={handleSave}>
+      handleSave={handleSubmit(handleSave)}>
       <Container className={classes.container}>
         <AlertFormErrorSubmit show={showError} setShow={setShowError} timeout />
         <FormMergeItems />

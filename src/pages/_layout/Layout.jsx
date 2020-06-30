@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import grey from '@material-ui/core/colors/grey';
 import makeStyles from '@material-ui/core/styles/makeStyles';
+import useTheme from '@material-ui/core/styles/useTheme';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
-
 
 const useStyle = makeStyles(() => ({
   layout: {
@@ -20,10 +20,11 @@ const useStyle = makeStyles(() => ({
 const Layout = (props) => {
   const classes = useStyle();
   const { children, ...opt } = props;
+  const theme = useTheme();
   return (
     <div className={classes.layout} {...opt}>
       <Header />
-      {children}
+      <div style={{ paddingBottom: theme.spacing(5) }}>{children}</div>
       <Footer />
     </div>
   );

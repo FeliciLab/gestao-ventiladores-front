@@ -6,13 +6,8 @@ import ModalActionSaveCancel from '../ModalActionSaveCancel/ModalActionSaveCance
 const FormDialog = (props) => {
   const { open, title, handleCancel, children, handleSave } = props;
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    handleSave(event);
-  };
-
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSave}>
       <FullDialog
         open={open}
         title={title}

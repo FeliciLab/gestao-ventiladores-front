@@ -28,7 +28,7 @@ const ModalActionSaveCancel = ({ handleSave, handleCancel }) => {
         <Grid item>
           <ThemeButton
             startIcon={<SaveIcon />}
-            onClick={() => handleSave()}
+            onClick={handleSave}
             name="Salvar"
             color={orange[600]}
             bgColor="#FFF"

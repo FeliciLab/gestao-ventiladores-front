@@ -1,13 +1,6 @@
-import React, {
-  useEffect,
-  useState,
-} from 'react';
+import React, { useEffect, useState } from 'react';
 import IndexItems from './IndexItems/IndexItems';
-import { listaAcessorios } from '../../models/acessorio';
-import { Item } from '../../models/item';
 import { getAllItemsRequest } from '../../modelServices/itemService/itemService';
-import { randomIndex } from '../../utils';
-
 
 export default function () {
   const [items, setItems] = useState([]);
@@ -15,19 +8,12 @@ export default function () {
   const [loading, setLoading] = useState(true);
 
   const handleEffect = () => {
+    setProgress(40);
     getAllItemsRequest().then((result) => {
-      console.log(result.status, result.data);
+      setItems(result.data.content);
+      setProgress(100);
+      setLoading(false);
     });
-    setItems(listaAcessorios.map((item) => Item({
-      nome: item,
-      quantidade: Math.floor(Math.random() * 10),
-      fabricante: randomIndex(),
-      unidade_medida: randomIndex(),
-      codigo: randomIndex(),
-      descricao: randomIndex(),
-    })));
-    setProgress(100);
-    setLoading(false);
   };
 
   useEffect(handleEffect, []);
