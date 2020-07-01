@@ -9,7 +9,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import ItemContext from '../ItemContext';
 import { randomIndex } from '../../../utils';
-import CreateNewItem from '../CreateNewItem';
+import FormItem from '../FormItem';
 import { mapTypeItems } from '../../../models/item';
 
 const FormMergeItems = () => {
@@ -92,7 +92,7 @@ const FormMergeItems = () => {
 
         <Grid item xs={12}>
           <Typography variant="h5">Novo Item</Typography>
-          <CreateNewItem minAmount={minAmount} />
+          <FormItem minAmount={minAmount} />
         </Grid>
       </Grid>
     </>

@@ -10,7 +10,7 @@ import TextField from '@material-ui/core/TextField';
 import ItemContext from './ItemContext';
 import ErrorAlertText from '../_common/alerts/ErrorAlertText';
 
-const CreateNewItem = ({ minAmount }) => {
+const FormItem = ({ minAmount }) => {
   const { item, setItem, errors, register } = useContext(ItemContext);
 
   const updateItem = (event) => {
@@ -132,12 +132,12 @@ const CreateNewItem = ({ minAmount }) => {
   );
 };
 
-CreateNewItem.defaultProps = {
+FormItem.defaultProps = {
   minAmount: 0,
 };
 
-CreateNewItem.propTypes = {
+FormItem.propTypes = {
   minAmount: PropTypes.number,
 };
 
-export default CreateNewItem;
+export default FormItem;

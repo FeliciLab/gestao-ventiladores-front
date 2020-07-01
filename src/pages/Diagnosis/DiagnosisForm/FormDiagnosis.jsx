@@ -8,7 +8,7 @@ import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import CadastroDiagnostico from './CadastroDiagnostico';
 import HeaderFormPage from './HeaderFormPage';
-import CadastroItens from '../../Items/CreateNewItem';
+import CadastroItens from '../../Items/FormItem';
 import FormRegisteredItems from './FormRegisteredItems';
 
 const useStyles = makeStyles((theme) => ({

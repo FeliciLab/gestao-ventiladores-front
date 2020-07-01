@@ -12,6 +12,7 @@ import DialogFormItem from '../DialogFormItem/DialogFormItem';
 import ItemContext from '../ItemContext';
 import DialogItemMerge from '../DialogItemMerge';
 import { useForm } from 'react-hook-form';
+import AlertPopUp from '../../../components/AlertPopUp/AlertPopUp';
 
 const useStyle = makeStyles((theme) => ({
   gridContainer: {
@@ -134,7 +135,8 @@ const ItemsPage = (props) => {
         </Grid>
       </Grid>
 
-      <ItemContext.Provider value={{ item, setItem }}>
+      <ItemContext.Provider
+        value={{ item, setItem, errors, register, handleSubmit }}>
         <DialogFormItem open={openDialog} closeDialog={closeDialog} />
       </ItemContext.Provider>
 
@@ -151,6 +153,7 @@ const ItemsPage = (props) => {
         }}>
         <DialogItemMerge open={openMergeDialog} closeDialog={closeDialog} />
       </ItemContext.Provider>
+      <AlertPopUp alertMessage="" />
     </>
   );
 };

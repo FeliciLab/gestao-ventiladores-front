@@ -17,10 +17,13 @@ const useStyle = makeStyles(() => ({
   },
 }));
 
+export const AlertContext = React.createContext({});
+
 const Layout = (props) => {
   const classes = useStyle();
   const { children, ...opt } = props;
   const theme = useTheme();
+
   return (
     <div className={classes.layout} {...opt}>
       <Header />
