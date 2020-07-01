@@ -1,4 +1,4 @@
-[![EscolaDeSaudePublica/](https://circleci.com/gh/EscolaDeSaudePublica/gestao-ventiladores-front/tree/develop.svg?style=svg)](https://app.circleci.com/pipelines/github/EscolaDeSaudePublica/gestao-ventiladores-front?branch=develop)
+[![EscolaDeSaudePublica/](https://circleci.com/gh/EscolaDeSaudePublica/gestao-ventiladores-front.svg?style=svg)](https://app.circleci.com/pipelines/github/EscolaDeSaudePublica/gestao-ventiladores-front)
 
 Este repositório implementa parte do projeto "SMART Health: suporte à tomada de decisão inteligente de profissionais da saúde e gestores no combate à transmissão da COVID-19 no Ceará", desenvolvido pela Escola de Saúde Pública do Ceará (ESP-CE) em parceria com o Grupo de Engenharia de Software Adaptativo e Distribuído (GESAD) da UECE. 
 
