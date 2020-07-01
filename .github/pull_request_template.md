@@ -1,7 +1,6 @@
 ---
 Responsáveis: @PessoaA @PessoaB
-Tipo: Bug,Feature,Refactory
-issue: #numeroDaIssue
+Linked Issue: Fix|Close|Resolve #numeroDaIssue
 ---
 
 # Descrição
