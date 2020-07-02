@@ -4,6 +4,8 @@ import grey from '@material-ui/core/colors/grey';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
+import AlertPopUp from '../../components/AlertPopUp/AlertPopUp';
+
 
 const useStyle = makeStyles(() => ({
   layout: {
@@ -24,6 +26,7 @@ const Layout = (props) => {
       <Header />
       {children}
       <Footer />
+      <AlertPopUp />
     </div>
   );
 };
