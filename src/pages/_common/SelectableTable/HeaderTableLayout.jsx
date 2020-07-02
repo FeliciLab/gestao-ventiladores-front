@@ -5,15 +5,8 @@ import Checkbox from '@material-ui/core/Checkbox';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 
-
 const HeaderTableLayout = (props) => {
-  const {
-    headerData,
-    checkAllRow,
-    hasActions,
-    amountChecked,
-    amount,
-  } = props;
+  const { headerData, checkAllRow, hasActions, amountChecked, amount } = props;
 
   return (
     <TableHead>
@@ -25,18 +18,12 @@ const HeaderTableLayout = (props) => {
             onChange={() => checkAllRow(amountChecked > 0)}
           />
         </TableCell>
-        {
-          headerData.map((item) => (
-            <TableCell
-              key={item.id}
-              align="left"
-              padding="default"
-            >
-              {item.name}
-            </TableCell>
-          ))
-        }
-        {hasActions ? <TableCell>Ações</TableCell> : <></>}
+        {headerData.map((item) => (
+          <TableCell key={item.id} align="left" padding="default">
+            {item.name}
+          </TableCell>
+        ))}
+        {hasActions ? <TableCell align="right">Ações</TableCell> : <></>}
       </TableRow>
     </TableHead>
   );

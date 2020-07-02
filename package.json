@@ -6,7 +6,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "jest --verbose --coverage",
+    "test": "jest --silent --coverage",
     "test:watch": "jest --verbose --watch",
     "test:coverage": "jest --verbose --coverage && open ./coverage/lcov-report/index.html",
     "lint": "eslint src",

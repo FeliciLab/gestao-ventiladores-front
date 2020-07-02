@@ -1,12 +1,8 @@
-import React, {
-  useEffect,
-  useState,
-} from 'react';
+import React, { useEffect, useState } from 'react';
 import Layout from '../_layout/Layout';
 import { getAllServiceOrder } from '../../modelServices/serviceOrderService';
 import LoadingBar from '../_common/components/LoadingBar';
 import ScreeningPage from './ScreeningPage';
-
 
 const Screening = () => {
   const [serviceOrders, setServiceOrders] = useState([]);
@@ -16,12 +12,11 @@ const Screening = () => {
   const getData = () => {
     if (loadingData) {
       setProgerssLoad(80);
-      getAllServiceOrder()
-        .then((result) => {
-          setProgerssLoad(80);
-          setServiceOrders(result);
-          setLoadingData(false);
-        });
+      getAllServiceOrder().then((result) => {
+        setProgerssLoad(80);
+        setServiceOrders(result.slice(0, 10));
+        setLoadingData(false);
+      });
     }
   };
 
