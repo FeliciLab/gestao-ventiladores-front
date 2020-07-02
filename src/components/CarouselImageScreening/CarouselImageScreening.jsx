@@ -1,4 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, {
+  useEffect,
+  useState,
+} from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import Paper from '@material-ui/core/Paper';
@@ -6,7 +9,10 @@ import Typography from '@material-ui/core/Typography';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import MobileStepper from '@material-ui/core/MobileStepper';
 import Button from '@material-ui/core/Button';
-import { KeyboardArrowLeft, KeyboardArrowRight } from '@material-ui/icons';
+import {
+  KeyboardArrowLeft,
+  KeyboardArrowRight,
+} from '@material-ui/icons';
 import Dialog from '@material-ui/core/Dialog';
 import CloseIcon from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
@@ -14,6 +20,7 @@ import Grid from '@material-ui/core/Grid';
 import { baseImageURI } from '../../utils/serviceOrderUtils';
 import placeholderImg from '../../assets/placeholderImg.jpg';
 import CircularProgress from '@material-ui/core/CircularProgress';
+
 
 const PaperHeader = ({ photosSteps, activeStep, classes, close }) => (
   <Paper square elevation={0} className={classes.header}>
@@ -29,6 +36,7 @@ const PaperHeader = ({ photosSteps, activeStep, classes, close }) => (
     </Grid>
   </Paper>
 );
+
 PaperHeader.propTypes = {
   photosSteps: PropTypes.instanceOf(Array).isRequired,
   activeStep: PropTypes.number.isRequired,
@@ -38,30 +46,34 @@ PaperHeader.propTypes = {
 
 const PhotoContent = ({ photosSteps, activeStep, classes }) => {
   const [srcImg, setSrcImg] = useState(false);
-  useEffect(() => {
+  const handleData = () => {
     axios
       .get(photosSteps[activeStep].imgPath)
       .then(() => setSrcImg(photosSteps[activeStep].imgPath))
       .catch(() => setSrcImg(placeholderImg));
-  }, [activeStep]);
+  };
+  useEffect(handleData, [activeStep]);
 
   return (
     <Grid container justify="center" className={classes.content}>
       <Grid item>
-        {!srcImg ? (
-          <CircularProgress />
-        ) : (
-          <a
-            href={photosSteps[activeStep].imgPath}
-            rel="noopener noreferrer"
-            target="_blank">
-            <img
-              className={classes.img}
-              src={srcImg}
-              alt={photosSteps[activeStep].label}
-            />
-          </a>
-        )}
+        {!srcImg
+          ? (
+            <CircularProgress />
+          )
+          : (
+            <a
+              href={photosSteps[activeStep].imgPath}
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                className={classes.img}
+                src={srcImg}
+                alt={photosSteps[activeStep].label}
+              />
+            </a>
+          )}
       </Grid>
     </Grid>
   );
@@ -83,7 +95,8 @@ const PhotoStepper = ({ maxSteps, activeStep, setNextStep, setPrevStep }) => (
         size="small"
         onClick={setNextStep}
         disabled={activeStep === maxSteps - 1}
-        aria-label="próxima-imagem">
+        aria-label="próxima-imagem"
+      >
         Próxima
         <KeyboardArrowRight />
       </Button>
@@ -93,7 +106,8 @@ const PhotoStepper = ({ maxSteps, activeStep, setNextStep, setPrevStep }) => (
         size="small"
         onClick={setPrevStep}
         disabled={activeStep === 0}
-        aria-label="imagem-anterior">
+        aria-label="imagem-anterior"
+      >
         <KeyboardArrowLeft />
         Anterior
       </Button>
@@ -135,15 +149,15 @@ const CarouselImageScreening = (props) => {
   const photosSteps =
     item && item._id
       ? [
-          {
-            label: 'Foto antes da limpeza',
-            imgPath: `${baseImageURI(item)}/foto_antes_limpeza.jpeg`,
-          },
-          {
-            label: 'Foto após da limpeza',
-            imgPath: `${baseImageURI(item)}/foto_apos_limpeza.jpeg`,
-          },
-        ]
+        {
+          label: 'Foto antes da limpeza',
+          imgPath: `${baseImageURI(item)}/foto_antes_limpeza.jpeg`,
+        },
+        {
+          label: 'Foto após da limpeza',
+          imgPath: `${baseImageURI(item)}/foto_apos_limpeza.jpeg`,
+        },
+      ]
       : [];
 
   return (
@@ -153,7 +167,8 @@ const CarouselImageScreening = (props) => {
       aria-labelledby="imagem-do-equipamento"
       aria-describedby="imagem-do-equipamento"
       fullWidth
-      maxWidth="xl">
+      maxWidth="xl"
+    >
       {photosSteps.length && (
         <div data-testid="photo-dialog-stepper">
           <PaperHeader
