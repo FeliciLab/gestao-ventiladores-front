@@ -1,8 +1,7 @@
 import React from 'react';
 import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
-import AlertContext from '../../context/AlertContext';
-
+import AlertContext from '../../contexts/AlertContext';
 
 const { useContext } = require('react');
 
@@ -12,13 +11,11 @@ const AlertPopUp = () => {
     <Snackbar
       open={!!alert.message}
       autoHideDuration={6000}
-      onClose={() => setAlertMessage('')}
-    >
+      onClose={() => setAlertMessage('')}>
       <Alert
         severity={alert.alertType}
         onClose={() => setAlertMessage('')}
-        variant="filled"
-      >
+        variant="filled">
         <span data-testid="alert-message">{alert.message}</span>
       </Alert>
     </Snackbar>

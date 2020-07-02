@@ -1,16 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Layout from '../_layout/Layout';
 import { getAllServiceOrder } from '../../modelServices/serviceOrderService';
 import LoadingBar from '../_common/components/LoadingBar';
 import ScreeningPage from './ScreeningPage';
+import LoadingContext from '../../contexts/LoadingContext';
 
 const Screening = () => {
   const [serviceOrders, setServiceOrders] = useState([]);
   const [loadingData, setLoadingData] = useState(true);
   const [progressLoad, setProgerssLoad] = useState(0);
+  const { setLoadingContext } = useContext(LoadingContext);
 
   const getData = () => {
     if (loadingData) {
+      setLoadingContext({ open: true });
       setProgerssLoad(80);
       getAllServiceOrder().then((result) => {
         setProgerssLoad(80);

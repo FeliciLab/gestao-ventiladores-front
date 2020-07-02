@@ -1,8 +1,8 @@
-import React, { useState, useContext } from 'react';
-import { Input, makeStyles, Grid } from '@material-ui/core';
+import React, { useContext, useState } from 'react';
+import { Grid, Input, makeStyles } from '@material-ui/core';
 import SendIcon from '@material-ui/icons/Send';
 import ThemeButton from '../_common/forms/ThemeButton';
-import AuthContext from '../../contexts/auth';
+import AuthContext from '../../contexts/AuthContext';
 
 const useStyles = makeStyles(() => ({
   container: {

@@ -1,22 +1,17 @@
 import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
-import {
-  render,
-  screen,
-} from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import AlertPopUp from './AlertPopUp';
-import AlertContext from '../../context/AlertContext';
+import AlertContext from '../../contexts/AlertContext';
 
-
-describe('<AlertPopUp/>', () => {
+describe('<Loading/>', () => {
   it('should render with valid message', () => {
     render(
       <AlertContext.Provider
         value={{
           alert: { message: 'Eita, joia xablau!', alertType: 'success' },
           setAlertMessage: jest.fn(),
-        }}
-      >
+        }}>
         <AlertPopUp />
       </AlertContext.Provider>,
     );
@@ -30,8 +25,7 @@ describe('<AlertPopUp/>', () => {
         value={{
           alert: { message: 'Eita, joia xablau!', alertType: 'success' },
           setAlertMessage: jest.fn(),
-        }}
-      >
+        }}>
         <AlertPopUp />
       </AlertContext.Provider>,
     );
@@ -45,8 +39,7 @@ describe('<AlertPopUp/>', () => {
         value={{
           alert: { message: '', alertType: 'success' },
           setAlertMessage: jest.fn(),
-        }}
-      >
+        }}>
         <AlertPopUp />
       </AlertContext.Provider>,
     );
