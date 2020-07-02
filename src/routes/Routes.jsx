@@ -1,7 +1,8 @@
-import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import React, { useContext } from 'react';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { randomIndex } from '../utils';
+import { PRIVATE_ROUTES_CONFIG, PUBLIC_ROUTES_CONFIG } from './routesConfig';
+import AuthContext from '../contexts/auth';
 
 export const hasRoutes = (routes) => {
   if (routes && routes.length > 0) {
@@ -10,28 +11,26 @@ export const hasRoutes = (routes) => {
   return false;
 };
 
-const getRoutes = (routes) => {
-  if (hasRoutes(routes)) {
-    return routes.map((route) => (
-      <Route
-        key={randomIndex()}
-        path={route.path}
-        exact={route.exact}
-        component={route.component}
-      />
-    ));
+const Routes = () => {
+  const { loginStatus } = useContext(AuthContext);
+  const routes = loginStatus ? PRIVATE_ROUTES_CONFIG : PUBLIC_ROUTES_CONFIG;
+  if (!hasRoutes(routes)) {
+    throw new Error('Routes component require routes as props');
   }
-  throw new Error('Routes component require routes as props');
-};
-
-const Routes = ({ routes }) => (
-  <BrowserRouter>
-    <Switch>{getRoutes(routes)}</Switch>
-  </BrowserRouter>
-);
-
-Routes.propTypes = {
-  routes: PropTypes.instanceOf(Array).isRequired,
+  return (
+    <BrowserRouter>
+      <Switch>
+        {routes.map((route) => (
+          <Route
+            key={randomIndex()}
+            path={route.path}
+            exact={route.exact}
+            component={route.component}
+          />
+        ))}
+      </Switch>
+    </BrowserRouter>
+  );
 };
 
 export default Routes;
