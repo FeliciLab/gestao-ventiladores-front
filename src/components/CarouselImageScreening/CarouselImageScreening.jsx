@@ -29,6 +29,7 @@ const PaperHeader = ({ photosSteps, activeStep, classes, close }) => (
     </Grid>
   </Paper>
 );
+
 PaperHeader.propTypes = {
   photosSteps: PropTypes.instanceOf(Array).isRequired,
   activeStep: PropTypes.number.isRequired,
@@ -38,12 +39,13 @@ PaperHeader.propTypes = {
 
 const PhotoContent = ({ photosSteps, activeStep, classes }) => {
   const [srcImg, setSrcImg] = useState(false);
-  useEffect(() => {
+  const handleData = () => {
     axios
       .get(photosSteps[activeStep].imgPath)
       .then(() => setSrcImg(photosSteps[activeStep].imgPath))
       .catch(() => setSrcImg(placeholderImg));
-  }, [activeStep]);
+  };
+  useEffect(handleData, [activeStep]);
 
   return (
     <Grid container justify="center" className={classes.content}>
