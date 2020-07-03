@@ -5,6 +5,7 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import AlertPopUp from '../../components/AlertPopUp/AlertPopUp';
+import Loading from '../../components/Loading/Loading';
 
 
 const useStyle = makeStyles(() => ({
@@ -27,6 +28,7 @@ const Layout = (props) => {
       {children}
       <Footer />
       <AlertPopUp />
+      <Loading />
     </div>
   );
 };

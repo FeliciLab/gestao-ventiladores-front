@@ -1,9 +1,13 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, {
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 import Layout from '../_layout/Layout';
 import { getAllServiceOrder } from '../../modelServices/serviceOrderService';
-import LoadingBar from '../_common/components/LoadingBar';
 import ScreeningPage from './ScreeningPage';
 import LoadingContext from '../../contexts/LoadingContext';
+
 
 const Screening = () => {
   const [serviceOrders, setServiceOrders] = useState([]);
@@ -13,12 +17,14 @@ const Screening = () => {
 
   const getData = () => {
     if (loadingData) {
-      setLoadingContext({ open: true });
+      setLoadingContext({ open: true, message: 'Buscando dados', progress: 30 });
       setProgerssLoad(80);
       getAllServiceOrder().then((result) => {
+        setLoadingContext({ message: 'Formatando dados', progress: 60 });
         setProgerssLoad(80);
         setServiceOrders(result.slice(0, 10));
         setLoadingData(false);
+        setLoadingContext({ open: false });
       });
     }
   };
@@ -31,7 +37,8 @@ const Screening = () => {
   };
 
   if (loadingData) {
-    return <LoadingBar progress={progressLoad} />;
+    // return <LoadingBar progress={progressLoad} />;
+    return <></>;
   }
 
   return (
