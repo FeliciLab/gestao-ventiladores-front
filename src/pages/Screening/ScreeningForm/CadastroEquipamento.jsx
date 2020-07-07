@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Grid, MenuItem, TextField, Typography } from '@material-ui/core';
 import equipmentTypes from '../../../models/equipmentTypes';
@@ -14,8 +14,10 @@ import {
 import InputRadioDialog from '../../_common/forms/InputRadioDialog';
 import ErrorAlertText from '../../_common/alerts/ErrorAlertText';
 import { randomIndex } from '../../../utils';
+import AlertContext from '../../../contexts/AlertContext';
 
 const CadastroEquipamento = (props) => {
+  const { setAlertMessage } = useContext(AlertContext);
   const cities = getCities('CE');
   const {
     errors,
@@ -54,8 +56,8 @@ const CadastroEquipamento = (props) => {
     const id = serviceOrder._id.$oid || serviceOrder._id;
     sendEquipmentPhoto(photo, name, id)
       .then((result) => {
-        // NOTIFICATION JOIADO
         if (result) {
+          setAlertMessage('Imagem anexada com sucesso');
           updateServiceOrderParent({
             target: {
               name: '_id',
@@ -71,7 +73,7 @@ const CadastroEquipamento = (props) => {
         }
       })
       .catch(() => {
-        //  notification fail
+        setAlertMessage('Erro no anexo, tente novamente', 'error');
       });
   };
 
