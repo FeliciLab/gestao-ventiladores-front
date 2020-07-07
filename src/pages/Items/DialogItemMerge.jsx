@@ -1,41 +1,35 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, {
+  createContext,
+  useContext,
+} from 'react';
 import PropTypes from 'prop-types';
 import Container from '@material-ui/core/Container';
-import { makeStyles } from '@material-ui/core/styles';
-import ItemContext from './ItemContext';
+import ItemContext from '../../contexts/ItemContext';
 import { mergeItemRequest } from '../../modelServices/itemService/itemService';
-import AlertFormErrorSubmit from '../../components/AlertFormErrorSubmit/AlertFormErrorSubmit';
 import FormMergeItems from './FormMergeItems/FormMergeItems';
 import FormDialog from '../../components/FormDialog/FormDialog';
+import AlertContext from '../../context/AlertContext';
+import FormContext from '../../contexts/FormContext';
 
 export const MergeItemContext = createContext({});
-
-const useStyle = makeStyles((theme) => ({
-  container: {
-    paddingTop: theme.spacing(4),
-    paddingBottom: theme.spacing(4),
-  },
-}));
 
 const DialogItemMerge = (props) => {
   const {
     mergeItems,
     item,
-    errors,
-    triggerValidation,
-    handleSubmit,
   } = useContext(ItemContext);
 
-  const classes = useStyle();
+  const { handleSubmit } = useContext(FormContext);
+
   const { open, closeDialog } = props;
 
-  const [showError, setShowError] = useState(false);
+  const { setAlertMessage } = useContext(AlertContext);
 
   const handleSave = () => {
     mergeItemRequest({ toUpdate: item, toRemove: Object.values(mergeItems) })
       // .then(() => window.location.reload())
       .catch(() => {
-        setShowError(true);
+        setAlertMessage('Não foi possível se conectar ao servidor. Entre em contato com o suporte', 'error');
       });
   };
 
@@ -44,9 +38,9 @@ const DialogItemMerge = (props) => {
       open={open}
       title="Mesclar Itens"
       handleCancel={closeDialog}
-      handleSave={handleSubmit(handleSave)}>
-      <Container className={classes.container}>
-        <AlertFormErrorSubmit show={showError} setShow={setShowError} timeout />
+      handleSave={handleSubmit(handleSave)}
+    >
+      <Container>
         <FormMergeItems />
       </Container>
     </FormDialog>

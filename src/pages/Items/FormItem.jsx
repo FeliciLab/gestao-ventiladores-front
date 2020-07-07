@@ -7,18 +7,19 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
 import TextField from '@material-ui/core/TextField';
-import ItemContext from './ItemContext';
+import ItemContext from '../../contexts/ItemContext';
 import ErrorAlertText from '../_common/alerts/ErrorAlertText';
+import FormContext from '../../contexts/FormContext';
 
 const FormItem = ({ minAmount }) => {
-  const { item, setItem, errors, register } = useContext(ItemContext);
+  const { item, setItem } = useContext(ItemContext);
+  const { errors, register } = useContext(FormContext);
 
   const updateItem = (event) => {
     const doc = {};
-    doc[event.target.name] =
-      event.target.name === 'quantidade' && event.target.value < minAmount
-        ? minAmount
-        : event.target.value;
+    doc[event.target.name] = event.target.name === 'quantidade' && event.target.value < minAmount
+      ? minAmount
+      : event.target.value;
     setItem({ ...item, ...doc });
   };
 
@@ -34,7 +35,8 @@ const FormItem = ({ minAmount }) => {
               value={item.tipo}
               onChange={updateItem}
               style={{ flexDirection: 'row' }}
-              required>
+              required
+            >
               <FormControlLabel
                 value="pecas"
                 name="tipo"

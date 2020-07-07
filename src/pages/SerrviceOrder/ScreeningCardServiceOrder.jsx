@@ -1,9 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Grid, Typography } from '@material-ui/core';
+import {
+  Grid,
+  Typography,
+} from '@material-ui/core';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import AccessoriesTablePagination from './AccesoriesTablePagination';
-
+import PhotoModal from '../../components/PhotoModal/PhotoModal';
+import {
+  baseImageURI,
+  hasPhoto,
+  hasPhotoAfter,
+  hasPhotoBefore,
+} from '../../utils/serviceOrderUtils';
 
 const useStyle = makeStyles(() => ({
   rowItem: {
@@ -28,17 +37,41 @@ const ScreeningCardServiceOrder = (props) => {
           </Typography>
           <AccessoriesTablePagination items={item.triagem.acessorios} />
         </Grid>
+        {hasPhoto(item) ? (
+          <Grid item xs={12} className={classes.rowItem}>
+            <Grid container spacing={4}>
+              {hasPhotoBefore(item) ? (
+                <Grid item xs={6} style={{ height: '227' }}>
+                  <PhotoModal
+                    src={`${baseImageURI(item)}/foto_antes_limpeza.jpeg`}
+                    alt="Foto antes da limpeza"
+                  />
+                </Grid>
+              ) : (
+                <></>
+              )}
+              {hasPhotoAfter(item) ? (
+                <Grid item xs={6} style={{ height: '227px' }}>
+                  <PhotoModal
+                    src={`${baseImageURI(item)}/foto_apos_limpeza.jpeg`}
+                    alt="Foto após da limpeza"
+                  />
+                </Grid>
+              ) : (
+                <></>
+              )}
+            </Grid>
+          </Grid>
+        ) : (
+          <></>
+        )}
       </Grid>
     </>
   );
 };
 
 ScreeningCardServiceOrder.propTypes = {
-  item: PropTypes.shape({
-    triagem: PropTypes.shape({
-      acessorios: PropTypes.instanceOf(Array),
-    }),
-  }).isRequired,
+  item: PropTypes.instanceOf(Object).isRequired,
 };
 
 export default ScreeningCardServiceOrder;

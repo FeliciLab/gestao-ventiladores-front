@@ -25,7 +25,6 @@ import ScreeningCardServiceOrder from './ScreeningCardServiceOrder';
 import ScreeningEquipment from './ScreeningEquipment';
 import CalibrationCardService from './CalibrationCardServiceOrder';
 
-
 const useStyle = makeStyles(() => ({
   cardItem: {
     marginTop: '1rem',
@@ -95,14 +94,14 @@ const useStyle = makeStyles(() => ({
 const ServiceOrderCollapseItem = (props) => {
   const classes = useStyle();
   const statusMap = serviceOrderStatus;
-  const {
-    item,
-    deliveryOrders,
-  } = props;
+  const { item, deliveryOrders } = props;
 
   const hasOrder = deliveryOrders
-    ? deliveryOrders.find((deliveryOrder) => deliveryOrder.equipamentos_id
-      .find((e) => e.$oid === item.equipamento_id.$oid))
+    ? deliveryOrders.find((deliveryOrder) =>
+        deliveryOrder.equipamentos_id.find(
+          (e) => e.$oid === item.equipamento_id.$oid,
+        ),
+      )
     : false;
 
   const [expanded, setExpanded] = useState(false);
@@ -116,7 +115,11 @@ const ServiceOrderCollapseItem = (props) => {
       <Card className={classes.cardItem}>
         <CardContent className={classes.cardArea}>
           <Grid container style={{ marginBottom: '1.5rem' }}>
-            <Grid item xs={12} md="auto" className={`${classes.chips} ${classes.osNumber}`}>
+            <Grid
+              item
+              xs={12}
+              md="auto"
+              className={`${classes.chips} ${classes.osNumber}`}>
               <Typography variant="body1">
                 <strong>
                   OS
@@ -126,78 +129,94 @@ const ServiceOrderCollapseItem = (props) => {
                 </strong>
               </Typography>
             </Grid>
-            <Grid item xs={12} md="auto" className={`${classes.chips} ${classes.osStatus}`}>
+            <Grid
+              item
+              xs={12}
+              md="auto"
+              className={`${classes.chips} ${classes.osStatus}`}>
               <Typography variant="body1">
                 <strong>
                   STATUS:
-                  <span className={`${classes.valueItem} ${classes.valueStatus}`}>
-                    {hasOrder
-                      ? statusMap.entrega
-                      : statusMap[item.status]}
+                  <span
+                    className={`${classes.valueItem} ${classes.valueStatus}`}>
+                    {hasOrder ? statusMap.entrega : statusMap[item.status]}
                   </span>
                 </strong>
               </Typography>
             </Grid>
 
-            {item.calibragem
-              ? (
-                <Grid
-                  item
-                  xs={12}
-                  md="auto"
-                  className={`${classes.chips} ${classes.calibrationStatus}`}
-                >
-                  <Typography variant="body1">
-                    <strong>
-                      CALIBRAGEM:
-                      <span className={`${classes.valueItem} ${classes.valueCalibration}`}>
-                        {item.calibragem.status}
-                      </span>
-                    </strong>
-                  </Typography>
-                </Grid>
-              )
-              : ''}
+            {item.calibragem ? (
+              <Grid
+                item
+                xs={12}
+                md="auto"
+                className={`${classes.chips} ${classes.calibrationStatus}`}>
+                <Typography variant="body1">
+                  <strong>
+                    CALIBRAGEM:
+                    <span
+                      className={`${classes.valueItem} ${classes.valueCalibration}`}>
+                      {item.calibragem.status}
+                    </span>
+                  </strong>
+                </Typography>
+              </Grid>
+            ) : (
+              ''
+            )}
 
-
-            {hasOrder
-              ? (
-                <Grid
-                  item
-                  xs={12}
-                  md="auto"
-                  className={`${classes.chips} ${classes.deliveryDate}`}
-                >
-                  <Typography variant="body1">
-                    <strong>
-                      ENTREGUE EM:
-                      <span className={`${classes.valueItem} ${classes.valueDeliveryDate}`}>
-                        {moment(hasOrder.data_entrega.$date)
-                          .tz('America/Fortaleza')
-                          .format('DD/MM/YYYY')}
-                      </span>
-                    </strong>
-                  </Typography>
-                </Grid>
-              )
-              : ''}
+            {hasOrder ? (
+              <Grid
+                item
+                xs={12}
+                md="auto"
+                className={`${classes.chips} ${classes.deliveryDate}`}>
+                <Typography variant="body1">
+                  <strong>
+                    ENTREGUE EM:
+                    <span
+                      className={`${classes.valueItem} ${classes.valueDeliveryDate}`}>
+                      {moment(hasOrder.data_entrega.$date)
+                        .tz('America/Fortaleza')
+                        .format('DD/MM/YYYY')}
+                    </span>
+                  </strong>
+                </Typography>
+              </Grid>
+            ) : (
+              ''
+            )}
           </Grid>
 
           <Grid container spacing={3} alignItems="center" justify="center">
             <Grid item xs={12} md={3}>
-              <Typography variant="body1"><strong>TIPO EQUIPAMENTO:</strong></Typography>
-              <Typography variant="body2">{item.equipamento[0].tipo}</Typography>
+              <Typography variant="body1">
+                <strong>TIPO EQUIPAMENTO:</strong>
+              </Typography>
+              <Typography variant="body2">
+                {item.equipamento[0].tipo}
+              </Typography>
             </Grid>
             <Grid item xs={12} md={3}>
-              <Typography variant="body1"><strong>INSTITUIÇÃO DE ORIGEM:</strong></Typography>
-              <Typography variant="body2">{item.equipamento[0].nome_instituicao_origem}</Typography>
+              <Typography variant="body1">
+                <strong>INSTITUIÇÃO DE ORIGEM:</strong>
+              </Typography>
+              <Typography variant="body2">
+                {item.equipamento[0].nome_instituicao_origem}
+              </Typography>
             </Grid>
             <Grid item xs={12} md={3}>
-              <Typography variant="body1"><strong>MUNICÍPIO DE ORIGEM:</strong></Typography>
-              <Typography variant="body2">{item.equipamento[0].municipio_origem}</Typography>
+              <Typography variant="body1">
+                <strong>MUNICÍPIO DE ORIGEM:</strong>
+              </Typography>
+              <Typography variant="body2">
+                {item.equipamento[0].municipio_origem}
+              </Typography>
             </Grid>
             <Grid item xs={12} md={3}>
-              <Typography variant="body1"><strong>DATA DE CRIAÇÃO</strong></Typography>
+              <Typography variant="body1">
+                <strong>DATA DE CRIAÇÃO</strong>
+              </Typography>
               <Typography variant="body2">
                 {moment(item.created_at.$date).format('DD/MM/YYYY')}
               </Typography>
@@ -210,8 +229,7 @@ const ServiceOrderCollapseItem = (props) => {
               <IconButton
                 onClick={handleExpandClick}
                 aria-expanded={expanded}
-                aria-label="Exibir mais"
-              >
+                aria-label="Exibir mais">
                 <ExpandMoreIcon fontSize="large" />
               </IconButton>
             </Grid>
@@ -223,12 +241,12 @@ const ServiceOrderCollapseItem = (props) => {
             <CardContent>
               <ScreeningEquipment equipment={item.equipamento[0]} />
               <ScreeningCardServiceOrder item={item} />
-              {item.diagnostico
-                ? <DiagnosisCardServiceOrder item={item} />
-                : <></>}
-              {item.calibragem
-                ? <CalibrationCardService item={item} />
-                : <></>}
+              {item.diagnostico ? (
+                <DiagnosisCardServiceOrder item={item} />
+              ) : (
+                <></>
+              )}
+              {item.calibragem ? <CalibrationCardService item={item} /> : <></>}
             </CardContent>
           </Card>
         </Collapse>

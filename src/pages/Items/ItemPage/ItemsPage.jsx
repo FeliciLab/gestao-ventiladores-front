@@ -1,18 +1,25 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Grid, Paper, Tab, Tabs } from '@material-ui/core';
+import {
+  Grid,
+  Paper,
+  Tab,
+  Tabs,
+} from '@material-ui/core';
 import { orange } from '@material-ui/core/colors';
 import { makeStyles } from '@material-ui/core/styles';
 import EditIcon from '@material-ui/icons/Edit';
 import AddIcon from '@material-ui/icons/Add';
 import TableCheckedList from '../../_common/SelectableTable/TableCheckedList';
 import ThemeButton from '../../_common/forms/ThemeButton';
-import { Item, itemDiagnosisModel } from '../../../models/item';
+import {
+  Item,
+  itemDiagnosisModel,
+} from '../../../models/item';
 import DialogFormItem from '../DialogFormItem/DialogFormItem';
-import ItemContext from '../ItemContext';
+import ItemContext from '../../../contexts/ItemContext';
 import DialogItemMerge from '../DialogItemMerge';
-import { useForm } from 'react-hook-form';
-import AlertPopUp from '../../../components/AlertPopUp/AlertPopUp';
+import { FormProvider } from '../../../contexts/FormContext';
 
 const useStyle = makeStyles((theme) => ({
   gridContainer: {
@@ -22,10 +29,6 @@ const useStyle = makeStyles((theme) => ({
 
 const ItemsPage = (props) => {
   const { items } = props;
-  const { register, errors, triggerValidation, handleSubmit } = useForm({
-    mode: 'onBlur',
-    reValidateMode: 'onChange',
-  });
 
   const [item, setItem] = useState({ ...itemDiagnosisModel });
   const [mergeItems, setMergeItems] = useState([]);
@@ -69,9 +72,7 @@ const ItemsPage = (props) => {
   const mergeItemsDialog = (data) => {
     setMergeItems({
       ...items
-        .filter((filtering) =>
-          data.find((d) => filtering[selectKeyField] === d)
-        )
+        .filter((filtering) => data.find((d) => filtering[selectKeyField] === d))
         .reduce((acc, curr, index) => {
           acc[index] = curr;
           return acc;
@@ -103,7 +104,8 @@ const ItemsPage = (props) => {
                 value={tabValue}
                 onChange={changeTab}
                 aria-label="abas-triagem"
-                centered>
+                centered
+              >
                 <Tab label="Gestão de Itens" aria-controls="gestao-de-itens" />
               </Tabs>
             </Grid>
@@ -135,9 +137,10 @@ const ItemsPage = (props) => {
         </Grid>
       </Grid>
 
-      <ItemContext.Provider
-        value={{ item, setItem, errors, register, handleSubmit }}>
-        <DialogFormItem open={openDialog} closeDialog={closeDialog} />
+      <ItemContext.Provider value={{ item, setItem }}>
+        <FormProvider>
+          <DialogFormItem open={openDialog} closeDialog={closeDialog} />
+        </FormProvider>
       </ItemContext.Provider>
 
       <ItemContext.Provider
@@ -146,14 +149,12 @@ const ItemsPage = (props) => {
           setMergeItems,
           item,
           setItem,
-          register,
-          errors,
-          triggerValidation,
-          handleSubmit,
-        }}>
-        <DialogItemMerge open={openMergeDialog} closeDialog={closeDialog} />
+        }}
+      >
+        <FormProvider>
+          <DialogItemMerge open={openMergeDialog} closeDialog={closeDialog} />
+        </FormProvider>
       </ItemContext.Provider>
-      <AlertPopUp alertMessage="" />
     </>
   );
 };

@@ -9,7 +9,6 @@ import {
   makeStyles,
 } from '@material-ui/core/styles';
 
-
 const useStyles = makeStyles((theme) => ({
   root: {
     paddingLeft: theme.spacing(2),
@@ -28,57 +27,35 @@ const useStyles = makeStyles((theme) => ({
 
 const ActionBarLayout = (props) => {
   const classes = useStyles();
-  const {
-    dataChecked,
-    action,
-    textButton,
-    titleBar,
-    ammount,
-  } = props;
+  const { dataChecked, action, textButton, titleBar, ammount } = props;
 
   return (
-    <Toolbar className={`${classes.root} ${ammount > 0 ? classes.highlight : ''}`}>
-      {ammount > 0
-        ? (
-          <Typography
-            variant="subtitle1"
-            component="div"
-          >
-            {ammount}
-            {ammount > 1 ? 'Itens' : 'Item'}
-            selecionados
-          </Typography>
-        )
-        : (
-          <Typography
-            variant="subtitle1"
-            component="div"
-          >
-            {titleBar}
-          </Typography>
-        )}
+    <Toolbar
+      className={`${classes.root} ${ammount > 0 ? classes.highlight : ''}`}>
+      {ammount > 0 ? (
+        <Typography variant="subtitle1" component="div">
+          {ammount}
+          {ammount > 1 ? ' itens selecionados' : ' item selecionado'}
+        </Typography>
+      ) : (
+        <Typography variant="subtitle1" component="div">
+          {titleBar}
+        </Typography>
+      )}
 
-      {ammount > 0
-        ? (
-          <Tooltip title="Gerar Ordem Serviço">
-            <Button
-              onClick={(event) => action(Object.keys(dataChecked)
-                .filter((check) => dataChecked[check]), event)}
-              variant="outlined"
-            >
-              {textButton}
-            </Button>
-          </Tooltip>
-        )
-        : (
+      {ammount > 0 ? (
+        <Tooltip title="Gerar Ordem Serviço">
           <Button
-            disabled
-            variant="outlined"
-          >
+            onClick={(event) => action(Object.keys(dataChecked), event)}
+            variant="outlined">
             {textButton}
           </Button>
-        )}
-
+        </Tooltip>
+      ) : (
+        <Button disabled variant="outlined">
+          {textButton}
+        </Button>
+      )}
     </Toolbar>
   );
 };

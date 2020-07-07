@@ -1,5 +1,12 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { Grid, Radio } from '@material-ui/core';
+import React, {
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
+import {
+  Grid,
+  Radio,
+} from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -7,7 +14,7 @@ import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
-import ItemContext from '../ItemContext';
+import ItemContext from '../../../contexts/ItemContext';
 import { randomIndex } from '../../../utils';
 import FormItem from '../FormItem';
 import { mapTypeItems } from '../../../models/item';

@@ -7,7 +7,6 @@ import { getAllServiceOrder } from '../../modelServices/serviceOrderService';
 import LoadingBar from '../_common/components/LoadingBar';
 import ScreeningPage from './ScreeningPage';
 
-
 const Screening = () => {
   const [serviceOrders, setServiceOrders] = useState([]);
   const [loadingData, setLoadingData] = useState(true);
@@ -16,12 +15,11 @@ const Screening = () => {
   const getData = () => {
     if (loadingData) {
       setProgerssLoad(80);
-      getAllServiceOrder()
-        .then((result) => {
-          setProgerssLoad(80);
-          setServiceOrders(result);
-          setLoadingData(false);
-        });
+      getAllServiceOrder().then((result) => {
+        setProgerssLoad(80);
+        setServiceOrders(result.slice(0, 10));
+        setLoadingData(false);
+      });
     }
   };
 

@@ -1,6 +1,5 @@
 import { listaFormAcessorios } from './acessorio';
 
-
 export const serviceOrderStatus = {
   diagnostico: 'diagnóstico',
   triagem: 'triagem',
@@ -14,7 +13,7 @@ export const ServiceOrderScreening = ({ triagem }) => ({
   foto_antes_limpeza: '',
   foto_apos_limpeza: '',
   ...triagem || { acessorios: listaFormAcessorios([]) },
-});
+})
 
 export const ServiceOrderDiagnosis = (diagnostico) => ({
   resultado_tecnico: '',

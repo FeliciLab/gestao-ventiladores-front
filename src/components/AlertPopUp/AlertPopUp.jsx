@@ -1,32 +1,27 @@
-import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
+import AlertContext from '../../context/AlertContext';
 
-const AlertPopUp = (props) => {
-  const { alertMessage, alertType } = props;
-  const [msg, setMsg] = useState(alertMessage);
+const { useContext } = require('react');
 
-  useEffect(() => {
-    setMsg(msg);
-  }, [alertMessage]);
-
+const AlertPopUp = () => {
+  const { alert, setAlertMessage } = useContext(AlertContext);
   return (
-    <Snackbar open={!!msg} autoHideDuration={6000} onClose={() => setMsg('')}>
-      <Alert severity={alertType} onClose={() => setMsg('')} variant="filled">
-        {msg}
+    <Snackbar
+      open={!!alert.message}
+      autoHideDuration={6000}
+      onClose={() => setAlertMessage('')}
+    >
+      <Alert
+        severity={alert.alertType}
+        onClose={() => setAlertMessage('')}
+        variant="filled"
+      >
+        <span data-testid="alert-message">{alert.message}</span>
       </Alert>
     </Snackbar>
   );
-};
-
-AlertPopUp.defaultProps = {
-  alertType: 'success',
-};
-
-AlertPopUp.propTypes = {
-  alertMessage: PropTypes.string.isRequired,
-  alertType: PropTypes.string,
 };
 
 export default AlertPopUp;
