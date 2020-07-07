@@ -7,6 +7,7 @@ import TableRow from '@material-ui/core/TableRow';
 import FormControl from '@material-ui/core/FormControl';
 import Grid from '@material-ui/core/Grid';
 import ColorIconButton from '../forms/ColorIconButton';
+import { randomIndex } from '../../../utils';
 
 const isChecked = (checkedData, field) =>
   Object.prototype.hasOwnProperty.call(checkedData, field) &&
@@ -47,7 +48,9 @@ const BodyTableLayout = (props) => {
               </FormControl>
             </TableCell>
             {headerKeys.map((key) => (
-              <TableCell key={key}>{item[key].toString() || ''}</TableCell>
+              <TableCell key={randomIndex()}>
+                {item[key].toString() || ''}
+              </TableCell>
             ))}
             {hasActions ? (
               <TableCell align="right">
@@ -59,9 +62,8 @@ const BodyTableLayout = (props) => {
                         actionFilter.showAction(item),
                     )
                     .map((action) => (
-                      <Grid item>
+                      <Grid item key={randomIndex()}>
                         <ColorIconButton
-                          key={Math.round(Math.random() * 100000)}
                           disabled={isChecked(
                             checkedData,
                             item[selectKeyField],
