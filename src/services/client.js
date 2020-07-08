@@ -9,7 +9,21 @@ const headers = {
   'Content-Type': 'application/json',
 };
 
-export default axios.create({
+const api = axios.create({
   headers,
   baseURL,
 });
+
+const formatParams = (params) => ({
+  content: params,
+});
+
+export default {
+  get: (url, params) => api.get(url, params),
+  post: (url, params, v1) => api.post(url, v1 ? params : formatParams(params)),
+  patch: (url, params, v1) => api.post(url, v1 ? params : formatParams(params)),
+  put: (url, params, v1) => api.post(url, v1 ? params : formatParams(params)),
+  delete: (url, params, v1) =>
+    api.post(url, v1 ? params : formatParams(params)),
+  defaults: api.defaults,
+};
