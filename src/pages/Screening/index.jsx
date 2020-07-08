@@ -14,7 +14,7 @@ const Screening = () => {
       setProgerssLoad(80);
       getAllServiceOrder().then((result) => {
         setProgerssLoad(80);
-        setServiceOrders(result.slice(0, 10));
+        setServiceOrders(result);
         setLoadingData(false);
       });
     }

@@ -8,7 +8,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 
 const StyledTableCell = withStyles(() => ({
   body: {
-    minWidth: '50px',
+    width: '50px',
   },
 }))(TableCell);
 

@@ -20,10 +20,13 @@ const formatParams = (params) => ({
 
 export default {
   get: (url, params) => api.get(url, params),
-  post: (url, params, v1) => api.post(url, v1 ? params : formatParams(params)),
-  patch: (url, params, v1) => api.post(url, v1 ? params : formatParams(params)),
-  put: (url, params, v1) => api.post(url, v1 ? params : formatParams(params)),
-  delete: (url, params, v1) =>
-    api.post(url, v1 ? params : formatParams(params)),
+  post: (url, params, { v1, ...options }) =>
+    api.post(url, v1 ? params : formatParams(params), options || {}),
+  patch: (url, params, { v1, ...options }) =>
+    api.post(url, v1 ? params : formatParams(params), options || {}),
+  put: (url, params, { v1, ...options }) =>
+    api.post(url, v1 ? params : formatParams(params), options || {}),
+  delete: (url, params, { v1, ...options }) =>
+    api.post(url, v1 ? params : formatParams(params), options || {}),
   defaults: api.defaults,
 };
