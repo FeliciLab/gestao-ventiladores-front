@@ -28,16 +28,13 @@ const LoginMessage = ({ handleClick }) => {
       container
       direction="column"
       justify="space-between"
-      alignItems="flex-start"
-    >
+      alignItems="flex-start">
       <h2 className={classes.loginTitle}>Fazer login</h2>
       <p className={classes.message}>
         Para ter acesso à plataforma
-        <strong>Central de Ventiladores</strong>
-        , você precisará fazer seu login
+        <strong>Central de Ventiladores</strong>, você precisará fazer seu login
         através do
-        <strong> ID Saúde</strong>
-        .
+        <strong> ID Saúde</strong>.
       </p>
       <ThemeButton startIcon={<SendIcon />} onClick={handleClick}>
         Login com ID Saúde

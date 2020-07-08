@@ -48,7 +48,9 @@ const BodyTableLayout = (props) => {
               </FormControl>
             </TableCell>
             {headerKeys.map((key) => (
-              <TableCell key={randomIndex()}>{item[key].toString() || ''}</TableCell>
+              <TableCell key={randomIndex()}>
+                {item[key].toString() || ''}
+              </TableCell>
             ))}
             {hasActions ? (
               <TableCell align="right">

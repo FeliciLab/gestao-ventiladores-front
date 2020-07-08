@@ -9,7 +9,7 @@ import {
 } from '@material-ui/core';
 import SendIcon from '@material-ui/icons/Send';
 import ThemeButton from '../_common/forms/ThemeButton';
-import AuthContext from '../../contexts/auth';
+import AuthContext from '../../contexts/AuthContext';
 
 const useStyles = makeStyles(() => ({
   container: {

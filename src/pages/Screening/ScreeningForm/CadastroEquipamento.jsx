@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import {
   Grid,
@@ -19,9 +19,10 @@ import {
 import InputRadioDialog from '../../../components/InputRadioDialog/InputRadioDialog';
 import ErrorAlertText from '../../_common/alerts/ErrorAlertText';
 import { randomIndex } from '../../../utils';
-
+import AlertContext from '../../../contexts/AlertContext';
 
 const CadastroEquipamento = (props) => {
+  const { setAlertMessage } = useContext(AlertContext);
   const cities = getCities('CE');
   const {
     errors,
@@ -61,6 +62,7 @@ const CadastroEquipamento = (props) => {
     sendEquipmentPhoto(photo, name, id)
       .then((result) => {
         if (result) {
+          setAlertMessage('Imagem anexada com sucesso');
           updateServiceOrderParent({
             target: {
               name: '_id',
@@ -74,6 +76,9 @@ const CadastroEquipamento = (props) => {
             },
           });
         }
+      })
+      .catch(() => {
+        setAlertMessage('Erro no anexo, tente novamente', 'error');
       });
   };
 
@@ -92,7 +97,6 @@ const CadastroEquipamento = (props) => {
           />
         </Grid>
       </Grid>
-
 
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
@@ -147,7 +151,6 @@ const CadastroEquipamento = (props) => {
           <ErrorAlertText error={errors.numero_do_patrimonio} />
         </Grid>
 
-
         <Grid item xs={12} sm={6}>
           <InputRadioDialog
             action={handleUpdateEquipmentParent}
@@ -168,7 +171,10 @@ const CadastroEquipamento = (props) => {
             hasOther
             value={equipment.marca}
             defaultValue={equipment.marca}
-            items={manufacturersEquipments.map((item) => ({ label: item, value: item }))}
+            items={manufacturersEquipments.map((item) => ({
+              label: item,
+              value: item,
+            }))}
           />
         </Grid>
         <Grid item xs={12} sm={2}>
@@ -179,7 +185,10 @@ const CadastroEquipamento = (props) => {
             hasOther
             value={equipment.modelo}
             defaultValue={equipment.modelo}
-            items={modelsEquipment.map((item) => ({ label: item, value: item }))}
+            items={modelsEquipment.map((item) => ({
+              label: item,
+              value: item,
+            }))}
           />
         </Grid>
         <Grid item xs={6} sm={2}>
@@ -195,7 +204,6 @@ const CadastroEquipamento = (props) => {
           />
         </Grid>
 
-
         <Grid item xs={12} sm={4}>
           <TextField
             fullWidth
@@ -203,10 +211,11 @@ const CadastroEquipamento = (props) => {
             label="Município de Origem"
             value={equipment.municipio_origem}
             onChange={handleUpdateEquipmentParent}
-            name="municipio_origem"
-          >
+            name="municipio_origem">
             {cities.map((option) => (
-              <MenuItem key={randomIndex()} value={option}>{option}</MenuItem>
+              <MenuItem key={randomIndex()} value={option}>
+                {option}
+              </MenuItem>
             ))}
           </TextField>
         </Grid>
@@ -229,14 +238,14 @@ const CadastroEquipamento = (props) => {
             label="Tipo da instituição"
             value={equipment.tipo_instituicao_origem}
             onChange={handleUpdateEquipmentParent}
-            name="tipo_instituicao_origem"
-          >
+            name="tipo_instituicao_origem">
             {typeInstitute.map((option) => (
-              <MenuItem key={randomIndex()} value={option}>{option}</MenuItem>
+              <MenuItem key={randomIndex()} value={option}>
+                {option}
+              </MenuItem>
             ))}
           </TextField>
         </Grid>
-
 
         <Grid item xs={6} sm={4}>
           <TextField
@@ -267,7 +276,10 @@ const CadastroEquipamento = (props) => {
             label="Estado de Conservação"
             value={screening.estado_de_conservacao}
             defaultValue={screening.estado_de_conservacao}
-            items={typeStateEquipment.map((item) => ({ label: item, value: item }))}
+            items={typeStateEquipment.map((item) => ({
+              label: item,
+              value: item,
+            }))}
           />
         </Grid>
       </Grid>

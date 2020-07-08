@@ -27,7 +27,7 @@ export const getServiceOrderByStatus = (status) =>
     .then((response) => response.data);
 
 export const getAllServiceOrder = () =>
-  client.get('/api/ordem_servicos').then((response) => response.data);
+  client.get('/v2/service_orders').then((response) => response.data);
 
 const getValueFieldScreening = (serviceOrder) => {
   const modelScreening = ServiceOrderScreening(serviceOrder);

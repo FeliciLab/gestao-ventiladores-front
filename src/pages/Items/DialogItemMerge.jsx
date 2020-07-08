@@ -8,8 +8,8 @@ import ItemContext from '../../contexts/ItemContext';
 import { mergeItemRequest } from '../../modelServices/itemService/itemService';
 import FormMergeItems from './FormMergeItems/FormMergeItems';
 import FormDialog from '../../components/FormDialog/FormDialog';
-import AlertContext from '../../context/AlertContext';
 import FormContext from '../../contexts/FormContext';
+import AlertContext from '../../contexts/AlertContext';
 
 export const MergeItemContext = createContext({});
 

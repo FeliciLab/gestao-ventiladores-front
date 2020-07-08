@@ -1,7 +1,7 @@
 import React from 'react';
 import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
-import AlertContext from '../../context/AlertContext';
+import AlertContext from '../../contexts/AlertContext';
 
 const { useContext } = require('react');
 

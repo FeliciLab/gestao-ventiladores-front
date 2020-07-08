@@ -25,8 +25,7 @@ const SidebarLayout = ({ children }) => {
       direction="row"
       justify="flex-start"
       alignItems="center"
-      className={layout}
-    >
+      className={layout}>
       <Grid item>
         <Sidebar />
       </Grid>

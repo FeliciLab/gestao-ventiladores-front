@@ -6,6 +6,7 @@ import useTheme from '@material-ui/core/styles/useTheme';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import AlertPopUp from '../../components/AlertPopUp/AlertPopUp';
+import Loading from '../../components/Loading/Loading';
 
 const useStyle = makeStyles(() => ({
   layout: {
@@ -31,6 +32,7 @@ const Layout = (props) => {
       <div style={{ paddingBottom: theme.spacing(5) }}>{children}</div>
       <Footer />
       <AlertPopUp />
+      <Loading />
     </div>
   );
 };

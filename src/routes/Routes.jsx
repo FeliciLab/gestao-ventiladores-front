@@ -9,7 +9,7 @@ import {
   PRIVATE_ROUTES_CONFIG,
   PUBLIC_ROUTES_CONFIG,
 } from './routesConfig';
-import AuthContext from '../contexts/auth';
+import AuthContext from '../contexts/AuthContext';
 
 export const hasRoutes = (routes) => {
   if (routes && routes.length > 0) {
