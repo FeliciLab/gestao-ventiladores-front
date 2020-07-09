@@ -23,10 +23,10 @@ export default {
   post: (url, params, { v1, ...options }) =>
     api.post(url, v1 ? params : formatParams(params), options || {}),
   patch: (url, params, { v1, ...options }) =>
-    api.post(url, v1 ? params : formatParams(params), options || {}),
+    api.patch(url, v1 ? params : formatParams(params), options || {}),
   put: (url, params, { v1, ...options }) =>
-    api.post(url, v1 ? params : formatParams(params), options || {}),
+    api.put(url, v1 ? params : formatParams(params), options || {}),
   delete: (url, params, { v1, ...options }) =>
-    api.post(url, v1 ? params : formatParams(params), options || {}),
+    api.delete(url, v1 ? params : formatParams(params), options || {}),
   defaults: api.defaults,
 };
