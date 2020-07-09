@@ -7,6 +7,7 @@ import TableRow from '@material-ui/core/TableRow';
 import FormControl from '@material-ui/core/FormControl';
 import Grid from '@material-ui/core/Grid';
 import ColorIconButton from '../forms/ColorIconButton';
+import { randomIndex } from '../../../utils';
 
 const isChecked = (checkedData, field) =>
   Object.prototype.hasOwnProperty.call(checkedData, field) &&
@@ -29,7 +30,7 @@ const BodyTableLayout = (props) => {
         const labelId = `enhanced-table-checkbox-${index}`;
         return (
           <TableRow
-            key={labelId}
+            key={randomIndex()}
             hover
             role="checkbox"
             tabIndex={-1}
@@ -47,10 +48,12 @@ const BodyTableLayout = (props) => {
               </FormControl>
             </TableCell>
             {headerKeys.map((key) => (
-              <TableCell key={key}>{item[key].toString() || ''}</TableCell>
+              <TableCell key={randomIndex()}>
+                {item[key].toString() || ''}
+              </TableCell>
             ))}
             {hasActions ? (
-              <TableCell align="right">
+              <TableCell align="right" style={{ minWidth: '99px' }}>
                 <Grid container spacing={1} justify="flex-end">
                   {actions
                     .filter(
@@ -59,9 +62,8 @@ const BodyTableLayout = (props) => {
                         actionFilter.showAction(item),
                     )
                     .map((action) => (
-                      <Grid item>
+                      <Grid item key={randomIndex()}>
                         <ColorIconButton
-                          key={Math.round(Math.random() * 100000)}
                           disabled={isChecked(
                             checkedData,
                             item[selectKeyField],

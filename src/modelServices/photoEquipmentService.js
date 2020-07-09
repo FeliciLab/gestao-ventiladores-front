@@ -1,6 +1,5 @@
 import client from '../services/client';
 
-
 const sendEquipmentPhoto = (photo, label, id) => {
   const formData = new FormData();
   if (id) {
@@ -8,11 +7,13 @@ const sendEquipmentPhoto = (photo, label, id) => {
   }
   formData.append(label, photo, `${label}.jpeg`);
 
-  return client.post('/api/importar/imagem', formData, {
-    header: {
-      'Content-Type': 'multipart/form-data',
-    },
-  })
+  return client
+    .post('/api/importar/imagem', formData, {
+      v1: true,
+      header: {
+        'Content-Type': 'multipart/form-data',
+      },
+    })
     .then((result) => {
       if (result.data) {
         return result.data;
@@ -21,6 +22,5 @@ const sendEquipmentPhoto = (photo, label, id) => {
     })
     .catch((err) => err);
 };
-
 
 export default sendEquipmentPhoto;
