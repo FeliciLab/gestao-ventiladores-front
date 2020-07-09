@@ -1,11 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import {
-  Container,
-  Grid,
-  Tab,
-  Tabs,
-} from '@material-ui/core';
+import { Container, Grid, Tab, Tabs } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import Alert from '@material-ui/lab/Alert';
 import { makeStyles } from '@material-ui/core/styles';
@@ -14,7 +9,6 @@ import { ServiceOrder } from '../../models/serviceOrder';
 import ThemeButton from '../_common/forms/ThemeButton';
 import TabPanel from '../_common/components/TabPanel';
 import ScreeningDialogForm from './ScreeningForm/ScreeningDialogForm';
-
 
 const useStyle = makeStyles((theme) => ({
   paper: {
@@ -42,11 +36,7 @@ const useStyle = makeStyles((theme) => ({
 const ScreeningPage = (props) => {
   const classes = useStyle();
 
-  const {
-    serviceOrders,
-    reloadData,
-    loadingData,
-  } = props;
+  const { serviceOrders, reloadData, loadingData, items } = props;
 
   const [tabValue, setTabValue] = useState(0);
 
@@ -63,8 +53,9 @@ const ScreeningPage = (props) => {
   };
 
   const handleEditScreening = (data) => {
-    const doc = serviceOrders
-      .find((item) => item.numero_ordem_servico === data.numero_ordem_servico);
+    const doc = serviceOrders.find(
+      (item) => item.numero_ordem_servico === data.numero_ordem_servico,
+    );
     setServiceOrder({ ...doc });
     setTitleFormModal('Editar Triagem');
     setEditForm(true);
@@ -87,7 +78,11 @@ const ScreeningPage = (props) => {
       <Container className={classes.containerBottom}>
         <Grid container className={classes.titleList}>
           <Grid item>
-            <Tabs value={tabValue} onChange={changeTab} aria-label="abas-triagem" centered>
+            <Tabs
+              value={tabValue}
+              onChange={changeTab}
+              aria-label="abas-triagem"
+              centered>
               <Tab
                 label="Ordens de Serviço em triagem"
                 aria-controls="lista-equipamentos-triagem"
@@ -98,29 +93,23 @@ const ScreeningPage = (props) => {
 
         <Grid container>
           <Grid item xs={12}>
-            {showAlert
-              ? (
-                <Alert
-                  color={alertSuccess
-                    ? 'success'
-                    : 'error'}
-                  onClose={() => setShowAlert(false)}
-                >
-                  {alertSuccess
-                    ? 'Triagem salva com sucesso'
-                    : 'Não é possível salvar. Verifique o formulário e preencha os campos corretamente.'}
-                </Alert>
-              )
-              : ''}
+            {showAlert ? (
+              <Alert
+                color={alertSuccess ? 'success' : 'error'}
+                onClose={() => setShowAlert(false)}>
+                {alertSuccess
+                  ? 'Triagem salva com sucesso'
+                  : 'Não é possível salvar. Verifique o formulário e preencha os campos corretamente.'}
+              </Alert>
+            ) : (
+              ''
+            )}
           </Grid>
         </Grid>
 
         <Grid container justify="flex-end">
           <Grid item>
-            <ThemeButton
-              startIcon={<AddIcon />}
-              onClick={handleNewScreening}
-            >
+            <ThemeButton startIcon={<AddIcon />} onClick={handleNewScreening}>
               Cadastrar Nova Triagem
             </ThemeButton>
           </Grid>
@@ -143,6 +132,7 @@ const ScreeningPage = (props) => {
           setAlertSuccess={setAlertSuccess}
           setShowAlert={setShowAlert}
           reloadData={reloadData}
+          items={items}
         />
       </Container>
     </>

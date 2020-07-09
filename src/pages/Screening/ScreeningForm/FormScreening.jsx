@@ -1,14 +1,6 @@
-import React, {
-  useEffect,
-  useState,
-} from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import {
-  CssBaseline,
-  Grid,
-  Paper,
-  Typography,
-} from '@material-ui/core';
+import { CssBaseline, Grid, Paper, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import RelacaoDeMaterial from './RelacaoDeMaterial';
 import { listaFormAcessorios } from '../../../models/acessorio';
@@ -16,7 +8,6 @@ import { ServiceOrderScreening } from '../../../models/serviceOrder';
 import Equipamento from '../../../models/equipamentos';
 import CadastroEquipamento from './CadastroEquipamento';
 import TitleFormScreening from './TitleFormScreening';
-
 
 const useStyles = makeStyles((theme) => ({
   divTextFooter: {
@@ -73,6 +64,7 @@ const FormScreening = (props) => {
     serviceOrder,
     updateFormModel,
     editingForm,
+    items,
   } = props;
 
   const classes = useStyles();
@@ -96,10 +88,7 @@ const FormScreening = (props) => {
     if (!equipamento.numero_de_serie) {
       if (serviceOrder.equipamento) {
         setEquipamento(
-          Object.assign(
-            Equipamento({}),
-            serviceOrder.equipamento[0],
-          ),
+          Object.assign(Equipamento({}), serviceOrder.equipamento[0]),
         );
       } else {
         setEquipamento({ ...Equipamento({}) });
@@ -130,10 +119,9 @@ const FormScreening = (props) => {
   const updateErrors = (values) => {
     const dataFormErrors = { ...formErrors };
     Object.keys(values).forEach((indexValue) => {
-      Object.keys(dataFormErrors[indexValue])
-        .forEach((item, index) => {
-          dataFormErrors[indexValue][index] = false;
-        });
+      Object.keys(dataFormErrors[indexValue]).forEach((item, index) => {
+        dataFormErrors[indexValue][index] = false;
+      });
     });
 
     setFormErrors({ ...dataFormErrors, values });
@@ -203,6 +191,7 @@ const FormScreening = (props) => {
           <RelacaoDeMaterial
             acessorios={acessorios}
             atualizarAcessorios={atualizarAcessorios}
+            items={items}
           />
         </Paper>
       </main>

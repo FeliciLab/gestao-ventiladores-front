@@ -3,11 +3,16 @@ import Layout from '../_layout/Layout';
 import { getAllServiceOrder } from '../../modelServices/serviceOrderService';
 import LoadingBar from '../_common/components/LoadingBar';
 import ScreeningPage from './ScreeningPage';
+import {
+  getAllItemsRequest,
+  saveNewItemRequest,
+} from '../../modelServices/itemService';
 
 const Screening = () => {
   const [serviceOrders, setServiceOrders] = useState([]);
   const [loadingData, setLoadingData] = useState(true);
   const [progressLoad, setProgerssLoad] = useState(0);
+  const [items, atualizarItems] = useState([]);
 
   const getData = () => {
     if (loadingData) {
@@ -16,6 +21,9 @@ const Screening = () => {
         setProgerssLoad(80);
         setServiceOrders(result.slice(0, 10));
         setLoadingData(false);
+      });
+      getAllItemsRequest().then((res) => {
+        atualizarItems(res.data.content);
       });
     }
   };
@@ -37,6 +45,7 @@ const Screening = () => {
         serviceOrders={serviceOrders}
         reloadData={reloadData}
         loadingData={loadingData}
+        items={items}
       />
     </Layout>
   );

@@ -8,7 +8,6 @@ import { Acessorio } from '../../../models/acessorio';
 import AccessoryFormList from './AccessoryFormList';
 import ThemeButton from '../../_common/forms/ThemeButton';
 
-
 const useStyle = makeStyles((theme) => ({
   actionGrid: {
     marginTop: theme.spacing(3),
@@ -20,7 +19,7 @@ const acessorioModel = Acessorio();
 
 const RelacaoDeMaterial = (props) => {
   const classes = useStyle();
-  const { acessorios, atualizarAcessorios } = props;
+  const { acessorios, atualizarAcessorios, items } = props;
 
   const adicionarAcessorio = () => {
     const acess = [...acessorios, { ...acessorioModel }];
@@ -44,6 +43,7 @@ const RelacaoDeMaterial = (props) => {
         atualizarAcessorioParent={atualizarAcessorioParent}
         adicionarAcessorio={adicionarAcessorio}
         removerLinha={removerLinha}
+        items={items}
       />
       <Grid container justify="flex-end" className={classes.actionGrid}>
         <Grid item>
@@ -51,8 +51,7 @@ const RelacaoDeMaterial = (props) => {
             onClick={adicionarAcessorio}
             bgColor={blue[600]}
             hoverColor={blue[800]}
-            startIcon={<PlusOneIcon />}
-          >
+            startIcon={<PlusOneIcon />}>
             Item
           </ThemeButton>
         </Grid>

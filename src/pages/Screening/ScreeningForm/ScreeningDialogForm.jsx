@@ -1,7 +1,4 @@
-import React, {
-  useEffect,
-  useState,
-} from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 import CloseIcon from '@material-ui/icons/Close';
@@ -23,7 +20,6 @@ import {
   saveNewOrderService,
   updateServiceOrderRequest,
 } from '../../../modelServices/serviceOrderService';
-
 
 const useStyle = makeStyles((theme) => ({
   containerForm: {
@@ -48,6 +44,7 @@ const ScreeningDialogForm = (props) => {
     reloadData,
     setAlertSuccess,
     setShowAlert,
+    items,
   } = props;
 
   const [serviceOrderForm, setServiceOrderForm] = useState({});
@@ -99,7 +96,9 @@ const ScreeningDialogForm = (props) => {
       triagem: screen.triagem,
       equipamento_id: equipmentId.$oid || equipmentId,
       _id: serviceOrder._id.$oid || serviceOrder._id,
-      created_at: new Date(serviceOrder.created_at.$date || serviceOrder.created_at),
+      created_at: new Date(
+        serviceOrder.created_at.$date || serviceOrder.created_at,
+      ),
     };
 
     delete order.calibragem;
@@ -108,7 +107,10 @@ const ScreeningDialogForm = (props) => {
 
     try {
       if (order._id && order._id !== '') {
-        await updateServiceOrderRequest(Object.assign(order, { status: 'triagem' }), order._id);
+        await updateServiceOrderRequest(
+          Object.assign(order, { status: 'triagem' }),
+          order._id,
+        );
       } else {
         await saveNewOrderService(Object.assign(order, { status: 'triagem' }));
       }
@@ -170,7 +172,7 @@ const ScreeningDialogForm = (props) => {
         open={openFormDialog}
         handleClose={closeDialog}
         title={titleFormModal}
-        actionChildren={(
+        actionChildren={
           <>
             <Grid container spacing={2}>
               <Grid item>
@@ -178,8 +180,7 @@ const ScreeningDialogForm = (props) => {
                   onClick={closeDialog}
                   startIcon={<CloseIcon />}
                   variant="outlined"
-                  borderColor="white"
-                >
+                  borderColor="white">
                   Cancelar
                 </ThemeButton>
               </Grid>
@@ -190,28 +191,23 @@ const ScreeningDialogForm = (props) => {
                   name="Salvar"
                   color={orange[600]}
                   bgColor="#FFF"
-                  hoverColor={orange[50]}
-                >
+                  hoverColor={orange[50]}>
                   Salvar
                 </ThemeButton>
               </Grid>
             </Grid>
           </>
-        )}
-      >
+        }>
         <Grid container spacing={4} className={classes.containerForm}>
           <Grid item xs={12}>
-            {errorsFound
-              ? (
-                <Alert
-                  color="error"
-                  onClose={() => setErrorsFound(false)}
-                >
-                  Não é possível salvar. Verifique o formulário e preencha os campos
-                  corretamente.
-                </Alert>
-              )
-              : ''}
+            {errorsFound ? (
+              <Alert color="error" onClose={() => setErrorsFound(false)}>
+                Não é possível salvar. Verifique o formulário e preencha os
+                campos corretamente.
+              </Alert>
+            ) : (
+              ''
+            )}
           </Grid>
           <Grid item xs={12}>
             <FormScreening
@@ -221,6 +217,7 @@ const ScreeningDialogForm = (props) => {
               serviceOrder={serviceOrderForm}
               updateFormModel={updateFormModel}
               saveForm={saveForm}
+              items={items}
             />
           </Grid>
         </Grid>

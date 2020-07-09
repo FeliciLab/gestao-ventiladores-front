@@ -11,15 +11,10 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import { accessoryMapOptionsConservationState } from '../../../models/conservationState';
 import { randomIndex } from '../../../utils';
-
+import InputRadioDialog from '../../_common/forms/InputRadioDialog';
 
 const AccessoryFormRow = (props) => {
-  const {
-    acessorio,
-    atualizarAcessorio,
-    removerLinha,
-    index,
-  } = props;
+  const { acessorio, atualizarAcessorio, removerLinha, index, items } = props;
   const conservationOption = accessoryMapOptionsConservationState();
 
   const atualizarAcessorioParent = (event) => {
@@ -28,49 +23,45 @@ const AccessoryFormRow = (props) => {
     atualizarAcessorio(index, doc);
   };
 
+  const handleAcessorioUpdate = (event) => {
+    const doc = {};
+    doc[event.target.name] = event.target.value;
+    // updateEquipment(doc);
+  };
+
   return (
-    <Grid
-      container
-      spacing={3}
-      justify="flex-start"
-      alignItems="flex-end"
-    >
-      <Grid
-        item
-        xs={6}
-        sm={5}
-      >
-        <TextField
+    <Grid container spacing={3} justify="flex-start" alignItems="flex-end">
+      <Grid item xs={6} sm={5}>
+        {/* <TextField
           required
           onChange={atualizarAcessorioParent}
           value={acessorio.descricao}
           name="descricao"
           label="Descrição"
           fullWidth
+        /> */}
+        <InputRadioDialog
+          action={() => {}}
+          name="descricao"
+          label="Descrição"
+          hasOther
+          defaultValue={acessorio.nome ? acessorio.nome : acessorio.descricao}
+          items={items.map((item) => ({ label: item.nome, value: item.nome }))}
         />
       </Grid>
-      <Grid
-        item
-        xs={6}
-        sm={1}
-      >
+      <Grid item xs={6} sm={1}>
         <FormControl fullWidth>
           <InputLabel>Acompanha</InputLabel>
           <Select
             name="acompanha"
             value={acessorio.acompanha || false}
-            onChange={atualizarAcessorioParent}
-          >
+            onChange={atualizarAcessorioParent}>
             <MenuItem value>Sim</MenuItem>
             <MenuItem value={false}>Não</MenuItem>
           </Select>
         </FormControl>
       </Grid>
-      <Grid
-        item
-        xs={6}
-        sm={2}
-      >
+      <Grid item xs={6} sm={2}>
         <TextField
           required
           onChange={atualizarAcessorioParent}
@@ -81,11 +72,7 @@ const AccessoryFormRow = (props) => {
           fullWidth
         />
       </Grid>
-      <Grid
-        item
-        xs={5}
-        sm={3}
-      >
+      <Grid item xs={5} sm={3}>
         <TextField
           select
           required
@@ -93,8 +80,7 @@ const AccessoryFormRow = (props) => {
           value={acessorio.estado_de_conservacao || ''}
           name="estado_de_conservacao"
           label="Estado de Conservação"
-          fullWidth
-        >
+          fullWidth>
           {conservationOption.map((item) => (
             <MenuItem key={randomIndex()} value={item.value}>
               {item.label}
@@ -102,11 +88,7 @@ const AccessoryFormRow = (props) => {
           ))}
         </TextField>
       </Grid>
-      <Grid
-        item
-        xs={12}
-        sm={1}
-      >
+      <Grid item xs={12} sm={1}>
         <Tooltip title="Remover">
           <Button onClick={() => removerLinha(index)}>
             <DeleteIcon />
