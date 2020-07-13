@@ -13,7 +13,7 @@ import LoadingContext from '../../contexts/LoadingContext';
 
 const CustomCircularProgress = withStyles(() => ({
   root: {
-    color: 'white',
+    color: '#fff',
   },
 }))(CircularProgress);
 
@@ -30,7 +30,7 @@ const CircularProgressWithLabel = (props) => {
         display="flex"
         alignItems="center"
         justifyContent="center">
-        <Typography variant="caption" component="div" color="white">
+        <Typography variant="caption" component="div" style={{color: 'white'}}>
           {`${Math.round(props.value)}%`}
         </Typography>
       </Box>
@@ -64,7 +64,7 @@ const Loading = () => {
             {loading.message || 'Carregando...'}
           </Typography>
         </Grid>
-        <Grid item alignItems="center" style={{ textAlign: 'center' }}>
+        <Grid item style={{ textAlign: 'center' }}>
           <CircularProgressWithLabel value={loading.progress} />
         </Grid>
       </Grid>

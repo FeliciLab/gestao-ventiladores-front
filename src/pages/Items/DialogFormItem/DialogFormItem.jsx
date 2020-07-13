@@ -2,31 +2,27 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import Container from '@material-ui/core/Container';
 import FormItem from '../FormItem';
-import ItemContext from '../../../contexts/ItemContext';
 import FormDialog from '../../../components/FormDialog/FormDialog';
 import FormContext from '../../../contexts/FormContext';
 import { saveItem } from '../../../modelServices/itemService/itemService';
 
 const DialogFormItem = (props) => {
   const { open, closeDialog } = props;
+  const { errors, triggerValidation } = useContext(FormContext);
 
-  const { item } = useContext(ItemContext);
-  const { errors, triggerValidation, resetForm } = useContext(FormContext);
-
-  const handleSave = () => {
+  const handleSave = (data, e) => {
+    e.preventDefault();
     triggerValidation()
       .then(() => {
         if (Object.keys(errors).length > 0) {
-          console.log(errors);
           return;
         }
 
-        saveItem(item)
+        saveItem(data)
           .then(() => {
-            console.log('ok');
-            resetForm();
-          })
-          .catch((e) => console.log('desok', e));
+            window.location.reload();
+            closeDialog();
+          });
       });
   };
 

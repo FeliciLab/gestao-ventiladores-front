@@ -5,7 +5,6 @@ import LoadingBar from '../../_common/components/LoadingBar';
 import Layout from '../../_layout/Layout';
 import ItemsPage from '../ItemPage/ItemsPage';
 
-
 const IndexItems = (props) => {
   const {
     loading,

@@ -24,6 +24,14 @@ const BodyTableLayout = (props) => {
     checkedData,
   } = props;
 
+  const printCell = (item) => {
+    if (!item) {
+      return '';
+    }
+
+    return item.toString();
+  };
+
   return (
     <TableBody>
       {data.map((item, index) => {
@@ -35,7 +43,8 @@ const BodyTableLayout = (props) => {
             role="checkbox"
             tabIndex={-1}
             aria-checked={checkedData[item[selectKeyField]]}
-            selected={checkedData[item[selectKeyField]]}>
+            selected={checkedData[item[selectKeyField]]}
+          >
             <TableCell padding="checkbox">
               <FormControl>
                 <Checkbox
@@ -49,39 +58,41 @@ const BodyTableLayout = (props) => {
             </TableCell>
             {headerKeys.map((key) => (
               <TableCell key={randomIndex()}>
-                {item[key].toString() || ''}
+                {printCell(item[key])}
               </TableCell>
             ))}
-            {hasActions ? (
-              <TableCell align="right" style={{ minWidth: '99px' }}>
-                <Grid container spacing={1} justify="flex-end">
-                  {actions
-                    .filter(
-                      (actionFilter) =>
-                        actionFilter.showAction === undefined ||
-                        actionFilter.showAction(item),
-                    )
-                    .map((action) => (
-                      <Grid item key={randomIndex()}>
-                        <ColorIconButton
-                          disabled={isChecked(
-                            checkedData,
-                            item[selectKeyField],
-                          )}
-                          item={item}
-                          action={() => action.handleEvent(item)}
-                          name={action.name}
-                          bgColor={action.bgColor}
-                          hoverColor={action.hoverColor}
-                          icon={action.icon}
-                        />
-                      </Grid>
-                    ))}
-                </Grid>
-              </TableCell>
-            ) : (
-              <></>
-            )}
+            {hasActions
+              ? (
+                <TableCell align="right" style={{ minWidth: '99px' }}>
+                  <Grid container spacing={1} justify="flex-end">
+                    {actions
+                      .filter(
+                        (actionFilter) =>
+                          actionFilter.showAction === undefined ||
+                          actionFilter.showAction(item),
+                      )
+                      .map((action) => (
+                        <Grid item key={randomIndex()}>
+                          <ColorIconButton
+                            disabled={isChecked(
+                              checkedData,
+                              item[selectKeyField],
+                            )}
+                            item={item}
+                            action={() => action.handleEvent(item)}
+                            name={action.name}
+                            bgColor={action.bgColor}
+                            hoverColor={action.hoverColor}
+                            icon={action.icon}
+                          />
+                        </Grid>
+                      ))}
+                  </Grid>
+                </TableCell>
+              )
+              : (
+                <></>
+              )}
           </TableRow>
         );
       })}

@@ -16,17 +16,14 @@ export const MergeItemContext = createContext({});
 const DialogItemMerge = (props) => {
   const {
     mergeItems,
-    item,
   } = useContext(ItemContext);
-
-  const { handleSubmit } = useContext(FormContext);
 
   const { open, closeDialog } = props;
 
   const { setAlertMessage } = useContext(AlertContext);
 
-  const handleSave = () => {
-    mergeItemRequest({ toUpdate: item, toRemove: Object.values(mergeItems) })
+  const handleSave = (data) => {
+    mergeItemRequest({ toUpdate: data, toRemove: Object.values(mergeItems).map((item) => item._id) })
       // .then(() => window.location.reload())
       .catch(() => {
         setAlertMessage('Não foi possível se conectar ao servidor. Entre em contato com o suporte', 'error');
@@ -38,7 +35,7 @@ const DialogItemMerge = (props) => {
       open={open}
       title="Mesclar Itens"
       handleCancel={closeDialog}
-      handleSave={handleSubmit(handleSave)}
+      handleSave={handleSave}
     >
       <Container>
         <FormMergeItems />

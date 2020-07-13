@@ -20,6 +20,7 @@ import DialogFormItem from '../DialogFormItem/DialogFormItem';
 import ItemContext from '../../../contexts/ItemContext';
 import DialogItemMerge from '../DialogItemMerge';
 import { FormProvider } from '../../../contexts/FormContext';
+import { randomIndex } from '../../../utils';
 
 const useStyle = makeStyles((theme) => ({
   gridContainer: {
@@ -138,7 +139,7 @@ const ItemsPage = (props) => {
       </Grid>
 
       <ItemContext.Provider value={{ item, setItem }}>
-        <FormProvider>
+        <FormProvider initValues={item} key={randomIndex()}>
           <DialogFormItem open={openDialog} closeDialog={closeDialog} />
         </FormProvider>
       </ItemContext.Provider>

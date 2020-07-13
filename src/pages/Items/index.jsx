@@ -1,4 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, {
+  useEffect,
+  useState,
+} from 'react';
 import IndexItems from './IndexItems/IndexItems';
 import { getAllItemsRequest } from '../../modelServices/itemService/itemService';
 
@@ -10,7 +13,8 @@ export default function () {
   const handleEffect = () => {
     setProgress(40);
     getAllItemsRequest().then((result) => {
-      setItems(result.data.content);
+      console.log('remover slide aqui dos itens, JOIA?');
+      setItems(result.data.content.sort((a, b) => a.nome.localeCompare(b.nome)).slice(0, 20));
       setProgress(100);
       setLoading(false);
     });

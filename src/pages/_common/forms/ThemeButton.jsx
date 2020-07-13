@@ -5,7 +5,6 @@ import SvgIcon from '@material-ui/core/SvgIcon';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Button from '@material-ui/core/Button';
 
-
 const ThemeButton = (props) => {
   const {
     children,
@@ -23,13 +22,25 @@ const ThemeButton = (props) => {
   const ColorButton = withStyles(() => ({
     root: {
       borderRadius: 20,
-      color: color && color !== '' ? color : 'white',
-      backgroundColor: bgColor && bgColor !== '' ? bgColor : orange[600],
-      border: variant === 'outlined' ? `solid 1 px ${borderColor}` : 'none',
-      borderColor: variant === 'outlined' ? `${borderColor}` : 'none',
+      color: color && color !== ''
+        ? color
+        : 'white',
+      backgroundColor: bgColor && bgColor !== ''
+        ? bgColor
+        : orange[600],
+      border: variant === 'outlined'
+        ? `solid 1 px ${borderColor}`
+        : 'none',
+      borderColor: variant === 'outlined'
+        ? `${borderColor}`
+        : 'none',
       '&:hover': {
-        backgroundColor: hoverColor && hoverColor !== '' ? hoverColor : orange[800],
-        color: color && color !== '' ? color : 'white',
+        backgroundColor: hoverColor && hoverColor !== ''
+          ? hoverColor
+          : orange[800],
+        color: color && color !== ''
+          ? color
+          : 'white',
       },
     },
   }))(Button);
@@ -48,7 +59,7 @@ const ThemeButton = (props) => {
 };
 
 ThemeButton.defaultProps = {
-  onClick: () => console.log('No Action'),
+  onClick: (e) => e.submit,
   startIcon: <SvgIcon />,
   type: 'button',
   size: 'large',

@@ -21,18 +21,21 @@ const ModalActionSaveCancel = ({ handleSave, handleCancel }) => {
             onClick={handleCancel}
             startIcon={<CloseIcon />}
             variant="outlined"
-            borderColor="white">
+            borderColor="white"
+          >
             Cancelar
           </ThemeButton>
         </Grid>
         <Grid item>
           <ThemeButton
             startIcon={<SaveIcon />}
-            onClick={handleSave}
+            onClick={() => false}
             name="Salvar"
             color={orange[600]}
             bgColor="#FFF"
-            hoverColor={orange[50]}>
+            hoverColor={orange[50]}
+            type="submit"
+          >
             Salvar
           </ThemeButton>
         </Grid>
