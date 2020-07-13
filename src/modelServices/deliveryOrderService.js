@@ -1,13 +1,20 @@
 import client from '../services/client';
 import { Delivery } from '../models/delivery';
 
-
 const getFieldValue = (delivery, field) => {
-  if (typeof (delivery[field]) === 'object' && delivery[field] !== null && delivery[field].$oid) {
+  if (
+    typeof delivery[field] === 'object' &&
+    delivery[field] !== null &&
+    delivery[field].$oid
+  ) {
     return delivery[field].$oid;
   }
 
-  if (typeof (delivery[field]) === 'object' && delivery[field] !== null && delivery[field].$date) {
+  if (
+    typeof delivery[field] === 'object' &&
+    delivery[field] !== null &&
+    delivery[field].$date
+  ) {
     return new Date(delivery[field].$date);
   }
   if (field === 'created_at' || field === 'updated_at') {
@@ -30,7 +37,6 @@ const mapModel = (delivery) => {
 export const getAllDeliveryOrders = async () => {
   try {
     const response = await client.get('/api/movimentacao');
-
     return response.data || [];
   } catch (error) {
     return [];
@@ -45,6 +51,7 @@ export const saveDelivery = async (entrega) => {
       Object.assign(doc, {
         updated_at: new Date(),
       }),
+      { v1: true },
     );
     return response.data || [];
   } catch (error) {
@@ -60,13 +67,7 @@ export const updateEntrega = async (entrega) => {
       Object.assign(doc, {
         updated_at: new Date(),
       }),
-      {
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-      },
+      { v1: true },
     );
     return response.data;
   } catch (error) {

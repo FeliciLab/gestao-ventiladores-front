@@ -22,7 +22,7 @@ export const getServiceOrderByStatus = (status) =>
           Accept: 'application/json',
           'Content-Type': 'application/json',
         },
-      }
+      },
     )
     .then((response) => response.data);
 
@@ -136,12 +136,8 @@ export const saveNewOrderService = (serviceOrder) => {
         updated_at: new Date(),
       }),
       {
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-      }
+        v1: true,
+      },
     )
     .then((res) => res)
     .catch((err) => err);
@@ -153,7 +149,8 @@ export const updateServiceOrderRequest = (serviceOrder, id) => {
   return client
     .patch(
       `/api/ordem_servico/${id}`,
-      Object.assign(order, { updated_at: new Date() })
+      Object.assign(order, { updated_at: new Date() }),
+      { v1: true },
     )
     .then((result) => result);
 };

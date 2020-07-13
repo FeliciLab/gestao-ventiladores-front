@@ -30,7 +30,7 @@ const BodyTableLayout = (props) => {
         const labelId = `enhanced-table-checkbox-${index}`;
         return (
           <TableRow
-            key={labelId}
+            key={randomIndex()}
             hover
             role="checkbox"
             tabIndex={-1}
@@ -53,7 +53,7 @@ const BodyTableLayout = (props) => {
               </TableCell>
             ))}
             {hasActions ? (
-              <TableCell align="right">
+              <TableCell align="right" style={{ minWidth: '99px' }}>
                 <Grid container spacing={1} justify="flex-end">
                   {actions
                     .filter(

@@ -1,12 +1,19 @@
 import client from '../services/client';
 import { PurchaseOrder } from '../models/purchaseOrder';
 
-
 const getFieldValue = (obj, field) => {
-  if (typeof (obj[field]) === 'object' && obj[field] !== null && obj[field].$oid) {
+  if (
+    typeof obj[field] === 'object' &&
+    obj[field] !== null &&
+    obj[field].$oid
+  ) {
     return obj[field].$oid;
   }
-  if (typeof (obj[field]) === 'object' && obj[field] !== null && obj[field].$date) {
+  if (
+    typeof obj[field] === 'object' &&
+    obj[field] !== null &&
+    obj[field].$date
+  ) {
     return new Date(obj[field].$date);
   }
   if (field === 'created_at' || field === 'updated_at') {
@@ -25,11 +32,12 @@ const mapModelRequest = (purchaseOrder) => {
   return model;
 };
 
-export const getAllPurchaseOrders = () => client.get('/api/ordem_compra')
-  .then((res) => res.data || []);
+export const getAllPurchaseOrders = () =>
+  client.get('/api/ordem_compra').then((res) => res.data || []);
 
 export const savePurchaseOrder = (purchaseOrder) => {
   const doc = mapModelRequest(purchaseOrder);
-  return client.post('/api/ordem_compra', doc)
+  return client
+    .post('/api/ordem_compra', doc, { v1: true })
     .then((res) => res.data || false);
 };
