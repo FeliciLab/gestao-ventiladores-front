@@ -110,7 +110,7 @@ const FormItem = ({ minAmount }) => {
         </Grid>
         <Grid item xs={12} md={3}>
           <TextField
-            inputRef={register({ required: true, min: minAmount })}
+            inputRef={register({ required: true, min: getValues('quantidade') > 0 ? getValues('quantidade') : minAmount })}
             fullWidth
             label="Quantidade"
             name="quantidade"

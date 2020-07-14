@@ -13,8 +13,7 @@ export default function () {
   const handleEffect = () => {
     setProgress(40);
     getAllItemsRequest().then((result) => {
-      console.log('remover slide aqui dos itens, JOIA?');
-      setItems(result.data.content.sort((a, b) => a.nome.localeCompare(b.nome)).slice(0, 20));
+      setItems(result.data.content.sort((a, b) => a.nome.localeCompare(b.nome)));
       setProgress(100);
       setLoading(false);
     });

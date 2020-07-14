@@ -9,7 +9,6 @@ import ActionBarLayout from './ActionBarLayout';
 import HeaderTableLayout from './HeaderTableLayout';
 import BodyTableLayout from './BodyTableLayout';
 
-
 const TableCheckedList = (props) => {
   const [hasActions, setHasActions] = useState(false);
   const [checkedData, setCheckedData] = useState({});
@@ -32,7 +31,12 @@ const TableCheckedList = (props) => {
   }, [actions]);
 
   function updateAmmountChecked() {
-    setAmmountChecked(Object.values(checkedData).filter((item) => item === true).length);
+    setAmmountChecked(
+      Object.values(dataTable)
+        .filter(
+          (data) => Object.keys(checkedData).find((item) => item === data.nome),
+        ).length,
+    );
   }
 
   function checkSelectedRow(keyValue, check) {
