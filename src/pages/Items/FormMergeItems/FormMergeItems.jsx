@@ -18,9 +18,11 @@ import ItemContext from '../../../contexts/ItemContext';
 import { randomIndex } from '../../../utils';
 import FormItem from '../FormItem';
 import { mapTypeItems } from '../../../models/item';
+import FormContext from '../../../contexts/FormContext';
 
 const FormMergeItems = () => {
-  const { mergeItems, item, setItem } = useContext(ItemContext);
+  const { mergeItems } = useContext(ItemContext);
+  const { setValues } = useContext(FormContext);
   const [minAmount, setMinAmount] = useState(0);
   const [rowChosen, setRowChosen] = useState(0);
 
@@ -37,19 +39,15 @@ const FormMergeItems = () => {
   const handleData = () => {
     const itemsAmount = Object.values(mergeItems).reduce(
       (a, c) => a + c.quantidade,
-      0
+      0,
     );
     setMinAmount(itemsAmount);
-    setItem({
-      ...item,
-      ...Object.values(mergeItems)[0],
-      quantidade: itemsAmount,
-    });
   };
 
   const handleSelectItem = (key, index) => {
-    const { quantidade } = item;
-    setItem({ ...item, ...mergeItems[key], quantidade });
+    const doc = { ...mergeItems[key] };
+    delete doc.quantidade;
+    setValues(doc);
     setRowChosen(index);
   };
 
@@ -78,7 +76,8 @@ const FormMergeItems = () => {
                   <TableRow
                     hover
                     key={randomIndex()}
-                    onClick={() => handleSelectItem(key, index)}>
+                    onClick={() => handleSelectItem(key, index)}
+                  >
                     <TableCell>
                       <Radio value={index} checked={index === rowChosen} />
                     </TableCell>

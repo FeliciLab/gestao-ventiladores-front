@@ -71,14 +71,22 @@ const ItemsPage = (props) => {
   };
 
   const mergeItemsDialog = (data) => {
+    let preItem = {};
+    let amountItems = 0;
     setMergeItems({
       ...items
         .filter((filtering) => data.find((d) => filtering[selectKeyField] === d))
         .reduce((acc, curr, index) => {
+          if (index === 0) {
+            preItem = { ...curr };
+          }
+          amountItems += curr.quantidade;
           acc[index] = curr;
           return acc;
         }, {}),
     });
+
+    setItem({ ...preItem, quantidade: amountItems });
 
     setOpenMergeDialog(true);
   };
@@ -152,7 +160,7 @@ const ItemsPage = (props) => {
           setItem,
         }}
       >
-        <FormProvider>
+        <FormProvider initValues={item} key={randomIndex()}>
           <DialogItemMerge open={openMergeDialog} closeDialog={closeDialog} />
         </FormProvider>
       </ItemContext.Provider>

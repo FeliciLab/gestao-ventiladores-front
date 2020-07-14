@@ -10,6 +10,7 @@ export const FormProvider = ({ initValues, children }) => {
     errors,
     triggerValidation,
     handleSubmit,
+    setValue,
     getValues,
     control,
   } = useForm({
@@ -18,6 +19,8 @@ export const FormProvider = ({ initValues, children }) => {
     reValidateMode: 'onChange',
   });
 
+  const setValues = (obj) => Object.keys(obj).forEach((key) => setValue(key, obj[key]));
+
   return (
     <FormContext.Provider
       value={{
@@ -25,6 +28,8 @@ export const FormProvider = ({ initValues, children }) => {
         errors,
         triggerValidation,
         handleSubmit,
+        setValue,
+        setValues,
         getValues,
         control,
       }}

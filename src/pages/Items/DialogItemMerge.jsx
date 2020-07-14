@@ -15,9 +15,7 @@ const DialogItemMerge = (props) => {
   const {
     mergeItems,
   } = useContext(ItemContext);
-
   const { open, closeDialog } = props;
-
   const { setAlertMessage } = useContext(AlertContext);
 
   const handleSave = (data) => {
