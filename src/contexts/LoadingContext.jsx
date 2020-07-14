@@ -7,22 +7,21 @@ import PropTypes from 'prop-types';
 const LoadingContext = createContext();
 
 export const LoadingProvider = ({ children }) => {
-  const [loading, setLoading] = useState({
-    open: false,
-    progress: 0,
-    message: 'Carregando...',
-  });
-
-  const setLoadingContext = ({ open, progress, message }) => {
-    setLoading({
-      open: !!open,
-      progress: progress >= 0 || progress <= 100 ? progress : 0,
-      message: message || loading.message,
-    });
-  };
+  const [openLoading, setOpenLoading] = useState(false);
+  const [progressLoading, setProgressLoading] = useState(0);
+  const [messageLoading, setMessageLoading] = useState('Carregando...');
 
   return (
-    <LoadingContext.Provider value={{ loading, setLoadingContext }}>
+    <LoadingContext.Provider
+      value={{
+        openLoading,
+        setOpenLoading,
+        progressLoading,
+        setProgressLoading,
+        messageLoading,
+        setMessageLoading,
+      }}
+    >
       {children}
     </LoadingContext.Provider>
   );

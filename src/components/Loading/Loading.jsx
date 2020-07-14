@@ -29,8 +29,9 @@ const CircularProgressWithLabel = (props) => {
         position="absolute"
         display="flex"
         alignItems="center"
-        justifyContent="center">
-        <Typography variant="caption" component="div" style={{color: 'white'}}>
+        justifyContent="center"
+      >
+        <Typography variant="caption" component="div" style={{ color: 'white' }}>
           {`${Math.round(props.value)}%`}
         </Typography>
       </Box>
@@ -51,21 +52,28 @@ const useStyles = makeStyles((theme) => ({
 
 const Loading = () => {
   const classes = useStyles();
-  const { loading, setLoadingContext } = useContext(LoadingContext);
+  const { openLoading, progressLoading, messageLoading } = useContext(LoadingContext);
 
   return (
     <Backdrop
       className={classes.backdrop}
-      open={loading.open}
-      onClick={() => setLoadingContext({ open: false })}>
+      open={openLoading}
+      onClick={() => false}
+    >
       <Grid container direction="column" justify="center" alignContent="center">
+        <Grid item style={{ textAlign: 'center' }}>
+          <CircularProgressWithLabel
+            value={
+              progressLoading <= 100
+                ? progressLoading
+                : 100
+            }
+          />
+        </Grid>
         <Grid item xs={12}>
           <Typography variant="h6">
-            {loading.message || 'Carregando...'}
+            {messageLoading || 'Carregando...'}
           </Typography>
-        </Grid>
-        <Grid item style={{ textAlign: 'center' }}>
-          <CircularProgressWithLabel value={loading.progress} />
         </Grid>
       </Grid>
     </Backdrop>

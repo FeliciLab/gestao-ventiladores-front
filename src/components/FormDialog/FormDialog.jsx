@@ -78,6 +78,7 @@ const FormDialog = (props) => {
       open={open}
       onClose={handleCancel}
       aria-labelledby="form-dialog-title"
+      style={{zIndex: 1200}}
     >
       <form onSubmit={handleSubmit(handleSave)}>
         <FormAppBar title={title} handleCancel={handleCancel} handleSave={handleSave} />

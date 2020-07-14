@@ -7,6 +7,7 @@ import Routes from './routes/Routes';
 import { AuthProvider } from './contexts/AuthContext';
 import { AlertProvider } from './contexts/AlertContext';
 import { LoadingProvider } from './contexts/LoadingContext';
+import Loading from './components/Loading/Loading';
 
 function App() {
   return (
@@ -14,6 +15,8 @@ function App() {
       <AlertProvider>
         <LoadingProvider>
           <Routes />
+
+          <Loading />
         </LoadingProvider>
       </AlertProvider>
     </AuthProvider>
