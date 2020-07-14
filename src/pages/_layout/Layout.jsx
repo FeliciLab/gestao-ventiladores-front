@@ -32,6 +32,7 @@ const Layout = (props) => {
       <div style={{ paddingBottom: theme.spacing(5) }}>{children}</div>
       <Footer />
       <AlertPopUp />
+      <Loading />
     </div>
   );
 };
