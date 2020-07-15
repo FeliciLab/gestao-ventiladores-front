@@ -9,6 +9,7 @@ import {
 import { orange } from '@material-ui/core/colors';
 import { makeStyles } from '@material-ui/core/styles';
 import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
 import AddIcon from '@material-ui/icons/Add';
 import TableCheckedList from '../../_common/SelectableTable/TableCheckedList';
 import ThemeButton from '../../_common/forms/ThemeButton';
@@ -21,6 +22,8 @@ import ItemContext from '../../../contexts/ItemContext';
 import DialogItemMerge from '../DialogItemMerge';
 import { FormProvider } from '../../../contexts/FormContext';
 import { randomIndex } from '../../../utils';
+import { removeItemRequest } from '../../../modelServices/itemService/itemService';
+import ConfirmModal from '../../../components/ConfirmModal/ConfirmModal';
 
 const useStyle = makeStyles((theme) => ({
   gridContainer: {
@@ -36,6 +39,7 @@ const ItemsPage = (props) => {
   const [tabValue, setTabValue] = useState(0);
   const [openDialog, setOpenDialog] = useState(false);
   const [openMergeDialog, setOpenMergeDialog] = useState(false);
+  const [openConfirmModal, setOpenConfirmModal] = useState(false);
 
   const classes = useStyle();
   const selectKeyField = 'nome';
@@ -53,10 +57,14 @@ const ItemsPage = (props) => {
     setTabValue(newValue);
   };
 
-  const openEditDialog = (data) => {
+  const setItemByTableRow = (data) => {
     setItem({
       ...items.find((row) => row[selectKeyField] === data[selectKeyField]),
     });
+  };
+
+  const openEditDialog = (data) => {
+    setItemByTableRow(data);
     setOpenDialog(true);
   };
 
@@ -91,6 +99,18 @@ const ItemsPage = (props) => {
     setOpenMergeDialog(true);
   };
 
+  const openRemoveDialog = (data) => {
+    setItemByTableRow(data);
+    setOpenConfirmModal(true);
+  };
+
+  const handleRemoveItem = () => {
+    removeItemRequest(item)
+      .then(() => {
+        window.location.reload();
+      });
+  };
+
   const actions = [
     {
       name: 'Editar',
@@ -99,6 +119,15 @@ const ItemsPage = (props) => {
         bgColor: orange[500],
         hoverColor: orange[700],
         icon: <EditIcon />,
+      },
+    },
+    {
+      name: 'Remover',
+      handleEvent: openRemoveDialog,
+      icon: {
+        bgColor: orange[500],
+        hoverColor: orange[700],
+        icon: <DeleteIcon />,
       },
     },
   ];
@@ -164,6 +193,8 @@ const ItemsPage = (props) => {
           <DialogItemMerge open={openMergeDialog} closeDialog={closeDialog} />
         </FormProvider>
       </ItemContext.Provider>
+
+      <ConfirmModal open={openConfirmModal} action={handleRemoveItem} />
     </>
   );
 };

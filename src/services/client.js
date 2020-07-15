@@ -33,9 +33,14 @@ export default {
       ? params
       : formatParams(params), options || {}),
   delete: (url, params, { v1, ...options }) => api
-    .delete(url, v1
-      ? params
-      : formatParams(params), options || {},
+    .delete(
+      url,
+      {
+        data: v1
+          ? params
+          : formatParams(params),
+        ...options,
+      },
     ),
   defaults: api.defaults,
 };

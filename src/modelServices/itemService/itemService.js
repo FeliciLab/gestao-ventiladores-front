@@ -6,6 +6,8 @@ export const saveNewItemRequest = ({ _id, ...item }) => client.post('/v2/items',
 
 export const updateItemRequest = (item) => client.patch('/v2/items', [item], {});
 
+export const removeItemRequest = (item) => client.delete('/v2/items', [item._id], {});
+
 export const mergeItemRequest = ({ toUpdate, toRemove }) => client.post(
   '/v2/items/merge',
   { toUpdate, toRemove },
@@ -23,4 +25,5 @@ export default {
   saveNewItemRequest,
   updateItemRequest,
   getAllItemsRequest,
+  removeItemRequest,
 };
