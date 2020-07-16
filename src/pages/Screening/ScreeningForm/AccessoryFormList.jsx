@@ -12,7 +12,6 @@ const AccessoryFormList = (props) => {
     items,
   } = props;
 
-  console.log(items);
   return (
     <>
       {accessories.map((accessory, index) => (

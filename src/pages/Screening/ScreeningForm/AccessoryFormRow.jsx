@@ -11,7 +11,7 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import { accessoryMapOptionsConservationState } from '../../../models/conservationState';
 import { randomIndex } from '../../../utils';
-import InputRadioDialog from '../../_common/forms/InputRadioDialog';
+import FormRadioDialog from '../../_common/forms/FormRadioDialog';
 
 const AccessoryFormRow = (props) => {
   const { acessorio, atualizarAcessorio, removerLinha, index, items } = props;
@@ -26,6 +26,8 @@ const AccessoryFormRow = (props) => {
   const handleAcessorioUpdate = (event) => {
     const doc = {};
     doc[event.target.name] = event.target.value;
+    console.log(event.target.value);
+    atualizarAcessorio(index, doc);
     // updateEquipment(doc);
   };
 
@@ -40,13 +42,16 @@ const AccessoryFormRow = (props) => {
           label="Descrição"
           fullWidth
         /> */}
-        <InputRadioDialog
-          action={() => {}}
+        <FormRadioDialog
+          action={handleAcessorioUpdate}
           name="descricao"
           label="Descrição"
           hasOther
           defaultValue={acessorio.nome ? acessorio.nome : acessorio.descricao}
-          items={items.map((item) => ({ label: item.nome, value: item.nome }))}
+          items={items.map((item) => ({
+            label: item.nome,
+            value: item._id ? item._id : item.nome,
+          }))}
         />
       </Grid>
       <Grid item xs={6} sm={1}>

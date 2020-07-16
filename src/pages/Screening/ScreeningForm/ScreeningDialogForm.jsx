@@ -21,6 +21,8 @@ import {
   updateServiceOrderRequest,
 } from '../../../modelServices/serviceOrderService';
 
+import { listaAcessorios } from '../../../models/acessorio';
+
 const useStyle = makeStyles((theme) => ({
   containerForm: {
     marginTop: theme.spacing(5),
@@ -57,6 +59,7 @@ const ScreeningDialogForm = (props) => {
   useEffect(handleEffect, [serviceOrder]);
 
   const updateFormModel = (value) => {
+    console.log(value);
     setServiceOrderForm(Object.assign(serviceOrderForm, value));
   };
 
@@ -126,6 +129,9 @@ const ScreeningDialogForm = (props) => {
   };
 
   const saveForm = async () => {
+    console.log(serviceOrderForm);
+    // listaAcessorios
+
     await triggerValidation();
     if (Object.keys(errors).length > 0) {
       showErrorBar();
@@ -144,6 +150,8 @@ const ScreeningDialogForm = (props) => {
     if (!equipmentId) {
       return;
     }
+
+    return;
 
     const saved = saveScreening(serviceOrderForm, equipmentId);
 

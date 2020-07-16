@@ -147,6 +147,7 @@ const FormScreening = (props) => {
 
   const atualizarAcessorios = (value) => {
     setAcessorios(value);
+    console.log(value);
     atualizarTriagem({ acessorios: value });
     const dataScreening = { ...screening };
     screening.acessorios = value;
