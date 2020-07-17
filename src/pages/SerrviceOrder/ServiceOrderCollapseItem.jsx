@@ -97,11 +97,8 @@ const ServiceOrderCollapseItem = (props) => {
   const { item, deliveryOrders } = props;
 
   const hasOrder = deliveryOrders
-    ? deliveryOrders.find((deliveryOrder) =>
-        deliveryOrder.equipamentos_id.find(
-          (e) => e.$oid === item.equipamento_id.$oid,
-        ),
-      )
+    ? deliveryOrders.find((deliveryOrder) => deliveryOrder.equipamentos_id
+      .find((e) => e.$oid === item.equipamento_id.$oid))
     : false;
 
   const [expanded, setExpanded] = useState(false);
@@ -119,7 +116,8 @@ const ServiceOrderCollapseItem = (props) => {
               item
               xs={12}
               md="auto"
-              className={`${classes.chips} ${classes.osNumber}`}>
+              className={`${classes.chips} ${classes.osNumber}`}
+            >
               <Typography variant="body1">
                 <strong>
                   OS
@@ -133,59 +131,71 @@ const ServiceOrderCollapseItem = (props) => {
               item
               xs={12}
               md="auto"
-              className={`${classes.chips} ${classes.osStatus}`}>
+              className={`${classes.chips} ${classes.osStatus}`}
+            >
               <Typography variant="body1">
                 <strong>
                   STATUS:
                   <span
-                    className={`${classes.valueItem} ${classes.valueStatus}`}>
-                    {hasOrder ? statusMap.entrega : statusMap[item.status]}
+                    className={`${classes.valueItem} ${classes.valueStatus}`}
+                  >
+                    {hasOrder
+                      ? statusMap.entrega
+                      : statusMap[item.status]}
                   </span>
                 </strong>
               </Typography>
             </Grid>
 
-            {item.calibragem ? (
-              <Grid
-                item
-                xs={12}
-                md="auto"
-                className={`${classes.chips} ${classes.calibrationStatus}`}>
-                <Typography variant="body1">
-                  <strong>
-                    CALIBRAGEM:
-                    <span
-                      className={`${classes.valueItem} ${classes.valueCalibration}`}>
+            {item.calibragem
+              ? (
+                <Grid
+                  item
+                  xs={12}
+                  md="auto"
+                  className={`${classes.chips} ${classes.calibrationStatus}`}
+                >
+                  <Typography variant="body1">
+                    <strong>
+                      CALIBRAGEM:
+                      <span
+                        className={`${classes.valueItem} ${classes.valueCalibration}`}
+                      >
                       {item.calibragem.status}
                     </span>
-                  </strong>
-                </Typography>
-              </Grid>
-            ) : (
-              ''
-            )}
+                    </strong>
+                  </Typography>
+                </Grid>
+              )
+              : (
+                ''
+              )}
 
-            {hasOrder ? (
-              <Grid
-                item
-                xs={12}
-                md="auto"
-                className={`${classes.chips} ${classes.deliveryDate}`}>
-                <Typography variant="body1">
-                  <strong>
-                    ENTREGUE EM:
-                    <span
-                      className={`${classes.valueItem} ${classes.valueDeliveryDate}`}>
+            {hasOrder
+              ? (
+                <Grid
+                  item
+                  xs={12}
+                  md="auto"
+                  className={`${classes.chips} ${classes.deliveryDate}`}
+                >
+                  <Typography variant="body1">
+                    <strong>
+                      ENTREGUE EM:
+                      <span
+                        className={`${classes.valueItem} ${classes.valueDeliveryDate}`}
+                      >
                       {moment(hasOrder.data_entrega.$date)
                         .tz('America/Fortaleza')
                         .format('DD/MM/YYYY')}
                     </span>
-                  </strong>
-                </Typography>
-              </Grid>
-            ) : (
-              ''
-            )}
+                    </strong>
+                  </Typography>
+                </Grid>
+              )
+              : (
+                ''
+              )}
           </Grid>
 
           <Grid container spacing={3} alignItems="center" justify="center">
@@ -223,13 +233,15 @@ const ServiceOrderCollapseItem = (props) => {
             </Grid>
           </Grid>
         </CardContent>
+
         <CardActions>
           <Grid container justify="flex-end">
             <Grid item xs="auto">
               <IconButton
                 onClick={handleExpandClick}
                 aria-expanded={expanded}
-                aria-label="Exibir mais">
+                aria-label="Exibir mais"
+              >
                 <ExpandMoreIcon fontSize="large" />
               </IconButton>
             </Grid>
@@ -241,12 +253,16 @@ const ServiceOrderCollapseItem = (props) => {
             <CardContent>
               <ScreeningEquipment equipment={item.equipamento[0]} />
               <ScreeningCardServiceOrder item={item} />
-              {item.diagnostico ? (
-                <DiagnosisCardServiceOrder item={item} />
-              ) : (
-                <></>
-              )}
-              {item.calibragem ? <CalibrationCardService item={item} /> : <></>}
+              {item.diagnostico
+                ? (
+                  <DiagnosisCardServiceOrder item={item} />
+                )
+                : (
+                  <></>
+                )}
+              {item.calibragem
+                ? <CalibrationCardService item={item} />
+                : <></>}
             </CardContent>
           </Card>
         </Collapse>

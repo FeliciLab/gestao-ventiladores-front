@@ -28,27 +28,25 @@ const IndexServiceOrder = () => {
   const [progressLoad, setProgerssLoad] = useState(0);
 
   const getData = () => {
-    if (loadingData) {
-      setProgerssLoad(80);
-      Promise.all([
-        getAllServiceOrder(),
-        getAllDeliveryOrders(),
-      ])
-        .then((result) => {
-          setProgerssLoad(80);
-          setServiceOrders(result[0]);
-          setDeliveryOrders(result[1]);
-          setAmmountDelivery(
-            result[1]
-              .map((item) => item.equipamentos_id.length)
-              .reduce((a, c) => (a + c), 0),
-          );
-          setLoadingData(false);
-        });
-    }
+    setProgerssLoad(80);
+    Promise.all([
+      getAllServiceOrder(),
+      getAllDeliveryOrders(),
+    ])
+      .then((result) => {
+        setProgerssLoad(80);
+        setServiceOrders(result[0]);
+        setDeliveryOrders(result[1]);
+        setAmmountDelivery(
+          result[1]
+            .map((item) => item.equipamentos_id.length)
+            .reduce((a, c) => (a + c), 0),
+        );
+        setLoadingData(false);
+      });
   };
 
-  useEffect(getData, [getData]);
+  useEffect(getData, []);
 
   if (loadingData) {
     return <LoadingBar progress={progressLoad} />;

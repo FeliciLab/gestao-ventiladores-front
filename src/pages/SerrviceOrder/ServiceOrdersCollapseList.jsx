@@ -47,11 +47,13 @@ const ServiceOrdersCollapseList = (props) => {
           percent={parseInt(`${Math.floor(((ammountDelivery) / data.length) * 100)}`, 10)}
         />
       </Grid>
+
       {data.slice(slice[0], slice[1]).map((item) => (
         <Grid key={randomIndex()} item xs={12}>
           <ServiceOrderCollapseItem item={item} deliveryOrders={deliveryOrders} />
         </Grid>
       ))}
+
       <Grid item xs={12}>
         <Grid container justify="center">
           <Grid item>

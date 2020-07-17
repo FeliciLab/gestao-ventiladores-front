@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Grid, Typography } from '@material-ui/core';
+import {
+  Grid,
+  Typography,
+} from '@material-ui/core';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import DiagnosisItemsTablePagination from './DiagnosisItemsTablePagination';
-
 
 const useStyle = makeStyles(() => ({
   rowItem: {
@@ -14,6 +16,23 @@ const useStyle = makeStyles(() => ({
 const DiagnosisCardServiceOrder = (props) => {
   const classes = useStyle();
   const { item } = props;
+
+  const diagItems = item && item.diagnosticos_itens
+    ? item.diagnosticos_itens.map((data) => {
+      const diagnosisItem = item.diagnostico.itens
+        .find((acess) => acess._id === data.item_id);
+
+      if (diagnosisItem) {
+        return {
+          ...data,
+          quantidade: diagnosisItem.quantidade,
+        };
+      }
+
+      return data;
+    })
+    : [];
+
   return (
     <>
       <Grid container alignItems="center" justify="center">
@@ -48,9 +67,9 @@ const DiagnosisCardServiceOrder = (props) => {
         </Grid>
         <Grid item xs={12} className={classes.rowItem}>
           <Typography variant="body1">
-            <strong>Acessórios:</strong>
+            <strong>Itens:</strong>
           </Typography>
-          <DiagnosisItemsTablePagination items={item.diagnostico.itens} />
+          <DiagnosisItemsTablePagination items={diagItems} />
         </Grid>
       </Grid>
     </>
@@ -58,14 +77,7 @@ const DiagnosisCardServiceOrder = (props) => {
 };
 
 DiagnosisCardServiceOrder.propTypes = {
-  item: PropTypes.shape({
-    diagnostico: PropTypes.shape({
-      resultado_tecnico: PropTypes.string,
-      demanda_servicos: PropTypes.string,
-      observacoes: PropTypes.string,
-      itens: PropTypes.instanceOf(Array),
-    }),
-  }).isRequired,
+  item: PropTypes.instanceOf(Object).isRequired,
 };
 
 export default DiagnosisCardServiceOrder;
