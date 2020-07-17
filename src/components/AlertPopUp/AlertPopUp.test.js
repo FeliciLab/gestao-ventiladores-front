@@ -5,8 +5,7 @@ import {
   screen,
 } from '@testing-library/react';
 import AlertPopUp from './AlertPopUp';
-import AlertContext from '../../context/AlertContext';
-
+import AlertContext from '../../contexts/AlertContext';
 
 describe('<AlertPopUp/>', () => {
   it('should render with valid message', () => {

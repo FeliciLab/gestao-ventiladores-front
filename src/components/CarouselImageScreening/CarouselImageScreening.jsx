@@ -21,7 +21,6 @@ import { baseImageURI } from '../../utils/serviceOrderUtils';
 import placeholderImg from '../../assets/placeholderImg.jpg';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-
 const PaperHeader = ({ photosSteps, activeStep, classes, close }) => (
   <Paper square elevation={0} className={classes.header}>
     <Grid container justify="space-between" alignItems="center">
@@ -57,23 +56,20 @@ const PhotoContent = ({ photosSteps, activeStep, classes }) => {
   return (
     <Grid container justify="center" className={classes.content}>
       <Grid item>
-        {!srcImg
-          ? (
-            <CircularProgress />
-          )
-          : (
-            <a
-              href={photosSteps[activeStep].imgPath}
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              <img
-                className={classes.img}
-                src={srcImg}
-                alt={photosSteps[activeStep].label}
-              />
-            </a>
-          )}
+        {!srcImg ? (
+          <CircularProgress />
+        ) : (
+          <a
+            href={photosSteps[activeStep].imgPath}
+            rel="noopener noreferrer"
+            target="_blank">
+            <img
+              className={classes.img}
+              src={srcImg}
+              alt={photosSteps[activeStep].label}
+            />
+          </a>
+        )}
       </Grid>
     </Grid>
   );
@@ -95,8 +91,7 @@ const PhotoStepper = ({ maxSteps, activeStep, setNextStep, setPrevStep }) => (
         size="small"
         onClick={setNextStep}
         disabled={activeStep === maxSteps - 1}
-        aria-label="próxima-imagem"
-      >
+        aria-label="próxima-imagem">
         Próxima
         <KeyboardArrowRight />
       </Button>
@@ -106,8 +101,7 @@ const PhotoStepper = ({ maxSteps, activeStep, setNextStep, setPrevStep }) => (
         size="small"
         onClick={setPrevStep}
         disabled={activeStep === 0}
-        aria-label="imagem-anterior"
-      >
+        aria-label="imagem-anterior">
         <KeyboardArrowLeft />
         Anterior
       </Button>
@@ -149,15 +143,15 @@ const CarouselImageScreening = (props) => {
   const photosSteps =
     item && item._id
       ? [
-        {
-          label: 'Foto antes da limpeza',
-          imgPath: `${baseImageURI(item)}/foto_antes_limpeza.jpeg`,
-        },
-        {
-          label: 'Foto após da limpeza',
-          imgPath: `${baseImageURI(item)}/foto_apos_limpeza.jpeg`,
-        },
-      ]
+          {
+            label: 'Foto antes da limpeza',
+            imgPath: `${baseImageURI(item)}/foto_antes_limpeza.jpeg`,
+          },
+          {
+            label: 'Foto após da limpeza',
+            imgPath: `${baseImageURI(item)}/foto_apos_limpeza.jpeg`,
+          },
+        ]
       : [];
 
   return (
@@ -167,8 +161,7 @@ const CarouselImageScreening = (props) => {
       aria-labelledby="imagem-do-equipamento"
       aria-describedby="imagem-do-equipamento"
       fullWidth
-      maxWidth="xl"
-    >
+      maxWidth="xl">
       {photosSteps.length && (
         <div data-testid="photo-dialog-stepper">
           <PaperHeader

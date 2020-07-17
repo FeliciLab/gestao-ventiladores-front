@@ -9,9 +9,8 @@ import {
   TablePagination,
   TableRow,
 } from '@material-ui/core';
-import { getItemDiagnosis } from '../../models/itensDiagnosticos';
+import { getItemDiagnosis } from '../../models/item';
 import { randomIndex } from '../../utils';
-
 
 const DiagnosisItemsTablePagination = (props) => {
   const { items } = props;
@@ -38,13 +37,16 @@ const DiagnosisItemsTablePagination = (props) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {items.sort((a, b) => a - b)
+            {items
+              .sort((a, b) => a - b)
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((item) => {
                 const itemDiag = getItemDiagnosis(item);
                 return (
                   <TableRow key={randomIndex()}>
-                    <TableCell>{itemDiag.tipo === 'pecas' ? 'Peça' : 'Acessório'}</TableCell>
+                    <TableCell>
+                      {itemDiag.tipo === 'pecas' ? 'Peça' : 'Acessório'}
+                    </TableCell>
                     <TableCell>{itemDiag.nome || ''}</TableCell>
                     <TableCell>{itemDiag.fabricante || ''}</TableCell>
                     <TableCell>{itemDiag.codigo || ''}</TableCell>

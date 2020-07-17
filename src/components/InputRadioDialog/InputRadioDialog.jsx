@@ -5,7 +5,7 @@ import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
-import DialogModelsEquipments from '../../Screening/ScreeningForm/DialogModelsEquipment';
+import FormInputRadio from '../FormInputRadio/FormInputRadio';
 
 
 const InputRadioDialog = (props) => {
@@ -44,7 +44,7 @@ const InputRadioDialog = (props) => {
 
   return (
     <>
-      <DialogModelsEquipments
+      <FormInputRadio
         openDialog={open}
         action={changeRadio}
         updateOpen={updateOpen}

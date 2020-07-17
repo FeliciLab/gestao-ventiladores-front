@@ -4,7 +4,10 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Tooltip from '@material-ui/core/Tooltip';
 import Button from '@material-ui/core/Button';
-import { lighten, makeStyles } from '@material-ui/core/styles';
+import {
+  lighten,
+  makeStyles,
+} from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   root: {

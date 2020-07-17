@@ -6,7 +6,7 @@ issue: #numeroDaIssue
 
 # Descrição
 
-Descrever_o_que_é_o_PR
+Descrever*o_que*é_o_PR
 
 # Checklist
 

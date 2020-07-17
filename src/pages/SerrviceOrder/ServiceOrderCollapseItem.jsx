@@ -11,7 +11,12 @@ import {
   IconButton,
   Typography,
 } from '@material-ui/core';
-import { blue, grey, orange, teal } from '@material-ui/core/colors';
+import {
+  blue,
+  grey,
+  orange,
+  teal,
+} from '@material-ui/core/colors';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import green from '@material-ui/core/colors/green';
 import { serviceOrderStatus } from '../../models/serviceOrder';

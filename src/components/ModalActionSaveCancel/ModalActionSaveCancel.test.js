@@ -5,7 +5,7 @@ import { BrowserRouter } from 'react-router-dom';
 import ModalActionSaveCancel from './ModalActionSaveCancel';
 
 const error = new Error(
-  'handleSave or handleCancel props are undefined or not a function',
+  'handleSave or handleCancel props are undefined or not a function'
 );
 
 describe('<ModalActionSaveCancel />', () => {
@@ -16,18 +16,18 @@ describe('<ModalActionSaveCancel />', () => {
           handleSave={() => true}
           handleCancel={() => false}
         />
-      </BrowserRouter>,
+      </BrowserRouter>
     );
     expect(container).toBeDefined();
   });
   it('should not render component without handleSave', () => {
     expect(() =>
-      render(<ModalActionSaveCancel handleCancel={jest.fn()} />),
+      render(<ModalActionSaveCancel handleCancel={jest.fn()} />)
     ).toThrow(error);
   });
   it('should not render component without handleCancel', () => {
     expect(() =>
-      render(<ModalActionSaveCancel handleSave={jest.fn()} />),
+      render(<ModalActionSaveCancel handleSave={jest.fn()} />)
     ).toThrow(error);
   });
 });

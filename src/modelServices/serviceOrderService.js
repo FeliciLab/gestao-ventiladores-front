@@ -4,7 +4,7 @@ import {
   ServiceOrderDiagnosis,
   ServiceOrderScreening,
 } from '../models/serviceOrder';
-import { itemDiagnosisModel } from '../models/itensDiagnosticos';
+import { itemDiagnosisModel } from '../models/item';
 import { Acessorio } from '../models/acessorio';
 
 export const getServiceOrderByStatus = (status) =>
@@ -26,8 +26,8 @@ export const getServiceOrderByStatus = (status) =>
     )
     .then((response) => response.data);
 
-export const getAllServiceOrder = () =>
-  client.get('/api/ordem_servicos').then((response) => response.data);
+export const getAllServiceOrder = () => client.get('/v2/service_orders')
+  .then((response) => response.data);
 
 const getValueFieldScreening = (serviceOrder) => {
   const modelScreening = ServiceOrderScreening(serviceOrder);

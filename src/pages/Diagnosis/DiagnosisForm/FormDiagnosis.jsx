@@ -8,9 +8,8 @@ import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import CadastroDiagnostico from './CadastroDiagnostico';
 import HeaderFormPage from './HeaderFormPage';
-import CadastroItens from './CreateNewItem';
+import CadastroItens from '../../Items/FormItem';
 import FormRegisteredItems from './FormRegisteredItems';
-
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -38,11 +37,11 @@ const useStyles = makeStyles((theme) => ({
 
 const FormDiagnosis = (props) => {
   const classes = useStyles();
-  const { register, errors } = useForm({ mode: 'onBlur', reValidateMode: 'onChange' });
-  const {
-    serviceOrder,
-    updateServiceForm,
-  } = props;
+  const { register, errors } = useForm({
+    mode: 'onBlur',
+    reValidateMode: 'onChange',
+  });
+  const { serviceOrder, updateServiceForm } = props;
 
   const updateServiceOrderDiagnosis = (value) => {
     const diagnosis = { ...serviceOrder.diagnostico, ...value };
@@ -50,9 +49,10 @@ const FormDiagnosis = (props) => {
   };
 
   const addNewItem = (item) => {
-    const items = serviceOrder.diagnostico && serviceOrder.diagnostico.itens
-      ? serviceOrder.diagnostico.itens.slice()
-      : [];
+    const items =
+      serviceOrder.diagnostico && serviceOrder.diagnostico.itens
+        ? serviceOrder.diagnostico.itens.slice()
+        : [];
 
     items.push(item);
     updateServiceOrderDiagnosis({ itens: items });
@@ -64,37 +64,43 @@ const FormDiagnosis = (props) => {
     updateServiceOrderDiagnosis({ itens: items });
   };
 
-  const getServiceOrderItems = () => (serviceOrder && serviceOrder.diagnostico
-  && serviceOrder.diagnostico.itens
-    ? serviceOrder.diagnostico.itens
-    : []);
+  const getServiceOrderItems = () =>
+    serviceOrder && serviceOrder.diagnostico && serviceOrder.diagnostico.itens
+      ? serviceOrder.diagnostico.itens
+      : [];
 
   return (
     <>
       <CssBaseline />
 
       <Container>
-        <HeaderFormPage serviceOrderNumber={serviceOrder.numero_ordem_servico} />
+        <HeaderFormPage
+          serviceOrderNumber={serviceOrder.numero_ordem_servico}
+        />
 
         <Paper className={classes.paper}>
           <CadastroDiagnostico
             register={register}
             errors={errors}
-            diagnosis={serviceOrder && serviceOrder.diagnostico ? serviceOrder.diagnostico : {}}
+            diagnosis={
+              serviceOrder && serviceOrder.diagnostico
+                ? serviceOrder.diagnostico
+                : {}
+            }
             updateDiagnosis={updateServiceOrderDiagnosis}
           />
         </Paper>
 
         <Paper className={classes.paper}>
+          <Typography variant="h6" gutterBottom>
+            2. Cadastro de Itens
+          </Typography>
+
           <CadastroItens addNewItem={addNewItem} />
         </Paper>
 
         <Paper className={classes.paper}>
-          <Typography
-            variant="h6"
-            gutterBottom
-            component="h6"
-          >
+          <Typography variant="h6" gutterBottom component="h6">
             2.1 PEÇAS E ACESSÓRIOS CADASTRADOS
           </Typography>
           <FormRegisteredItems

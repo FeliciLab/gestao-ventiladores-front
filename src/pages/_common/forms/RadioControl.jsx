@@ -6,7 +6,7 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
 import TextField from '@material-ui/core/TextField';
-
+import { randomIndex } from '../../../utils';
 
 const RadioControl = (props) => {
   const [value, setValue] = useState('');
@@ -37,7 +37,7 @@ const RadioControl = (props) => {
       return action(event, value, other);
     }
 
-    if (value === 'other' ) {
+    if (value === 'other') {
       setOther(event.target.value);
       return action(event, value, other);
     }
@@ -54,35 +54,30 @@ const RadioControl = (props) => {
           aria-label="tipo"
           name={name}
           value={value}
-          onChange={updateParent}
-        >
+          onChange={updateParent}>
           {items.map((item) => (
             <FormControlLabel
-              key={item.value}
+              key={randomIndex()}
               value={item.value}
               control={<Radio color="default" />}
               label={item.label}
             />
           ))}
-          {hasOther
-            ? (
-              <FormControlLabel
-                value="other"
-                control={<Radio color="default" />}
-                label="Outros"
-              />
-            )
-            : (<></>)}
-        </RadioGroup>
-        {hasOther
-          ? (
-            <TextField
-              name={name}
-              value={other}
-              onChange={updateParent}
+          {hasOther ? (
+            <FormControlLabel
+              value="other"
+              control={<Radio color="default" />}
+              label="Outros"
             />
-          )
-          : (<></>)}
+          ) : (
+            <></>
+          )}
+        </RadioGroup>
+        {hasOther ? (
+          <TextField name={name} value={other} onChange={updateParent} />
+        ) : (
+          <></>
+        )}
       </FormControl>
     </>
   );
