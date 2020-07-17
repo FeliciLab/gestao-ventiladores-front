@@ -1,12 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import { Container, Typography } from '@material-ui/core';
+import React, {
+  useEffect,
+  useState,
+} from 'react';
+import {
+  Container,
+  Typography,
+} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Layout from '../_layout/Layout';
 import ServiceOrdersCollapseList from './ServiceOrdersCollapseList';
 import { getAllServiceOrder } from '../../modelServices/serviceOrderService';
 import LoadingBar from '../_common/components/LoadingBar';
 import { getAllDeliveryOrders } from '../../modelServices/deliveryOrderService';
-
 
 const useStyle = makeStyles((theme) => ({
   titlePage: {

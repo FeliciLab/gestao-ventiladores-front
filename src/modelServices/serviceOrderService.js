@@ -7,27 +7,8 @@ import {
 import { itemDiagnosisModel } from '../models/item';
 import { Acessorio } from '../models/acessorio';
 
-export const getServiceOrderByStatus = (status) =>
-  client
-    .post(
-      '/api/ordem_servicos/find',
-      {
-        query: {
-          status,
-        },
-      },
-      {
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-      },
-    )
-    .then((response) => response.data);
-
-export const getAllServiceOrder = () => client.get('/v2/service_orders')
-  .then((response) => response.data);
+export const getAllServiceOrder = () => client.get('/v2/service_orders?join=equipamento,item')
+  .then((response) => response.data.content);
 
 const getValueFieldScreening = (serviceOrder) => {
   const modelScreening = ServiceOrderScreening(serviceOrder);
@@ -40,12 +21,11 @@ const getValueFieldScreening = (serviceOrder) => {
       doc.acessorios = [];
       serviceOrder.triagem.acessorios.forEach((i, indexAccessory) => {
         const item = {};
-        Object.keys(modelAccessory).forEach((fieldModelAccessory) => {
-          item[fieldModelAccessory] =
-            serviceOrder.triagem.acessorios[indexAccessory][
-              fieldModelAccessory
-            ];
-        });
+        Object.keys(modelAccessory)
+          .forEach((fieldModelAccessory) => {
+            item[fieldModelAccessory] = serviceOrder
+              .triagem.acessorios[indexAccessory][fieldModelAccessory];
+          });
         doc.acessorios.push(item);
       });
     }
@@ -66,8 +46,7 @@ const getValueFieldDiagnosis = (serviceOrder) => {
       serviceOrder.diagnostico.itens.forEach((v, indexItem) => {
         const item = {};
         Object.keys(modelItems).forEach((fieldModelItem) => {
-          item[fieldModelItem] =
-            serviceOrder.diagnostico.itens[indexItem][fieldModelItem];
+          item[fieldModelItem] = serviceOrder.diagnostico.itens[indexItem][fieldModelItem];
         });
 
         doc.itens.push(item);
@@ -81,26 +60,15 @@ const getValueFieldDiagnosis = (serviceOrder) => {
 };
 
 const getValueField = (serviceOrder, field) => {
-  if (
-    typeof serviceOrder[field] === 'object' &&
-    serviceOrder[field] !== null &&
-    serviceOrder[field].$oid
-  ) {
+  if (typeof serviceOrder[field] === 'object' && serviceOrder[field] !== null && serviceOrder[field].$oid) {
     return serviceOrder[field].$oid;
   }
 
-  if (
-    typeof serviceOrder[field] === 'object' &&
-    serviceOrder[field] !== null &&
-    serviceOrder[field].$date
-  ) {
+  if (typeof serviceOrder[field] === 'object' && serviceOrder[field] !== null && serviceOrder[field].$date) {
     return new Date(serviceOrder[field].$date);
   }
 
-  if (
-    (field === 'created_at' || field === 'updated_at') &&
-    serviceOrder[field]
-  ) {
+  if ((field === 'created_at' || field === 'updated_at') && serviceOrder[field]) {
     return new Date(serviceOrder[field]);
   }
 

@@ -218,7 +218,7 @@ const ServiceOrderCollapseItem = (props) => {
                 <strong>DATA DE CRIAÇÃO</strong>
               </Typography>
               <Typography variant="body2">
-                {moment(item.created_at.$date).format('DD/MM/YYYY')}
+                {moment(item.created_at).format('DD/MM/YYYY')}
               </Typography>
             </Grid>
           </Grid>
