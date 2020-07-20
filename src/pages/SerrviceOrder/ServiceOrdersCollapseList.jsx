@@ -13,11 +13,12 @@ const ServiceOrdersCollapseList = (props) => {
     ammountDelivery,
   } = props;
 
-  const [page, setPage] = useState(1);
-  const [slice, setSlice] = useState([0, 20]);
-
   const amountRows = 10;
   const amountPages = Math.ceil(data.length / amountRows);
+
+  const [page, setPage] = useState(1);
+  const [slice, setSlice] = useState([0, amountRows]);
+
 
   const handlePage = (event, value) => {
     setPage(value);
