@@ -14,7 +14,7 @@ import { randomIndex } from '../../../utils';
 import FormRadioDialog from '../../_common/forms/FormRadioDialog';
 
 const AccessoryFormRow = (props) => {
-  const { acessorio, atualizarAcessorio, removerLinha, index, items } = props;
+  const { acessorio, atualizarAcessorio, removerLinha, index, items , register } = props;
   const conservationOption = accessoryMapOptionsConservationState();
 
   const atualizarAcessorioParent = (event) => {
@@ -46,6 +46,7 @@ const AccessoryFormRow = (props) => {
           action={handleAcessorioUpdate}
           name="descricao"
           label="Descrição"
+          register={register}
           hasOther
           defaultValue={acessorio.nome ? acessorio.nome : acessorio.descricao}
           items={items.map((item) => ({

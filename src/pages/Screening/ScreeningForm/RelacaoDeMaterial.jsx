@@ -19,7 +19,7 @@ const acessorioModel = Acessorio();
 
 const RelacaoDeMaterial = (props) => {
   const classes = useStyle();
-  const { acessorios, atualizarAcessorios, items } = props;
+  const { acessorios, atualizarAcessorios, items , register } = props;
 
   const adicionarAcessorio = () => {
     const acess = [...acessorios, { ...acessorioModel }];
@@ -44,6 +44,7 @@ const RelacaoDeMaterial = (props) => {
         adicionarAcessorio={adicionarAcessorio}
         removerLinha={removerLinha}
         items={items}
+        register={register}
       />
       <Grid container justify="flex-end" className={classes.actionGrid}>
         <Grid item>

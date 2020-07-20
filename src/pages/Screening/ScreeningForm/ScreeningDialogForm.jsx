@@ -150,9 +150,6 @@ const ScreeningDialogForm = (props) => {
     if (!equipmentId) {
       return;
     }
-
-    return;
-
     const saved = saveScreening(serviceOrderForm, equipmentId);
 
     if (saved) {

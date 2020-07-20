@@ -193,6 +193,7 @@ const FormScreening = (props) => {
             acessorios={acessorios}
             atualizarAcessorios={atualizarAcessorios}
             items={items}
+            register={register}
           />
         </Paper>
       </main>

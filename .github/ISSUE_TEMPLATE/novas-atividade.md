@@ -1,35 +1,39 @@
 ---
 name: Novas atividade
-about: As novas atividades devem seguir o padrão de estória abaixo, que foi alinhada
+about:
+  As novas atividades devem seguir o padrão de estória abaixo, que foi alinhada
   com a equipe.
 title: ''
 labels: Front
 assignees: ''
-
 ---
 
 # Objetivo
 
 **Eu como** _  
 **Quero** _  
-**Para que** _  
+**Para que** \_
 
 # Contexto
+
 ## O que originou
-_
+
+\_
+
 ## Qual solução proposta
-_
+
+\_
 
 # Fora de Contexto
 
-_
+\_
 
 # Critérios de aceitação
 
-- [ ] **Dado que** __não_esquecer_os_2_espaços_ao_fim_da_linha  
-**Quando** __não_esquecer_os_2_espaços_ao_fim_da_linha  
-**Então** _
+- [ ] **Dado que** **não_esquecer_os_2_espaços_ao_fim_da_linha  
+      **Quando** **não*esquecer_os_2_espaços_ao_fim_da_linha  
+      **Então** *
 
 # Observações
 
-_
+\_

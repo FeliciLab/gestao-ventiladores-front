@@ -34,7 +34,7 @@ const IndexServiceOrder = () => {
           setServiceOrders(result[0]);
           setDeliveryOrders(result[1]);
           setAmmountDelivery(
-            result[1]
+              result[1]
               .map((item) => item.equipamentos_id.length)
               .reduce((a, c) => (a + c), 0),
           );

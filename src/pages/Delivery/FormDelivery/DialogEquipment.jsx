@@ -13,7 +13,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Typography from '@material-ui/core/Typography';
 import ThemeButton from '../../_common/forms/ThemeButton';
 import equipmentTypes from '../../../models/equipmentTypes';
-import InputRadioDialog from '../../_common/forms/InputRadioDialog';
+import InputRadioDialog from '../../../components/InputRadioDialog/InputRadioDialog';
 import {
   manufacturersEquipments,
   modelsEquipment,

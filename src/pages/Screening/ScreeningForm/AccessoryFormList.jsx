@@ -10,6 +10,7 @@ const AccessoryFormList = (props) => {
     removerLinha,
     accessories,
     items,
+    register
   } = props;
 
   return (
@@ -25,6 +26,7 @@ const AccessoryFormList = (props) => {
           index={index}
           key={randomIndex()}
           items={items}
+          register={register}
         />
       ))}
     </>

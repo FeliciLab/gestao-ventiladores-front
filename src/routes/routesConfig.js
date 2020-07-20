@@ -9,6 +9,7 @@ import OsPrint from '../MakeFile/OsPrint/index';
 import IndexOrderPrint from '../MakeFile/OrderPrint/index';
 import IndexDeliveryPrint from '../MakeFile/DeliveryPrint/index';
 import Login from '../pages/Login/index';
+import IndexItems from '../pages/Items';
 
 // eslint-disable-next-line import/prefer-default-export
 export const PRIVATE_ROUTES_CONFIG = [
@@ -23,6 +24,7 @@ export const PRIVATE_ROUTES_CONFIG = [
   { path: '/entregas', exact: true, component: Delivery },
   { path: '/entrega-impressao', exact: true, component: IndexDeliveryPrint },
   { path: '/calibragem', exact: true, component: Calibration },
+  { path: '/itens', exact: true, component: IndexItems },
 ];
 
 export const PUBLIC_ROUTES_CONFIG = [

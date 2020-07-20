@@ -5,10 +5,11 @@ import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
-import DialogModelsEquipments from '../../Screening/ScreeningForm/DialogModelsEquipment';
+// import DialogModelsEquipments from '../../Screening/ScreeningForm/DialogModelsEquipment';
+import FormInputRadio from '../../../components/FormInputRadio/FormInputRadio';
 import { arrayToDictionary } from '../../../utils';
 
-const InputRadioDialog = (props) => {
+const FormRadioDialog = (props) => {
   const { action, name, label, hasOther, defaultValue, items } = props;
 
   const [valueInput, setValueInput] = React.useState('');
@@ -43,7 +44,7 @@ const InputRadioDialog = (props) => {
 
   return (
     <>
-      <DialogModelsEquipments
+      <FormInputRadio
         openDialog={open}
         action={changeRadio}
         updateOpen={updateOpen}
@@ -76,14 +77,14 @@ const InputRadioDialog = (props) => {
   );
 };
 
-InputRadioDialog.defaultProps = {
+FormRadioDialog.defaultProps = {
   name: '',
   label: '',
   hasOther: true,
   defaultValue: '',
 };
 
-InputRadioDialog.propTypes = {
+FormRadioDialog.propTypes = {
   action: PropTypes.func.isRequired,
   items: PropTypes.instanceOf(Array).isRequired,
   name: PropTypes.string,
@@ -92,4 +93,4 @@ InputRadioDialog.propTypes = {
   defaultValue: PropTypes.string,
 };
 
-export default InputRadioDialog;
+export default FormRadioDialog;

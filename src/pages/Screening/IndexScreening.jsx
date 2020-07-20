@@ -1,9 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, {
+  useEffect,
+  useState,
+} from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import moment from 'moment-timezone';
 import Paper from '@material-ui/core/Paper';
-import { blueGrey, orange } from '@material-ui/core/colors';
+import {
+  blueGrey,
+  orange,
+} from '@material-ui/core/colors';
 import EditIcon from '@material-ui/icons/Edit';
 import ImageIcon from '@material-ui/icons/Image';
 import TableCheckedList from '../_common/SelectableTable/TableCheckedList';
@@ -15,6 +21,7 @@ const IndexScreening = (props) => {
   const selectKeyField = 'numero_ordem_servico';
 
   const { serviceOrders, editScreening } = props;
+  // let serviceOrders = props.serviceOrders.content;
 
   const [screening, setScreening] = useState([]);
   const [dataTable, setDataTable] = useState([]);

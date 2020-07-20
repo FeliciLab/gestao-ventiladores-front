@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-// export const baseURL = 'http://localhost:5000';
+export const baseURL = 'http://localhost:5000';
 // const baseURL = 'https://apicentraldeventiladores.inova.esp.br';
-export const baseURL = 'https://api.centralventiladores.dev.org.br';
+// export const baseURL = 'https://api.centralventiladores.dev.org.br';
 
 const headers = {
   'Access-Control-Allow-Origin': '*',
@@ -20,13 +20,27 @@ const formatParams = (params) => ({
 
 export default {
   get: (url, params) => api.get(url, params),
-  post: (url, params, { v1, ...options }) =>
-    api.post(url, v1 ? params : formatParams(params), options || {}),
-  patch: (url, params, { v1, ...options }) =>
-    api.post(url, v1 ? params : formatParams(params), options || {}),
-  put: (url, params, { v1, ...options }) =>
-    api.post(url, v1 ? params : formatParams(params), options || {}),
-  delete: (url, params, { v1, ...options }) =>
-    api.post(url, v1 ? params : formatParams(params), options || {}),
+  post: (url, params, { v1, ...options }) => api
+    .post(url, v1
+      ? params
+      : formatParams(params), options || {}),
+  patch: (url, params, { v1, ...options }) => api
+    .patch(url, v1
+      ? params
+      : formatParams(params), options || {}),
+  put: (url, params, { v1, ...options }) => api
+    .put(url, v1
+      ? params
+      : formatParams(params), options || {}),
+  delete: (url, params, { v1, ...options }) => api
+    .delete(
+      url,
+      {
+        data: v1
+          ? params
+          : formatParams(params),
+        ...options,
+      },
+    ),
   defaults: api.defaults,
 };
