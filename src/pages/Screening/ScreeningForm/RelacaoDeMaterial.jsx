@@ -5,8 +5,10 @@ import PlusOneIcon from '@material-ui/icons/PlusOne';
 import { blue } from '@material-ui/core/colors';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { Acessorio } from '../../../models/acessorio';
-import AccessoryFormList from './AccessoryFormList';
+import AccessoryFormRow from './AccessoryFormRow';
 import ThemeButton from '../../_common/forms/ThemeButton';
+import { randomIndex } from '../../../utils';
+
 
 const useStyle = makeStyles((theme) => ({
   actionGrid: {
@@ -35,6 +37,21 @@ const RelacaoDeMaterial = (props) => {
   const removerLinha = (index) => {
     atualizarAcessorios(acessorios.slice().filter((i, ind) => index !== ind));
   };
+
+  const accessoryFormList = acessorios.map((accessory, index) => (
+    <AccessoryFormRow
+      ultimo={index === accessory.length - 1}
+      penultimo={index === accessory.length - 2}
+      acessorio={accessory}
+      register={register}
+      atualizarAcessorio={atualizarAcessorioParent}
+      adicionarAcessorio={adicionarAcessorio}
+      removerLinha={removerLinha}
+      index={index}
+      key={randomIndex()}
+      items={items}
+    />
+  ))
 
   return (
     <>
