@@ -126,11 +126,11 @@ ScreeningEquipment.propTypes = {
   equipment: PropTypes.shape({
     created_at: PropTypes.oneOfType([
       PropTypes.instanceOf(Object),
-      PropTypes.string,
+      PropTypes.number,
     ]),
     updated_at: PropTypes.oneOfType([
       PropTypes.instanceOf(Object),
-      PropTypes.string,
+      PropTypes.number,
     ]),
     numero_de_serie: PropTypes.string,
     numero_do_patrimonio: PropTypes.string,
