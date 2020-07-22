@@ -1,8 +1,15 @@
 import React, { useContext } from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import {
+  BrowserRouter,
+  Route,
+  Switch,
+} from 'react-router-dom';
 import { randomIndex } from '../utils';
-import { PRIVATE_ROUTES_CONFIG, PUBLIC_ROUTES_CONFIG } from './routesConfig';
-import AuthContext from '../contexts/auth';
+import {
+  PRIVATE_ROUTES_CONFIG,
+  PUBLIC_ROUTES_CONFIG,
+} from './routesConfig';
+import AuthContext from '../contexts/AuthContext';
 
 export const hasRoutes = (routes) => {
   if (routes && routes.length > 0) {

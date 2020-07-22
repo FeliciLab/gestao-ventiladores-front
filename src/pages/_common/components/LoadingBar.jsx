@@ -11,7 +11,7 @@ const LoadingBar = (props) => {
 
   return (
     <>
-      <Layout>
+      <Layout data-testid="loadingBar">
         <Container style={{ padding: '5rem' }}>
           <Typography variant="h6">Carregando dados...</Typography>
           <LinearProgress variant="determinate" value={progress} />

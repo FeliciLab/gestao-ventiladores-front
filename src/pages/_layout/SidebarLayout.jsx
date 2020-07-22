@@ -2,7 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import grey from '@material-ui/core/colors/grey';
 import makeStyles from '@material-ui/core/styles/makeStyles';
-import { Grid, Container } from '@material-ui/core';
+import {
+  Container,
+  Grid,
+} from '@material-ui/core';
 import Sidebar from './Sidebar';
 
 const useStyle = makeStyles(() => ({
@@ -22,8 +25,7 @@ const SidebarLayout = ({ children }) => {
       direction="row"
       justify="flex-start"
       alignItems="center"
-      className={layout}
-    >
+      className={layout}>
       <Grid item>
         <Sidebar />
       </Grid>

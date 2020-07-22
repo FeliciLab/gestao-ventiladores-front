@@ -1,8 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, {
+  useEffect,
+  useState,
+} from 'react';
 import Layout from '../_layout/Layout';
 import { getAllServiceOrder } from '../../modelServices/serviceOrderService';
-import LoadingBar from '../_common/components/LoadingBar';
 import ScreeningPage from './ScreeningPage';
+import LoadingBar from '../_common/components/LoadingBar';
 
 const Screening = () => {
   const [serviceOrders, setServiceOrders] = useState([]);

@@ -3,10 +3,6 @@ import React from 'react';
 // import '@testing-library/jest-dom/extend-expect';
 // import { render } from '@testing-library/react';
 
-import { render, screen } from '@testing-library/react';
-import Routes from './Routes';
-import AuthContext, { AuthProvider } from '../contexts/auth';
-
 describe('Routes component', () => {
   it('should display login page when user types private url and is not logged', () => {
     // render(

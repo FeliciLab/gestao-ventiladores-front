@@ -5,10 +5,10 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import RadioControl from '../../_common/forms/RadioControl';
+import RadioControl from '../../pages/_common/forms/RadioControl';
 
 
-const DialogModelsEquipments = (props) => {
+const FormInputRadio = (props) => {
   const [open, setOpen] = React.useState(false);
   const [inputOther, setInputOther] = React.useState('');
   const [radioValue, setRadioValue] = React.useState('');
@@ -96,14 +96,14 @@ const DialogModelsEquipments = (props) => {
   );
 };
 
-DialogModelsEquipments.defaultProps = {
+FormInputRadio.defaultProps = {
   hasOther: false,
   label: '',
   dialogTitle: '',
   openDialog: false,
 };
 
-DialogModelsEquipments.propTypes = {
+FormInputRadio.propTypes = {
   items: PropTypes.instanceOf(Array).isRequired,
   name: PropTypes.string.isRequired,
   updateOpen: PropTypes.func.isRequired,
@@ -114,4 +114,4 @@ DialogModelsEquipments.propTypes = {
   dialogTitle: PropTypes.string,
 };
 
-export default DialogModelsEquipments;
+export default FormInputRadio;

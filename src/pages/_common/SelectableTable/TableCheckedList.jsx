@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, {
+  useEffect,
+  useState,
+} from 'react';
 import PropTypes from 'prop-types';
 import TableContainer from '@material-ui/core/TableContainer';
 import Table from '@material-ui/core/Table';
 import ActionBarLayout from './ActionBarLayout';
 import HeaderTableLayout from './HeaderTableLayout';
 import BodyTableLayout from './BodyTableLayout';
-
 
 const TableCheckedList = (props) => {
   const [hasActions, setHasActions] = useState(false);
@@ -29,7 +31,12 @@ const TableCheckedList = (props) => {
   }, [actions]);
 
   function updateAmmountChecked() {
-    setAmmountChecked(Object.values(checkedData).filter((item) => item === true).length);
+    setAmmountChecked(
+      Object.values(dataTable)
+        .filter(
+          (data) => Object.keys(checkedData).find((item) => item === data.nome),
+        ).length,
+    );
   }
 
   function checkSelectedRow(keyValue, check) {

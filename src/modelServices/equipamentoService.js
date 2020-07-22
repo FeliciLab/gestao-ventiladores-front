@@ -2,7 +2,7 @@ import client from '../services/client';
 import Equipamento from '../models/equipamentos';
 
 /**
- * Seach screnning by status
+ * Search screnning by status
  *      triagem
  *      diagnostico
  *      manutencao
