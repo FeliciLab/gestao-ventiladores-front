@@ -10,8 +10,8 @@ import equipmentTypes from '../../../models/equipmentTypes';
 import getCities from '../../../services/cities';
 import typeInstitute from '../../../models/typeInstitute';
 import typeStateEquipment from '../../../models/typeStateEquipment';
-import InputFileImage from '../../_common/forms/InputFileImage';
-import sendEquipmentPhoto from '../../../modelServices/photoEquipmentService';
+// import InputFileImage from '../../_common/forms/InputFileImage';
+// import sendEquipmentPhoto from '../../../modelServices/photoEquipmentService';
 import {
   manufacturersEquipments,
   modelsEquipment,
@@ -20,81 +20,89 @@ import InputRadioDialog from '../../../components/InputRadioDialog/InputRadioDia
 import ErrorAlertText from '../../_common/alerts/ErrorAlertText';
 import { randomIndex } from '../../../utils';
 import AlertContext from '../../../contexts/AlertContext';
+import FormContext, { FormProvider } from '../../../contexts/FormContext'
+import { Controller } from 'react-hook-form'
 
-const CadastroEquipamento = (props) => {
-  const { setAlertMessage } = useContext(AlertContext);
+const CadastroEquipamento = ({ editingForm }) => {
+  // const { setAlertMessage } = useContext(AlertContext);
   const cities = getCities('CE');
-  const {
-    errors,
-    register,
-    serviceOrder,
-    equipment,
-    screening,
-    updateEquipment,
-    updateScreening,
-    updateServiceOrder,
-    editingForm,
-  } = props;
 
-  const handleUpdateEquipmentParent = (event) => {
-    const doc = {};
-    doc[event.target.name] = event.target.value;
-    if (event.target.name === 'marca' && equipment.fabricante === '') {
-      doc.fabricante = event.target.value;
-    }
-    updateEquipment(doc);
-  };
+  const { register, errors, getValues, handleSubmit, control } = useContext(FormContext);
 
-  const handleUpdateScreeningParent = (event) => {
-    const doc = {};
-    doc[event.target.name] = event.target.value;
-    updateScreening(doc);
-  };
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      console.log(getValues());
+    }, 2000);
+    return () => {
+      clearInterval(interval);
+    };
+  }, [])
 
-  const updateServiceOrderParent = (event) => {
-    const doc = {};
-    doc[event.target.name] = event.target.value;
-    updateServiceOrder(doc);
-  };
-
-  const sendPhoto = (photo, name) => {
-    const id = serviceOrder._id.$oid || serviceOrder._id;
-    sendEquipmentPhoto(photo, name, id)
-      .then((result) => {
-        if (result) {
-          setAlertMessage('Imagem anexada com sucesso');
-          updateServiceOrderParent({
-            target: {
-              name: '_id',
-              value: result,
-            },
-          });
-          handleUpdateScreeningParent({
-            target: {
-              name,
-              value: `${result}_${name}.jpeg`,
-            },
-          });
-        }
-      })
-      .catch(() => {
-        setAlertMessage('Erro no anexo, tente novamente', 'error');
-      });
-  };
+  // const handleUpdateEquipmentParent = (event) => {
+  //   const doc = {};
+  //   doc[event.target.name] = event.target.value;
+  //   if (event.target.name === 'marca' && equipment.fabricante === '') {
+  //     doc.fabricante = event.target.value;
+  //   }
+  //   updateEquipment(doc);
+  // };
+  //
+  // const handleUpdateScreeningParent = (event) => {
+  //   const doc = {};
+  //   doc[event.target.name] = event.target.value;
+  //   updateScreening(doc);
+  // };
+  //
+  // const updateServiceOrderParent = (event) => {
+  //   const doc = {};
+  //   doc[event.target.name] = event.target.value;
+  //   updateServiceOrder(doc);
+  // };
+  //
+  // const sendPhoto = (photo, name) => {
+  //   const id = serviceOrder._id.$oid || serviceOrder._id;
+  //   sendEquipmentPhoto(photo, name, id)
+  //     .then((result) => {
+  //       if (result) {
+  //         setAlertMessage('Imagem anexada com sucesso');
+  //         updateServiceOrderParent({
+  //           target: {
+  //             name: '_id',
+  //             value: result,
+  //           },
+  //         });
+  //         handleUpdateScreeningParent({
+  //           target: {
+  //             name,
+  //             value: `${result}_${name}.jpeg`,
+  //           },
+  //         });
+  //       }
+  //     })
+  //     .catch(() => {
+  //       setAlertMessage('Erro no anexo, tente novamente', 'error');
+  //     });
+  // };
 
   return (
-    <>
+    <form onSubmit={handleSubmit((data, event) => {
+      event.preventDefault();
+      console.log(data, event);
+    })}
+    >
+      <button type="submit">teste</button>
+
       <Typography variant="h6" gutterBottom>
         1. Cadastro de Equipamento
       </Typography>
 
       <Grid container>
         <Grid item xs={6}>
-          <InputFileImage
-            name="foto_antes_limpeza"
-            label="Foto antes da limpeza"
-            action={sendPhoto}
-          />
+          {/*<InputFileImage*/}
+          {/*  name="foto_antes_limpeza"*/}
+          {/*  label="Foto antes da limpeza"*/}
+          {/*  action={sendPhoto}*/}
+          {/*/>*/}
         </Grid>
       </Grid>
 
@@ -102,8 +110,6 @@ const CadastroEquipamento = (props) => {
         <Grid item xs={12} sm={6}>
           <TextField
             inputRef={register({ required: true })}
-            onChange={updateServiceOrderParent}
-            value={serviceOrder.numero_ordem_servico}
             name="numero_ordem_servico"
             label="Número da Ordem de Serviço"
             InputProps={{
@@ -117,10 +123,8 @@ const CadastroEquipamento = (props) => {
         <Grid item xs={12} sm={6}>
           <TextField
             inputRef={register({ required: true })}
-            onChange={handleUpdateEquipmentParent}
-            value={equipment.numero_de_serie}
             id="numeroDeSerie"
-            name="numero_de_serie"
+            name="equipamento.numero_de_serie"
             label="Número de Série"
             required
             fullWidth
@@ -130,10 +134,8 @@ const CadastroEquipamento = (props) => {
         <Grid item xs={12} sm={6}>
           <TextField
             inputRef={register({ required: true })}
-            onChange={handleUpdateEquipmentParent}
-            value={equipment.nome_equipamento}
             id="nomeDoEquipamento"
-            name="nome_equipamento"
+            name="equipamento.nome_equipamento"
             label="Nome do Equipamento"
             fullWidth
           />
@@ -141,9 +143,7 @@ const CadastroEquipamento = (props) => {
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
-            value={equipment.numero_do_patrimonio}
-            onChange={handleUpdateEquipmentParent}
-            name="numero_do_patrimonio"
+            name="equipamento.numero_do_patrimonio"
             id="numeroDoPatrimonio"
             label="Número do Patrimônio"
             fullWidth
@@ -153,24 +153,18 @@ const CadastroEquipamento = (props) => {
 
         <Grid item xs={12} sm={6}>
           <InputRadioDialog
-            action={handleUpdateEquipmentParent}
-            name="tipo"
+            name="equipamento.tipo"
             label="Tipo do Equipamento"
             hasOther
-            value={equipment.tipo}
-            defaultValue={equipment.tipo}
             items={equipmentTypes.map((item) => ({ label: item, value: item }))}
           />
         </Grid>
 
         <Grid item xs={12} sm={2}>
           <InputRadioDialog
-            action={handleUpdateEquipmentParent}
-            name="marca"
+            name="equipamento.marca"
             label="Marca"
             hasOther
-            value={equipment.marca}
-            defaultValue={equipment.marca}
             items={manufacturersEquipments.map((item) => ({
               label: item,
               value: item,
@@ -179,12 +173,9 @@ const CadastroEquipamento = (props) => {
         </Grid>
         <Grid item xs={12} sm={2}>
           <InputRadioDialog
-            action={handleUpdateEquipmentParent}
-            name="modelo"
+            name="equipamento.modelo"
             label="Modelo"
             hasOther
-            value={equipment.modelo}
-            defaultValue={equipment.modelo}
             items={modelsEquipment.map((item) => ({
               label: item,
               value: item,
@@ -196,86 +187,88 @@ const CadastroEquipamento = (props) => {
             inputRef={register({ required: true })}
             required
             id="fabricante"
-            onChange={handleUpdateEquipmentParent}
-            value={equipment.fabricante}
-            name="fabricante"
+            name="equipamento.fabricante"
             label="Fabricante"
             fullWidth
           />
         </Grid>
 
         <Grid item xs={12} sm={4}>
-          <TextField
-            fullWidth
-            select
-            label="Município de Origem"
-            value={equipment.municipio_origem}
-            onChange={handleUpdateEquipmentParent}
-            name="municipio_origem">
-            {cities.map((option) => (
-              <MenuItem key={randomIndex()} value={option}>
-                {option}
-              </MenuItem>
-            ))}
-          </TextField>
+          <Controller
+            as={(
+              <TextField
+                inputRef={register}
+                label="Município de Origem"
+                defaultValue={cities[0]}
+                fullWidth
+                select
+              >
+                {cities.map((option) => (
+                  <MenuItem key={randomIndex()} value={option}>
+                    {option}
+                  </MenuItem>
+                ))}
+              </TextField>
+            )}
+            name="equipamento.municipio_origem"
+            control={control}
+          />
         </Grid>
         <Grid item xs={6} sm={4}>
           <TextField
-            inputRef={register({ required: true })}
-            required
-            id="nome_instituicao_origem"
-            onChange={handleUpdateEquipmentParent}
-            value={equipment.nome_instituicao_origem}
-            name="nome_instituicao_origem"
             label="Nome da Instituição"
+            name="equipamento.nome_instituicao_origem"
+            inputRef={register({ required: true })}
+            id="nome_instituicao_origem"
+            required
             fullWidth
           />
         </Grid>
         <Grid item xs={12} sm={4}>
-          <TextField
-            fullWidth
-            select
-            label="Tipo da instituição"
-            value={equipment.tipo_instituicao_origem}
-            onChange={handleUpdateEquipmentParent}
-            name="tipo_instituicao_origem">
-            {typeInstitute.map((option) => (
-              <MenuItem key={randomIndex()} value={option}>
-                {option}
-              </MenuItem>
-            ))}
-          </TextField>
+          <Controller
+            as={(
+              <TextField
+                inputRef={register}
+                label="Tipo da instituição"
+                defaultValue={typeInstitute[0]}
+                fullWidth
+                select
+              >
+                {typeInstitute.map((option) => (
+                  <MenuItem key={randomIndex()} value={option}>
+                    {option}
+                  </MenuItem>
+                ))}
+              </TextField>
+            )}
+            name="equipamento.tipo_instituicao_origem"
+            control={control}
+          />
         </Grid>
 
         <Grid item xs={6} sm={4}>
           <TextField
+            name="equipamento.nome_responsavel"
             inputRef={register({ required: true })}
-            required
             id="nomeDoResponsavel"
-            onChange={handleUpdateEquipmentParent}
-            value={equipment.nome_responsavel}
-            name="nome_responsavel"
             label="Nome do Responsável"
+            required
             fullWidth
           />
         </Grid>
         <Grid item xs={6} sm={4}>
           <TextField
+            inputRef={register}
             id="constatoDoResponsavel"
-            onChange={handleUpdateEquipmentParent}
-            value={equipment.contato_responsavel}
-            name="contato_responsavel"
+            name="equipamento.contato_responsavel"
             label="Contato do Responsável"
             fullWidth
           />
         </Grid>
         <Grid item xs={6} sm={4}>
           <InputRadioDialog
-            action={handleUpdateScreeningParent}
             name="estado_de_conservacao"
             label="Estado de Conservação"
-            value={screening.estado_de_conservacao}
-            defaultValue={screening.estado_de_conservacao}
             items={typeStateEquipment.map((item) => ({
               label: item,
               value: item,
@@ -286,30 +279,22 @@ const CadastroEquipamento = (props) => {
 
       <Grid container>
         <Grid item xs={6}>
-          <InputFileImage
-            name="foto_apos_limpeza"
-            label="Foto após da limpeza"
-            action={sendPhoto}
-          />
+          {/*<InputFileImage*/}
+          {/*  name="foto_apos_limpeza"*/}
+          {/*  label="Foto após da limpeza"*/}
+          {/*  action={sendPhoto}*/}
+          {/*/>*/}
         </Grid>
       </Grid>
-    </>
+    </form>
   );
 };
 
 CadastroEquipamento.defaultProps = {
-  editingForm: false,
+  editingForm: true,
 };
 
 CadastroEquipamento.propTypes = {
-  errors: PropTypes.instanceOf(Object).isRequired,
-  register: PropTypes.func.isRequired,
-  serviceOrder: PropTypes.instanceOf(Object).isRequired,
-  equipment: PropTypes.instanceOf(Object).isRequired,
-  screening: PropTypes.instanceOf(Object).isRequired,
-  updateEquipment: PropTypes.func.isRequired,
-  updateScreening: PropTypes.func.isRequired,
-  updateServiceOrder: PropTypes.func.isRequired,
   editingForm: PropTypes.bool,
 };
 

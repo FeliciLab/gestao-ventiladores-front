@@ -1,13 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
-import { CssBaseline, Grid, Paper, Typography } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-import RelacaoDeMaterial from './RelacaoDeMaterial';
-import { ServiceOrderScreening } from '../../../models/serviceOrder';
-import Equipamento from '../../../models/equipamentos';
-import CadastroEquipamento from './CadastroEquipamento';
-import TitleFormScreening from './TitleFormScreening';
-import { listaFormAcessorios } from '../../../models/acessorio';
+import React, {
+  useEffect,
+  useState,
+} from 'react'
+import PropTypes from 'prop-types'
+import {
+  CssBaseline,
+  Grid,
+  Paper,
+  Typography,
+} from '@material-ui/core'
+import { makeStyles } from '@material-ui/core/styles'
+import RelacaoDeMaterial from './RelacaoDeMaterial'
+import { ServiceOrderScreening } from '../../../models/serviceOrder'
+import Equipamento from '../../../models/equipamentos'
+import CadastroEquipamento from './CadastroEquipamento'
+import TitleFormScreening from './TitleFormScreening'
+import { listaFormAcessorios } from '../../../models/acessorio'
+import { FormProvider } from '../../../contexts/FormContext'
+import { randomIndex } from '../../../utils'
 
 const useStyles = makeStyles((theme) => ({
   divTextFooter: {
@@ -55,7 +65,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(3),
     marginLeft: theme.spacing(1),
   },
-}));
+}))
 
 const FormScreening = (props) => {
   const {
@@ -65,106 +75,106 @@ const FormScreening = (props) => {
     updateFormModel,
     editingForm,
     items,
-  } = props;
+  } = props
 
-  const classes = useStyles();
+  const classes = useStyles()
 
-  const [blockEffect, setBlockEffect] = useState(false);
+  const [blockEffect, setBlockEffect] = useState(false)
 
-  const [serviceOrderForm, setServiceOrderForm] = useState({});
-  const [formErrors, setFormErrors] = useState({});
+  const [serviceOrderForm, setServiceOrderForm] = useState({})
+  const [formErrors, setFormErrors] = useState({})
 
   const [equipamento, setEquipamento] = useState({
-    fabricante: "r", 
-    numero_de_serie: "5454354",
-    nome_instituicao_origem: "r",
-    nome_responsavel: "tubla"
-  });
-  const [screening, setScreening] = useState({numero_ordem_servico: "49827398"});
-  const [acessorios, setAcessorios] = useState([]);
+    fabricante: 'r',
+    numero_de_serie: '5454354',
+    nome_instituicao_origem: 'r',
+    nome_responsavel: 'tubla',
+  })
+  const [screening, setScreening] = useState({ numero_ordem_servico: '49827398' })
+  const [acessorios, setAcessorios] = useState([])
 
   const handleEffect = () => {
     if (blockEffect) {
-      return;
+      return
     }
 
-    setServiceOrderForm({ ...serviceOrder });
+    setServiceOrderForm({ ...serviceOrder })
 
     if (!equipamento.numero_de_serie) {
       if (serviceOrder.equipamento) {
         setEquipamento(
           Object.assign(Equipamento({}), serviceOrder.equipamento[0]),
-        );
+        )
       } else {
-        setEquipamento({ ...Equipamento({}) });
+        setEquipamento({ ...Equipamento({}) })
       }
     }
 
     if (!screening.acessorios) {
       if (serviceOrder.triagem) {
-        setScreening(ServiceOrderScreening({ triagem: serviceOrder.triagem }));
+        setScreening(ServiceOrderScreening({ triagem: serviceOrder.triagem }))
       } else {
-        setScreening(ServiceOrderScreening({ triagem: {} }));
+        setScreening(ServiceOrderScreening({ triagem: {} }))
       }
     }
 
     if (acessorios.length === 0) {
       if (serviceOrder.triagem && serviceOrder.triagem.acessorios) {
-        setAcessorios(listaFormAcessorios(serviceOrder.triagem.acessorios));
+        setAcessorios(listaFormAcessorios(serviceOrder.triagem.acessorios))
       } else {
-        setAcessorios(listaFormAcessorios([]));
+        setAcessorios(listaFormAcessorios([]))
       }
     }
 
-    setBlockEffect(true);
-  };
+    setBlockEffect(true)
+  }
 
-  useEffect(handleEffect, [serviceOrderForm]);
+  useEffect(handleEffect, [serviceOrderForm])
 
   const updateErrors = (values) => {
-    const dataFormErrors = { ...formErrors };
+    const dataFormErrors = { ...formErrors }
     Object.keys(values).forEach((indexValue) => {
       Object.keys(dataFormErrors[indexValue]).forEach((item, index) => {
-        dataFormErrors[indexValue][index] = false;
-      });
-    });
+        dataFormErrors[indexValue][index] = false
+      })
+    })
 
-    setFormErrors({ ...dataFormErrors, values });
-  };
+    setFormErrors({ ...dataFormErrors, values })
+  }
 
   const handleUpdateServiceOrder = (value) => {
-    const doc = { ...serviceOrderForm, ...value };
-    setServiceOrderForm(doc);
-    updateFormModel(doc);
-  };
+    const doc = { ...serviceOrderForm, ...value }
+    setServiceOrderForm(doc)
+    updateFormModel(doc)
+  }
 
   const atualizarEquipamento = (value) => {
-    const equip = { ...equipamento, ...value };
-    setEquipamento(equip);
-    updateFormModel({ equipamento: equip });
-  };
+    const equip = { ...equipamento, ...value }
+    setEquipamento(equip)
+    updateFormModel({ equipamento: equip })
+  }
 
   const atualizarTriagem = (value) => {
-    const dataScreening = { ...screening, ...value };
-    setScreening(dataScreening);
-    updateFormModel({ triagem: dataScreening });
-  };
+    const dataScreening = { ...screening, ...value }
+    setScreening(dataScreening)
+    updateFormModel({ triagem: dataScreening })
+  }
 
   const atualizarAcessorios = (value) => {
-    setAcessorios(value);
-    console.log(value);
-    atualizarTriagem({ acessorios: value });
-    const dataScreening = { ...screening };
-    screening.acessorios = value;
-    updateFormModel({ triagem: dataScreening });
-  };
+    setAcessorios(value)
+    console.log(value)
+    atualizarTriagem({ acessorios: value })
+    const dataScreening = { ...screening }
+    screening.acessorios = value
+    updateFormModel({ triagem: dataScreening })
+  }
 
   if (!blockEffect) {
-    return <>Carregando...</>;
+    return <>Carregando...</>
   }
 
   return (
-    <>
+    <FormProvider key={randomIndex()}>
       <CssBaseline />
 
       <main className={classes.layout}>
@@ -185,30 +195,30 @@ const FormScreening = (props) => {
           />
         </Paper>
 
-        <Paper className={classes.paper}>
-          <Grid container justify="space-between" alignItems="center">
-            <Grid item xs={12} sm={7}>
-              <Typography variant="h6" gutterBottom>
-                2. Relação de Material / Acessórios Entregues
-              </Typography>
-            </Grid>
-          </Grid>
+        {/*<Paper className={classes.paper}>*/}
+        {/*  <Grid container justify="space-between" alignItems="center">*/}
+        {/*    <Grid item xs={12} sm={7}>*/}
+        {/*      <Typography variant="h6" gutterBottom>*/}
+        {/*        2. Relação de Material / Acessórios Entregues*/}
+        {/*      </Typography>*/}
+        {/*    </Grid>*/}
+        {/*  </Grid>*/}
 
-          <RelacaoDeMaterial
-            acessorios={acessorios}
-            atualizarAcessorios={atualizarAcessorios}
-            items={items}
-            register={register}
-          />
-        </Paper>
+        {/*  <RelacaoDeMaterial*/}
+        {/*    acessorios={acessorios}*/}
+        {/*    atualizarAcessorios={atualizarAcessorios}*/}
+        {/*    items={items}*/}
+        {/*    register={register}*/}
+        {/*  />*/}
+        {/*</Paper>*/}
       </main>
-    </>
-  );
-};
+    </FormProvider>
+  )
+}
 
 FormScreening.defaultProps = {
   editingForm: false,
-};
+}
 
 FormScreening.propTypes = {
   register: PropTypes.func.isRequired,
@@ -216,6 +226,6 @@ FormScreening.propTypes = {
   serviceOrder: PropTypes.instanceOf(Object).isRequired,
   updateFormModel: PropTypes.func.isRequired,
   editingForm: PropTypes.bool,
-};
+}
 
-export default FormScreening;
+export default FormScreening

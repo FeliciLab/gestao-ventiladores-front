@@ -1,4 +1,7 @@
-import React, { useEffect } from 'react';
+import React, {
+  useContext,
+  useEffect,
+} from 'react'
 import PropTypes from 'prop-types';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Input from '@material-ui/core/Input';
@@ -6,11 +9,12 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import FormInputRadio from '../FormInputRadio/FormInputRadio';
+import FormContext from '../../contexts/FormContext'
 
 
 const InputRadioDialog = (props) => {
   const {
-    action,
+    // action,
     name,
     label,
     hasOther,
@@ -21,6 +25,8 @@ const InputRadioDialog = (props) => {
   const [valueInput, setValueInput] = React.useState('');
   const [open, setOpen] = React.useState(false);
 
+  const { register } = useContext(FormContext)
+
   function updateInput() {
     setValueInput(defaultValue);
   }
@@ -28,7 +34,7 @@ const InputRadioDialog = (props) => {
   useEffect(updateInput, [defaultValue]);
 
   function changeRadio(event) {
-    action(event);
+    // action(event);
     setValueInput(event.target.value);
     setOpen(false);
   }
@@ -62,6 +68,8 @@ const InputRadioDialog = (props) => {
       >
         <InputLabel htmlFor="standard-adornment-amount">{label}</InputLabel>
         <Input
+          inputRef={register}
+          name={name}
           value={valueInput}
           endAdornment={<InputAdornment position="end"><ArrowDropDownIcon /></InputAdornment>}
           readOnly
@@ -79,7 +87,7 @@ InputRadioDialog.defaultProps = {
 };
 
 InputRadioDialog.propTypes = {
-  action: PropTypes.func.isRequired,
+  // action: PropTypes.func.isRequired,
   items: PropTypes.instanceOf(Array).isRequired,
   name: PropTypes.string,
   label: PropTypes.string,
