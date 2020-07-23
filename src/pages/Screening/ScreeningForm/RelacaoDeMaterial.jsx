@@ -55,14 +55,7 @@ const RelacaoDeMaterial = (props) => {
 
   return (
     <>
-      <AccessoryFormList
-        accessories={acessorios}
-        atualizarAcessorioParent={atualizarAcessorioParent}
-        adicionarAcessorio={adicionarAcessorio}
-        removerLinha={removerLinha}
-        items={items}
-        register={register}
-      />
+      {accessoryFormList}
       <Grid container justify="flex-end" className={classes.actionGrid}>
         <Grid item>
           <ThemeButton

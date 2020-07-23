@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import { CssBaseline, Grid, Paper, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import RelacaoDeMaterial from './RelacaoDeMaterial';
-import { listaFormAcessorios } from '../../../models/acessorio';
 import { ServiceOrderScreening } from '../../../models/serviceOrder';
 import Equipamento from '../../../models/equipamentos';
 import CadastroEquipamento from './CadastroEquipamento';
 import TitleFormScreening from './TitleFormScreening';
+import { listaFormAcessorios } from '../../../models/acessorio';
 
 const useStyles = makeStyles((theme) => ({
   divTextFooter: {
@@ -74,8 +74,13 @@ const FormScreening = (props) => {
   const [serviceOrderForm, setServiceOrderForm] = useState({});
   const [formErrors, setFormErrors] = useState({});
 
-  const [equipamento, setEquipamento] = useState({});
-  const [screening, setScreening] = useState({});
+  const [equipamento, setEquipamento] = useState({
+    fabricante: "r", 
+    numero_de_serie: "5454354",
+    nome_instituicao_origem: "r",
+    nome_responsavel: "tubla"
+  });
+  const [screening, setScreening] = useState({numero_ordem_servico: "49827398"});
   const [acessorios, setAcessorios] = useState([]);
 
   const handleEffect = () => {

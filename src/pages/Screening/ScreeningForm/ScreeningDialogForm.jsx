@@ -49,7 +49,10 @@ const ScreeningDialogForm = (props) => {
     items,
   } = props;
 
-  const [serviceOrderForm, setServiceOrderForm] = useState({});
+  const [serviceOrderForm, setServiceOrderForm] = useState({
+    numero_ordem_servico: "4793567",
+    
+  });
   const [errorsFound, setErrorsFound] = useState(false);
 
   const handleEffect = () => {
@@ -59,7 +62,6 @@ const ScreeningDialogForm = (props) => {
   useEffect(handleEffect, [serviceOrder]);
 
   const updateFormModel = (value) => {
-    console.log(value);
     setServiceOrderForm(Object.assign(serviceOrderForm, value));
   };
 
@@ -85,9 +87,22 @@ const ScreeningDialogForm = (props) => {
   };
 
   const saveScreening = async (screening, equipmentId) => {
+    
+    let acessorios = screening.triagem.acessorios.map((acessorio) =>{
+      let novoAcessorio = {};
+      novoAcessorio.item_id = acessorio.descricao;
+      novoAcessorio.estado_de_conservacao = acessorio.estado_de_conservacao;
+      novoAcessorio.quantidade = acessorio.quantidade;
+      novoAcessorio.acompanha = acessorio.acompanha;
+      return novoAcessorio;
+    });
+
+    screening.triagem.acessorios = acessorios.filter((acessorio) =>{
+      return acessorio !== '' && acessorio.acompanha && acessorio.quantidade > 0;
+    });
     const screen = {
       ...screening,
-      acessorios: screening.triagem.acessorios.filter(
+      acessorios: acessorios.filter(
         (item) => item !== '' && item.acompanha && item.quantidade > 0,
       ),
     };
@@ -129,8 +144,6 @@ const ScreeningDialogForm = (props) => {
   };
 
   const saveForm = async () => {
-    console.log(serviceOrderForm);
-    // listaAcessorios
 
     await triggerValidation();
     if (Object.keys(errors).length > 0) {
@@ -156,6 +169,7 @@ const ScreeningDialogForm = (props) => {
       setOpenFormDialog(false);
       setTimeout(() => {
         reloadData();
+        window.location.reload();
       }, 1500);
       return;
     }

@@ -31,7 +31,7 @@ const Screening = () => {
     }
   };
 
-  useEffect(getData, [getData]);
+  useEffect(getData, [serviceOrders]);
 
   const reloadData = () => {
     setLoadingData(true);

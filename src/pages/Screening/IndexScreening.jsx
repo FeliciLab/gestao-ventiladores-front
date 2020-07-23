@@ -72,7 +72,7 @@ const IndexScreening = (props) => {
 
     setScreening(serviceOrders);
     setDataTable(
-      serviceOrders
+      serviceOrders.slice(0,10)
         .sort((a, b) => {
           let orderA = a;
           let orderB = b;
@@ -137,7 +137,7 @@ const IndexScreening = (props) => {
     );
   };
 
-  useEffect(defineData, [defineData, serviceOrders]);
+  useEffect(defineData, []);
 
   if (load) {
     return <></>;

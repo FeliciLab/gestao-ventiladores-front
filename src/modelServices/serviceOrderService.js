@@ -127,17 +127,15 @@ export const mapModelRequestServiceOrder = (serviceOrder) => {
 export const saveNewOrderService = (serviceOrder) => {
   const order = serviceOrder;
   delete order._id;
+  delete order.updated_at;
   return client
     .post(
-      '/api/ordem_servicos',
-      Object.assign(order, {
+      '/v2/service_orders',
+      [Object.assign(order, {
         status: 'triagem',
         created_at: new Date(),
-        updated_at: new Date(),
-      }),
-      {
-        v1: true,
-      },
+      })],
+      {},
     )
     .then((res) => res)
     .catch((err) => err);
