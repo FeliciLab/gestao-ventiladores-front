@@ -22,6 +22,7 @@ import {
 } from '../../../modelServices/serviceOrderService';
 
 import { listaAcessorios } from '../../../models/acessorio';
+import { randomIndex } from '../../../utils';
 
 const useStyle = makeStyles((theme) => ({
   containerForm: {
@@ -49,14 +50,11 @@ const ScreeningDialogForm = (props) => {
     items,
   } = props;
 
-  const [serviceOrderForm, setServiceOrderForm] = useState({
-    numero_ordem_servico: "4793567",
-    
-  });
+  const [serviceOrderForm, setServiceOrderForm] = useState({});
   const [errorsFound, setErrorsFound] = useState(false);
 
   const handleEffect = () => {
-    setServiceOrderForm({ ...serviceOrder });
+    setServiceOrderForm({ ...serviceOrder, numero_ordem_servico: randomIndex().replace(/\D/g, "")});
   };
 
   useEffect(handleEffect, [serviceOrder]);
@@ -152,11 +150,9 @@ const ScreeningDialogForm = (props) => {
     }
 
     const equipment = {
-      ...mapEquipmentRequest(
-        Array.isArray(serviceOrderForm.equipamento)
-          ? serviceOrderForm.equipamento[0]
-          : serviceOrderForm.equipamento,
-      ),
+      ...Array.isArray(serviceOrderForm.equipamento)
+      ? serviceOrderForm.equipamento[0]
+        : serviceOrderForm.equipamento,
     };
 
     const equipmentId = await saveEquipment(equipment);

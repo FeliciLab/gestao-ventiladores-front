@@ -7,7 +7,6 @@ import { getAllServiceOrder } from '../../modelServices/serviceOrderService';
 import ScreeningPage from './ScreeningPage';
 import {
   getAllItemsRequest,
-  saveNewItemRequest,
 } from '../../modelServices/itemService';
 import LoadingBar from '../_common/components/LoadingBar';
 

@@ -8,6 +8,7 @@ import Equipamento from '../../../models/equipamentos';
 import CadastroEquipamento from './CadastroEquipamento';
 import TitleFormScreening from './TitleFormScreening';
 import { listaFormAcessorios } from '../../../models/acessorio';
+import { randomIndex } from '../../../utils';
 
 const useStyles = makeStyles((theme) => ({
   divTextFooter: {
@@ -75,12 +76,13 @@ const FormScreening = (props) => {
   const [formErrors, setFormErrors] = useState({});
 
   const [equipamento, setEquipamento] = useState({
+    ...Equipamento({}),
     fabricante: "r", 
-    numero_de_serie: "5454354",
+    numero_de_serie: randomIndex(),
     nome_instituicao_origem: "r",
     nome_responsavel: "tubla"
   });
-  const [screening, setScreening] = useState({numero_ordem_servico: "49827398"});
+  const [screening, setScreening] = useState({});
   const [acessorios, setAcessorios] = useState([]);
 
   const handleEffect = () => {
