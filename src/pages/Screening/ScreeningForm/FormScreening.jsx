@@ -9,6 +9,8 @@ import CadastroEquipamento from './CadastroEquipamento';
 import TitleFormScreening from './TitleFormScreening';
 import { listaFormAcessorios } from '../../../models/acessorio';
 import { randomIndex } from '../../../utils';
+import FormContext from '../../../contexts/FormContext';
+import { useContext } from 'react';
 
 const useStyles = makeStyles((theme) => ({
   divTextFooter: {
@@ -60,8 +62,6 @@ const useStyles = makeStyles((theme) => ({
 
 const FormScreening = (props) => {
   const {
-    register,
-    errors,
     serviceOrder,
     updateFormModel,
     editingForm,
@@ -69,6 +69,8 @@ const FormScreening = (props) => {
   } = props;
 
   const classes = useStyles();
+
+  const { register , errors , getValues } = useContext(FormContext);
 
   const [blockEffect, setBlockEffect] = useState(false);
 
@@ -167,7 +169,15 @@ const FormScreening = (props) => {
 
   return (
     <>
-      <CssBaseline />
+    <input
+        type="text"
+        hidden
+        name="_id"
+        ref={register}
+        defaultValue={getValues('_id')}
+        readOnly
+      />
+      {/* <CssBaseline /> */}
 
       <main className={classes.layout}>
         <TitleFormScreening />

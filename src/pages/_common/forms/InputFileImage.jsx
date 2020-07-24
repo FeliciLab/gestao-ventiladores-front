@@ -9,9 +9,12 @@ import Input from '@material-ui/core/Input';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
 import imageResize from '../../../services/imageResize';
+import FormContext from '../../../contexts/FormContext';
+import { useContext } from 'react';
 
 const InputFileImage = (props) => {
   const { action, label, accept, name } = props;
+  const { register, errors } = useContext(FormContext);
 
   const [filename, setFilename] = useState('');
   const inputFileRef = createRef();
@@ -43,6 +46,8 @@ const InputFileImage = (props) => {
       <FormControl fullWidth onClick={activateInputFile}>
         <InputLabel htmlFor="standard-adornment-amount">{label}</InputLabel>
         <Input
+          inputRef={register}
+          name={name}
           value={filename}
           endAdornment={
             <InputAdornment position="end">

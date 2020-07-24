@@ -12,10 +12,15 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { accessoryMapOptionsConservationState } from '../../../models/conservationState';
 import { randomIndex } from '../../../utils';
 import FormRadioDialog from '../../_common/forms/FormRadioDialog';
+import { useContext } from 'react';
+import FormContext from '../../../contexts/FormContext';
+import { Controller } from 'react-hook-form';
 
 const AccessoryFormRow = (props) => {
-  const { acessorio, atualizarAcessorio, removerLinha, index, items , register } = props;
+  const { acessorio, atualizarAcessorio, removerLinha, index, items } = props;
   const conservationOption = accessoryMapOptionsConservationState();
+
+  const { register , control } = useContext(FormContext);
 
   const atualizarAcessorioParent = (event) => {
     const doc = {};
@@ -31,22 +36,15 @@ const AccessoryFormRow = (props) => {
     // updateEquipment(doc);
   };
 
+  const prefixName = `triagem.acessorios[${index}]`;
+
   return (
     <Grid container spacing={3} justify="flex-start" alignItems="flex-end">
       <Grid item xs={6} sm={5}>
-        {/* <TextField
-          required
-          onChange={atualizarAcessorioParent}
-          value={acessorio.descricao}
-          name="descricao"
-          label="Descrição"
-          fullWidth
-        /> */}
         <FormRadioDialog
           action={handleAcessorioUpdate}
-          name="descricao"
+          name={`${prefixName}.descricao`}
           label="Descrição"
-          register={register}
           hasOther
           defaultValue={acessorio.nome ? acessorio.nome : acessorio.descricao}
           items={items.map((item) => ({
@@ -56,43 +54,39 @@ const AccessoryFormRow = (props) => {
         />
       </Grid>
       <Grid item xs={6} sm={1}>
+      <Controller as ={(
         <FormControl fullWidth>
           <InputLabel>Acompanha</InputLabel>
           <Select
-            name="acompanha"
-            value={acessorio.acompanha || false}
-            onChange={atualizarAcessorioParent}>
+            >
             <MenuItem value>Sim</MenuItem>
             <MenuItem value={false}>Não</MenuItem>
           </Select>
         </FormControl>
+      )} name={`${prefixName}.acompanha`} control = {control} />
       </Grid>
       <Grid item xs={6} sm={2}>
         <TextField
-          required
-          onChange={atualizarAcessorioParent}
-          value={acessorio.quantidade}
-          name="quantidade"
+          name={`${prefixName}.quantidade`}
           label="Quantidade"
           type="number"
           fullWidth
         />
       </Grid>
       <Grid item xs={5} sm={3}>
-        <TextField
-          select
-          required
-          onChange={atualizarAcessorioParent}
-          value={acessorio.estado_de_conservacao || ''}
-          name="estado_de_conservacao"
-          label="Estado de Conservação"
-          fullWidth>
-          {conservationOption.map((item) => (
-            <MenuItem key={randomIndex()} value={item.value}>
-              {item.label}
-            </MenuItem>
-          ))}
-        </TextField>
+        <Controller as={(
+          <TextField
+            select
+            label="Estado de Conservação"
+            fullWidth>
+            {conservationOption.map((item) => (
+              <MenuItem key={randomIndex()} value={item.value}>
+                {item.label}
+              </MenuItem>
+            ))}
+          </TextField>
+        )} name={`${prefixName}.estado_de_conservacao`} control = {control}
+        />
       </Grid>
       <Grid item xs={12} sm={1}>
         <Tooltip title="Remover">

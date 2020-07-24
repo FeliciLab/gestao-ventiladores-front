@@ -7,10 +7,13 @@ import FormControl from '@material-ui/core/FormControl';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 // import DialogModelsEquipments from '../../Screening/ScreeningForm/DialogModelsEquipment';
 import FormInputRadio from '../../../components/FormInputRadio/FormInputRadio';
-import { arrayToDictionary } from '../../../utils';
+import FormContext from '../../../contexts/FormContext';
+import { useContext } from 'react';
 
 const FormRadioDialog = (props) => {
   const { action, name, label, hasOther, defaultValue, items } = props;
+
+  const { register } = useContext(FormContext);
 
   const [valueInput, setValueInput] = React.useState('');
   const [open, setOpen] = React.useState(false);
@@ -59,6 +62,8 @@ const FormRadioDialog = (props) => {
       <FormControl fullWidth onClick={openDialog}>
         <InputLabel htmlFor="standard-adornment-amount">{label}</InputLabel>
         <Input
+          name={name}
+          inputRef={register}
           value={
             itemsDictionary[valueInput]
               ? itemsDictionary[valueInput].label

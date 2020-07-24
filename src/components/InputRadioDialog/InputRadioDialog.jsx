@@ -6,6 +6,8 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import FormInputRadio from '../FormInputRadio/FormInputRadio';
+import { useContext } from 'react';
+import FormContext from '../../contexts/FormContext';
 
 
 const InputRadioDialog = (props) => {
@@ -18,6 +20,8 @@ const InputRadioDialog = (props) => {
     items,
   } = props;
 
+  const { register } = useContext(FormContext);
+
   const [valueInput, setValueInput] = React.useState('');
   const [open, setOpen] = React.useState(false);
 
@@ -28,7 +32,6 @@ const InputRadioDialog = (props) => {
   useEffect(updateInput, [defaultValue]);
 
   function changeRadio(event) {
-    action(event);
     setValueInput(event.target.value);
     setOpen(false);
   }
@@ -62,7 +65,9 @@ const InputRadioDialog = (props) => {
       >
         <InputLabel htmlFor="standard-adornment-amount">{label}</InputLabel>
         <Input
+          inputRef={register}
           value={valueInput}
+          name={name}
           endAdornment={<InputAdornment position="end"><ArrowDropDownIcon /></InputAdornment>}
           readOnly
         />

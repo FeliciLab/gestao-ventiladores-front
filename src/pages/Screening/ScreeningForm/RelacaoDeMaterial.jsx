@@ -21,7 +21,7 @@ const acessorioModel = Acessorio();
 
 const RelacaoDeMaterial = (props) => {
   const classes = useStyle();
-  const { acessorios, atualizarAcessorios, items , register } = props;
+  const { acessorios, atualizarAcessorios, items } = props;
 
   const adicionarAcessorio = () => {
     const acess = [...acessorios, { ...acessorioModel }];
@@ -43,7 +43,6 @@ const RelacaoDeMaterial = (props) => {
       ultimo={index === accessory.length - 1}
       penultimo={index === accessory.length - 2}
       acessorio={accessory}
-      register={register}
       atualizarAcessorio={atualizarAcessorioParent}
       adicionarAcessorio={adicionarAcessorio}
       removerLinha={removerLinha}

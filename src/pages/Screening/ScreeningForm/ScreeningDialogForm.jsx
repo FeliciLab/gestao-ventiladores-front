@@ -9,7 +9,6 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import Alert from '@material-ui/lab/Alert';
 import ThemeButton from '../../_common/forms/ThemeButton';
 import FormScreening from './FormScreening';
-import FullDialog from '../../_common/components/FullDialog';
 import {
   deleteEquipmentRequest,
   mapEquipmentRequest,
@@ -21,17 +20,11 @@ import {
   updateServiceOrderRequest,
 } from '../../../modelServices/serviceOrderService';
 
-import { listaAcessorios } from '../../../models/acessorio';
 import { randomIndex } from '../../../utils';
-
-const useStyle = makeStyles((theme) => ({
-  containerForm: {
-    marginTop: theme.spacing(5),
-  },
-}));
+import { FormProvider } from '../../../contexts/FormContext';
+import FormDialog from '../../../components/FormDialog/FormDialog'
 
 const ScreeningDialogForm = (props) => {
-  const classes = useStyle();
   const { register, errors, triggerValidation } = useForm({
     mode: 'onBlur',
     reValidateMode: 'onChange',
@@ -141,7 +134,9 @@ const ScreeningDialogForm = (props) => {
     }
   };
 
-  const saveForm = async () => {
+  const saveForm = async (data, event) => {
+    event.preventDefault();
+    return;
 
     await triggerValidation();
     if (Object.keys(errors).length > 0) {
@@ -182,38 +177,14 @@ const ScreeningDialogForm = (props) => {
   };
 
   return (
-    <>
-      <FullDialog
+    <FormProvider key={randomIndex()}>
+      <FormDialog
         open={openFormDialog}
-        handleClose={closeDialog}
+        handleCancel={closeDialog}
+        handleSave={saveForm}
         title={titleFormModal}
-        actionChildren={
-          <>
-            <Grid container spacing={2}>
-              <Grid item>
-                <ThemeButton
-                  onClick={closeDialog}
-                  startIcon={<CloseIcon />}
-                  variant="outlined"
-                  borderColor="white">
-                  Cancelar
-                </ThemeButton>
-              </Grid>
-              <Grid item>
-                <ThemeButton
-                  startIcon={<SaveIcon />}
-                  onClick={saveForm}
-                  name="Salvar"
-                  color={orange[600]}
-                  bgColor="#FFF"
-                  hoverColor={orange[50]}>
-                  Salvar
-                </ThemeButton>
-              </Grid>
-            </Grid>
-          </>
-        }>
-        <Grid container spacing={4} className={classes.containerForm}>
+        >
+        <Grid container spacing={4} >
           <Grid item xs={12}>
             {errorsFound ? (
               <Alert color="error" onClose={() => setErrorsFound(false)}>
@@ -236,8 +207,8 @@ const ScreeningDialogForm = (props) => {
             />
           </Grid>
         </Grid>
-      </FullDialog>
-    </>
+      </FormDialog>
+    </FormProvider>
   );
 };
 
