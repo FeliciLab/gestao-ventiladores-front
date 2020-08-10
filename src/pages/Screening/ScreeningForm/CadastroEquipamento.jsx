@@ -24,9 +24,9 @@ import FormContext from '../../../contexts/FormContext';
 import { NearMeSharp } from '@material-ui/icons';
 import { Controller } from 'react-hook-form';
 
-const CadastroEquipamento = (props) => {
+const CadastroEquipamento = React.memo( (props) => {
   const { setAlertMessage } = useContext(AlertContext);
-  const { register, errors , control , getValues , setValue } = useContext(FormContext);
+  const { register , control , getValues , setValue } = useContext(FormContext);
   const cities = getCities('CE');
   const {
     editingForm,
@@ -46,6 +46,8 @@ const CadastroEquipamento = (props) => {
       });
   };
 
+  console.log("Cadastro Equipamento")
+
   return (
     <>
       <Typography variant="h6" gutterBottom>
@@ -59,7 +61,6 @@ const CadastroEquipamento = (props) => {
             label="Foto antes da limpeza"
             action={sendPhoto}
           />
-          <ErrorAlertText error={errors.foto_antes_limpeza} />
         </Grid>
       </Grid>
 
@@ -75,7 +76,6 @@ const CadastroEquipamento = (props) => {
             required
             fullWidth
           />
-          <ErrorAlertText error={errors.numero_ordem_servico} />
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
@@ -86,7 +86,6 @@ const CadastroEquipamento = (props) => {
             required
             fullWidth
           />
-          <ErrorAlertText error={errors.numero_de_serie} />
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
@@ -96,7 +95,6 @@ const CadastroEquipamento = (props) => {
             label="Nome do Equipamento"
             fullWidth
           />
-          <ErrorAlertText error={errors.nome_equipamento} />
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
@@ -106,7 +104,6 @@ const CadastroEquipamento = (props) => {
             label="Número do Patrimônio"
             fullWidth
           />
-          <ErrorAlertText error={errors.numero_do_patrimonio} />
         </Grid>
 
         <Grid item xs={12} sm={6}>
@@ -235,21 +232,17 @@ const CadastroEquipamento = (props) => {
       </Grid>
     </>
   );
-};
+})
 
 CadastroEquipamento.defaultProps = {
   editingForm: false,
 };
 
 CadastroEquipamento.propTypes = {
-  errors: PropTypes.instanceOf(Object).isRequired,
   register: PropTypes.func.isRequired,
   serviceOrder: PropTypes.instanceOf(Object).isRequired,
   equipment: PropTypes.instanceOf(Object).isRequired,
   screening: PropTypes.instanceOf(Object).isRequired,
-  updateEquipment: PropTypes.func.isRequired,
-  updateScreening: PropTypes.func.isRequired,
-  updateServiceOrder: PropTypes.func.isRequired,
   editingForm: PropTypes.bool,
 };
 

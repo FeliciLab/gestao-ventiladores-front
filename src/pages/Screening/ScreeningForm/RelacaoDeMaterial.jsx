@@ -21,31 +21,13 @@ const acessorioModel = Acessorio();
 
 const RelacaoDeMaterial = (props) => {
   const classes = useStyle();
-  const { acessorios, atualizarAcessorios, items } = props;
-
-  const adicionarAcessorio = () => {
-    const acess = [...acessorios, { ...acessorioModel }];
-    atualizarAcessorios(acess);
-  };
-
-  const atualizarAcessorioParent = (index, value) => {
-    const acess = acessorios.slice(0);
-    acess[index] = { ...acess[index], ...value };
-    atualizarAcessorios(acess);
-  };
-
-  const removerLinha = (index) => {
-    atualizarAcessorios(acessorios.slice().filter((i, ind) => index !== ind));
-  };
+  const { acessorios, items } = props;
 
   const accessoryFormList = acessorios.map((accessory, index) => (
     <AccessoryFormRow
       ultimo={index === accessory.length - 1}
       penultimo={index === accessory.length - 2}
       acessorio={accessory}
-      atualizarAcessorio={atualizarAcessorioParent}
-      adicionarAcessorio={adicionarAcessorio}
-      removerLinha={removerLinha}
       index={index}
       key={randomIndex()}
       items={items}
@@ -57,13 +39,13 @@ const RelacaoDeMaterial = (props) => {
       {accessoryFormList}
       <Grid container justify="flex-end" className={classes.actionGrid}>
         <Grid item>
-          <ThemeButton
+          {/* <ThemeButton
             onClick={adicionarAcessorio}
             bgColor={blue[600]}
             hoverColor={blue[800]}
             startIcon={<PlusOneIcon />}>
             Item
-          </ThemeButton>
+          </ThemeButton> */}
         </Grid>
       </Grid>
     </>
@@ -76,7 +58,6 @@ RelacaoDeMaterial.defaultProps = {
 
 RelacaoDeMaterial.propTypes = {
   acessorios: PropTypes.instanceOf(Array),
-  atualizarAcessorios: PropTypes.func.isRequired,
 };
 
 export default RelacaoDeMaterial;

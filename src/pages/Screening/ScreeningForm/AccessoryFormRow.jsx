@@ -17,32 +17,20 @@ import FormContext from '../../../contexts/FormContext';
 import { Controller } from 'react-hook-form';
 
 const AccessoryFormRow = (props) => {
-  const { acessorio, atualizarAcessorio, removerLinha, index, items } = props;
+  const { acessorio, removerLinha, index, items } = props;
   const conservationOption = accessoryMapOptionsConservationState();
 
   const { register , control } = useContext(FormContext);
 
-  const atualizarAcessorioParent = (event) => {
-    const doc = {};
-    doc[event.target.name] = event.target.value;
-    atualizarAcessorio(index, doc);
-  };
-
-  const handleAcessorioUpdate = (event) => {
-    const doc = {};
-    doc[event.target.name] = event.target.value;
-    console.log(event.target.value);
-    atualizarAcessorio(index, doc);
-    // updateEquipment(doc);
-  };
-
   const prefixName = `triagem.acessorios[${index}]`;
+
+  let defaultValue = {}
+  defaultValue[`${prefixName}.acompanha`] = true;
 
   return (
     <Grid container spacing={3} justify="flex-start" alignItems="flex-end">
       <Grid item xs={6} sm={5}>
-        <FormRadioDialog
-          action={handleAcessorioUpdate}
+        <FormRadioDialog          
           name={`${prefixName}.descricao`}
           label="Descrição"
           hasOther
@@ -54,27 +42,27 @@ const AccessoryFormRow = (props) => {
         />
       </Grid>
       <Grid item xs={6} sm={1}>
-      <Controller as ={(
+      {/* <Controller as ={(
         <FormControl fullWidth>
           <InputLabel>Acompanha</InputLabel>
-          <Select
+          <Select defaultValue = {true}
             >
             <MenuItem value>Sim</MenuItem>
             <MenuItem value={false}>Não</MenuItem>
           </Select>
         </FormControl>
-      )} name={`${prefixName}.acompanha`} control = {control} />
+      )} name={`${prefixName}.acompanha`} control = {control} /> */}
       </Grid>
       <Grid item xs={6} sm={2}>
-        <TextField
+        {/* <TextField
           name={`${prefixName}.quantidade`}
           label="Quantidade"
           type="number"
           fullWidth
-        />
+        /> */}
       </Grid>
       <Grid item xs={5} sm={3}>
-        <Controller as={(
+        {/* <Controller as={(
           <TextField
             select
             label="Estado de Conservação"
@@ -86,7 +74,7 @@ const AccessoryFormRow = (props) => {
             ))}
           </TextField>
         )} name={`${prefixName}.estado_de_conservacao`} control = {control}
-        />
+        /> */}
       </Grid>
       <Grid item xs={12} sm={1}>
         <Tooltip title="Remover">
@@ -100,8 +88,6 @@ const AccessoryFormRow = (props) => {
 };
 AccessoryFormRow.propTypes = {
   acessorio: PropTypes.instanceOf(Object).isRequired,
-  atualizarAcessorio: PropTypes.func.isRequired,
-  removerLinha: PropTypes.func.isRequired,
   index: PropTypes.number.isRequired,
 };
 export default AccessoryFormRow;

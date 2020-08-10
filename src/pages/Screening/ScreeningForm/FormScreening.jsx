@@ -63,7 +63,6 @@ const useStyles = makeStyles((theme) => ({
 const FormScreening = (props) => {
   const {
     serviceOrder,
-    updateFormModel,
     editingForm,
     items,
   } = props;
@@ -88,6 +87,7 @@ const FormScreening = (props) => {
   const [acessorios, setAcessorios] = useState([]);
 
   const handleEffect = () => {
+    console.log("Form Screening handle Effect");
     if (blockEffect) {
       return;
     }
@@ -125,48 +125,23 @@ const FormScreening = (props) => {
 
   useEffect(handleEffect, [serviceOrderForm]);
 
-  const updateErrors = (values) => {
-    const dataFormErrors = { ...formErrors };
-    Object.keys(values).forEach((indexValue) => {
-      Object.keys(dataFormErrors[indexValue]).forEach((item, index) => {
-        dataFormErrors[indexValue][index] = false;
-      });
-    });
+  // const updateErrors = (values) => {
+  //   const dataFormErrors = { ...formErrors };
+  //   Object.keys(values).forEach((indexValue) => {
+  //     Object.keys(dataFormErrors[indexValue]).forEach((item, index) => {
+  //       dataFormErrors[indexValue][index] = false;
+  //     });
+  //   });
 
-    setFormErrors({ ...dataFormErrors, values });
-  };
+  //   setFormErrors({ ...dataFormErrors, values });
+  // };
 
-  const handleUpdateServiceOrder = (value) => {
-    const doc = { ...serviceOrderForm, ...value };
-    setServiceOrderForm(doc);
-    updateFormModel(doc);
-  };
-
-  const atualizarEquipamento = (value) => {
-    const equip = { ...equipamento, ...value };
-    setEquipamento(equip);
-    updateFormModel({ equipamento: equip });
-  };
-
-  const atualizarTriagem = (value) => {
-    const dataScreening = { ...screening, ...value };
-    setScreening(dataScreening);
-    updateFormModel({ triagem: dataScreening });
-  };
-
-  const atualizarAcessorios = (value) => {
-    setAcessorios(value);
-    console.log(value);
-    atualizarTriagem({ acessorios: value });
-    const dataScreening = { ...screening };
-    screening.acessorios = value;
-    updateFormModel({ triagem: dataScreening });
-  };
 
   if (!blockEffect) {
     return <>Carregando...</>;
   }
 
+  console.log("Form Screening");
   return (
     <>
     <input
@@ -189,10 +164,6 @@ const FormScreening = (props) => {
             serviceOrder={serviceOrderForm}
             equipment={equipamento}
             screening={screening}
-            updateErrors={updateErrors}
-            updateEquipment={atualizarEquipamento}
-            updateScreening={atualizarTriagem}
-            updateServiceOrder={handleUpdateServiceOrder}
             editingForm={editingForm}
           />
         </Paper>
@@ -208,7 +179,6 @@ const FormScreening = (props) => {
 
           <RelacaoDeMaterial
             acessorios={acessorios}
-            atualizarAcessorios={atualizarAcessorios}
             items={items}
             register={register}
           />
@@ -226,7 +196,6 @@ FormScreening.propTypes = {
   register: PropTypes.func.isRequired,
   errors: PropTypes.instanceOf(Object).isRequired,
   serviceOrder: PropTypes.instanceOf(Object).isRequired,
-  updateFormModel: PropTypes.func.isRequired,
   editingForm: PropTypes.bool,
 };
 

@@ -7,6 +7,8 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
 import TextField from '@material-ui/core/TextField';
 import { randomIndex } from '../../../utils';
+import FormContext from '../../../contexts/FormContext';
+import { useContext } from 'react';
 
 const RadioControl = (props) => {
   const [value, setValue] = useState('');
@@ -21,6 +23,8 @@ const RadioControl = (props) => {
     hasOther,
     clean,
   } = props;
+
+  const { register } = useContext(FormContext);
 
   if (clean && value !== '') {
     setValue('');
@@ -50,6 +54,7 @@ const RadioControl = (props) => {
       <FormControl component="fieldset">
         <FormLabel component="legend">{formLabel}</FormLabel>
         <RadioGroup
+          ref={register}
           style={{ flexDirection: flexDirection || 'row' }}
           aria-label="tipo"
           name={name}

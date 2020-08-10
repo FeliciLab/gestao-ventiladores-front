@@ -46,16 +46,6 @@ const ScreeningDialogForm = (props) => {
   const [serviceOrderForm, setServiceOrderForm] = useState({});
   const [errorsFound, setErrorsFound] = useState(false);
 
-  const handleEffect = () => {
-    setServiceOrderForm({ ...serviceOrder, numero_ordem_servico: randomIndex().replace(/\D/g, "")});
-  };
-
-  useEffect(handleEffect, [serviceOrder]);
-
-  const updateFormModel = (value) => {
-    setServiceOrderForm(Object.assign(serviceOrderForm, value));
-  };
-
   const showErrorBar = () => {
     setErrorsFound(true);
     setTimeout(() => {
@@ -176,6 +166,8 @@ const ScreeningDialogForm = (props) => {
     handleClose();
   };
 
+  console.log("Screening Dialog Form");
+
   return (
     <FormProvider key={randomIndex()}>
       <FormDialog
@@ -201,7 +193,6 @@ const ScreeningDialogForm = (props) => {
               errors={errors}
               editingForm={editingForm}
               serviceOrder={serviceOrderForm}
-              updateFormModel={updateFormModel}
               saveForm={saveForm}
               items={items}
             />

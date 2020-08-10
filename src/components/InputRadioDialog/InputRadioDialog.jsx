@@ -12,7 +12,6 @@ import FormContext from '../../contexts/FormContext';
 
 const InputRadioDialog = (props) => {
   const {
-    action,
     name,
     label,
     hasOther,
@@ -84,7 +83,7 @@ InputRadioDialog.defaultProps = {
 };
 
 InputRadioDialog.propTypes = {
-  action: PropTypes.func.isRequired,
+  action: PropTypes.func,
   items: PropTypes.instanceOf(Array).isRequired,
   name: PropTypes.string,
   label: PropTypes.string,

@@ -11,27 +11,26 @@ import FormContext from '../../../contexts/FormContext';
 import { useContext } from 'react';
 
 const FormRadioDialog = (props) => {
-  const { action, name, label, hasOther, defaultValue, items } = props;
+  const { name, label, hasOther, defaultValue, items } = props;
 
   const { register } = useContext(FormContext);
-
-  const [valueInput, setValueInput] = React.useState('');
-  const [open, setOpen] = React.useState(false);
 
   const itemsDictionary = items.reduce(function (map, obj) {
     map[obj.value] = obj;
     return map;
   }, {});
 
-  function updateInput() {
-    setValueInput(defaultValue);
-  }
+  const [valueInput, setValueInput] = React.useState(defaultValue);
+  const [open, setOpen] = React.useState(false);
 
-  useEffect(updateInput, [defaultValue]);
+
+  // function updateInput() {
+  //   setValueInput(defaultValue);
+  // }
+
+  // useEffect(updateInput, [defaultValue]);
 
   function changeRadio(event) {
-    action(event);
-    // console.log(event.target.value, itemsDictionary);
     setValueInput(event.target.value);
     setOpen(false);
   }
@@ -90,7 +89,7 @@ FormRadioDialog.defaultProps = {
 };
 
 FormRadioDialog.propTypes = {
-  action: PropTypes.func.isRequired,
+  action: PropTypes.func,
   items: PropTypes.instanceOf(Array).isRequired,
   name: PropTypes.string,
   label: PropTypes.string,
