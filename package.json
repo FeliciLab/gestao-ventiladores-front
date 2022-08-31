@@ -30,7 +30,7 @@
     "history": "^4.10.1",
     "moment": "^2.24.0",
     "moment-locales-webpack-plugin": "^1.2.0",
-    "moment-timezone": "^0.5.28",
+    "moment-timezone": "^0.5.35",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-autocomplete": "^1.8.1",
